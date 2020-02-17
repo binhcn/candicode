@@ -1,0 +1,46 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "settings": { "react": { "version": "detect" } },
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": [1, { "ignore": ["children", "history", "match"] }],
+    "react/jsx-first-prop-new-line": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "warn",
+    "react/no-unused-prop-types": "warn",
+    "react/destructuring-assignment": "warn",
+    "react/display-name": "off",
+    // "indent": ["warn", 2, {
+    //   "ignoredNodes": ["TemplateLiteral"]
+    // }],
+    "no-console": 0,
+    "no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^(props|state|prev|next|error|snapshot|event|_)" }
+    ],
+    "no-param-reassign": "off",
+    "no-unused-expressions": "warn",
+    "no-trailing-spaces": ["warn", { "skipBlankLines": true }],
+    "jsx-a11y/label-has-associated-control": 0
+  }
+}

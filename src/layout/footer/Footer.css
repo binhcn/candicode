@@ -1,0 +1,17 @@
+.footer {
+  padding: 20px 100px;
+  background: #330066; }
+
+.footer img {
+  width: 200px;
+  background-color: whitesmoke;
+  border-radius: 35%;
+  padding: 10px; }
+
+.footer ul {
+  list-style-type: none;
+  color: whitesmoke !important;
+  line-height: 40px; }
+
+.footer h3 {
+  color: greenyellow; }

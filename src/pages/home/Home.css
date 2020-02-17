@@ -1,0 +1,12 @@
+.intro > .ant-col {
+  text-align: center; }
+
+.intro .ant-card img {
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
+.intro .ant-card-meta-title {
+  color: red;
+  font-weight: bold; }

@@ -1,0 +1,13 @@
+.ant-row-flex.ant-row-flex-space-between {
+  padding: 20px 100px;
+  background: #330066; }
+
+.ant-breadcrumb {
+  line-height: 40px !important;
+  color: rgba(255, 255, 255, 0.9) !important; }
+
+.ant-breadcrumb > span:last-child {
+  color: rgba(255, 255, 255, 0.4) !important; }
+
+.ant-breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.9) !important; }
