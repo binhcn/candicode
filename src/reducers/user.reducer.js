@@ -3,8 +3,11 @@ import * as actions from "../actions/actions";
 const initState = {
   projects: [],
 
-  currentUser: null,
-  isAuthenticated: false,
+  // currentUser: null,
+  // isAuthenticated: false,
+
+  currentUser: {id: 1, username: "binhcaong", name: "Binh Nguyen Cao"},
+  isAuthenticated: true,
   isLoading: false,
 };
 

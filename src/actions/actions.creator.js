@@ -37,6 +37,12 @@ export function logout(notificationType = "success", description = "You're succe
   };
 }
 
+export function updateStepTwo(payload) {
+  return async function (dispatch) {
+    dispatch({ type: projectAction.UPDATE_STEP_TWO, payload });
+  };
+}
+
 
 
 

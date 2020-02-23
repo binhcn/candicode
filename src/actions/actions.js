@@ -3,7 +3,10 @@ export const GET_CURRENT_USER_SUCCESS = "Load current user successfully";
 export const GET_CURRENT_USER_FAILED = "Load current user failed";
 export const LOGOUT = "Logout";
 
-
+export const UPDATE_STEP_ONE = "Update step one";
+export const UPDATE_STEP_TWO = "Update step two";
+export const UPDATE_STEP_THREE = "Update step three";
+export const UPDATE_STEP_FOUR = "Update step four";
 
 export const GET_BY_PROJECT_NAME =
   "Get IP addresses in which project has been deployed";

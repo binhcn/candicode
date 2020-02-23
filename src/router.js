@@ -9,6 +9,7 @@ import MainService from './layout/MainService';
 import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Challenges from './pages/challenges/Challenges';
+import NewChallenge from './pages/new-project/NewChallenge';
 import NotFound from './commons/NotFound';
 import PrivateRoute from './commons/PrivateRoute';
 
@@ -22,7 +23,8 @@ function Router(props) {
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/challenges/language-proficiency" component={Challenges} />
-          <PrivateRoute exact authenticated={props.isAuthenticated} path="/user-plans" component={UserPlan} />
+          <Route path="/user-plans" component={UserPlan} />
+          <PrivateRoute exact authenticated={props.isAuthenticated} path="/new-challenge" component={NewChallenge} />
           <Route component={NotFound} />
         </Switch>
       </MainService>

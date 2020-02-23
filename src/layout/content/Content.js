@@ -1,8 +1,9 @@
 import React from "react";
-import { Layout, Breadcrumb, Row, Input } from 'antd';
+import { Layout, Row, Input } from 'antd';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import './Content.css';
+import Breadcrumb from './Breadcrumb';
 
 const propTypes = {
   location: PropTypes.shape({
@@ -29,11 +30,7 @@ function Content(props) {
     <Layout.Content >
       <Row type="flex" justify="space-between">
 
-        <Breadcrumb separator=">">
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
+        <Breadcrumb />
 
         <Input.Search
           placeholder="Search"

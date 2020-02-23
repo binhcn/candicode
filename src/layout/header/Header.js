@@ -129,6 +129,9 @@ class Header extends React.Component {
 function ProfileDropdownMenu(props) {
   const dropdownMenu = (
     <Menu onClick={props.handleMenuClick}>
+      <Menu.Item key="/new-challenge">
+        <Link to="/new-challenge">New challenge</Link>
+      </Menu.Item>
       <Menu.Item key="/profile">
         <Link to="/profile">Profile</Link>
       </Menu.Item>
@@ -144,7 +147,7 @@ function ProfileDropdownMenu(props) {
   return (
     <Dropdown overlay={dropdownMenu} trigger={['click']}>
       <a className="ant-dropdown-link" href="/">
-        Binh Cao <Icon type="down" />
+        Binh Cao <Icon type="setting" />
       </a>
     </Dropdown>
   );

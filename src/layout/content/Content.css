@@ -2,11 +2,11 @@
   padding: 20px 100px;
   background: #330066; }
 
-.ant-breadcrumb {
+.ant-breadcrumb-link a {
   line-height: 40px !important;
   color: rgba(255, 255, 255, 0.9) !important; }
 
-.ant-breadcrumb > span:last-child {
+.ant-breadcrumb > span:last-child a {
   color: rgba(255, 255, 255, 0.4) !important; }
 
 .ant-breadcrumb-separator {

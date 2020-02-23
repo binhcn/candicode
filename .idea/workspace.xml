@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dd6145d8-017a-499c-8c4e-bd15e0f923ec" name="Default Changelist" comment="" />
+    <list default="true" id="dd6145d8-017a-499c-8c4e-bd15e0f923ec" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commons/styles/common.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/commons/styles/common.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/content/Content.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/content/Content.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/content/Content.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/content/Content.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout/header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/challenges/Challenges.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/challenges/Challenges.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reducers/user.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/user.reducer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1WgfMXpfoyi91CxvKoJezmkDngU" />
   <component name="PropertiesComponent">
@@ -34,6 +46,7 @@
       <updated>1579576111355</updated>
       <workItem from="1579576118074" duration="5612000" />
       <workItem from="1581904851475" duration="1000" />
+      <workItem from="1582007548955" duration="315000" />
     </task>
     <servers />
   </component>
