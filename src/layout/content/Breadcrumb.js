@@ -10,6 +10,7 @@ const breadcrumbNameMap = {
   '/login': 'Login',
   '/signup': 'Sign up',
   '/new-challenge': 'New challenge',
+  '/profile': 'Profile',
 };
 
 function Content(props) {

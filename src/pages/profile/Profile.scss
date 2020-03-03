@@ -1,0 +1,27 @@
+.leftside-profile {
+  .ant-card-body, .ant-card-extra, .ant-card-head-title {
+      padding: 12px !important;
+  }
+  .ant-divider {
+      margin: 1em 0 !important;
+  }
+  .ant-card {
+      width: 350px !important;
+      margin: 16px !important;
+  }
+}
+
+
+.rightside-profile .react-calendar-heatmap {
+  .color-scale-1 {
+    fill: #d6e685; }
+  .color-scale-2 {
+    fill: #8cc665; }
+  .color-scale-3 {
+    fill: #44a340; }
+  .color-scale-4 {
+    fill: #1e6823; }
+  .color-empty {
+    fill: aqua
+  }
+}

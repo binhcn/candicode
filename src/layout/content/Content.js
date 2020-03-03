@@ -11,7 +11,9 @@ const propTypes = {
   }),
 };
 
-const isCodingPage = (path) => path.startsWith('/code-editor');
+const isCodingPage = (path) => {
+  return path.startsWith('/code-editor') || path.startsWith('/new-challenge');
+};
 
 function Content(props) {
   const {
@@ -41,7 +43,7 @@ function Content(props) {
         />
       </Row>
 
-      <div>
+      <div style={{minHeight: '80vh'}}>
         {props.children}
       </div>
     </Layout.Content>

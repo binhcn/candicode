@@ -11,6 +11,9 @@ import {
 
 import './NewChallenge.css';
 import { STEP_LENGTH } from '../../constants';
+import {
+  updateStepThree,
+} from "../../actions/actions.creator";
 
 let id = 0;
 
@@ -32,12 +35,8 @@ class StepThree extends React.Component {
 
   add = () => {
     const { form } = this.props;
-    // can use data-binding to get
     const keys = form.getFieldValue('keys');
     const nextKeys = keys.concat(id++);
-    // can use data-binding to set
-    // important! notify form to detect changes
-    console.log(nextKeys)
     form.setFieldsValue({
       keys: nextKeys,
     });
@@ -47,6 +46,7 @@ class StepThree extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        this.props.updateStepThree(values);
         console.log('Received values of form: ', values);
         this.props.next()
       }
@@ -83,7 +83,7 @@ class StepThree extends React.Component {
         sm: { span: 20, offset: 4 },
       },
     };
-    getFieldDecorator('keys', { initialValue: [] });
+    getFieldDecorator('keys', { initialValue: this.props.keys });
     const keys = getFieldValue('keys');
     const formItems = keys.map((k, index) => (
       <Form.Item label={`Testcase ` + k + `: `} {...formItemLayout} key={k}>
@@ -92,7 +92,8 @@ class StepThree extends React.Component {
             <Form.Item
               style={{ display: 'inline-block', width: '90%' }}
             >
-              {getFieldDecorator(`input-testcase-[${k}]`, {
+              {getFieldDecorator(`inputTestcase[${k}]`, {
+                initialValue: this.props.inputTestcase[k],
                 validateTrigger: ['onChange'],
                 rules: [
                   {
@@ -147,11 +148,11 @@ class StepThree extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  editedFile: state.newChallengeReducer.editedFile,
-  commands: state.newChallengeReducer.commands,
+  keys: state.newChallengeReducer.keys,
+  inputTestcase: state.newChallengeReducer.inputTestcase,
 });
 const mapDispatchToProps = dispatch => ({
-	
+	updateStepThree: (payload) => dispatch(updateStepThree(payload)),
 });
 
 const WrappedStepThree = Form.create({ name: 'stepThree' })(

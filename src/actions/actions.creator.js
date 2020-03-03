@@ -37,9 +37,27 @@ export function logout(notificationType = "success", description = "You're succe
   };
 }
 
+export function updateStepOne(payload) {
+  return async function (dispatch) {
+    dispatch({ type: projectAction.UPDATE_STEP_ONE, payload });
+  };
+}
+
 export function updateStepTwo(payload) {
   return async function (dispatch) {
     dispatch({ type: projectAction.UPDATE_STEP_TWO, payload });
+  };
+}
+
+export function updateStepThree(payload) {
+  return async function (dispatch) {
+    dispatch({ type: projectAction.UPDATE_STEP_THREE, payload });
+  };
+}
+
+export function updateStepFour(payload) {
+  return async function (dispatch) {
+    dispatch({ type: projectAction.UPDATE_STEP_FOUR, payload });
   };
 }
 

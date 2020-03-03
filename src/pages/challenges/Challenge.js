@@ -4,22 +4,23 @@ import { Card, Avatar, Col } from 'antd';
 
 const { Meta } = Card;
 
-function Challenge() {
+function Challenge(props) {
   return (
     <Col xs={24} sm={12} lg={8} xl={6}>
       <Card
         style={{ width: 250, margin: '2vh auto' }}
+        hoverable={true}
         cover={
           <img
             alt="example"
-            src="https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.jpg"
+            src={props.banner}
           />
         }
       >
         <Meta
-          avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-          title="Card title"
-          description="This is the description"
+          avatar={<Avatar src={props.avatar} />}
+          title={props.title}
+          description={props.description}
         />
       </Card>
     </Col>

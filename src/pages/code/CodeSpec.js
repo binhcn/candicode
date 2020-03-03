@@ -1,6 +1,10 @@
 import React from 'react';
 import { Tabs, Icon, Typography, Divider } from 'antd';
-import './CodeSpec.css';
+
+import './Code.css';
+import LeaderBoard from './LeaderBoard';
+import Discussion from './Discussion';
+import Submission from './Submission';
 
 const { Title, Text } = Typography;
 
@@ -8,7 +12,7 @@ const { TabPane } = Tabs;
 
 export default function CodeSpec() {
   return (
-    <Tabs type="card" size="small">
+    <Tabs type="card" size="small" defaultActiveKey="discussion">
       <TabPane tab={
         <span>
           <Icon type="read" />
@@ -69,7 +73,7 @@ export default function CodeSpec() {
           Leaderboard
         </span>
       } key="leaderboard">
-        Content of Tab Pane 2
+        <LeaderBoard />
       </TabPane>
       <TabPane tab={
         <span>
@@ -77,7 +81,7 @@ export default function CodeSpec() {
           Submission
         </span>
       } key="submission">
-        Content of Tab Pane 3
+        <Submission />
       </TabPane>
       <TabPane tab={
         <span>
@@ -85,7 +89,7 @@ export default function CodeSpec() {
           Discussion
         </span>
       } key="discussion">
-        Content of Tab Pane 4
+        <Discussion />
       </TabPane>
     </Tabs>
   )

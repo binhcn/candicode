@@ -87,7 +87,7 @@ class Signup extends Component {
 				<h1 className="page-title">Sign Up</h1>
 				<div className="signup-content">
 					<Form onSubmit={this.handleSubmit} className="signup-form">
-						<FormItem
+						{/* <FormItem
 							label="Full Name"
 							validateStatus={this.state.name.validateStatus}
 							help={this.state.name.errorMsg}>
@@ -98,7 +98,7 @@ class Signup extends Component {
 								placeholder="Your full name"
 								value={this.state.name.value}
 								onChange={(event) => this.handleInputChange(event, this.validateName)} />
-						</FormItem>
+						</FormItem> */}
 						<FormItem label="Username"
 							hasFeedback
 							validateStatus={this.state.username.validateStatus}
@@ -134,6 +134,19 @@ class Signup extends Component {
 							<Input
 								size="large"
 								name="password"
+								type="password"
+								autoComplete="off"
+								placeholder="A password between 6 to 20 characters"
+								value={this.state.password.value}
+								onChange={(event) => this.handleInputChange(event, this.validatePassword)} />
+						</FormItem>
+						<FormItem
+							label="Confirm password"
+							validateStatus={this.state.password.validateStatus}
+							help={this.state.password.errorMsg}>
+							<Input
+								size="large"
+								name="confirmPassword"
 								type="password"
 								autoComplete="off"
 								placeholder="A password between 6 to 20 characters"

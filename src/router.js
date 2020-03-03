@@ -10,7 +10,9 @@ import Login from './pages/login/Login';
 import Signup from './pages/signup/Signup';
 import Challenges from './pages/challenges/Challenges';
 import NewChallenge from './pages/new-project/NewChallenge';
+import Profile from './pages/profile/Profile';
 import NotFound from './commons/NotFound';
+import Demo from './demo/Demo';
 import PrivateRoute from './commons/PrivateRoute';
 
 function Router(props) {
@@ -24,7 +26,9 @@ function Router(props) {
           <Route path="/signup" component={Signup} />
           <Route path="/challenges/language-proficiency" component={Challenges} />
           <Route path="/user-plans" component={UserPlan} />
+          <Route path="/demo" component={Demo} />
           <PrivateRoute exact authenticated={props.isAuthenticated} path="/new-challenge" component={NewChallenge} />
+          <PrivateRoute exact authenticated={props.isAuthenticated} path="/profile" component={Profile} />
           <Route component={NotFound} />
         </Switch>
       </MainService>

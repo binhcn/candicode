@@ -13,7 +13,7 @@ export default class NewChallenge extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: 3,
+      current: 2,
     };
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
@@ -52,7 +52,7 @@ export default class NewChallenge extends React.Component {
     return (
       <Row>
         <Col span={6}>
-          <Steps direction="vertical" current={current} style={{width: '40%', margin: '2vh auto' }} >
+          <Steps direction="vertical" current={current} style={{width: '50%', margin: '10vh auto' }} >
             {steps.map(item => (
               <Step key={item.title} title={item.title}/>
             ))}

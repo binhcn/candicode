@@ -10,7 +10,9 @@ const propTypes = {
   }),
 };
 
-const isCodingPage = (path) => path.startsWith('/coding-challenge');
+const isCodingPage = (path) => {
+  return path.startsWith('/code-editor') || path.startsWith('/new-challenge');
+}
 
 function Footer(props) {
   const {

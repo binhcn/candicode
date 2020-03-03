@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import {
   Form,
   Input,
@@ -12,6 +13,9 @@ import {
 
 import './NewChallenge.css';
 import { STEP_LENGTH } from '../../constants';
+import {
+  updateStepOne,
+} from "../../actions/actions.creator";
 
 const { Option } = Select;
 
@@ -46,6 +50,7 @@ function beforeUpload(file) {
 class StepOne extends React.Component {
   state = {
     loading: false,
+    imageUrl: this.props.imageUrl,
   };
 
   handleChange = info => {
@@ -60,7 +65,6 @@ class StepOne extends React.Component {
           imageUrl,
           loading: false,
         });
-        console.log(imageUrl)
       }
       );
     }
@@ -70,7 +74,9 @@ class StepOne extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const payload = Object.assign({}, values, {imageUrl: this.state.imageUrl});
+        this.props.updateStepOne(payload);
+        console.log('Received values of form: ', payload);
         this.props.next()
       }
     });
@@ -119,7 +125,6 @@ class StepOne extends React.Component {
       </div>
     );
     const { imageUrl } = this.state;
-
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
         <Form.Item
@@ -133,11 +138,13 @@ class StepOne extends React.Component {
           }
         >
           {getFieldDecorator('name', {
+            initialValue: this.props.name,
             rules: [{ required: true, message: "Please input your new challenge's name!", whitespace: true }],
           })(<Input />)}
         </Form.Item>
         <Form.Item label="Your challenge (.zip)">
           {getFieldDecorator('source', {
+            initialValue: this.props.source,
             valuePropName: 'fileList',
             getValueFromEvent: this.normFile,
           })(
@@ -150,6 +157,7 @@ class StepOne extends React.Component {
         </Form.Item>
         <Form.Item label="Language" hasFeedback>
           {getFieldDecorator('language', {
+            initialValue: this.props.language,
             rules: [{ required: true, message: 'Please select your language!' }],
           })(
             <Select placeholder="Please select a language">
@@ -187,6 +195,19 @@ class StepOne extends React.Component {
   }
 }
 
-const WrappedStepOne = Form.create({ name: 'stepOne' })(StepOne);
+const mapStateToProps = state => ({
+  name: state.newChallengeReducer.name,
+  source: state.newChallengeReducer.source,
+  language: state.newChallengeReducer.language,
+  banner: state.newChallengeReducer.banner,
+  imageUrl: state.newChallengeReducer.imageUrl,
+});
+const mapDispatchToProps = dispatch => ({
+	updateStepOne: (payload) => dispatch(updateStepOne(payload)),
+});
+
+const WrappedStepOne = Form.create({ name: 'stepOne' })(
+  connect(mapStateToProps, mapDispatchToProps)(StepOne)
+);
 
 export default WrappedStepOne;

@@ -62,6 +62,16 @@ class StepTwo extends React.Component {
     });
   };
 
+  handlePrev = e => {
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        this.props.updateStepTwo(values);
+        console.log('Received values of form: ', values);
+        this.props.prev()
+      }
+    });
+  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -114,7 +124,7 @@ class StepTwo extends React.Component {
             </Button>
           )}
           {this.props.current > 0 && (
-            <Button style={{ marginLeft: 8 }} onClick={() => this.props.prev()}>
+            <Button style={{ marginLeft: 8 }} onClick={this.handlePrev}>
               Previous
             </Button>
           )}

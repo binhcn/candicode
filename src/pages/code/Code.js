@@ -11,7 +11,7 @@ export default function Code() {
         <CodeSpec />
       </Col>
       <Col xs={24} md={12}>
-      <CodeEditor />
+        <CodeEditor />
         <CodeOutput />
       </Col>
     </Row>
