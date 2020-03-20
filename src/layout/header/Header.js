@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu, Row, Avatar, Dropdown, Icon, Col } from 'antd';
+import { Layout, Menu, Row, Avatar, Dropdown, Icon, Col, Modal, Button } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import './Header.css';
@@ -8,12 +8,31 @@ import {
   logout,
 } from "../../actions/actions.creator";
 import { getAvatarColor } from '../../util/Colors';
+import Login from '../../pages/login/Login';
+import Signup from '../../pages/signup/Signup';
 
 class Header extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { 
+      visible: false,
+      status: "",
+    };
     this.handleMenuClick = this.handleMenuClick.bind(this);
   }
+
+  showModal = (status) => {
+    this.setState({
+      visible: true,
+      status: status,
+    });
+  };
+
+  handleCancel = e => {
+    this.setState({
+      visible: false,
+    });
+  };
 
   handleMenuClick({ key }) {
     if (key === "/logout") {
@@ -34,9 +53,33 @@ class Header extends React.Component {
         <ProfileDropdownMenu key="ProfileDropdownMenu" handleMenuClick={this.handleMenuClick} />,
       ];
     } else {
+      let { status } = this.state;
+      let component = <Login 
+                        convertModal={() => this.showModal("Signup")} 
+                        handleCancel={() => this.handleCancel()}
+                      />;
+      if (status.toLowerCase() === "signup") {
+        component = <Signup 
+                      convertModal={() => this.showModal("Login")} 
+                      handleCancel={() => this.handleCancel()} 
+                    />
+      } 
       userInfo = [
-        <Link to="/login" style={{ marginRight: '20px' }} key="/login">Login </Link>,
-        <Link to="/signup" key="/signup">Signup</Link>,
+        <Button key="login" type="primary" onClick={() => this.showModal("Login")}>
+          Login
+        </Button>,
+        <Button key="signup" type="primary" onClick={() => this.showModal("Signup")}>
+          Signup
+        </Button>,
+        <Modal
+          key="modal"
+          title={status}
+          visible={this.state.visible}
+          onCancel={this.handleCancel}
+          footer={null}
+        >
+          {component}
+        </Modal>,
       ];
     }
     return (

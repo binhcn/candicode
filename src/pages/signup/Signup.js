@@ -1,368 +1,180 @@
-import React, { Component } from 'react';
-import { signup, checkUsernameAvailability, checkEmailAvailability } from '../../services/project.services';
+import React from 'react';
+import { Form, Input, Button, notification, Icon } from 'antd';
+
 import './Signup.css';
-import { Link } from 'react-router-dom';
+import { signup } from '../../services/project.services';
 import {
-	NAME_MIN_LENGTH, NAME_MAX_LENGTH,
 	USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
 	EMAIL_MAX_LENGTH,
 	PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
 } from '../../constants';
 
-import { Form, Input, Button, notification } from 'antd';
 const FormItem = Form.Item;
 
-class Signup extends Component {
+class Signup extends React.Component {
+	render() {
+		const AntWrappedSignupForm = Form.create()(SignupForm)
+		return (
+			<AntWrappedSignupForm showLogin={this.props.convertModal} handleCancel={this.props.handleCancel} />
+		);
+	}
+}
+
+class SignupForm extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			name: {
-				value: ''
-			},
-			username: {
-				value: ''
-			},
-			email: {
-				value: ''
-			},
-			password: {
-				value: ''
-			}
-		}
-		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.validateUsernameAvailability = this.validateUsernameAvailability.bind(this);
-		this.validateEmailAvailability = this.validateEmailAvailability.bind(this);
-		this.isFormInvalid = this.isFormInvalid.bind(this);
-	}
-
-	handleInputChange(event, validationFun) {
-		const target = event.target;
-		const inputName = target.name;
-		const inputValue = target.value;
-
-		this.setState({
-			[inputName]: {
-				value: inputValue,
-				...validationFun(inputValue)
-			}
-		});
+		this.convertLogin = this.convertLogin.bind(this);
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
 
-		const signupRequest = {
-			name: this.state.name.value,
-			email: this.state.email.value,
-			username: this.state.username.value,
-			password: this.state.password.value
-		};
-		signup(signupRequest)
-			.then(response => {
-				notification.success({
-					message: 'Polling App',
-					description: "Thank you! You're successfully registered. Please Login to continue!",
-				});
-				this.props.history.push("/login");
-			}).catch(error => {
-				notification.error({
-					message: 'Polling App',
-					description: error.message || 'Sorry! Something went wrong. Please try again!'
-				});
-			});
+		this.props.form.validateFields((err, values) => {
+			if (!err) {
+				const signupRequest = Object.assign({}, values);
+				signup(signupRequest)
+					.then(response => {
+						if (response.status === 201) {
+							notification.success({
+								message: "Success",
+								description: "Thank you! You're successfully registered. Please Login to continue!",
+							});
+							// this.props.history.push("/login");
+							this.props.convertLogin();
+						} else {
+							notification.error({
+								message: "Failure",
+								description: response.message,
+							});
+						}
+					}).catch(error => {
+						notification.error({
+							message: 'Polling App',
+							description: error.message || 'Sorry! Something went wrong. Please try again!'
+						});
+					});
+			}
+		})
 	}
 
-	isFormInvalid() {
-		return !(this.state.name.validateStatus === 'success' &&
-			this.state.username.validateStatus === 'success' &&
-			this.state.email.validateStatus === 'success' &&
-			this.state.password.validateStatus === 'success'
-		);
+	convertLogin() {
+		this.props.handleCancel();
+		this.props.showLogin();
 	}
 
 	render() {
+		const { getFieldDecorator } = this.props.form;
 		return (
-			<div className="signup-container">
-				<h1 className="page-title">Sign Up</h1>
-				<div className="signup-content">
-					<Form onSubmit={this.handleSubmit} className="signup-form">
-						{/* <FormItem
-							label="Full Name"
-							validateStatus={this.state.name.validateStatus}
-							help={this.state.name.errorMsg}>
-							<Input
-								size="large"
-								name="name"
-								autoComplete="off"
-								placeholder="Your full name"
-								value={this.state.name.value}
-								onChange={(event) => this.handleInputChange(event, this.validateName)} />
-						</FormItem> */}
-						<FormItem label="Username"
-							hasFeedback
-							validateStatus={this.state.username.validateStatus}
-							help={this.state.username.errorMsg}>
-							<Input
-								size="large"
-								name="username"
-								autoComplete="off"
-								placeholder="A unique username"
-								value={this.state.username.value}
-								onBlur={this.validateUsernameAvailability}
-								onChange={(event) => this.handleInputChange(event, this.validateUsername)} />
-						</FormItem>
-						<FormItem
-							label="Email"
-							hasFeedback
-							validateStatus={this.state.email.validateStatus}
-							help={this.state.email.errorMsg}>
-							<Input
-								size="large"
-								name="email"
-								type="email"
-								autoComplete="off"
-								placeholder="Your email"
-								value={this.state.email.value}
-								onBlur={this.validateEmailAvailability}
-								onChange={(event) => this.handleInputChange(event, this.validateEmail)} />
-						</FormItem>
-						<FormItem
-							label="Password"
-							validateStatus={this.state.password.validateStatus}
-							help={this.state.password.errorMsg}>
-							<Input
-								size="large"
-								name="password"
-								type="password"
-								autoComplete="off"
-								placeholder="A password between 6 to 20 characters"
-								value={this.state.password.value}
-								onChange={(event) => this.handleInputChange(event, this.validatePassword)} />
-						</FormItem>
-						<FormItem
-							label="Confirm password"
-							validateStatus={this.state.password.validateStatus}
-							help={this.state.password.errorMsg}>
-							<Input
-								size="large"
-								name="confirmPassword"
-								type="password"
-								autoComplete="off"
-								placeholder="A password between 6 to 20 characters"
-								value={this.state.password.value}
-								onChange={(event) => this.handleInputChange(event, this.validatePassword)} />
-						</FormItem>
-						<FormItem>
-							<Button type="primary"
-								htmlType="submit"
-								size="large"
-								className="signup-form-button"
-								disabled={this.isFormInvalid()}>Sign up</Button>
-							Already registed? <Link to="/login">Login now!</Link>
-						</FormItem>
-					</Form>
-				</div>
-			</div>
+			<Form onSubmit={this.handleSubmit}>
+				<FormItem>
+					{getFieldDecorator('username', {
+						rules: [{
+							required: true,
+							message: 'Please input your username!',
+						},
+						{
+							min: USERNAME_MIN_LENGTH,
+							max: USERNAME_MAX_LENGTH,
+							message: `Your username must be longer than or equal to ${USERNAME_MIN_LENGTH}, shorter than equal to ${USERNAME_MAX_LENGTH}!`,
+						},
+						{
+							whitespace: true,
+							message: 'Your username only has whitespaces!',
+						},
+						],
+					})(
+						<Input
+							prefix={<Icon type="user" />}
+							size="large"
+							name="username"
+							placeholder="Username" />
+					)}
+				</FormItem>
+				<FormItem>
+					{getFieldDecorator('email', {
+						rules: [{
+							required: true,
+							message: 'Please input your email!',
+							},
+							{
+								pattern: '[^@ ]+@[^@ ]+\\.[^@ ]+',
+								message: "Your email's format might be incorrect!",
+							},
+							{
+								max: EMAIL_MAX_LENGTH,
+								message: `Your email must be shorter than equal to ${EMAIL_MAX_LENGTH}!`,
+							},
+							{
+								whitespace: true,
+								message: 'Your email only has whitespaces!',
+							},
+						],
+					})(
+						<Input
+							prefix={<i className="far fa-envelope"></i>}
+							size="large"
+							name="email"
+							placeholder="Email" />
+					)}
+				</FormItem>
+				<FormItem>
+					{getFieldDecorator('password', {
+						rules: [{
+							required: true,
+							message: 'Please input your Password!',
+						},
+						{
+							min: PASSWORD_MIN_LENGTH,
+							max: PASSWORD_MAX_LENGTH,
+							message: `Your password must be longer than or equal to ${PASSWORD_MIN_LENGTH}, shorter than equal to ${PASSWORD_MAX_LENGTH}!`,
+						},
+						{
+							whitespace: true,
+							message: 'Your password only has whitespaces!',
+						},
+						],
+					})(
+						<Input
+							prefix={<Icon type="lock" />}
+							size="large"
+							name="password"
+							type="password"
+							placeholder="Password" />
+					)}
+				</FormItem>
+				<FormItem>
+					{getFieldDecorator('confirmPassword', {
+						rules: [{
+							required: true,
+							message: 'Please input again your Password!',
+						},
+						{
+							min: PASSWORD_MIN_LENGTH,
+							max: PASSWORD_MAX_LENGTH,
+							message: `Your password must be longer than or equal to ${PASSWORD_MIN_LENGTH}, shorter than equal to ${PASSWORD_MAX_LENGTH}!`,
+						},
+						{
+							whitespace: true,
+							message: 'Your password only has whitespaces!',
+						},
+						],
+					})(
+						<Input
+							prefix={<i className="fas fa-lock"></i>}
+							size="large"
+							name="confirmPassword"
+							type="password"
+							placeholder="Comfirm password" />
+					)}
+				</FormItem>
+				<FormItem>
+					<Button type="primary" htmlType="submit" size="large" block>Signup</Button>
+					Have your account already! <Button type="link" onClick={this.convertLogin}>Login now</Button>
+				</FormItem>
+			</Form>
 		);
 	}
-
-	// Validation Functions
-
-	validateName = (name) => {
-		if (name.length < NAME_MIN_LENGTH) {
-			return {
-				validateStatus: 'error',
-				errorMsg: `Name is too short (Minimum ${NAME_MIN_LENGTH} characters needed.)`
-			}
-		} else if (name.length > NAME_MAX_LENGTH) {
-			return {
-				validationStatus: 'error',
-				errorMsg: `Name is too long (Maximum ${NAME_MAX_LENGTH} characters allowed.)`
-			}
-		} else {
-			return {
-				validateStatus: 'success',
-				errorMsg: null,
-			};
-		}
-	}
-
-	validateEmail = (email) => {
-		if (!email) {
-			return {
-				validateStatus: 'error',
-				errorMsg: 'Email may not be empty'
-			}
-		}
-
-		const EMAIL_REGEX = RegExp('[^@ ]+@[^@ ]+\\.[^@ ]+');
-		if (!EMAIL_REGEX.test(email)) {
-			return {
-				validateStatus: 'error',
-				errorMsg: 'Email not valid'
-			}
-		}
-
-		if (email.length > EMAIL_MAX_LENGTH) {
-			return {
-				validateStatus: 'error',
-				errorMsg: `Email is too long (Maximum ${EMAIL_MAX_LENGTH} characters allowed)`
-			}
-		}
-
-		return {
-			validateStatus: null,
-			errorMsg: null
-		}
-	}
-
-	validateUsername = (username) => {
-		if (username.length < USERNAME_MIN_LENGTH) {
-			return {
-				validateStatus: 'error',
-				errorMsg: `Username is too short (Minimum ${USERNAME_MIN_LENGTH} characters needed.)`
-			}
-		} else if (username.length > USERNAME_MAX_LENGTH) {
-			return {
-				validationStatus: 'error',
-				errorMsg: `Username is too long (Maximum ${USERNAME_MAX_LENGTH} characters allowed.)`
-			}
-		} else {
-			return {
-				validateStatus: null,
-				errorMsg: null
-			}
-		}
-	}
-
-	validateUsernameAvailability() {
-		// First check for client side errors in username
-		const usernameValue = this.state.username.value;
-		const usernameValidation = this.validateUsername(usernameValue);
-
-		if (usernameValidation.validateStatus === 'error') {
-			this.setState({
-				username: {
-					value: usernameValue,
-					...usernameValidation
-				}
-			});
-			return;
-		}
-
-		this.setState({
-			username: {
-				value: usernameValue,
-				validateStatus: 'validating',
-				errorMsg: null
-			}
-		});
-
-		checkUsernameAvailability(usernameValue)
-			.then(response => {
-				if (response.available) {
-					this.setState({
-						username: {
-							value: usernameValue,
-							validateStatus: 'success',
-							errorMsg: null
-						}
-					});
-				} else {
-					this.setState({
-						username: {
-							value: usernameValue,
-							validateStatus: 'error',
-							errorMsg: 'This username is already taken'
-						}
-					});
-				}
-			}).catch(error => {
-				// Marking validateStatus as success, Form will be recchecked at server
-				this.setState({
-					username: {
-						value: usernameValue,
-						validateStatus: 'success',
-						errorMsg: null
-					}
-				});
-			});
-	}
-
-	validateEmailAvailability() {
-		// First check for client side errors in email
-		const emailValue = this.state.email.value;
-		const emailValidation = this.validateEmail(emailValue);
-
-		if (emailValidation.validateStatus === 'error') {
-			this.setState({
-				email: {
-					value: emailValue,
-					...emailValidation
-				}
-			});
-			return;
-		}
-
-		this.setState({
-			email: {
-				value: emailValue,
-				validateStatus: 'validating',
-				errorMsg: null
-			}
-		});
-
-		checkEmailAvailability(emailValue)
-			.then(response => {
-				if (response.available) {
-					this.setState({
-						email: {
-							value: emailValue,
-							validateStatus: 'success',
-							errorMsg: null
-						}
-					});
-				} else {
-					this.setState({
-						email: {
-							value: emailValue,
-							validateStatus: 'error',
-							errorMsg: 'This Email is already registered'
-						}
-					});
-				}
-			}).catch(error => {
-				// Marking validateStatus as success, Form will be recchecked at server
-				this.setState({
-					email: {
-						value: emailValue,
-						validateStatus: 'success',
-						errorMsg: null
-					}
-				});
-			});
-	}
-
-	validatePassword = (password) => {
-		if (password.length < PASSWORD_MIN_LENGTH) {
-			return {
-				validateStatus: 'error',
-				errorMsg: `Password is too short (Minimum ${PASSWORD_MIN_LENGTH} characters needed.)`
-			}
-		} else if (password.length > PASSWORD_MAX_LENGTH) {
-			return {
-				validationStatus: 'error',
-				errorMsg: `Password is too long (Maximum ${PASSWORD_MAX_LENGTH} characters allowed.)`
-			}
-		} else {
-			return {
-				validateStatus: 'success',
-				errorMsg: null,
-			};
-		}
-	}
-
 }
 
 export default Signup;

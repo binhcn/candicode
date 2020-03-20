@@ -92,7 +92,7 @@ class StepThree extends React.Component {
             <Form.Item
               style={{ display: 'inline-block', width: '90%' }}
             >
-              {getFieldDecorator(`inputTestcase[${k}]`, {
+              {getFieldDecorator(`testcaseInput[${k}]`, {
                 initialValue: this.props.inputTestcase[k],
                 validateTrigger: ['onChange'],
                 rules: [

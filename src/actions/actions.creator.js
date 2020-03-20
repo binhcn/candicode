@@ -13,11 +13,9 @@ export function getCurrentUser() {
       dispatch({ type: projectAction.LOAD_PAGE });
       
       const data = await projectService.getCurrentUser();
-      
-      dispatch({ type: projectAction.GET_CURRENT_USER_SUCCESS, payload: data });
-    } catch ({ response }) {
-      console.log(response)
-      if (response.data.error) {
+      dispatch({ type: projectAction.GET_CURRENT_USER_SUCCESS, payload: data.results[0] });
+    } catch ({ error }) {
+      if (error) {
         dispatch({ type: projectAction.GET_CURRENT_USER_FAILED });
       }
     }

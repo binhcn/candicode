@@ -21,14 +21,16 @@ const request = (options) => {
       return response.data;
     })
     .catch(err => {
-      console.log(err);
+      console.log(err.response)
+      return err.response.data;
     });
 };
 
 export function signup(signupRequest) {
+  console.log(signupRequest)
   return request({
-      url: API_BASE_URL + "/auth/signup",
-      method: 'POST',
+      url: API_BASE_URL + "/registration/new",
+      method: 'post',
       data: signupRequest
   });
 }
@@ -49,7 +51,7 @@ export function checkEmailAvailability(email) {
 
 export function login(loginRequest) {
   return request({
-    url: API_BASE_URL + "/auth/signin",
+    url: API_BASE_URL + "/authentication/login",
     method: 'post',
     data: loginRequest
   });
@@ -57,7 +59,7 @@ export function login(loginRequest) {
 
 export function getCurrentUser() {
   return request({
-    url: API_BASE_URL + "/user/me",
+    url: API_BASE_URL + "/account",
     method: 'GET'
   });
 }

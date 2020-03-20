@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { connect } from "react-redux";
 import { Form, Input, Button, Icon, notification } from 'antd';
 
@@ -7,12 +6,16 @@ import './Login.css';
 import { ACCESS_TOKEN } from '../../constants';
 import { login } from '../../services/project.services';
 import {
-  getCurrentUser,
+	getCurrentUser,
 } from "../../actions/actions.creator";
+import {
+	USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
+	PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
+} from '../../constants';
 
 const FormItem = Form.Item;
 
-class Login extends Component {
+class Login extends React.Component {
 	constructor(props) {
 		super(props);
 		this.onLogin = this.onLogin.bind(this);
@@ -20,30 +23,28 @@ class Login extends Component {
 
 	onLogin() {
 		notification.success({
-			message: 'Polling App',
+			message: 'Welcome',
 			description: "You're successfully logged in.",
 		});
 		this.props.getCurrentUser();
-		this.props.history.push("/");
+		// this.props.history.push("/");
+		this.props.handleCancel();
+
 	}
 
 	render() {
 		const AntWrappedLoginForm = Form.create()(LoginForm)
 		return (
-			<div className="login-container">
-				<h1 className="page-title">Login</h1>
-				<div className="login-content">
-					<AntWrappedLoginForm onLogin={this.onLogin} />
-				</div>
-			</div>
+			<AntWrappedLoginForm onLogin={this.onLogin} showSignup={this.props.convertModal} handleCancel={this.props.handleCancel} />
 		);
 	}
 }
 
-class LoginForm extends Component {
+class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.convertSignup = this.convertSignup.bind(this);
 	}
 
 	handleSubmit(event) {
@@ -53,43 +54,77 @@ class LoginForm extends Component {
 				const loginRequest = Object.assign({}, values);
 				login(loginRequest)
 					.then(response => {
-						localStorage.setItem(ACCESS_TOKEN, response.accessToken);
-						this.props.onLogin();
-					}).catch(error => {
-						if (error.status === 401) {
-							notification.error({
-								message: 'Polling App',
-								description: 'Your Username or Password is incorrect. Please try again!'
-							});
+						if (response.status === 200) {
+							localStorage.setItem(ACCESS_TOKEN, response.results[0].accessToken);
+							this.props.onLogin();
 						} else {
-							notification.error({
-								message: 'Polling App',
-								description: error.message || 'Sorry! Something went wrong. Please try again!'
-							});
+							if (response.status === 401) {
+								notification.error({
+									message: 'Polling App',
+									description: 'Your Username or Password is incorrect. Please try again!'
+								});
+							} else {
+								notification.error({
+									message: 'Polling App',
+									description: response.message || 'Sorry! Something went wrong. Please try again!'
+								});
+							}
 						}
+					}).catch(error => {
+						console.log(error)
 					});
 			}
 		});
 	}
 
+	convertSignup() {
+		this.props.handleCancel();
+		this.props.showSignup();
+	}
+
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		return (
-			<Form onSubmit={this.handleSubmit} className="login-form">
+			<Form onSubmit={this.handleSubmit}>
 				<FormItem>
-					{getFieldDecorator('usernameOrEmail', {
-						rules: [{ required: true, message: 'Please input your username or email!' }],
+					{getFieldDecorator('username', {
+						rules: [{ 
+											required: true, 
+											message: 'Please input your username!',
+										},
+										{
+											min: USERNAME_MIN_LENGTH,
+											max: USERNAME_MAX_LENGTH,
+											message: `Your username must be longer than or equal to ${USERNAME_MIN_LENGTH}, shorter than equal to ${USERNAME_MAX_LENGTH}!`,
+										},
+										{
+											whitespace: true,
+											message: 'Your username only has whitespaces!',
+										},
+									],
 					})(
 						<Input
 							prefix={<Icon type="user" />}
 							size="large"
-							name="usernameOrEmail"
-							placeholder="Username or Email" />
+							name="username"
+							placeholder="Username" />
 					)}
 				</FormItem>
 				<FormItem>
 					{getFieldDecorator('password', {
-						rules: [{ required: true, message: 'Please input your Password!' }],
+						rules: [{ required: true, 
+											message: 'Please input your Password!',
+										},
+										{
+											min: PASSWORD_MIN_LENGTH,
+											max: PASSWORD_MAX_LENGTH,
+											message: `Your password must be longer than or equal to ${PASSWORD_MIN_LENGTH}, shorter than equal to ${PASSWORD_MAX_LENGTH}!`,
+										},
+										{
+											whitespace: true,
+											message: 'Your password only has whitespaces!',
+										},
+									],
 					})(
 						<Input
 							prefix={<Icon type="lock" />}
@@ -100,8 +135,8 @@ class LoginForm extends Component {
 					)}
 				</FormItem>
 				<FormItem>
-					<Button type="primary" htmlType="submit" size="large" className="login-form-button">Login</Button>
-					Or <Link to="/signup">register now!</Link>
+					<Button type="primary" htmlType="submit" size="large" block>Login</Button>
+					Not account yet, please <Button type="link" onClick={this.convertSignup}>Register now</Button>
 				</FormItem>
 			</Form>
 		);

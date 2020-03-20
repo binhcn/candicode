@@ -6,24 +6,24 @@ import Home from './pages/home/Home';
 import UserPlan from './pages/user-plan/UserPlan';
 import Code from './pages/code/Code';
 import MainService from './layout/MainService';
-import Login from './pages/login/Login';
-import Signup from './pages/signup/Signup';
 import Challenges from './pages/challenges/Challenges';
 import NewChallenge from './pages/new-project/NewChallenge';
 import Profile from './pages/profile/Profile';
 import NotFound from './commons/NotFound';
 import Demo from './demo/Demo';
 import PrivateRoute from './commons/PrivateRoute';
+import {
+  getCurrentUser,
+} from "./actions/actions.creator";
 
 function Router(props) {
+  props.getCurrentUser();
   return (
     <BrowserRouter>
       <MainService>
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/code-editor' component={Code} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
           <Route path="/challenges/language-proficiency" component={Challenges} />
           <Route path="/user-plans" component={UserPlan} />
           <Route path="/demo" component={Demo} />
@@ -41,7 +41,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  getCurrentUser: () => dispatch(getCurrentUser()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Router);

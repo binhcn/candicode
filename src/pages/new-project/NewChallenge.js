@@ -13,7 +13,7 @@ export default class NewChallenge extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: 2,
+      current: 0,
     };
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);

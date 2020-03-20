@@ -3,12 +3,13 @@ import * as actions from "../actions/actions";
 const initState = {
   projects: [],
 
-  // currentUser: null,
-  // isAuthenticated: false,
+  currentUser: null,
+  isAuthenticated: false,
 
-  currentUser: {id: 1, username: "binhcaong", name: "Binh Nguyen Cao"},
-  isAuthenticated: true,
-  isLoading: false,
+  // currentUser: {id: 1, username: "binhcaong", name: "Binh Nguyen Cao"},
+  // currentUser: { username: "binhcaong" },
+  // isAuthenticated: true,
+  // isLoading: false,
 };
 
 const UserReducer = (state = initState, action) => {
