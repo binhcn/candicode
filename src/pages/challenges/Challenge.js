@@ -8,7 +8,7 @@ function Challenge(props) {
   return (
     <Col xs={24} sm={12} lg={8} xl={6}>
       <Card
-        style={{ width: 250, margin: '2vh auto' }}
+        style={{ width: 200, margin: '2vh auto' }}
         hoverable={true}
         cover={
           <img

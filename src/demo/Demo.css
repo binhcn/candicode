@@ -1,0 +1,34 @@
+.split {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.split_left {
+  width: 50%;
+  background-color: #AACD6E;
+}
+
+.split_right {
+  flex: 1;
+  background-color: #C5C6B6;
+}
+
+.split_bar {
+  background-color: #3C3530;
+  width: 10px;
+  height: 100%;
+  cursor: col-resize;
+}
+
+@media screen and (max-width: 768px) {
+  .split_bar {
+    display: none;
+  }
+  .split {
+    display: inherit;
+  }
+  .split_left {
+    width: 100% !important;
+  }
+}

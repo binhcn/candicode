@@ -11,7 +11,8 @@ const text = `
   it can be found as a welcome guest in many households across the world.
 `;
 
-export default function CodeEditor() {
+export default function CodeEditor(props) {
+  console.log(props);
   return (
     <div>
 
@@ -25,9 +26,10 @@ export default function CodeEditor() {
         </Select>
       </Input.Group>
 
-
-
-      <Editor height="75vh" theme="dark" value={"function hello() {\n\talert('Hello world!');\n}"} language="python" />
+      <div>
+        <Editor height="78vh" width={`${props.editorWidth}px`} theme="dark" value={"function hello() {\n\talert('Hello world!');\n}"} language="python" />
+      </div>
+      
       <div id="testcase" className="collapse">
         <Collapse>
           <Panel header="Testcase 1" key="1">
@@ -38,7 +40,6 @@ export default function CodeEditor() {
           </Panel>
         </Collapse>
       </div>
-
 
       <Row style={{ margin: '5px' }}>
         <Col span={15}>

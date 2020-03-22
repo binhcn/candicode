@@ -1,77 +1,39 @@
 import React from 'react';
-import './Demo.css';
-import base64 from 'react-native-base64';
+import $ from 'jquery';
 
-import { Upload, Icon, message, Input } from 'antd';
+// import './Demo.css';
 
-function getBase64(img, callback) {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
-  reader.readAsDataURL(img);
-}
+class Demo extends React.Component {
+  componentDidMount() {
+    const left = document.querySelector('.split_left');
+    let mouse_is_down = false;
 
-function beforeUpload(file) {
-  // const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-  const isJpgOrPng = true;
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
+    $(document).ready(e => {
+      $('.split_bar').mousedown(function () {
+        mouse_is_down = true;
+      });
+      $(document).mousemove(e => {
+        if (!mouse_is_down) return;
+        left.style.width = `${e.clientX}px`;
+      });
+      $(document).mouseup(e => {
+        mouse_is_down = false;
+      });
+    })
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
-  }
-  return isJpgOrPng && isLt2M;
-}
-
-export default class Avatar extends React.Component {
-  state = {
-    loading: false,
-  };
-
-  handleChange = info => {
-    if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl => {
-        console.log(imageUrl);
-        this.setState({
-          imageUrl,
-          loading: false,
-        })
-      },
-      );
-    }
-  };
-
   render() {
-    const uploadButton = (
-      <div>
-        <Icon type={this.state.loading ? 'loading' : 'plus'} />
-        <div className="ant-upload-text">Upload</div>
-      </div>
-    );
-    const { imageUrl } = this.state;
-    var text;
-    if (imageUrl !== undefined)
-      text = base64.decode(imageUrl.split(",")[1]);
     return (
-      <div>
-        <Upload
-          name="avatar"
-          listType="picture-card"
-          className="avatar-uploader"
-          showUploadList={false}
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          beforeUpload={beforeUpload}
-          onChange={this.handleChange}
-        >
-          {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-        </Upload>
-        <Input.TextArea value={text} rows={10} />
+      <div className="split">
+        <div className="split_left">
+          o dau va
+        </div>
+        <div className="split_bar"></div>
+        <div className="split_right">
+          Taji sao lai bor toi
+        </div>
       </div>
     );
   }
 }
+
+export default Demo;
