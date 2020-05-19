@@ -55,17 +55,17 @@ class LoginForm extends React.Component {
 				login(loginRequest)
 					.then(response => {
 						if (response.status === 200) {
-							localStorage.setItem(ACCESS_TOKEN, response.results[0].accessToken);
+							localStorage.setItem(ACCESS_TOKEN, response.results.content.token);
 							this.props.onLogin();
 						} else {
 							if (response.status === 401) {
 								notification.error({
-									message: 'Polling App',
+									message: 'Candicode',
 									description: 'Your Username or Password is incorrect. Please try again!'
 								});
 							} else {
 								notification.error({
-									message: 'Polling App',
+									message: 'Candicode',
 									description: response.message || 'Sorry! Something went wrong. Please try again!'
 								});
 							}
@@ -87,9 +87,9 @@ class LoginForm extends React.Component {
 		return (
 			<Form onSubmit={this.handleSubmit}>
 				<FormItem>
-					{getFieldDecorator('username', {
-						rules: [{ 
-											required: true, 
+					{getFieldDecorator('email', {
+						rules: [{
+											required: true,
 											message: 'Please input your username!',
 										},
 										{
@@ -112,7 +112,7 @@ class LoginForm extends React.Component {
 				</FormItem>
 				<FormItem>
 					{getFieldDecorator('password', {
-						rules: [{ required: true, 
+						rules: [{ required: true,
 											message: 'Please input your Password!',
 										},
 										{

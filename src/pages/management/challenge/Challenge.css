@@ -1,0 +1,12 @@
+.challenge-modal .ant-modal-header {
+  background-color: lightskyblue;
+}
+
+.challenge-modal .ant-steps {
+  width: 70% !important;
+  margin: 10px auto !important;
+}
+
+.ant-steps-item-container {
+  line-height: 125px;
+}

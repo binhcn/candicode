@@ -1,0 +1,8 @@
+.management-layout .ant-layout-sider-trigger {
+  position: static;
+}
+
+.management-layout .ant-layout-sider {
+  box-shadow: 0 0 5px 0 indigo;
+  margin-top: 3px;
+}

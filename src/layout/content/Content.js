@@ -11,7 +11,10 @@ const propTypes = {
   }),
 };
 
-const pathList = ['/code-editor', '/new-challenge']
+const pathList = ['/code-editor', '/new-challenge', '/management',
+                '/management/challenges', '/management/tutorials',
+                '/management/contests', '/management/statistics',
+                ]
 
 function Content(props) {
   const {
@@ -32,7 +35,7 @@ function Content(props) {
               </div>
               <ul>
                 <li>
-                  <input type="radio" id="all" name="radio_search" value="all" checked />
+                  <input type="radio" id="all" name="radio_search" value="all" defaultChecked />
                   <label htmlFor="all">All</label>
                 </li>
                 <li>

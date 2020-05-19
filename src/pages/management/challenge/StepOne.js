@@ -11,11 +11,12 @@ import {
   message
 } from 'antd';
 
-import './NewChallenge.css';
-import { STEP_LENGTH } from '../../constants';
+import './Challenge.css';
+import { STEP_LENGTH } from '../../../constants';
 import {
   updateStepOne,
-} from "../../actions/actions.creator";
+} from "../../../actions/actions.creator";
+import { uploadSource } from '../../../services/project.services'
 
 const { Option } = Select;
 
@@ -27,6 +28,12 @@ const languageSet = [
   'SQL',
   'Golang',
   'Javascript',
+]
+
+const levelSet = [
+  'easy',
+  'moderate',
+  'hard'
 ]
 
 function getBase64(img, callback) {
@@ -74,19 +81,20 @@ class StepOne extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        console.log(values);
         const payload = Object.assign({}, values, {imageUrl: this.state.imageUrl});
         this.props.updateStepOne(payload);
         console.log('Received values of form: ', payload);
+
+        const formData = new FormData();
+        if (values.source) { 
+          formData.append('file', values.source[0].originFileObj);
+          uploadSource(formData);
+        }
+
         this.props.next()
       }
     });
-  };
-
-  normFile = e => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return [e.file];
   };
 
   render() {
@@ -118,6 +126,10 @@ class StepOne extends React.Component {
       <Option key={language} value={language}>{language}</Option>
     ));
 
+    const levelOpt = levelSet.sort().map(level => (
+      <Option key={level} value={level}>{level}</Option>
+    ));
+
     const uploadButton = (
       <div>
         <Icon type={this.state.loading ? 'loading' : 'plus'} />
@@ -137,18 +149,22 @@ class StepOne extends React.Component {
             </span>
           }
         >
-          {getFieldDecorator('name', {
-            initialValue: this.props.name,
-            rules: [{ required: true, message: "Please input your new challenge's name!", whitespace: true }],
+          {getFieldDecorator('title', {
+            initialValue: this.props.title,
+            // rules: [{ required: true, message: "Please input your new challenge's name!", whitespace: true }],
           })(<Input />)}
         </Form.Item>
         <Form.Item label="Your challenge (.zip)">
           {getFieldDecorator('source', {
             initialValue: this.props.source,
             valuePropName: 'fileList',
-            getValueFromEvent: this.normFile,
+            getValueFromEvent: (e) => { return [e.file]; },
           })(
-            <Upload name="logo" action="/upload.do" listType="picture">
+            <Upload 
+              name="source" 
+              listType="picture" 
+              method="get"
+            >
               <Button>
                 <Icon type="upload" /> Click to upload
               </Button>
@@ -158,24 +174,35 @@ class StepOne extends React.Component {
         <Form.Item label="Language" hasFeedback>
           {getFieldDecorator('language', {
             initialValue: this.props.language,
-            rules: [{ required: true, message: 'Please select your language!' }],
+            // rules: [{ required: true, message: 'Please select its language!' }],
           })(
             <Select placeholder="Please select a language">
               {languageOpt}
             </Select>,
           )}
         </Form.Item>
+        <Form.Item label="Level" hasFeedback>
+          {getFieldDecorator('level', {
+            initialValue: this.props.level,
+            // rules: [{ required: true, message: 'Please select its level!' }],
+          })(
+            <Select placeholder="Please select a level">
+              {levelOpt}
+            </Select>,
+          )}
+        </Form.Item>
         <Form.Item label="Your banner">
           {getFieldDecorator('banner', {
-            valuePropName: 'fileList',
-            getValueFromEvent: this.normFile,
+            initialValue: this.props.banner,
+            valuePropName: 'file',
+            getValueFromEvent: (e) => { return e.file.originFileObj; }
           })(
             <Upload
               name="banner"
               listType="picture-card"
               className="avatar-uploader"
               showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              method="get"
               beforeUpload={beforeUpload}
               onChange={this.handleChange}
             >
@@ -196,14 +223,15 @@ class StepOne extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  name: state.newChallengeReducer.name,
-  source: state.newChallengeReducer.source,
-  language: state.newChallengeReducer.language,
-  banner: state.newChallengeReducer.banner,
-  imageUrl: state.newChallengeReducer.imageUrl,
+  title: state.challengeReducer.title,
+  source: state.challengeReducer.source,
+  language: state.challengeReducer.language,
+  level: state.challengeReducer.level,
+  banner: state.challengeReducer.banner,
+  imageUrl: state.challengeReducer.imageUrl,
 });
 const mapDispatchToProps = dispatch => ({
-	updateStepOne: (payload) => dispatch(updateStepOne(payload)),
+  updateStepOne: (payload) => dispatch(updateStepOne(payload)),
 });
 
 const WrappedStepOne = Form.create({ name: 'stepOne' })(

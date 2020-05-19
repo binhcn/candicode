@@ -14,7 +14,7 @@ import Signup from '../../pages/signup/Signup';
 class Header extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       visible: false,
       status: "",
     };
@@ -43,29 +43,32 @@ class Header extends React.Component {
 
   render() {
     let userInfo;
-    if (this.props.isAuthenticated) {
-      let { username } = this.props.currentUser;
+    if (this.props.isAuthenticated) {      
+      let { firstName, lastName } = this.props.currentUser;
       userInfo = [
         <Notification key="notification" />,
-        <Avatar key="avatar" className="avatar" style={{ backgroundColor: getAvatarColor(username) }}>
-          {username[0].toUpperCase()}
+        <Avatar key="avatar" className="avatar" style={{ backgroundColor: getAvatarColor(firstName + lastName) }}>
+          {firstName[0].toUpperCase()}
         </Avatar>,
-        <ProfileDropdownMenu key="ProfileDropdownMenu" handleMenuClick={this.handleMenuClick} />,
+        <ProfileDropdownMenu key="ProfileDropdownMenu" 
+          handleMenuClick={this.handleMenuClick}
+          username={firstName + lastName}
+        />,
       ];
     } else {
       let { status } = this.state;
-      let component = <Login 
-                        convertModal={() => this.showModal("Signup")} 
-                        handleCancel={() => this.handleCancel()}
-                      />;
+      let component = <Login
+        convertModal={() => this.showModal("Signup")}
+        handleCancel={() => this.handleCancel()}
+      />;
       if (status.toLowerCase() === "signup") {
-        component = <Signup 
-                      convertModal={() => this.showModal("Login")} 
-                      handleCancel={() => this.handleCancel()} 
-                    />
-      } 
+        component = <Signup
+          convertModal={() => this.showModal("Login")}
+          handleCancel={() => this.handleCancel()}
+        />
+      }
       userInfo = [
-        <Button key="login" type="primary" onClick={() => this.showModal("Login")}>
+        <Button key="login" className="mr-10" type="primary" onClick={() => this.showModal("Login")}>
           Login
         </Button>,
         <Button key="signup" type="primary" onClick={() => this.showModal("Signup")}>
@@ -83,7 +86,7 @@ class Header extends React.Component {
       ];
     }
     return (
-      <Layout.Header>
+      <Layout.Header className="header">
         <Row>
           <Col span={5}>
             <Link to="/">
@@ -156,6 +159,9 @@ class Header extends React.Component {
               <Menu.Item key="/code-editor">
                 <Link to="/code-editor">Code Editor</Link>
               </Menu.Item>
+              <Menu.Item key="/management">
+                <Link to="/management">Management</Link>
+              </Menu.Item>
             </Menu>
           </Col>
 
@@ -172,9 +178,6 @@ class Header extends React.Component {
 function ProfileDropdownMenu(props) {
   const dropdownMenu = (
     <Menu onClick={props.handleMenuClick}>
-      <Menu.Item key="/new-challenge">
-        <Link to="/new-challenge">New challenge</Link>
-      </Menu.Item>
       <Menu.Item key="/profile">
         <Link to="/profile">Profile</Link>
       </Menu.Item>
@@ -190,7 +193,7 @@ function ProfileDropdownMenu(props) {
   return (
     <Dropdown overlay={dropdownMenu} trigger={['click']}>
       <a className="ant-dropdown-link" href="/">
-        Binh Cao <Icon type="setting" />
+        {props.username} <Icon type="setting" />
       </a>
     </Dropdown>
   );

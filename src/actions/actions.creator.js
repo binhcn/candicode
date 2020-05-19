@@ -13,7 +13,8 @@ export function getCurrentUser() {
       dispatch({ type: projectAction.LOAD_PAGE });
       
       const data = await projectService.getCurrentUser();
-      dispatch({ type: projectAction.GET_CURRENT_USER_SUCCESS, payload: data.results[0] });
+      
+      dispatch({ type: projectAction.GET_CURRENT_USER_SUCCESS, payload: data.results.content });
     } catch ({ error }) {
       if (error) {
         dispatch({ type: projectAction.GET_CURRENT_USER_FAILED });
@@ -29,7 +30,7 @@ export function logout(notificationType = "success", description = "You're succe
     dispatch({ type: projectAction.LOGOUT });
 
     notification[notificationType]({
-      message: 'Polling App',
+      message: 'Candicode',
       description: description,
     });
   };
@@ -56,6 +57,24 @@ export function updateStepThree(payload) {
 export function updateStepFour(payload) {
   return async function (dispatch) {
     dispatch({ type: projectAction.UPDATE_STEP_FOUR, payload });
+  };
+}
+
+export function deleteChallenge(id) {
+  return async function (dispatch) {
+    dispatch({ type: projectAction.DELETE_CHALLENGE, payload: id });
+  };
+}
+
+export function handleModal(status) {
+  return async function (dispatch) {
+    dispatch({ type: projectAction.HANDLE_MODAL, payload: status });
+  };
+}
+
+export function handleChallenge(record) {
+  return async function (dispatch) {
+    dispatch({ type: projectAction.HANDLE_CHALLENGE, payload: record });
   };
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Steps, Row, Col } from 'antd';
 
-import './NewChallenge.css';
+import './Challenge.css';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
@@ -9,11 +9,11 @@ import StepFour from './StepFour';
 
 const { Step } = Steps;
 
-export default class NewChallenge extends React.Component {
+export default class ChallengeModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: 0,
+      current: 3,
     };
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
@@ -51,15 +51,15 @@ export default class NewChallenge extends React.Component {
     ];
     return (
       <Row>
-        <Col span={6}>
+        <Col span={4}>
           <Steps direction="vertical" current={current} style={{width: '50%', margin: '10vh auto' }} >
             {steps.map(item => (
               <Step key={item.title} title={item.title}/>
             ))}
           </Steps>
         </Col>
-        <Col span={18} >
-          <div className="steps-content">{steps[current].content}</div>
+        <Col span={20}>
+          <div>{steps[current].content}</div>
         </Col>
       </Row>
     );

@@ -3,7 +3,7 @@ import { API_BASE_URL, ACCESS_TOKEN } from '../constants';
 
 const request = (options) => {
   var headers = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json'
   };
 
   if (localStorage.getItem(ACCESS_TOKEN)) {
@@ -13,8 +13,9 @@ const request = (options) => {
   }
 
   const defaults = { headers: headers };
-  options = Object.assign({}, defaults, options);
 
+  options = Object.assign({}, defaults, options);
+  console.log(options)
   return axios(options)
     .then(response => {
       console.log(response)
@@ -22,14 +23,14 @@ const request = (options) => {
     })
     .catch(err => {
       console.log(err.response)
-      return err.response.data;
+      if (err.response !== undefined)
+        return err.response.data;
     });
 };
 
 export function signup(signupRequest) {
-  console.log(signupRequest)
   return request({
-      url: API_BASE_URL + "/registration/new",
+      url: API_BASE_URL + "/coders",
       method: 'post',
       data: signupRequest
   });
@@ -51,16 +52,33 @@ export function checkEmailAvailability(email) {
 
 export function login(loginRequest) {
   return request({
-    url: API_BASE_URL + "/authentication/login",
-    method: 'post',
+    url: API_BASE_URL + "/auth/login",
+    method: 'POST',
     data: loginRequest
   });
 }
 
 export function getCurrentUser() {
   return request({
-    url: API_BASE_URL + "/account",
-    method: 'GET'
+    url: API_BASE_URL + "/auth/current",
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function uploadSource(source) {
+  return request({
+    url: API_BASE_URL + "/challenges/source-upload",
+    method: 'POST',
+    data: source
+  });
+}
+
+export function uploadChallenge(challengeRequest) {
+  return request({
+    url: API_BASE_URL + "/challenges",
+    method: 'POST',
+    data: challengeRequest
   });
 }
 

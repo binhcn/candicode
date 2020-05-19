@@ -42,15 +42,15 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Table 
-        columns={columns.map(item => { 
+      <Table
+        columns={columns.map(item => {
           if (item.dataIndex === "score" || item.dataIndex === "rank")
             return { ...item, align: 'center' }
-            else return { ...item } 
+            else return { ...item }
           }
-        )} 
-        dataSource={data} 
-        pagination={{ pageSize: 5 }} 
+        )}
+        dataSource={data}
+        pagination={{ pageSize: 5 }}
         style={{margin: '3vh 3vh'}}
       />
     );

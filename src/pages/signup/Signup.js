@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, notification, Icon } from 'antd';
+import { Form, Input, Button, notification, Icon, Row, Col } from 'antd';
 
 import './Signup.css';
 import { signup } from '../../services/project.services';
@@ -35,13 +35,13 @@ class SignupForm extends React.Component {
 				const signupRequest = Object.assign({}, values);
 				signup(signupRequest)
 					.then(response => {
-						if (response.status === 201) {
+						console.log(response)
+						if (response.status === 200) {
 							notification.success({
 								message: "Success",
 								description: "Thank you! You're successfully registered. Please Login to continue!",
 							});
-							// this.props.history.push("/login");
-							this.props.convertLogin();
+							this.convertLogin();
 						} else {
 							notification.error({
 								message: "Failure",
@@ -50,7 +50,7 @@ class SignupForm extends React.Component {
 						}
 					}).catch(error => {
 						notification.error({
-							message: 'Polling App',
+							message: 'Candicode',
 							description: error.message || 'Sorry! Something went wrong. Please try again!'
 						});
 					});
@@ -67,48 +67,78 @@ class SignupForm extends React.Component {
 		const { getFieldDecorator } = this.props.form;
 		return (
 			<Form onSubmit={this.handleSubmit}>
-				<FormItem>
-					{getFieldDecorator('username', {
-						rules: [{
-							required: true,
-							message: 'Please input your username!',
-						},
-						{
-							min: USERNAME_MIN_LENGTH,
-							max: USERNAME_MAX_LENGTH,
-							message: `Your username must be longer than or equal to ${USERNAME_MIN_LENGTH}, shorter than equal to ${USERNAME_MAX_LENGTH}!`,
-						},
-						{
-							whitespace: true,
-							message: 'Your username only has whitespaces!',
-						},
-						],
-					})(
-						<Input
-							prefix={<Icon type="user" />}
-							size="large"
-							name="username"
-							placeholder="Username" />
-					)}
-				</FormItem>
+				<Row gutter={15}>
+					<Col span={12}>
+						<FormItem>
+							{getFieldDecorator('firstName', {
+								rules: [{
+									required: true,
+									message: 'Please input your first name!',
+								},
+								{
+									min: USERNAME_MIN_LENGTH,
+									max: USERNAME_MAX_LENGTH,
+									message: `Your first name must be longer than or equal to ${USERNAME_MIN_LENGTH}, shorter than equal to ${USERNAME_MAX_LENGTH}!`,
+								},
+								{
+									whitespace: true,
+									message: 'Your first name only has whitespaces!',
+								},
+								],
+							})(
+								<Input
+									prefix={<Icon type="user" />}
+									size="large"
+									name="firstname"
+									placeholder="First name" />
+							)}
+						</FormItem>
+					</Col>
+					<Col span={12}>
+						<FormItem>
+							{getFieldDecorator('lastName', {
+								rules: [{
+									required: true,
+									message: 'Please input your last name!',
+								},
+								{
+									min: USERNAME_MIN_LENGTH,
+									max: USERNAME_MAX_LENGTH,
+									message: `Your last name must be longer than or equal to ${USERNAME_MIN_LENGTH}, shorter than equal to ${USERNAME_MAX_LENGTH}!`,
+								},
+								{
+									whitespace: true,
+									message: 'Your last name only has whitespaces!',
+								},
+								],
+							})(
+								<Input
+									prefix={<Icon type="user" />}
+									size="large"
+									name="lastname"
+									placeholder="Last name" />
+							)}
+						</FormItem>
+					</Col>
+				</Row>
 				<FormItem>
 					{getFieldDecorator('email', {
 						rules: [{
 							required: true,
 							message: 'Please input your email!',
-							},
-							{
-								pattern: '[^@ ]+@[^@ ]+\\.[^@ ]+',
-								message: "Your email's format might be incorrect!",
-							},
-							{
-								max: EMAIL_MAX_LENGTH,
-								message: `Your email must be shorter than equal to ${EMAIL_MAX_LENGTH}!`,
-							},
-							{
-								whitespace: true,
-								message: 'Your email only has whitespaces!',
-							},
+						},
+						{
+							pattern: '[^@ ]+@[^@ ]+\\.[^@ ]+',
+							message: "Your email's format might be incorrect!",
+						},
+						{
+							max: EMAIL_MAX_LENGTH,
+							message: `Your email must be shorter than equal to ${EMAIL_MAX_LENGTH}!`,
+						},
+						{
+							whitespace: true,
+							message: 'Your email only has whitespaces!',
+						},
 						],
 					})(
 						<Input

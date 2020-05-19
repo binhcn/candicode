@@ -1,21 +1,25 @@
-.logo {
-  width: 180px;
-  margin: 5px 20px;
-  float: left; }
+.header .logo {
+  height: 50px;
+  float: left; 
+}
 
 .ant-layout-header {
   background-color: whitesmoke !important;
   height: 50px !important; }
 
-.noti-ava-acc {
+.header .noti-ava-acc {
   line-height: 50px; }
 
-.avatar {
+.header .avatar {
   margin-left: 25px !important;
   margin-right: 15px !important; }
 
-.ant-dropdown-trigger {
+.header .ant-dropdown-trigger {
   top: 5px !important; }
 
-.ant-menu {
+.header .ant-menu {
   background: whitesmoke !important; }
+
+.header .mr-10 {
+  margin-right: 10px !important;
+}

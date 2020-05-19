@@ -13,7 +13,7 @@ const breadcrumbNameMap = {
   '/profile': 'Profile',
 };
 
-function Content(props) {
+function Navigation(props) {
   const { location } = props;
   const pathSnippets = location.pathname.split('/').filter(i => i);
   const extraBreadcrumbItems = pathSnippets.map((_, index) => {
@@ -38,4 +38,4 @@ function Content(props) {
   );
 }
 
-export default withRouter(Content);
+export default withRouter(Navigation);

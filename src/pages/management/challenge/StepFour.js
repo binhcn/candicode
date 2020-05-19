@@ -2,21 +2,13 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import base64 from 'react-native-base64';
 import { connect } from "react-redux";
-import {
-  Button,
-  message,
-  Row,
-  Col,
-  Input,
-  Typography,
-  Icon,
-  Upload
-} from 'antd';
+import { Button, message, Row, Col, Input, Typography, Icon, Upload } from 'antd';
 
-import './NewChallenge.css';
+import './Challenge.css';
 import {
-  updateStepFour,
-} from "../../actions/actions.creator";
+  updateStepFour, handleModal
+} from "../../../actions/actions.creator";
+import { uploadChallenge } from '../../../services/project.services'
 
 
 const { Title } = Typography;
@@ -70,17 +62,41 @@ class StepFour extends React.Component {
   handlePrev = e => {
     const values = {description: this.state.value}
     this.props.updateStepFour(values);
-    console.log('Received values of form: ', values);
     this.props.prev()
+  };
+
+  handleComplete = e => {
+    const values = {description: this.state.value}
+    this.props.updateStepFour(values);
+
+    var file = new File([this.props.challange.description], "description.md", {
+      type: "text/plain",
+    });
+
+    const formData = new FormData();
+    formData.append('title', this.props.challange.title);
+    formData.append('level', this.props.challange.level);
+    formData.append('language', this.props.challange.language);
+    formData.append('targetPath', this.props.challange.targetPath);
+    formData.append('buildPath', this.props.challange.buildPath);
+    formData.append('testcaseInputFormat', this.props.challange.testcaseInputFormat);
+    formData.append('testcaseOutputFormat', this.props.challange.testcaseOutputFormat);
+    formData.append('banner', this.props.challange.banner);
+    formData.append('description', file);
+    uploadChallenge(formData);
+
+    console.log('Received values of form: ', values);
+    message.success('Create new challenge successfully!')
+    this.props.handleModal(false);
   };
 
   render() {
     return (
-      <Row>
+      <Row gutter={10}>
         <Col span={12}>
           <Row>
             <Col span={12} offset={1}>
-              <Title level={4}>Markdown Editor</Title>
+              <Title level={4}>Describe challenge</Title>
 
             </Col>
             <Col span={5}>
@@ -106,10 +122,11 @@ class StepFour extends React.Component {
           </Row>
 
           <Input.TextArea
+            rows={20}
             value={this.state.value}
             onChange={this.onChange}
-            placeholder="Markdown Editor"
-            autoSize={{ minRows: 25, maxRows: 25 }}
+            // placeholder="Describe challenge"
+            style={{margin: '8px 0'}}
           />
 
           <Row style={{ margin: '2px' }}>
@@ -117,7 +134,7 @@ class StepFour extends React.Component {
 
             </Col>
             <Col span={4}>
-              <Button type="primary" onClick={() => message.success('Processing complete!')}>
+              <Button type="primary" onClick={this.handleComplete}>
                 Done
               </Button>
             </Col>
@@ -128,7 +145,7 @@ class StepFour extends React.Component {
             </Col>
           </Row>
         </Col>
-        <Col className="markdown-rendering" span={12} style={{ height: '75vh', overflow: 'auto' }}>
+        <Col className="markdown-rendering" span={12} style={{ height: '72vh', overflow: 'auto' }}>
           <Title level={4}>Preview</Title>
           <ReactMarkdown source={this.state.value} escapeHtml={false} />
         </Col>
@@ -138,10 +155,12 @@ class StepFour extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  description: state.newChallengeReducer.description,
+  description: state.challengeReducer.description,
+  challange: state.challengeReducer,
 });
 const mapDispatchToProps = dispatch => ({
   updateStepFour: (payload) => dispatch(updateStepFour(payload)),
+  handleModal: status => dispatch(handleModal(status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StepFour);

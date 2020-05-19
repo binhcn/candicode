@@ -3,15 +3,14 @@ import { connect } from "react-redux";
 import {
   Form,
   Button,
-  Cascader,
-  Input,
+  Cascader
 } from 'antd';
 
-import './NewChallenge.css';
-import { STEP_LENGTH } from '../../constants';
+import './Challenge.css';
+import { STEP_LENGTH } from '../../../constants';
 import {
   updateStepTwo,
-} from "../../actions/actions.creator";
+} from "../../../actions/actions.creator";
 
 const directoryTree = [
   {
@@ -47,8 +46,6 @@ const directoryTree = [
     ],
   },
 ];
-
-const { TextArea } = Input;
 
 class StepTwo extends React.Component {
   handleSubmit = e => {
@@ -100,22 +97,20 @@ class StepTwo extends React.Component {
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
         <Form.Item label="Edited file">
-          {getFieldDecorator('editedFile', {
-            initialValue: this.props.editedFile,
-            rules: [
-              { type: 'array', required: true, message: 'Please select your edited file!' },
-            ],
+          {getFieldDecorator('targetPath', {
+            initialValue: this.props.targetPath,
+            // rules: [
+            //   { type: 'array', required: true, message: 'Please select your edited file!' },
+            // ],
           })(<Cascader options={directoryTree} />)}
         </Form.Item>
-        <Form.Item label="Running commands">
-          {getFieldDecorator('commands', {
-            initialValue: this.props.commands,
-            rules: [
-              { required: true, message: 'Please select your running commands!' },
-            ],
-          })(<TextArea
-            autoSize={{ minRows: 3, maxRows: 5 }}
-          />)}
+        <Form.Item label="Build path">
+          {getFieldDecorator('buildPath', {
+            initialValue: this.props.buildPath,
+            // rules: [
+            //   { type: 'array', required: true, message: 'Please select your build path!' },
+            // ],
+          })(<Cascader options={directoryTree} />)}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           {this.props.current < STEP_LENGTH - 1 && (
@@ -135,8 +130,8 @@ class StepTwo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  editedFile: state.newChallengeReducer.editedFile,
-  commands: state.newChallengeReducer.commands,
+  targetPath: state.challengeReducer.targetPath,
+  buildPath: state.challengeReducer.buildPath,
 });
 const mapDispatchToProps = dispatch => ({
 	updateStepTwo: (payload) => dispatch(updateStepTwo(payload)),

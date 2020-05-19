@@ -52,11 +52,11 @@ const challengeList = [
 ]
 
 function Challenges() {
-	const challengeHtml = challengeList.map((item, index) => ( 
-		<Link to="/code-editor" key="index">
+	const challengeHtml = challengeList.map((item, index) => (
+		<Link to="/code-editor" key={index}>
 			<Challenge banner={item.banner} avatar={item.avatar} title={item.title} description={item.description} />
 		</Link>
-	)); 
+	));
 	return (
 		<Row className="container-fluid" gutter={32}>
 			<Col span={18}>

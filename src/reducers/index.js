@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 
 import userReducer from "./user.reducer";
-import newChallengeReducer from "./newchallenge.reducer";
+import challengeReducer from "./challenge.reducer";
 
 const reducers = combineReducers({
-  userReducer, newChallengeReducer
+  userReducer, challengeReducer,
 });
 
 export default reducers;

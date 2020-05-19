@@ -9,13 +9,11 @@ import CodeOutput from './CodeOutput';
 
 export default class Demo extends React.Component {
 
-  state = {
-    editorWidth: 678
-  }
-
   componentDidMount() {
     const left = document.querySelector('.split_left');
+    const right = document.querySelector('.split_right');
     let mouse_is_down = false;
+    let right_width;
 
     $(document).ready(e => {
       $('.split_bar').mousedown(function () {
@@ -24,17 +22,20 @@ export default class Demo extends React.Component {
       $(document).mousemove(e => {
         if (!mouse_is_down) return;
         left.style.width = `${e.clientX}px`;
-        var width = 1366 - 5 - e.clientX;
-        this.setState({
-          editorWidth: width
-        })
+        right_width = $(window).width() - 10 - e.clientX;
+        right.style.width = `${right_width}px`;
       });
       $(document).mouseup(e => {
         mouse_is_down = false;
       });
+      $(window).resize(e => {
+        var width = $(window).width() - 10 - right_width;
+        left.style.width = `${width}px`;
+      });
     })
   }
   render(){
+    
     return (
       <div>
         
@@ -56,7 +57,7 @@ export default class Demo extends React.Component {
         </div>
         <div className="split_bar"></div>
         <div className="split_right">
-          <CodeEditor editorWidth={this.state.editorWidth}/>
+          <CodeEditor/>
           <CodeOutput />
         </div>
       </div>
