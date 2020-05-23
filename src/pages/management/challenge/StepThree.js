@@ -1,106 +1,174 @@
 import React from 'react';
+import base64 from 'react-native-base64';
 import { connect } from "react-redux";
-import {
-  Form,
-  Input,
-  Button,
-} from 'antd';
+import ReactQuill from 'react-quill';
+import { Button, message, Row, Col, Typography, Icon, Upload } from 'antd';
 
 import './Challenge.css';
-import { STEP_LENGTH } from '../../../constants';
+import { MODULE_SET, FORMAT_SET } from '../../../constants/index';
 import {
-  updateStepThree,
+  updateStepThree, handleModal, updateChallenge
 } from "../../../actions/actions.creator";
+import { uploadChallenge } from '../../../services/project.services';
 
+const { Title } = Typography;
+
+function getBase64(img, callback) {
+  const reader = new FileReader();
+  reader.addEventListener('load', () => callback(reader.result));
+  reader.readAsDataURL(img);
+}
+
+function beforeUpload(file) {
+  // const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  const isJpgOrPng = true;
+  if (!isJpgOrPng) {
+    message.error('You can only upload JPG/PNG file!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Image must smaller than 2MB!');
+  }
+  return isJpgOrPng && isLt2M;
+}
 
 class StepThree extends React.Component {
-
-  handlePrev = () => {
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.updateStepThree(values);
-        console.log('Received values of form: ', values);
-      }
-    });
-    this.props.prev();
+  state = {
+    loading: false,
+    description: this.props.description,
+    descriptionUrl: '',
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.updateStepThree(values);
-        console.log('Received values of form: ', values);
-        this.props.next()
-      }
+  handleChange = info => {
+    if (info.file.status === 'uploading') {
+      this.setState({ loading: true });
+      return;
+    }
+    if (info.file.status === 'done') {
+      getBase64(info.file.originFileObj, descriptionUrl => {
+        this.setState({
+          descriptionUrl,
+          description: base64.decode(descriptionUrl.split(",")[1]),
+          loading: false,
+        })
+      },
+      );
+    }
+  };
+
+  onChange = ({ target: { value } }) => {
+    this.setState({ description: value });
+  };
+
+  handlePrev = e => {
+    const values = {description: this.state.description}
+    this.props.updateStepThree(values);
+    this.props.prev()
+  };
+
+  handleChangeDescription = html => {
+    this.setState({description: html});
+  }
+
+  onDownload = () => {
+    var file = new File([this.state.description], "description.html", {
+      type: "text/plain",
     });
+    this.setState({descriptionUrl: window.URL.createObjectURL(file)});
+  };
+
+  handleComplete = e => {
+    const values = {description: this.state.description}
+    this.props.updateStepThree(values);
+
+    var file = new File([this.state.description], "description.md", {
+      type: "text/plain",
+    });
+
+    const formData = new FormData();
+    formData.append('title', this.props.challange.title);
+    formData.append('level', this.props.challange.level);
+    formData.append('language', this.props.challange.language);
+    formData.append('targetPath', this.props.challange.targetPath);
+    formData.append('buildPath', this.props.challange.buildPath);
+    formData.append('testcaseInputFormat', this.props.challange.testcaseInputFormat);
+    formData.append('testcaseOutputFormat', this.props.challange.testcaseOutputFormat);
+    formData.append('banner', this.props.challange.banner);
+    formData.append('description', file);
+    // uploadChallenge(formData);
+
+    var { data, visible, ...rest } = this.props.challange;
+    const request = Object.assign({}, rest, {id: this.props.challange.id, description: this.state.description});
+    this.props.updateChallenge(request);
+
+    message.success('Create new challenge successfully!');
+    this.props.handleModal(false);
   };
 
   render() {
-    const { getFieldDecorator } = this.props.form;
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 8 },
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 10 },
-      },
-    };
-    const tailFormItemLayout = {
-      wrapperCol: {
-        xs: {
-          span: 24,
-          offset: 0,
-        },
-        sm: {
-          span: 16,
-          offset: 8,
-        },
-      },
-    };
     return (
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        <Form.Item label="Testcase Input Format" >
-          {getFieldDecorator('testcaseInputFormat', {
-            initialValue: this.props.testcaseInputFormat,
-            // rules: [{ required: true, message: "Please input your testcase input format!", whitespace: true }],
-          })(<Input />)}
-        </Form.Item>
-        <Form.Item label="Testcase Output Format" >
-          {getFieldDecorator('testcaseOutputFormat', {
-            initialValue: this.props.testcaseOutputFormat,
-            // rules: [{ required: true, message: "Please input your testcase output format!", whitespace: true }],
-          })(<Input />)}
-        </Form.Item>
-        <Form.Item {...tailFormItemLayout}>
-          {this.props.current < STEP_LENGTH - 1 && (
-            <Button type="primary" htmlType="submit">
-              Next
+        <div>
+          <Row>
+            <Col span={16} offset={1}>
+              <Title level={4}>Describe challenge</Title>
+
+            </Col>
+            <Col span={3}>
+              <Upload
+                showUploadList={false}
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                beforeUpload={beforeUpload}
+                onChange={this.handleChange}
+              >
+                <Button>
+                  <Icon type="upload" /> Upload
+                </Button>
+              </Upload>
+
+            </Col>
+            <Col span={4}>
+              <a href={this.state.descriptionUrl} download="description.html">
+                <Button onClick={this.onDownload}>
+                  <Icon type="download" /> Download
+                </Button>
+              </a>
+            </Col>
+          </Row>
+
+          <ReactQuill 
+            theme="snow"
+            value={this.state.description}
+            onChange={this.handleChangeDescription}
+            modules={MODULE_SET}
+            formats={FORMAT_SET}
+            style={{height: '60vh'}}
+          />
+
+          <Row style={{marginTop: '50px'}}>
+            <Col span={2} offset={18}>
+              <Button type="primary" onClick={this.handleComplete}>
+                Done
+              </Button>
+            </Col>
+            <Col span={4}>
+              <Button onClick={this.handlePrev}>
+                Previous
             </Button>
-          )}
-          {this.props.current > 0 && (
-            <Button style={{ marginLeft: 8 }} onClick={this.handlePrev}>
-              Previous
-            </Button>
-          )}
-        </Form.Item>
-      </Form>
+            </Col>
+          </Row>
+        </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  testcaseInputFormat: state.challengeReducer.testcaseInputFormat,
-  testcaseOutputFormat: state.challengeReducer.testcaseOutputFormat,
+  description: state.challengeReducer.description,
+  challange: state.challengeReducer,
 });
 const mapDispatchToProps = dispatch => ({
-	updateStepThree: (payload) => dispatch(updateStepThree(payload)),
+  updateStepThree: (payload) => dispatch(updateStepThree(payload)),
+  handleModal: status => dispatch(handleModal(status)),
+  updateChallenge: request => dispatch(updateChallenge(request)),
 });
 
-const WrappedStepThree = Form.create({ name: 'stepThree' })(
-  connect(mapStateToProps, mapDispatchToProps)(StepThree)
-);
-
-export default WrappedStepThree;
+export default connect(mapStateToProps, mapDispatchToProps)(StepThree);

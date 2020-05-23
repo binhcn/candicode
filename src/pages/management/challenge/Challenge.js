@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from "react-redux";
 import { Table, Popconfirm, Button, Tag, Divider, Modal } from 'antd';
 import {
-	deleteChallenge, handleModal, handleChallenge
+	deleteChallenge, handleModal, handleChallenge, handleSourceModal, handleTestcaseModal
 } from "../../../actions/actions.creator";
 
 import ChallengeModal from './ChallengeModal';
+import SourceUpdate from './SourceUpdate';
+import TestcaseUpdate from './TestcaseUpdate';
 import './Challenge.css';
 
 class Challenge extends React.Component {
@@ -56,16 +58,16 @@ class Challenge extends React.Component {
         render: (text, record) => {
           return (
             <span>
-              <Button type="link">
-                Edit
+              <Button type="link" onClick={() => this.showModal(record)}>
+                Edit info
               </Button>
               <Divider type="vertical" />
-              <Button type="link">
-                Add testcase
+              <Button type="link" onClick={() => this.showTestcaseModal(record)}>
+                Edit testcase
                 </Button>
               <Divider type="vertical" />
-              <Button type="link">
-                Add language
+              <Button type="link" onClick={() => this.showSourceModal(record)}>
+                Edit language
                 </Button>
               <Divider type="vertical" />
               <Popconfirm title="Sure to delete?"
@@ -85,6 +87,7 @@ class Challenge extends React.Component {
   showModal = (record) => {
     if (record === null) {
       record = {
+        id: '',
         title: "",
         level: "",
         language: "",
@@ -105,24 +108,62 @@ class Challenge extends React.Component {
     this.props.handleModal(true);
   };
 
+  showSourceModal = (record) => {
+    this.props.handleChallenge(record);
+    this.props.handleSourceModal(true);
+  };
+
+  showTestcaseModal = (record) => {
+    this.props.handleChallenge(record);
+    this.props.handleTestcaseModal(true);
+  };
+
   render() {
     return (
       <div>
         <Button onClick={() => this.showModal(null)} type="primary" style={{ marginBottom: 16 }}>
           Create challenge
         </Button>
-        { this.props.visible && <Modal 
-          className="challenge-modal"
-          key="modal"
-          title="Create challenge"
-          centered={true}
-          width="1200px"
-          visible={this.props.visible}
-          onCancel={() => this.props.handleModal(false)}
-          footer={null}
-        >
-          <ChallengeModal />
-        </Modal> }
+        { this.props.visible && 
+          <Modal 
+            className="challenge-modal"
+            key="modal"
+            title="Create challenge"
+            centered={true}
+            width="1200px"
+            visible={this.props.visible}
+            onCancel={() => this.props.handleModal(false)}
+            footer={null}
+          >
+            <ChallengeModal />
+          </Modal>
+        }
+        { this.props.visibleSourceModal && 
+          <Modal 
+            className="challenge-modal"
+            key="source-modal"
+            title="Update language source"
+            centered={true}
+            visible={this.props.visibleSourceModal}
+            onCancel={() => this.props.handleSourceModal(false)}
+            footer={null}
+          >
+            <SourceUpdate />
+          </Modal>
+        }
+        { this.props.visibleTestcaseModal && 
+          <Modal 
+            className="testcase-modal"
+            key="testcase-modal"
+            title="Update testcase"
+            width="800px"
+            visible={this.props.visibleTestcaseModal}
+            onCancel={() => this.props.handleTestcaseModal(false)}
+            footer={null}
+          >
+            <TestcaseUpdate />
+          </Modal>
+        }
         <Table
           bordered
           dataSource={this.props.data}
@@ -136,11 +177,15 @@ class Challenge extends React.Component {
 const mapStateToProps = state => ({
   data: state.challengeReducer.data,
   visible: state.challengeReducer.visible,
+  visibleSourceModal: state.challengeReducer.visibleSourceModal,
+  visibleTestcaseModal: state.challengeReducer.visibleTestcaseModal,
 });
 
 const mapDispatchToProps = dispatch => ({
   deleteChallenge: id => dispatch(deleteChallenge(id)),
   handleModal: status => dispatch(handleModal(status)),
+  handleSourceModal: status => dispatch(handleSourceModal(status)),
+  handleTestcaseModal: status => dispatch(handleTestcaseModal(status)),
   handleChallenge: record => dispatch(handleChallenge(record)),
 });
 

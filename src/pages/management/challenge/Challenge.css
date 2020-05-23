@@ -8,5 +8,9 @@
 }
 
 .ant-steps-item-container {
-  line-height: 125px;
+  line-height: 170px;
+}
+
+.challenge-source-modal .ant-form-item-control-wrapper {
+  width: 60%;
 }

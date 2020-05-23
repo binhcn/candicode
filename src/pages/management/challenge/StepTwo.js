@@ -1,10 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import {
-  Form,
-  Button,
-  Cascader
-} from 'antd';
+import { Form, Button, Cascader, Input } from 'antd';
 
 import './Challenge.css';
 import { STEP_LENGTH } from '../../../constants';
@@ -15,15 +11,18 @@ import {
 const directoryTree = [
   {
     value: 'zhejiang',
-    label: 'Zhejiang',
+    label: 'Zhejiang_label',
+    type: "directory",
     children: [
       {
         value: 'hangzhou',
-        label: 'Hangzhou',
+        label: 'Hangzhou_label',
+        type: "directory",
         children: [
           {
             value: 'xihu',
-            label: 'West Lake',
+            label: 'West Lake_label',
+            type: "directory",
           },
         ],
       },
@@ -112,6 +111,18 @@ class StepTwo extends React.Component {
             // ],
           })(<Cascader options={directoryTree} />)}
         </Form.Item>
+        <Form.Item label="Testcase Input Format" >
+          {getFieldDecorator('testcaseInputFormat', {
+            initialValue: this.props.testcaseInputFormat,
+            // rules: [{ required: true, message: "Please input your testcase input format!", whitespace: true }],
+          })(<Input />)}
+        </Form.Item>
+        <Form.Item label="Testcase Output Format" >
+          {getFieldDecorator('testcaseOutputFormat', {
+            initialValue: this.props.testcaseOutputFormat,
+            // rules: [{ required: true, message: "Please input your testcase output format!", whitespace: true }],
+          })(<Input />)}
+        </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           {this.props.current < STEP_LENGTH - 1 && (
             <Button type="primary" htmlType="submit">
@@ -132,6 +143,8 @@ class StepTwo extends React.Component {
 const mapStateToProps = state => ({
   targetPath: state.challengeReducer.targetPath,
   buildPath: state.challengeReducer.buildPath,
+  testcaseInputFormat: state.challengeReducer.testcaseInputFormat,
+  testcaseOutputFormat: state.challengeReducer.testcaseOutputFormat,
 });
 const mapDispatchToProps = dispatch => ({
 	updateStepTwo: (payload) => dispatch(updateStepTwo(payload)),

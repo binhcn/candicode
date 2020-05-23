@@ -16,25 +16,8 @@ import { STEP_LENGTH } from '../../../constants';
 import {
   updateStepOne,
 } from "../../../actions/actions.creator";
-import { uploadSource } from '../../../services/project.services'
-
-const { Option } = Select;
-
-const languageSet = [
-  'Java',
-  'Python',
-  'C',
-  'C++',
-  'SQL',
-  'Golang',
-  'Javascript',
-]
-
-const levelSet = [
-  'easy',
-  'moderate',
-  'hard'
-]
+import { uploadSource } from '../../../services/project.services';
+import { LANGUAGE_SET, LEVEL_SET } from '../../../constants';
 
 function getBase64(img, callback) {
   const reader = new FileReader();
@@ -89,7 +72,7 @@ class StepOne extends React.Component {
         const formData = new FormData();
         if (values.source) { 
           formData.append('file', values.source[0].originFileObj);
-          uploadSource(formData);
+          // uploadSource(formData);
         }
 
         this.props.next()
@@ -122,12 +105,12 @@ class StepOne extends React.Component {
       },
     };
 
-    const languageOpt = languageSet.sort().map(language => (
-      <Option key={language} value={language}>{language}</Option>
+    const languageOpt = LANGUAGE_SET.sort().map(language => (
+      <Select.Option key={language} value={language}>{language}</Select.Option>
     ));
 
-    const levelOpt = levelSet.sort().map(level => (
-      <Option key={level} value={level}>{level}</Option>
+    const levelOpt = LEVEL_SET.sort().map(level => (
+      <Select.Option key={level} value={level}>{level}</Select.Option>
     ));
 
     const uploadButton = (
@@ -154,33 +137,6 @@ class StepOne extends React.Component {
             // rules: [{ required: true, message: "Please input your new challenge's name!", whitespace: true }],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Your challenge (.zip)">
-          {getFieldDecorator('source', {
-            initialValue: this.props.source,
-            valuePropName: 'fileList',
-            getValueFromEvent: (e) => { return [e.file]; },
-          })(
-            <Upload 
-              name="source" 
-              listType="picture" 
-              method="get"
-            >
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>,
-          )}
-        </Form.Item>
-        <Form.Item label="Language" hasFeedback>
-          {getFieldDecorator('language', {
-            initialValue: this.props.language,
-            // rules: [{ required: true, message: 'Please select its language!' }],
-          })(
-            <Select placeholder="Please select a language">
-              {languageOpt}
-            </Select>,
-          )}
-        </Form.Item>
         <Form.Item label="Level" hasFeedback>
           {getFieldDecorator('level', {
             initialValue: this.props.level,
@@ -191,6 +147,36 @@ class StepOne extends React.Component {
             </Select>,
           )}
         </Form.Item>
+        {this.props.id === '' && 
+          <Form.Item label="Language" hasFeedback>
+            {getFieldDecorator('language', {
+              initialValue: this.props.language,
+              // rules: [{ required: true, message: 'Please select its language!' }],
+            })(
+              <Select placeholder="Please select a language">
+                {languageOpt}
+              </Select>,
+            )}
+          </Form.Item>
+        }
+        {this.props.id === '' && 
+          <Form.Item label="Your challenge (.zip)">
+            {getFieldDecorator('source', {
+              initialValue: this.props.source,
+              valuePropName: 'fileList',
+              getValueFromEvent: (e) => { return [e.file]; },
+            })(
+              <Upload 
+                name="source"
+                method="get"
+              >
+                <Button>
+                  <Icon type="upload" /> Click to upload
+                </Button>
+              </Upload>,
+            )}
+          </Form.Item>
+        }
         <Form.Item label="Your banner">
           {getFieldDecorator('banner', {
             initialValue: this.props.banner,
@@ -223,6 +209,7 @@ class StepOne extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  id: state.challengeReducer.id,
   title: state.challengeReducer.title,
   source: state.challengeReducer.source,
   language: state.challengeReducer.language,

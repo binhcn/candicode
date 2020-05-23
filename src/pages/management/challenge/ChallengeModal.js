@@ -5,7 +5,6 @@ import './Challenge.css';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
 import StepThree from './StepThree';
-import StepFour from './StepFour';
 
 const { Step } = Steps;
 
@@ -13,7 +12,7 @@ export default class ChallengeModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: 3,
+      current: 0,
     };
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
@@ -42,11 +41,7 @@ export default class ChallengeModal extends React.Component {
       },
       {
         title: 'Third',
-        content: <StepThree current={current} next={this.next} prev={this.prev} />,
-      },
-      {
-        title: 'Last',
-        content: <StepFour current={current} prev={this.prev} />,
+        content: <StepThree current={current} prev={this.prev} />,
       },
     ];
     return (

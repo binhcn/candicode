@@ -6,11 +6,15 @@ export const LOGOUT = "Logout";
 export const UPDATE_STEP_ONE = "Update step one";
 export const UPDATE_STEP_TWO = "Update step two";
 export const UPDATE_STEP_THREE = "Update step three";
-export const UPDATE_STEP_FOUR = "Update step four";
 
 export const HANDLE_CHALLENGE = "Handle challenge";
 export const DELETE_CHALLENGE = "Delete challenge";
 export const HANDLE_MODAL = "Handle modal";
+export const HANDLE_SOURCE_MODAL = "Handle source modal";
+export const HANDLE_TESTCASE_MODAL = "Handle testcase modal";
+
+export const UPDATE_CHALLENGE = "Update challenge";
+export const UPDATE_LANGUAGE = "Update language";
 
 
 export const GET_BY_PROJECT_NAME =
