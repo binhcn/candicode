@@ -1,32 +1,32 @@
 import React from 'react';
-import $ from 'jquery';
+// import $ from 'jquery';
 import './Home.css';
-import Challenge from '../challenges/Challenge';
+// import Challenge from '../challenges/Challenge';
 
 export default class Home extends React.Component {
-  componentDidMount() {
-    $(document).ready(function () {
-      (function ($) {
-        $('.owl-carousel').owlCarousel({
-          center: true,
-          items: 2,
-          loop: true,
-          margin: 10,
-          responsive: {
-            0: {
-              items: 1
-            },
-            600: {
-              items: 2
-            },
-            1000: {
-              items: 4
-            }
-          }
-        });
-      })(window.jQuery);
-    });
-  }
+  // componentDidMount() {
+  //   $(document).ready(function () {
+  //     (function ($) {
+  //       $('.owl-carousel').owlCarousel({
+  //         center: true,
+  //         items: 2,
+  //         loop: true,
+  //         margin: 10,
+  //         responsive: {
+  //           0: {
+  //             items: 1
+  //           },
+  //           600: {
+  //             items: 2
+  //           },
+  //           1000: {
+  //             items: 4
+  //           }
+  //         }
+  //       });
+  //     })(window.jQuery);
+  //   });
+  // }
   render() {
     return (
       <div className="container">
@@ -53,7 +53,7 @@ export default class Home extends React.Component {
           </div>
         </div>
 
-        <div id="reccomended" className="owl-carousel owl-theme">
+        {/* <div id="reccomended" className="owl-carousel owl-theme">
           <div className="item">
             <Challenge style={{ zIndex: '-5' }} banner="https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.jpg" avatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" title="Functional programming" description="Very hard" />
           </div>
@@ -72,7 +72,7 @@ export default class Home extends React.Component {
           <div className="item">
             <Challenge style={{ zIndex: '-5' }} banner="https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.jpg" avatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" title="Functional programming" description="Very hard" />
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

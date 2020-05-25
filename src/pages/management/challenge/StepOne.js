@@ -1,22 +1,12 @@
 import React from 'react';
 import { connect } from "react-redux";
-import {
-  Form,
-  Input,
-  Tooltip,
-  Icon,
-  Button,
-  Upload,
-  Select,
-  message
-} from 'antd';
+import { Form, Input, Tooltip, Icon, Button, Upload, Select, message } from 'antd';
 
 import './Challenge.css';
 import { STEP_LENGTH } from '../../../constants';
 import {
-  updateStepOne,
+  updateStepOne, uploadSource, updateStep,
 } from "../../../actions/actions.creator";
-import { uploadSource } from '../../../services/project.services';
 import { LANGUAGE_SET, LEVEL_SET } from '../../../constants';
 
 function getBase64(img, callback) {
@@ -70,12 +60,14 @@ class StepOne extends React.Component {
         console.log('Received values of form: ', payload);
 
         const formData = new FormData();
+        var step = 1;
         if (values.source) { 
-          formData.append('file', values.source[0].originFileObj);
-          // uploadSource(formData);
+          formData.append('sourceCode', values.source[0].originFileObj);
+          this.props.uploadSource(formData);
+          this.props.updateStep(step);
+        } else {
+          this.props.updateStep(step);
         }
-
-        this.props.next()
       }
     });
   };
@@ -134,13 +126,17 @@ class StepOne extends React.Component {
         >
           {getFieldDecorator('title', {
             initialValue: this.props.title,
-            // rules: [{ required: true, message: "Please input your new challenge's name!", whitespace: true }],
+            validateTrigger: ['onBlur'],
+            rules: [{ 
+              required: true, message: "Please input your new challenge's name!", 
+              whitespace: true 
+            }],
           })(<Input />)}
         </Form.Item>
         <Form.Item label="Level" hasFeedback>
           {getFieldDecorator('level', {
             initialValue: this.props.level,
-            // rules: [{ required: true, message: 'Please select its level!' }],
+            rules: [{ required: true, message: 'Please select its level!' }],
           })(
             <Select placeholder="Please select a level">
               {levelOpt}
@@ -151,7 +147,7 @@ class StepOne extends React.Component {
           <Form.Item label="Language" hasFeedback>
             {getFieldDecorator('language', {
               initialValue: this.props.language,
-              // rules: [{ required: true, message: 'Please select its language!' }],
+              rules: [{ required: true, message: 'Please select its language!' }],
             })(
               <Select placeholder="Please select a language">
                 {languageOpt}
@@ -163,6 +159,7 @@ class StepOne extends React.Component {
           <Form.Item label="Your challenge (.zip)">
             {getFieldDecorator('source', {
               initialValue: this.props.source,
+              rules: [{ required: true, message: 'Please select project source!' }],
               valuePropName: 'fileList',
               getValueFromEvent: (e) => { return [e.file]; },
             })(
@@ -197,7 +194,7 @@ class StepOne extends React.Component {
           )}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          {this.props.current < STEP_LENGTH - 1 && (
+          {this.props.currentStep < STEP_LENGTH - 1 && (
             <Button type="primary" htmlType="submit">
               Next
             </Button>
@@ -216,9 +213,13 @@ const mapStateToProps = state => ({
   level: state.challengeReducer.level,
   banner: state.challengeReducer.banner,
   imageUrl: state.challengeReducer.imageUrl,
+  projectStructure: state.challengeReducer.projectStructure,
+  currentStep: state.challengeReducer.currentStep,
 });
 const mapDispatchToProps = dispatch => ({
   updateStepOne: (payload) => dispatch(updateStepOne(payload)),
+  uploadSource: (payload) => dispatch(uploadSource(payload)),
+  updateStep: (payload) => dispatch(updateStep(payload)),
 });
 
 const WrappedStepOne = Form.create({ name: 'stepOne' })(

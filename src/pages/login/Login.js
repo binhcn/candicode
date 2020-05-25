@@ -55,18 +55,22 @@ class LoginForm extends React.Component {
 				login(loginRequest)
 					.then(response => {
 						if (response.status === 200) {
-							localStorage.setItem(ACCESS_TOKEN, response.results.content.token);
+							localStorage.setItem(ACCESS_TOKEN, response.data.result.token);
 							this.props.onLogin();
 						} else {
-							if (response.status === 401) {
+							console.log(response)
+							if (response.code === 401) {
 								notification.error({
 									message: 'Candicode',
 									description: 'Your Username or Password is incorrect. Please try again!'
 								});
 							} else {
+								const msg = response.subErrors 
+								? response.subErrors[0].message + ': ' + response.subErrors[0].reason 
+								: response.message + ': ' + response.reason;
 								notification.error({
-									message: 'Candicode',
-									description: response.message || 'Sorry! Something went wrong. Please try again!'
+									message: "Failure",
+									description: msg || 'Sorry! Something went wrong. Please try again!',
 								});
 							}
 						}
@@ -88,6 +92,7 @@ class LoginForm extends React.Component {
 			<Form onSubmit={this.handleSubmit}>
 				<FormItem>
 					{getFieldDecorator('email', {
+						validateTrigger: ['onBlur'],
 						rules: [{
 											required: true,
 											message: 'Please input your username!',
@@ -95,11 +100,15 @@ class LoginForm extends React.Component {
 										{
 											min: USERNAME_MIN_LENGTH,
 											max: USERNAME_MAX_LENGTH,
-											message: `Your username must be longer than or equal to ${USERNAME_MIN_LENGTH}, shorter than equal to ${USERNAME_MAX_LENGTH}!`,
+											message: `Username must be longer than or equal to ${USERNAME_MIN_LENGTH}, shorter than equal to ${USERNAME_MAX_LENGTH}!`,
 										},
 										{
 											whitespace: true,
 											message: 'Your username only has whitespaces!',
+										},
+										{
+											pattern: '[^@ ]+@[^@ ]+\\.[^@ ]+',
+											message: "Email format might be incorrect!",
 										},
 									],
 					})(
@@ -112,6 +121,7 @@ class LoginForm extends React.Component {
 				</FormItem>
 				<FormItem>
 					{getFieldDecorator('password', {
+						validateTrigger: ['onBlur'],
 						rules: [{ required: true,
 											message: 'Please input your Password!',
 										},

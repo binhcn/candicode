@@ -36,19 +36,23 @@ class SignupForm extends React.Component {
 				signup(signupRequest)
 					.then(response => {
 						console.log(response)
-						if (response.status === 200) {
+						if (response.status === 201) {
 							notification.success({
 								message: "Success",
 								description: "Thank you! You're successfully registered. Please Login to continue!",
 							});
 							this.convertLogin();
 						} else {
+							const msg = response.subErrors 
+								? response.subErrors[0].message + ': ' + response.subErrors[0].reason 
+								: response.message + ': ' + response.reason;
 							notification.error({
 								message: "Failure",
-								description: response.message,
+								description: msg || 'Sorry! Something went wrong. Please try again!',
 							});
 						}
 					}).catch(error => {
+						console.log(error)
 						notification.error({
 							message: 'Candicode',
 							description: error.message || 'Sorry! Something went wrong. Please try again!'
@@ -71,6 +75,7 @@ class SignupForm extends React.Component {
 					<Col span={12}>
 						<FormItem>
 							{getFieldDecorator('firstName', {
+								validateTrigger: ['onBlur'],
 								rules: [{
 									required: true,
 									message: 'Please input your first name!',
@@ -97,6 +102,7 @@ class SignupForm extends React.Component {
 					<Col span={12}>
 						<FormItem>
 							{getFieldDecorator('lastName', {
+								validateTrigger: ['onBlur'],
 								rules: [{
 									required: true,
 									message: 'Please input your last name!',
@@ -123,6 +129,7 @@ class SignupForm extends React.Component {
 				</Row>
 				<FormItem>
 					{getFieldDecorator('email', {
+						validateTrigger: ['onBlur'],
 						rules: [{
 							required: true,
 							message: 'Please input your email!',
@@ -150,6 +157,7 @@ class SignupForm extends React.Component {
 				</FormItem>
 				<FormItem>
 					{getFieldDecorator('password', {
+						validateTrigger: ['onBlur'],
 						rules: [{
 							required: true,
 							message: 'Please input your Password!',
@@ -175,6 +183,7 @@ class SignupForm extends React.Component {
 				</FormItem>
 				<FormItem>
 					{getFieldDecorator('confirmPassword', {
+						validateTrigger: ['onBlur'],
 						rules: [{
 							required: true,
 							message: 'Please input again your Password!',

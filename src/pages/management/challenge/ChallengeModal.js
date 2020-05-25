@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { Steps, Row, Col } from 'antd';
 
 import './Challenge.css';
@@ -8,55 +9,57 @@ import StepThree from './StepThree';
 
 const { Step } = Steps;
 
-export default class ChallengeModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      current: 0,
-    };
-    this.next = this.next.bind(this);
-    this.prev = this.prev.bind(this);
-  }
-
-  next() {
-    const current = this.state.current + 1;
-    this.setState({ current });
-  }
-
-  prev() {
-    const current = this.state.current - 1;
-    this.setState({ current });
-  }
+class ChallengeModal extends React.Component {
 
   render() {
-    const { current } = this.state;
-    const steps = [
+    var steps = this.props.id ? 
+    [
       {
         title: 'First',
-        content: <StepOne current={current} next={this.next} />,
+        content: <StepOne />,
       },
       {
         title: 'Second',
-        content: <StepTwo current={current} next={this.next} prev={this.prev} />,
+        content: <StepThree />,
+      },
+    ] :
+    [
+      {
+        title: 'First',
+        content: <StepOne />,
+      },
+      {
+        title: 'Second',
+        content: <StepTwo />,
       },
       {
         title: 'Third',
-        content: <StepThree current={current} prev={this.prev} />,
+        content: <StepThree />,
       },
     ];
     return (
       <Row>
         <Col span={4}>
-          <Steps direction="vertical" current={current} style={{width: '50%', margin: '10vh auto' }} >
+          <Steps direction="vertical" current={this.props.currentStep} style={{width: '50%', margin: '10vh auto' }} >
             {steps.map(item => (
               <Step key={item.title} title={item.title}/>
             ))}
           </Steps>
         </Col>
         <Col span={20}>
-          <div>{steps[current].content}</div>
+          <div>{steps[this.props.currentStep].content}</div>
         </Col>
       </Row>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  currentStep: state.challengeReducer.currentStep,
+  id: state.challengeReducer.id,
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengeModal);

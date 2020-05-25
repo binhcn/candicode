@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from "react-redux";
 import { Table, Popconfirm, Button, Tag, Divider, Modal } from 'antd';
 import {
-	deleteChallenge, handleModal, handleChallenge, handleSourceModal, handleTestcaseModal
+  deleteChallenge, handleModal, handleChallenge, handleSourceModal,
+  handleTestcaseModal, getAllChallenges,
 } from "../../../actions/actions.creator";
 
 import ChallengeModal from './ChallengeModal';
@@ -13,10 +14,11 @@ import './Challenge.css';
 class Challenge extends React.Component {
   constructor(props) {
     super(props);
+    this.props.getAllChallenges();
     this.columns = [
       {
         title: 'ID',
-        dataIndex: 'id',
+        dataIndex: 'key',
         width: '5%',
       },
       {
@@ -104,6 +106,7 @@ class Challenge extends React.Component {
         description: "",
       }
     }
+    record = {...record, currentStep: 0};
     this.props.handleChallenge(record);
     this.props.handleModal(true);
   };
@@ -187,6 +190,7 @@ const mapDispatchToProps = dispatch => ({
   handleSourceModal: status => dispatch(handleSourceModal(status)),
   handleTestcaseModal: status => dispatch(handleTestcaseModal(status)),
   handleChallenge: record => dispatch(handleChallenge(record)),
+  getAllChallenges: () => dispatch(getAllChallenges()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Challenge);

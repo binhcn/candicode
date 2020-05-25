@@ -5,46 +5,8 @@ import { Form, Button, Cascader, Input } from 'antd';
 import './Challenge.css';
 import { STEP_LENGTH } from '../../../constants';
 import {
-  updateStepTwo,
+  updateStepTwo, updateStep,
 } from "../../../actions/actions.creator";
-
-const directoryTree = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang_label',
-    type: "directory",
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou_label',
-        type: "directory",
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake_label',
-            type: "directory",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
 
 class StepTwo extends React.Component {
   handleSubmit = e => {
@@ -53,7 +15,8 @@ class StepTwo extends React.Component {
       if (!err) {
         this.props.updateStepTwo(values);
         console.log('Received values of form: ', values);
-        this.props.next()
+        const step = 1;
+        this.props.updateStep(step);
       }
     });
   };
@@ -63,7 +26,8 @@ class StepTwo extends React.Component {
       if (!err) {
         this.props.updateStepTwo(values);
         console.log('Received values of form: ', values);
-        this.props.prev()
+        const step = -1;
+        this.props.updateStep(step);
       }
     });
   };
@@ -98,38 +62,48 @@ class StepTwo extends React.Component {
         <Form.Item label="Edited file">
           {getFieldDecorator('targetPath', {
             initialValue: this.props.targetPath,
-            // rules: [
-            //   { type: 'array', required: true, message: 'Please select your edited file!' },
-            // ],
-          })(<Cascader options={directoryTree} />)}
+            rules: [
+              { type: 'array', required: true, message: 'Please select your edited file path!' },
+            ],
+          })(<Cascader options={this.props.projectStructure} />)}
         </Form.Item>
-        <Form.Item label="Build path">
+        <Form.Item label="Build file">
           {getFieldDecorator('buildPath', {
             initialValue: this.props.buildPath,
-            // rules: [
-            //   { type: 'array', required: true, message: 'Please select your build path!' },
-            // ],
-          })(<Cascader options={directoryTree} />)}
+            rules: [
+              { type: 'array', required: true, message: 'Please select your build path!' },
+            ],
+          })(<Cascader options={this.props.projectStructure} />)}
+        </Form.Item>
+        <Form.Item label="Prototype file">
+          {getFieldDecorator('editPath', {
+            initialValue: this.props.editPath,
+            rules: [
+              { type: 'array', required: true, message: 'Please select your prototype file path!' },
+            ],
+          })(<Cascader options={this.props.projectStructure} />)}
         </Form.Item>
         <Form.Item label="Testcase Input Format" >
-          {getFieldDecorator('testcaseInputFormat', {
-            initialValue: this.props.testcaseInputFormat,
-            // rules: [{ required: true, message: "Please input your testcase input format!", whitespace: true }],
+          {getFieldDecorator('tcInputFormat', {
+            initialValue: this.props.tcInputFormat,
+            validateTrigger: ['onBlur'],
+            rules: [{ required: true, message: "Please input your testcase input format!", whitespace: true }],
           })(<Input />)}
         </Form.Item>
         <Form.Item label="Testcase Output Format" >
-          {getFieldDecorator('testcaseOutputFormat', {
-            initialValue: this.props.testcaseOutputFormat,
-            // rules: [{ required: true, message: "Please input your testcase output format!", whitespace: true }],
+          {getFieldDecorator('tcOutputFormat', {
+            initialValue: this.props.tcOutputFormat,
+            validateTrigger: ['onBlur'],
+            rules: [{ required: true, message: "Please input your testcase output format!", whitespace: true }],
           })(<Input />)}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          {this.props.current < STEP_LENGTH - 1 && (
+          {this.props.currentStep < STEP_LENGTH - 1 && (
             <Button type="primary" htmlType="submit">
               Next
             </Button>
           )}
-          {this.props.current > 0 && (
+          {this.props.currentStep > 0 && (
             <Button style={{ marginLeft: 8 }} onClick={this.handlePrev}>
               Previous
             </Button>
@@ -143,11 +117,15 @@ class StepTwo extends React.Component {
 const mapStateToProps = state => ({
   targetPath: state.challengeReducer.targetPath,
   buildPath: state.challengeReducer.buildPath,
-  testcaseInputFormat: state.challengeReducer.testcaseInputFormat,
-  testcaseOutputFormat: state.challengeReducer.testcaseOutputFormat,
+  editPath: state.challengeReducer.editPath,
+  tcInputFormat: state.challengeReducer.tcInputFormat,
+  tcOutputFormat: state.challengeReducer.tcOutputFormat,
+  projectStructure: state.challengeReducer.projectStructure,
+  currentStep: state.challengeReducer.currentStep,
 });
 const mapDispatchToProps = dispatch => ({
 	updateStepTwo: (payload) => dispatch(updateStepTwo(payload)),
+	updateStep: (payload) => dispatch(updateStep(payload)),
 });
 
 const WrappedStepTwo = Form.create({ name: 'stepTwo' })(

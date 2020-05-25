@@ -7,9 +7,8 @@ import { Button, message, Row, Col, Typography, Icon, Upload } from 'antd';
 import './Challenge.css';
 import { MODULE_SET, FORMAT_SET } from '../../../constants/index';
 import {
-  updateStepThree, handleModal, updateChallenge
+  updateStepThree, handleModal, updateChallenge, updateStep
 } from "../../../actions/actions.creator";
-import { uploadChallenge } from '../../../services/project.services';
 
 const { Title } = Typography;
 
@@ -63,7 +62,8 @@ class StepThree extends React.Component {
   handlePrev = e => {
     const values = {description: this.state.description}
     this.props.updateStepThree(values);
-    this.props.prev()
+    const step = -1;
+    this.props.updateStep(step);
   };
 
   handleChangeDescription = html => {
@@ -81,27 +81,30 @@ class StepThree extends React.Component {
     const values = {description: this.state.description}
     this.props.updateStepThree(values);
 
-    var file = new File([this.state.description], "description.md", {
-      type: "text/plain",
-    });
-
     const formData = new FormData();
-    formData.append('title', this.props.challange.title);
-    formData.append('level', this.props.challange.level);
-    formData.append('language', this.props.challange.language);
-    formData.append('targetPath', this.props.challange.targetPath);
-    formData.append('buildPath', this.props.challange.buildPath);
-    formData.append('testcaseInputFormat', this.props.challange.testcaseInputFormat);
-    formData.append('testcaseOutputFormat', this.props.challange.testcaseOutputFormat);
-    formData.append('banner', this.props.challange.banner);
-    formData.append('description', file);
-    // uploadChallenge(formData);
+    if (this.props.challange.banner) {
+      formData.append('banner', this.props.challange.banner);
+    }
+    if (this.props.challange.id) {
+      formData.append('title', this.props.challange.title);
+      formData.append('level', this.props.challange.level);
+      formData.append('description', this.state.description);
+    } else {
+      formData.append('title', this.props.challange.title);
+      formData.append('level', this.props.challange.level);
+      formData.append('language', this.props.challange.language[0]);
+      formData.append('targetPath', this.props.challange.targetPath.slice(-1)[0]);
+      formData.append('buildPath', this.props.challange.buildPath.slice(-1)[0]);
+      formData.append('editPath', this.props.challange.editPath.slice(-1)[0]);
+      formData.append('tcInputFormat', this.props.challange.tcInputFormat);
+      formData.append('tcOutputFormat', this.props.challange.tcOutputFormat);
+      formData.append('description', this.state.description);
+    }
 
     var { data, visible, ...rest } = this.props.challange;
     const request = Object.assign({}, rest, {id: this.props.challange.id, description: this.state.description});
-    this.props.updateChallenge(request);
+    this.props.updateChallenge({formData, request});
 
-    message.success('Create new challenge successfully!');
     this.props.handleModal(false);
   };
 
@@ -167,6 +170,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   updateStepThree: (payload) => dispatch(updateStepThree(payload)),
+  updateStep: (payload) => dispatch(updateStep(payload)),
   handleModal: status => dispatch(handleModal(status)),
   updateChallenge: request => dispatch(updateChallenge(request)),
 });

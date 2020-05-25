@@ -19,7 +19,7 @@ const request = (options) => {
   return axios(options)
     .then(response => {
       console.log(response)
-      return response.data;
+      return response;
     })
     .catch(err => {
       console.log(err.response)
@@ -29,6 +29,7 @@ const request = (options) => {
 };
 
 export function signup(signupRequest) {
+  console.log(signupRequest)
   return request({
       url: API_BASE_URL + "/coders",
       method: 'post',
@@ -82,59 +83,18 @@ export function uploadChallenge(challengeRequest) {
   });
 }
 
-
-
-
-
-
-export const DEFAULT_PAGE = 0;
-export const DEFAULT_PAGE_SIZE = 50;
-
-export function getAllProject(page = DEFAULT_PAGE, size = DEFAULT_PAGE_SIZE) {
-  return axios.get(`${API_BASE_URL}/`, {
-    params: { page: page, size: size }
+export function editChallenge(data) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + data.id,
+    method: 'POST',
+    data: data.formData
   });
 }
 
-export function getProjectsByIp(
-  ipAddress,
-  page = DEFAULT_PAGE,
-  size = DEFAULT_PAGE_SIZE
-) {
-  return axios.get(`${API_BASE_URL}/ip/${ipAddress}`, {
-    params: { page: page, size: size }
-  });
-}
-
-export function getProjectsByName(
-  projectName,
-  page = DEFAULT_PAGE,
-  size = DEFAULT_PAGE_SIZE
-) {
-  return axios.get(`${API_BASE_URL}/name/${projectName}`, {
-    params: { page: page, size: size }
-  });
-}
-
-export function createProject(payload) {
-  const { projectName, ipAddress } = payload;
-  return axios.post(`${API_BASE_URL}/`, { projectName, ipAddress });
-}
-
-export function editProjectById(id, payload) {
-  const { projectName, ipAddress } = payload;
-  return axios.put(`${API_BASE_URL}/${id}`, { projectName, ipAddress });
-}
-
-export function deleteProjectById(id) {
-  return axios.delete(`${API_BASE_URL}/${id}`);
-}
-
-export function uploadTxtFiles(formData) {
-  return axios({
-    method: "POST",
-    url: `${API_BASE_URL}/multiple/txts`,
-    data: formData,
-    config: { headers: { "Content-Type": "multipart/form-data" } }
+export function getAllChallenge() {
+  return request({
+    url: API_BASE_URL + "/challenges",
+    method: 'GET',
+    data: {}
   });
 }
