@@ -56,7 +56,13 @@ export function updateStepThree(payload) {
 
 export function deleteChallenge(id) {
   return async function (dispatch) {
-    dispatch({ type: actions.DELETE_CHALLENGE, payload: id });
+    const response = await apiService.deleteChallenge(id);
+    console.log(response)
+    if (response.status === 200) {
+      dispatch({ type: actions.DELETE_CHALLENGE, payload: id });
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    } 
   };
 }
 
@@ -75,6 +81,12 @@ export function handleSourceModal(status) {
 export function handleTestcaseModal(status) {
   return async function (dispatch) {
     dispatch({ type: actions.HANDLE_TESTCASE_MODAL, payload: status });
+  };
+}
+
+export function handleDeleteLanguageModal(status) {
+  return async function (dispatch) {
+    dispatch({ type: actions.HANDLE_DELETE_LANGUAGE_MODAL, payload: status });
   };
 }
 
@@ -108,12 +120,6 @@ export function updateChallenge(data) {
   };
 }
 
-export function updateLanguage(payload) {
-  return async function (dispatch) {
-    dispatch({ type: actions.UPDATE_LANGUAGE, payload: payload });
-  };
-}
-
 export function uploadSource(payload) {
   return async function (dispatch) {
     const response = await apiService.uploadSource(payload);
@@ -138,3 +144,26 @@ export function getAllChallenges() {
   };
 }
 
+export function addLanguage(payload) {
+  return async function (dispatch) {
+    // const response = await apiService.addLanguage(payload);
+    const response = {status: 200};
+    if (response.status === 200) {
+      dispatch({ type: actions.ADD_LANGUAGE, payload: payload.data });
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    } 
+  };
+}
+
+export function deleteLanguage(payload) {
+  return async function (dispatch) {
+    // const response = await apiService.deleteLanguage(payload);
+    const response = {status: 200};
+    if (response.status === 200) {
+      dispatch({ type: actions.DELETE_LANGUAGE, payload: payload });
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    } 
+  };
+}

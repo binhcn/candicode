@@ -93,30 +93,6 @@ const challengeReducer = (state = initState, action) => {
       }
       return {...state, data: newData };
 
-    case actions.UPDATE_LANGUAGE:
-      if (action.payload.removedLanguage !== undefined) {
-        for (let lan of action.payload.removedLanguage) {
-          index = state.language.findIndex(item => item === lan);
-          state.language.splice(index, 1);
-        }
-      }
-
-      if (action.payload.addedLanguage !== undefined) {
-        index = state.language.findIndex(item => item === action.payload.addedLanguage);
-        if (index < 0) {
-          state.language.push(action.payload.addedLanguage);
-        }
-      }
-
-      newData = [...state.data];
-      index = newData.findIndex(item => state.id === item.id);
-      var item = newData[index];
-      newData.splice(index, 1, {
-        ...item,
-        language: state.language,
-      });
-      return {...state, data: newData };
-
     case actions.UPDATE_STEP_ONE:
       if (state.id !== '') {
         return { ...state,

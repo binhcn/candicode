@@ -1,8 +1,10 @@
 import React from 'react';
-import { Row, Col, Icon } from 'antd';
+import { Row, Col, Icon, Select } from 'antd';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import './Footer.css';
+
+const { Option } = Select;
 
 const propTypes = {
   location: PropTypes.shape({
@@ -16,6 +18,10 @@ const isCodingPage = (path) => {
           || path.startsWith('/management');
 }
 
+function handleChange(value) {
+  console.log(`selected ${value}`);
+}
+
 function Footer(props) {
   const {
     location: { pathname: path },
@@ -25,7 +31,7 @@ function Footer(props) {
 
   return (
     <Row className="footer">
-      <Col xs={24} md={10}>
+      <Col xs={24} md={10} >
         <Link to="/">
           <img src='img/footer-logo.png' alt="logo" />
         </Link>
@@ -48,18 +54,19 @@ function Footer(props) {
         </ul>
       </Col>
       <Col xs={12} md={7}>
-      <h3>CONTACT WITH US</h3>
-        <ul>
-          <li>
-            <Icon type="mail" /> &nbsp; +037 8424 666
-          </li>
-          <li>
-            <Icon type="mobile" /> &nbsp; 1610228@hcmut.edu.vn
-          </li>
-        </ul>
-        <h3>FOLLOW US</h3>
-        <Icon type="facebook" style={{ fontSize: '32px', color: 'white', marginRight: '10px' }} />
-        <Icon type="linkedin" style={{ fontSize: '32px', color: 'white' }} />
+        <h3>CONTACT US</h3>
+        <div style={{margin: '30px'}}>
+          <Icon type="facebook" style={{ fontSize: '32px', color: 'white', marginRight: '10px' }} />
+          <Icon type="linkedin" style={{ fontSize: '32px', color: 'white' }} />
+        </div>
+        
+        <div>
+          <Select defaultValue="english" style={{ width: 300 }} onChange={handleChange}>
+            <Option value="english">English</Option>
+            <Option value="vietnamese">Vietnamese</Option>
+          </Select>
+        </div>
+        
       </Col>
     </Row>
   );

@@ -12,9 +12,11 @@ export const DELETE_CHALLENGE = "Delete challenge";
 export const HANDLE_MODAL = "Handle modal";
 export const HANDLE_SOURCE_MODAL = "Handle source modal";
 export const HANDLE_TESTCASE_MODAL = "Handle testcase modal";
+export const HANDLE_DELETE_LANGUAGE_MODAL = "Handle delete language modal";
 
 export const UPDATE_CHALLENGE = "Update challenge";
-export const UPDATE_LANGUAGE = "Update language";
+export const ADD_LANGUAGE = "Add language";
+export const DELETE_LANGUAGE = "Delete language";
 
 export const CREATE_PROJECT_STRUCTURE = "Create project structure";
 export const UPDATE_STEP = "Update step";

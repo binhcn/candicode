@@ -1,17 +1,34 @@
 .footer {
-  padding: 20px 100px;
-  background: #330066; }
+  background: #330066; 
+}
 
 .footer img {
   width: 200px;
   background-color: whitesmoke;
-  border-radius: 35%;
-  padding: 10px; }
+  border-radius: 50%;
+  padding: 0;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer .ant-col {
+  margin: 20px 0px;
+}
 
 .footer ul {
   list-style-type: none;
-  color: whitesmoke !important;
-  line-height: 40px; }
+  line-height: 35px; 
+}
+
+.footer ul a {
+  color: whitesmoke;
+  font-size: 16px;
+}
 
 .footer h3 {
-  color: greenyellow; }
+  font-family: Mali;
+  color: greenyellow; 
+  font-weight: bold;
+}

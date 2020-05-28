@@ -98,3 +98,26 @@ export function getAllChallenge() {
     data: {}
   });
 }
+
+export function deleteChallenge(id) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + id,
+    method: 'DELETE'
+  });
+}
+
+export function addLanguage(payload) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + payload.id + "/configs",
+    method: 'POST',
+    data: payload.data
+  });
+}
+
+export function deleteLanguage(payload) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + payload.id + "/configs",
+    method: 'DELETE',
+    data: payload.data
+  });
+}

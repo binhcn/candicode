@@ -99,3 +99,48 @@
   background-color: #e74e84;
   color: #fff;
 }
+
+.challenge-card .ant-card-body {
+  padding: 8px;
+}
+
+.challenge-card .ant-badge {
+  float: right;
+  margin: 10px;
+}
+
+.challenge-card .ant-typography .ant-typography-ellipsis {
+  width: 95%;
+  margin: 4px 0px;
+}
+
+.challenge-card .ant-rate-star:not(:last-child) {
+  margin-right: 0px;
+}
+
+.challenge-card .challenge-level {
+  background-color: yellowgreen;
+  width: 150px;
+  color: white;
+  height: 30px;
+  text-align: center;
+  position: absolute;
+  line-height: 30px;
+  transform: rotate(-45deg);
+  left: -35px;
+  top: 20px;
+}
+
+.challenge-card {
+  overflow: hidden;
+  border-radius: 10px !important;
+  box-shadow: 2px 2px 5px 0px indigo;
+}
+
+.challenge-card .ant-btn {
+  float: right;
+  border-radius: 20px;
+  padding: 0 20px;
+  border: 2px solid white;
+  box-shadow: 2px 2px 5px 0px indigo;
+}

@@ -3,11 +3,12 @@ import { connect } from "react-redux";
 import { Table, Popconfirm, Button, Tag, Divider, Modal } from 'antd';
 import {
   deleteChallenge, handleModal, handleChallenge, handleSourceModal,
-  handleTestcaseModal, getAllChallenges,
+  handleTestcaseModal, getAllChallenges, handleDeleteLanguageModal
 } from "../../../actions/actions.creator";
 
 import ChallengeModal from './ChallengeModal';
-import SourceUpdate from './SourceUpdate';
+import SourceUpdate from './sourceUpdate/AddLanguage';
+import DeleteLanguage from './sourceUpdate/DeleteLanguage';
 import TestcaseUpdate from './TestcaseUpdate';
 import './Challenge.css';
 
@@ -24,7 +25,7 @@ class Challenge extends React.Component {
       {
         title: 'Title',
         dataIndex: 'title',
-        width: '20%',
+        width: '25%',
       },
       {
         title: 'Level',
@@ -42,7 +43,7 @@ class Challenge extends React.Component {
       {
         title: 'Language',
         dataIndex: 'language',
-        width: '15%',
+        width: '20%',
         render: languageSet => {
           var html = languageSet.map(item => {
             return (
@@ -60,25 +61,29 @@ class Challenge extends React.Component {
         render: (text, record) => {
           return (
             <span>
-              <Button type="link" onClick={() => this.showModal(record)}>
+              <Button size="small" type="link" onClick={() => this.showModal(record)}>
                 Edit info
               </Button>
               <Divider type="vertical" />
-              <Button type="link" onClick={() => this.showTestcaseModal(record)}>
+              <Button size="small" type="link" onClick={() => this.showTestcaseModal(record)}>
                 Edit testcase
-                </Button>
-              <Divider type="vertical" />
-              <Button type="link" onClick={() => this.showSourceModal(record)}>
-                Edit language
-                </Button>
+              </Button>
               <Divider type="vertical" />
               <Popconfirm title="Sure to delete?"
                 onConfirm={() => this.props.deleteChallenge(record.id)}
               >
-                <Button type="link">
-                  Delete
+                <Button size="small" type="link">
+                  Delete challenge
                 </Button>
               </Popconfirm>
+              <Divider type="vertical" />
+              <Button size="small" type="link" onClick={() => this.showSourceModal(record)}>
+                Add language
+              </Button>
+              <Divider type="vertical" />
+              <Button size="small" type="link" onClick={() => this.showDeleteLanguageModal(record)}>
+                Delete language
+              </Button>
             </span>
           );
         },
@@ -106,7 +111,6 @@ class Challenge extends React.Component {
         description: "",
       }
     }
-    record = {...record, currentStep: 0};
     this.props.handleChallenge(record);
     this.props.handleModal(true);
   };
@@ -114,6 +118,11 @@ class Challenge extends React.Component {
   showSourceModal = (record) => {
     this.props.handleChallenge(record);
     this.props.handleSourceModal(true);
+  };
+
+  showDeleteLanguageModal = (record) => {
+    this.props.handleChallenge(record);
+    this.props.handleDeleteLanguageModal(true);
   };
 
   showTestcaseModal = (record) => {
@@ -144,9 +153,10 @@ class Challenge extends React.Component {
         { this.props.visibleSourceModal && 
           <Modal 
             className="challenge-modal"
-            key="source-modal"
-            title="Update language source"
+            key="add-source-modal"
+            title="Add language source"
             centered={true}
+            width="700px"
             visible={this.props.visibleSourceModal}
             onCancel={() => this.props.handleSourceModal(false)}
             footer={null}
@@ -167,6 +177,18 @@ class Challenge extends React.Component {
             <TestcaseUpdate />
           </Modal>
         }
+        { this.props.visibleDeleteLanguageModal && 
+          <Modal 
+            className="testcase-modal"
+            key="delete-source-modal"
+            title="Delete language source"
+            visible={this.props.visibleDeleteLanguageModal}
+            onCancel={() => this.props.handleDeleteLanguageModal(false)}
+            footer={null}
+          >
+            <DeleteLanguage />
+          </Modal>
+        }
         <Table
           bordered
           dataSource={this.props.data}
@@ -182,12 +204,14 @@ const mapStateToProps = state => ({
   visible: state.challengeReducer.visible,
   visibleSourceModal: state.challengeReducer.visibleSourceModal,
   visibleTestcaseModal: state.challengeReducer.visibleTestcaseModal,
+  visibleDeleteLanguageModal: state.challengeReducer.visibleDeleteLanguageModal,
 });
 
 const mapDispatchToProps = dispatch => ({
   deleteChallenge: id => dispatch(deleteChallenge(id)),
   handleModal: status => dispatch(handleModal(status)),
   handleSourceModal: status => dispatch(handleSourceModal(status)),
+  handleDeleteLanguageModal: status => dispatch(handleDeleteLanguageModal(status)),
   handleTestcaseModal: status => dispatch(handleTestcaseModal(status)),
   handleChallenge: record => dispatch(handleChallenge(record)),
   getAllChallenges: () => dispatch(getAllChallenges()),

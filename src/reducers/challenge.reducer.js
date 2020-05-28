@@ -1,29 +1,5 @@
 import * as actions from "../actions/actions";
 
-const data = [];
-for (let i = 0; i < 3; i++) {
-  var level = i % 3 === 0 ? 'easy' : (i % 3 === 1 ? 'moderate' : 'hard');
-  data.push({
-    key: i + 1,
-    id: i + 1,
-    title: `Challenge ${i + 1}`,
-    level: level,
-    language: ['Java', 'Python'],
-    source: null,
-    banner: null,
-    imageUrl: "",
-
-    targetPath: "",
-    buildPath: "",
-
-    tcInputFormat: "",
-    tcOutputFormat: "",
-
-    description: "",
-  });
-}
-
-
 const initState = {
   id: '',
   title: "",
@@ -48,13 +24,14 @@ const initState = {
   data: [],
   visible: false,
   visibleSourceModal: false,
+  visibleDeleteLanguageModal: false,
   visibleTestcaseModal: false,
   projectStructure: null,
   currentStep: 0,
 };
 
 const challengeReducer = (state = initState, action) => {
-  var newData, index;
+  var newData, index, item;
   switch (action.type) {
     case actions.HANDLE_CHALLENGE:
       return { ...state,
@@ -62,6 +39,7 @@ const challengeReducer = (state = initState, action) => {
         title: action.payload.title,
         level: action.payload.level,
         language: action.payload.language,
+        source: action.payload.source,
         banner: action.payload.banner,
         targetPath: action.payload.targetPath,
         buildPath: action.payload.buildPath,
@@ -69,7 +47,7 @@ const challengeReducer = (state = initState, action) => {
         tcInputFormat: action.payload.tcInputFormat,          
         tcOutputFormat: action.payload.tcOutputFormat,          
         description: action.payload.description,
-        currentStep: action.payload.currentStep,
+        currentStep: 0,
       };
     case actions.DELETE_CHALLENGE:
       return {...state, data: state.data.filter(item => item.id !== action.payload) };
@@ -82,6 +60,9 @@ const challengeReducer = (state = initState, action) => {
 
     case actions.HANDLE_TESTCASE_MODAL:
       return {...state, visibleTestcaseModal: action.payload };
+
+    case actions.HANDLE_DELETE_LANGUAGE_MODAL:
+      return {...state, visibleDeleteLanguageModal: action.payload };
 
     case actions.UPDATE_CHALLENGE:
       newData = [...state.data];
@@ -97,25 +78,33 @@ const challengeReducer = (state = initState, action) => {
                   userType: 'coder', key:state.data.length + 1 });
       }
       return {...state, data: newData };
+    
+    case actions.ADD_LANGUAGE:
+      newData = [...state.data];
+      index = newData.findIndex(item => state.id === item.id);
+      state.language = newData[index].language
 
-    case actions.UPDATE_LANGUAGE:
-      if (action.payload.removedLanguage !== undefined) {
-        for (let lan of action.payload.removedLanguage) {
-          index = state.language.findIndex(item => item === lan);
-          state.language.splice(index, 1);
-        }
+      var idxLan = state.language.findIndex(item => item === action.payload.language);
+      if (idxLan < 0) {
+        state.language.push(action.payload.language);
       }
 
-      if (action.payload.addedLanguage !== undefined) {
-        index = state.language.findIndex(item => item === action.payload.addedLanguage);
-        if (index < 0) {
-          state.language.push(action.payload.addedLanguage);
-        }
+      item = newData[index];
+      newData.splice(index, 1, {
+        ...item,
+        language: state.language,
+      });
+      return {...state, data: newData };
+
+    case actions.DELETE_LANGUAGE:
+      for (let lang of action.payload.language) {
+        index = state.language.findIndex(item => item === lang);
+        state.language.splice(index, 1);
       }
 
       newData = [...state.data];
       index = newData.findIndex(item => state.id === item.id);
-      var item = newData[index];
+      item = newData[index];
       newData.splice(index, 1, {
         ...item,
         language: state.language,
@@ -126,16 +115,18 @@ const challengeReducer = (state = initState, action) => {
       return {...state, projectStructure: action.payload };
 
     case actions.UPDATE_STEP_ONE:
+      var language = Array.isArray(action.payload.language) 
+            ? action.payload.language : [action.payload.language];
       if (state.id !== '') {
         return { ...state,
           title: action.payload.title,
           level: action.payload.level,
           banner: action.payload.banner,
           imageUrl: action.payload.imageUrl,
+          source: action.payload.sourceCode,
+          language: language,
         };
       }
-      var language = Array.isArray(action.payload.language) 
-            ? action.payload.language : [action.payload.language];
       return { ...state,
         title: action.payload.title,
         source: action.payload.source,

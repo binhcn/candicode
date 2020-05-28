@@ -54,7 +54,6 @@ class StepOne extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log(values);
         const payload = Object.assign({}, values, {imageUrl: this.state.imageUrl});
         this.props.updateStepOne(payload);
         console.log('Received values of form: ', payload);

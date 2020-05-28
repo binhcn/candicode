@@ -1,39 +1,30 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Form, Icon, Button, Upload, Select, message } from 'antd';
+import { Form, Icon, Button, Upload, Select } from 'antd';
 
-import './Challenge.css';
+import '../Challenge.css';
 import {
-  updateStepOne, handleSourceModal, updateLanguage,
-} from "../../../actions/actions.creator";
-import { uploadSource } from '../../../services/project.services';
-import { LANGUAGE_SET } from '../../../constants';
+  updateStepOne, uploadSource, updateStep
+} from "../../../../actions/actions.creator";
+import { LANGUAGE_SET } from '../../../../constants';
 
 class SourceUpdate extends React.Component {
-  state = {
-    removedSource: [],
-  };
-
-  handleChange = removedSource => {
-    this.setState({ removedSource });
-  };
 
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        // this.props.updateStepOne(values);
+        
         console.log('Received values of form: ', values);
+        this.props.updateStepOne(values);
 
         const formData = new FormData();
-        if (values.source) { 
-          formData.append('language', values.language);
-          formData.append('sourceFile', values.source[0].originFileObj);
-          formData.append('removedSource', values.removedSource);
-          // uploadSource(formData);
+        var step = 1;
+        if (values.sourceCode) { 
+          formData.append('sourceCode', values.sourceCode[0].originFileObj);
+          this.props.uploadSource(formData);
+          this.props.updateStep(step);
         }
-        this.props.updateLanguage(values);
-        this.props.handleSourceModal(false);
       }
     });
   };
@@ -65,16 +56,14 @@ class SourceUpdate extends React.Component {
 
     const languageOpt = LANGUAGE_SET.sort().map(language => (
       <Select.Option key={language} value={language}>{language}</Select.Option>
-    ));
-    
-    const { removedSource } = this.state;
-    const filteredOptions = this.props.language.filter(item => !removedSource.includes(item));
+    )); 
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit} className="challenge-source-modal">
         <Form.Item label="Language" hasFeedback>
-          {getFieldDecorator('addedLanguage', {
-            // rules: [{ required: true, message: 'Please select its language!' }],
+          {getFieldDecorator('language', {
+            initialValue: this.props.language,
+            rules: [{ required: true, message: 'Please select its language!' }],
           })(
             <Select placeholder="Select a language">
               {languageOpt}
@@ -82,7 +71,9 @@ class SourceUpdate extends React.Component {
           )}
         </Form.Item>
         <Form.Item label="Your challenge (.zip)">
-          {getFieldDecorator('source', {
+          {getFieldDecorator('sourceCode', {
+            initialValue: this.props.source,
+            rules: [{ required: true, message: 'Please select project source!' }],
             valuePropName: 'fileList',
             getValueFromEvent: (e) => { return [e.file]; },
           })(
@@ -96,26 +87,9 @@ class SourceUpdate extends React.Component {
             </Upload>,
           )}
         </Form.Item>
-        <Form.Item label="Remove source:" hasFeedback>
-          {getFieldDecorator('removedLanguage', {
-            // rules: [{ required: true, message: 'Please select its language!' }],
-          })(
-            <Select
-              mode="multiple"
-              placeholder="Language inserted are removed"
-              onChange={this.handleChange}
-            >
-              {filteredOptions.map(item => (
-                <Select.Option key={item} value={item}>
-                  {item}
-                </Select.Option>
-              ))}
-            </Select>,
-          )}
-        </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
-            Finish
+          Next
           </Button>
         </Form.Item>
       </Form>
@@ -125,14 +99,15 @@ class SourceUpdate extends React.Component {
 
 const mapStateToProps = state => ({
   language: state.challengeReducer.language,
+  source: state.challengeReducer.source,
 });
 const mapDispatchToProps = dispatch => ({
-  updateStepOne: (payload) => dispatch(updateStepOne(payload)),
-  handleSourceModal: status => dispatch(handleSourceModal(status)),
-  updateLanguage: payload => dispatch(updateLanguage(payload)),
+  updateStepOne: payload => dispatch(updateStepOne(payload)),
+  updateStep: step => dispatch(updateStep(step)),
+  uploadSource: src => dispatch(uploadSource(src)),
 });
 
-const WrappedSourceUpdate = Form.create({ name: 'sourceUpdate' })(
+const WrappedSourceUpdate = Form.create({ name: 'StepOneLanguage' })(
   connect(mapStateToProps, mapDispatchToProps)(SourceUpdate)
 );
 

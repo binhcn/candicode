@@ -23,3 +23,7 @@
 .header .mr-10 {
   margin-right: 10px !important;
 }
+
+.header .ant-menu-horizontal {
+  border-bottom: none;
+}
