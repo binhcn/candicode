@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from "react-redux";
 import { Form, Input, Tooltip, Icon, Button, Upload, Select, message } from 'antd';
 
-import './Challenge.css';
-import { STEP_LENGTH } from '../../../constants';
+import './Tutorial.css';
+import { STEP_LENGTH, TAG_SET } from '../../../constants';
 import {
-  updateStepOne, uploadSource, updateStep,
+  updateStepOneTutorial, updateStepTutorial,
 } from "../../../actions/actions.creator";
-import { LANGUAGE_SET, LEVEL_SET } from '../../../constants';
 
 function getBase64(img, callback) {
+  console.log(img)
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result));
   reader.readAsDataURL(img);
@@ -28,7 +28,6 @@ function beforeUpload(file) {
 }
 
 class StepOne extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -50,6 +49,7 @@ class StepOne extends React.Component {
       this.setState({ loading: true });
       return;
     }
+    console.log(info)
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, imageUrl => {
@@ -67,18 +67,10 @@ class StepOne extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         const payload = Object.assign({}, values, {imageUrl: this.state.imageUrl});
-        this.props.updateStepOne(payload);
+        this.props.updateStepOneTutorial(payload);
         console.log('Received values of form: ', payload);
-
-        const formData = new FormData();
         var step = 1;
-        if (values.source) { 
-          formData.append('source', values.source[0].originFileObj);
-          this.props.uploadSource(formData);
-          this.props.updateStep(step);
-        } else {
-          this.props.updateStep(step);
-        }
+        this.props.updateStepTutorial(step);
       }
     });
   };
@@ -108,11 +100,7 @@ class StepOne extends React.Component {
       },
     };
 
-    const languageOpt = LANGUAGE_SET.sort().map(language => (
-      <Select.Option key={language} value={language}>{language}</Select.Option>
-    ));
-
-    const levelOpt = LEVEL_SET.map(level => (
+    const tagOpt = TAG_SET.sort().map(level => (
       <Select.Option key={level} value={level}>{level}</Select.Option>
     ));
 
@@ -128,8 +116,8 @@ class StepOne extends React.Component {
         <Form.Item
           label={
             <span>
-              Challenge name&nbsp;
-              <Tooltip title="What is your new challenge's name?">
+              Tutorial title&nbsp;
+              <Tooltip title="What is your new tutorial's name?">
                 <Icon type="question-circle-o" />
               </Tooltip>
             </span>
@@ -139,52 +127,21 @@ class StepOne extends React.Component {
             initialValue: this.props.title,
             validateTrigger: ['onBlur'],
             rules: [{ 
-              required: true, message: "Please input your new challenge's name!", 
+              required: true, message: "Please input your new tutorial's name!", 
               whitespace: true 
             }],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Level" hasFeedback>
-          {getFieldDecorator('level', {
-            initialValue: this.props.level,
-            rules: [{ required: true, message: 'Please select its level!' }],
+        <Form.Item label="Tag" hasFeedback>
+          {getFieldDecorator('tagList', {
+            initialValue: this.props.tagList,
+            rules: [{ required: true, message: 'Please select its tags!' }],
           })(
-            <Select placeholder="Please select a level">
-              {levelOpt}
+            <Select mode="tags" style={{ width: '100%' }} placeholder="Tags Mode">
+              {tagOpt}
             </Select>,
           )}
         </Form.Item>
-        {this.props.id === '' && 
-          <Form.Item label="Language">
-            {getFieldDecorator('language', {
-              initialValue: this.props.language,
-              rules: [{ required: true, message: 'Please select its language!' }],
-            })(
-              <Select placeholder="Please select a language">
-                {languageOpt}
-              </Select>,
-            )}
-          </Form.Item>
-        }
-        {this.props.id === '' && 
-          <Form.Item label="Your challenge (.zip)">
-            {getFieldDecorator('source', {
-              initialValue: this.props.source,
-              rules: [{ required: true, message: 'Please select project source!' }],
-              valuePropName: 'fileList',
-              getValueFromEvent: (e) => { return [e.file]; },
-            })(
-              <Upload 
-                name="source"
-                method="get"
-              >
-                <Button>
-                  <Icon type="upload" /> Click to upload
-                </Button>
-              </Upload>,
-            )}
-          </Form.Item>
-        }
         <Form.Item label="Your banner">
           {getFieldDecorator('banner', {
             initialValue: this.props.banner,
@@ -217,19 +174,15 @@ class StepOne extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  id: state.challengeReducer.id,
-  title: state.challengeReducer.title,
-  source: state.challengeReducer.source,
-  language: state.challengeReducer.language,
-  level: state.challengeReducer.level,
-  banner: state.challengeReducer.banner,
-  projectStructure: state.challengeReducer.projectStructure,
-  currentStep: state.challengeReducer.currentStep,
+  id: state.tutorialReducer.id,
+  title: state.tutorialReducer.title,
+  tagList: state.tutorialReducer.tagList,
+  banner: state.tutorialReducer.banner,
+  currentStep: state.tutorialReducer.currentStep,
 });
 const mapDispatchToProps = dispatch => ({
-  updateStepOne: (payload) => dispatch(updateStepOne(payload)),
-  uploadSource: (payload) => dispatch(uploadSource(payload)),
-  updateStep: (payload) => dispatch(updateStep(payload)),
+  updateStepOneTutorial: (payload) => dispatch(updateStepOneTutorial(payload)),
+  updateStepTutorial: (payload) => dispatch(updateStepTutorial(payload)),
 });
 
 const WrappedStepOne = Form.create({ name: 'stepOne' })(

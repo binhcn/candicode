@@ -1,8 +1,8 @@
 import React from 'react';
-import Editor from '@monaco-editor/react';
-import { Input, Select, Button, Row, Col, Collapse } from 'antd';
+import { ControlledEditor } from '@monaco-editor/react';
+import { connect } from "react-redux";
+import { Input, Select, Button, Row, Col, Collapse, notification, } from 'antd';
 
-const { Option } = Select;
 const { Panel } = Collapse;
 
 const text = `
@@ -10,48 +10,98 @@ const text = `
   Known for its loyalty and faithfulness,
   it can be found as a welcome guest in many households across the world.
 `;
+class CodeEditor extends React.Component {
 
-export default function CodeEditor() {
-  return (
-    <div>
+  state = {
+    code: '',
+    language: this.props.contents[0] ? this.props.contents[0].language : null,
+  }
 
-      <Input.Group style={{ margin: '2px' }}>
-        <span>Language: </span>
-        <Select defaultValue="Java" style={{ width: 200 }} >
-          <Option key="java">Java</Option>
-          <Option key="python">Python</Option>
-          <Option key="sql">SQL</Option>
-          <Option key="c++">C++</Option>
-        </Select>
-      </Input.Group>
+  handleEditorChange = (event, value) => {
+    this.setState({code: value});
+  };
+  
+  handleCompile = () => {
+    if (this.state.code && this.state.language) {
+      var payload = {
+        id: this.props.id,
+        data: this.state
+      }
+      console.log(payload)
+    } else {
+      notification['warning']({
+        message: 'Candidate',
+        description: "Please edit code",
+        duration: 2,
+      });
+    }
+  };
 
-      
-      {/* <Editor height="78vh" width={`${props.editorWidth}px`} theme="dark" value={"function hello() {\n\talert('Hello world!');\n}"} language="python" /> */}
-      <Editor height="78vh" width="100%" theme="dark" value={"function hello() {\n\talert('Hello world!');\n}"} language="python" />
-      
-      
-      <div id="testcase" className="collapse">
-        <Collapse>
-          <Panel header="Testcase 1" key="1">
-            <p>{text}</p>
-          </Panel>
-          <Panel header="Testcase 2" key="2">
-            <p>{text}</p>
-          </Panel>
-        </Collapse>
+  handleLanguageChange = lang => {
+    this.setState({language: lang});
+  }
+
+  render() {
+    const languageOpt = this.props.contents.map((item, index) => (
+      <Select.Option key={index} value={item.language}>{item.language}</Select.Option>
+    ));
+    return (
+      <div>
+        {this.props.contents[0] &&
+          <Input.Group style={{ margin: '2px' }}>
+            <span>Language: </span>
+            <Select 
+              defaultValue={this.props.contents[0].language} 
+              style={{ width: 200 }} 
+              onChange={this.handleLanguageChange}
+            >
+              {languageOpt}
+            </Select>
+          </Input.Group>
+        }
+
+        {this.props.contents[0] &&
+          <ControlledEditor height="78vh" theme="light"
+            value={this.props.contents[0].text}
+            language={this.props.contents[0].language.toLowerCase()}
+            onChange={this.handleEditorChange}
+          />
+        }
+
+        <div id="testcase" className="collapse">
+          <Collapse>
+            <Panel header="Testcase 1" key="1">
+              <p>{text}</p>
+            </Panel>
+            <Panel header="Testcase 2" key="2">
+              <p>{text}</p>
+            </Panel>
+          </Collapse>
+        </div>
+
+        <Row style={{ margin: '5px' }}>
+          <Col span={15}>
+            <Button type="danger" data-toggle="collapse" data-target="#testcase">Show testcases</Button>
+          </Col>
+          <Col span={5} onClick={this.handleCompile}>
+            <Button type="primary">Compile</Button>
+          </Col>
+          <Col span={4}>
+            <Button type="primary">Submit</Button>
+          </Col>
+        </Row>
       </div>
-
-      <Row style={{ margin: '5px' }}>
-        <Col span={15}>
-          <Button type="danger" data-toggle="collapse" data-target="#testcase">Show testcases</Button>
-        </Col>
-        <Col span={5}>
-          <Button type="primary">Compile</Button>
-        </Col>
-        <Col span={4}>
-          <Button type="primary">Submit</Button>
-        </Col>
-      </Row>
-    </div>
-  )
+    )
+  }
 }
+
+const mapStateToProps = state => ({
+  contents: state.codeEditorReducer.contents,
+  id: state.codeEditorReducer.id,
+});
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);

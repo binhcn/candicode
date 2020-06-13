@@ -1,13 +1,24 @@
 import React from 'react';
-// import { Row, Col } from 'antd';
 import $ from 'jquery';
+import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 
 import './Code.css';
 import CodeSpec from './CodeSpec';
 import CodeEditor from './CodeEditor';
 import CodeOutput from './CodeOutput';
+import { getChallengeDetails } from '../../actions/actions.creator';
 
-export default class Demo extends React.Component {
+class Code extends React.Component {
+
+  constructor(props) {
+    super(props);
+    const {
+      location: { pathname: path },
+    } = this.props;
+    const challengeId = path.split('/').slice(-1)[0];
+    this.props.getChallengeDetails(challengeId);
+  }
 
   componentDidMount() {
     const left = document.querySelector('.split_left');
@@ -34,34 +45,31 @@ export default class Demo extends React.Component {
       });
     })
   }
-  render(){
-    
+
+  render() {
     return (
       <div>
-        
-      
-      {/* <Row style={{background: 'white', padding: '0 2px'}}>
-        <Col xs={24} md={12}>
-          <CodeSpec />
-        </Col>
-        <Col xs={24} md={12}>
-          <CodeEditor />
-          <CodeOutput />
-        </Col>
-      </Row> */}
-
-
-      <div className="split">
-        <div className="split_left">
-          <CodeSpec />
+        <div className="split">
+          <div className="split_left">
+            <CodeSpec />
+          </div>
+          <div className="split_bar"></div>
+          <div className="split_right">
+            <CodeEditor />
+            <CodeOutput />
+          </div>
         </div>
-        <div className="split_bar"></div>
-        <div className="split_right">
-          <CodeEditor/>
-          <CodeOutput />
-        </div>
-      </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch => ({
+  getChallengeDetails: (challengeId) => dispatch(getChallengeDetails(challengeId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Code));

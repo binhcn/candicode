@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Form, Button, Cascader, Input } from 'antd';
+import { Form, Button, Cascader, Select } from 'antd';
 
 import './Challenge.css';
-import { STEP_LENGTH } from '../../../constants';
+import { STEP_LENGTH, TESTCASE_FORMAT_SET } from '../../../constants';
 import {
   updateStepTwo, updateStep,
 } from "../../../actions/actions.creator";
@@ -57,29 +57,41 @@ class StepTwo extends React.Component {
       },
     };
 
+    const testcaseFormatOpt = TESTCASE_FORMAT_SET.map(type => (
+      <Select.Option key={type} value={type}>{type}</Select.Option>
+    ));
+
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        <Form.Item label="Edited file">
-          {getFieldDecorator('targetPath', {
-            initialValue: this.props.targetPath,
+        <Form.Item label="Compiled file path">
+          {getFieldDecorator('compilePath', {
+            initialValue: this.props.compilePath,
             rules: [
-              { type: 'array', required: true, message: 'Please select your edited file path!' },
+              { type: 'array', required: true, message: 'Please select your compiled file path!' },
             ],
           })(<Cascader options={this.props.projectStructure} />)}
         </Form.Item>
-        <Form.Item label="Build file">
-          {getFieldDecorator('buildPath', {
-            initialValue: this.props.buildPath,
+        <Form.Item label="Run file path">
+          {getFieldDecorator('runPath', {
+            initialValue: this.props.runPath,
             rules: [
-              { type: 'array', required: true, message: 'Please select your build path!' },
+              { type: 'array', required: true, message: 'Please select your run file path!' },
             ],
           })(<Cascader options={this.props.projectStructure} />)}
         </Form.Item>
-        <Form.Item label="Prototype file">
-          {getFieldDecorator('editPath', {
-            initialValue: this.props.editPath,
+        <Form.Item label="Implemented file path">
+          {getFieldDecorator('implementedPath', {
+            initialValue: this.props.implementedPath,
             rules: [
-              { type: 'array', required: true, message: 'Please select your prototype file path!' },
+              { type: 'array', required: true, message: 'Please select your implemented file path!' },
+            ],
+          })(<Cascader options={this.props.projectStructure} />)}
+        </Form.Item>
+        <Form.Item label="Non-implemented file path">
+          {getFieldDecorator('nonImplementedPath', {
+            initialValue: this.props.nonImplementedPath,
+            rules: [
+              { type: 'array', required: true, message: 'Please select your non-implemented file path!' },
             ],
           })(<Cascader options={this.props.projectStructure} />)}
         </Form.Item>
@@ -87,15 +99,23 @@ class StepTwo extends React.Component {
           {getFieldDecorator('tcInputFormat', {
             initialValue: this.props.tcInputFormat,
             validateTrigger: ['onBlur'],
-            rules: [{ required: true, message: "Please input your testcase input format!", whitespace: true }],
-          })(<Input />)}
+            rules: [{ required: true, message: "Please input your testcase input format!" }],
+          })(
+            <Select mode="multiple" style={{ width: '100%' }}>
+              {testcaseFormatOpt}
+            </Select>,
+          )}
         </Form.Item>
         <Form.Item label="Testcase Output Format" >
           {getFieldDecorator('tcOutputFormat', {
             initialValue: this.props.tcOutputFormat,
             validateTrigger: ['onBlur'],
-            rules: [{ required: true, message: "Please input your testcase output format!", whitespace: true }],
-          })(<Input />)}
+            rules: [{ required: true, message: "Please input your testcase output format!" }],
+          })(
+            <Select mode="multiple" style={{ width: '100%' }}>
+              {testcaseFormatOpt}
+            </Select>,
+          )}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           {this.props.currentStep < STEP_LENGTH - 1 && (
@@ -115,9 +135,10 @@ class StepTwo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  targetPath: state.challengeReducer.targetPath,
-  buildPath: state.challengeReducer.buildPath,
-  editPath: state.challengeReducer.editPath,
+  compilePath: state.challengeReducer.compilePath,
+  runPath: state.challengeReducer.runPath,
+  implementedPath: state.challengeReducer.implementedPath,
+  nonImplementedPath: state.challengeReducer.nonImplementedPath,
   tcInputFormat: state.challengeReducer.tcInputFormat,
   tcOutputFormat: state.challengeReducer.tcOutputFormat,
   projectStructure: state.challengeReducer.projectStructure,

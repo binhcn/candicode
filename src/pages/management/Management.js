@@ -50,8 +50,8 @@ class Management extends React.Component {
           </Menu>
         </Sider>
         <Layout>
-          <Content style={{ margin: '10px 10px' }}>
-            <div style={{ padding: 24, background: '#fff', minHeight: '89vh' }}>
+          <Content style={{ margin: '10px 10px' }} >
+            <div style={{ padding: 24, background: '#fff', minHeight: '89vh' }} >
               <Switch>
                 <Route path='/management/challenges' exact component={Challenge} />
                 <Route path='/management/tutorials' exact component={Tutorial} />

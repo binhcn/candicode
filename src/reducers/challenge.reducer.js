@@ -4,17 +4,18 @@ const initState = {
   id: '',
   title: "",
   level: "",
-  language: "",
+  language: [],
   source: null, //this field should be removed
   banner: null,
   imageUrl: "",
 
-  targetPath: "",
-  buildPath: "",
-  editPath: "",
+  compilePath: "",
+  runPath: "",
+  implementedPath: "",
+  nonImplementedPath: "",
 
-  tcInputFormat: "",
-  tcOutputFormat: "",
+  tcInputFormat: [],
+  tcOutputFormat: [],
 
   description: "",
 
@@ -26,43 +27,55 @@ const initState = {
   visibleSourceModal: false,
   visibleDeleteLanguageModal: false,
   visibleTestcaseModal: false,
+  visibleUpdateTestcaseModal: false,
+  visibleDeleteTestcaseModal: false,
   projectStructure: null,
   currentStep: 0,
+
+  challengeDir: '',
 };
 
 const challengeReducer = (state = initState, action) => {
   var newData, index, item;
   switch (action.type) {
     case actions.HANDLE_CHALLENGE:
-      return { ...state,
-        id: action.payload.id,
+      return {
+        ...state,
+        id: action.payload.challengeId,
         title: action.payload.title,
-        level: action.payload.level,
-        language: action.payload.language,
-        source: action.payload.source,
-        banner: action.payload.banner,
-        targetPath: action.payload.targetPath,
-        buildPath: action.payload.buildPath,
-        editPath: action.payload.editPath,
-        tcInputFormat: action.payload.tcInputFormat,          
-        tcOutputFormat: action.payload.tcOutputFormat,          
         description: action.payload.description,
+        level: action.payload.level,
+
+        language: action.payload.languages,
+        banner: action.payload.banner,
+        tcInputFormat: action.payload.tcInputFormat,
+        tcOutputFormat: action.payload.tcOutputFormat,
+        contents: action.payload.contents,
+        testcases: action.payload.testcases,
+        categories: action.payload.categories,
         currentStep: 0,
       };
+
     case actions.DELETE_CHALLENGE:
-      return {...state, data: state.data.filter(item => item.id !== action.payload) };
+      return { ...state, data: state.data.filter(item => item.id !== action.payload) };
 
     case actions.HANDLE_MODAL:
-      return {...state, visible: action.payload };
+      return { ...state, visible: action.payload };
 
     case actions.HANDLE_SOURCE_MODAL:
-      return {...state, visibleSourceModal: action.payload };
-
-    case actions.HANDLE_TESTCASE_MODAL:
-      return {...state, visibleTestcaseModal: action.payload };
+      return { ...state, visibleSourceModal: action.payload };
 
     case actions.HANDLE_DELETE_LANGUAGE_MODAL:
-      return {...state, visibleDeleteLanguageModal: action.payload };
+      return { ...state, visibleDeleteLanguageModal: action.payload };
+
+    case actions.HANDLE_TESTCASE_MODAL:
+      return { ...state, visibleTestcaseModal: action.payload };
+
+    case actions.HANDLE_UPDATE_TESTCASE_MODAL:
+      return { ...state, visibleUpdateTestcaseModal: action.payload };
+
+    case actions.HANDLE_DELETE_TESTCASE_MODAL:
+      return { ...state, visibleDeleteTestcaseModal: action.payload };
 
     case actions.UPDATE_CHALLENGE:
       newData = [...state.data];
@@ -74,11 +87,13 @@ const challengeReducer = (state = initState, action) => {
           ...action.payload,
         });
       } else {
-        newData.push({...action.payload, id:state.data.length + 1, 
-                  userType: 'coder', key:state.data.length + 1 });
+        newData.push({
+          ...action.payload, id: action.payload.id,
+          key: state.data.length + 1
+        });
       }
-      return {...state, data: newData };
-    
+      return { ...state, data: newData };
+
     case actions.ADD_LANGUAGE:
       newData = [...state.data];
       index = newData.findIndex(item => state.id === item.id);
@@ -94,7 +109,7 @@ const challengeReducer = (state = initState, action) => {
         ...item,
         language: state.language,
       });
-      return {...state, data: newData };
+      return { ...state, data: newData };
 
     case actions.DELETE_LANGUAGE:
       for (let lang of action.payload.language) {
@@ -109,16 +124,22 @@ const challengeReducer = (state = initState, action) => {
         ...item,
         language: state.language,
       });
-      return {...state, data: newData };
+      return { ...state, data: newData };
 
     case actions.CREATE_PROJECT_STRUCTURE:
-      return {...state, projectStructure: action.payload };
+      return {
+        ...state, projectStructure: action.payload.children,
+        challengeDir: action.payload.challengeDir
+      };
 
     case actions.UPDATE_STEP_ONE:
-      var language = Array.isArray(action.payload.language) 
-            ? action.payload.language : [action.payload.language];
+      var language = action.payload.language
+        ? action.payload.language : state.language;
+      language = Array.isArray(language)
+        ? language : [language];
       if (state.id !== '') {
-        return { ...state,
+        return {
+          ...state,
           title: action.payload.title,
           level: action.payload.level,
           banner: action.payload.banner,
@@ -127,7 +148,8 @@ const challengeReducer = (state = initState, action) => {
           language: language,
         };
       }
-      return { ...state,
+      return {
+        ...state,
         title: action.payload.title,
         source: action.payload.source,
         language: language,
@@ -136,49 +158,63 @@ const challengeReducer = (state = initState, action) => {
         imageUrl: action.payload.imageUrl,
       };
     case actions.UPDATE_STEP_TWO:
-      return { ...state,
-        targetPath: action.payload.targetPath,
-        buildPath: action.payload.buildPath,
-        editPath: action.payload.editPath,
+      return {
+        ...state,
+        compilePath: action.payload.compilePath,
+        runPath: action.payload.runPath,
+        implementedPath: action.payload.implementedPath,
+        nonImplementedPath: action.payload.nonImplementedPath,
         tcInputFormat: action.payload.tcInputFormat,
         tcOutputFormat: action.payload.tcOutputFormat,
       };
+
     case actions.UPDATE_STEP_THREE:
-      return { ...state,
+      return {
+        ...state,
         description: action.payload.description,
       };
+
     case actions.UPDATE_STEP:
-      return {...state,
+      return {
+        ...state,
         currentStep: state.currentStep + action.payload,
       }
+
     case actions.GET_ALL_CHALLENGES:
-      console.log(action.payload)
       var data = [];
       action.payload.forEach((challenge, index) => {
         data.push({
           key: index + 1,
-          id: challenge.id,
+          id: challenge.challengeId,
           title: challenge.title,
           level: challenge.level,
           language: challenge.languages,
           source: null,
           banner: challenge.banner,
           imageUrl: "",
-      
-          targetPath: "",
-          buildPath: "",
-      
+
+          compilePath: "",
+          runPath: "",
+          implementedPath: "",
+          nonImplementedPath: "",
+
           tcInputFormat: "",
           tcOutputFormat: "",
-      
+
           description: challenge.description,
 
           point: challenge.point,
           numAttendees: challenge.numAttendees,
+          numComments: challenge.numComments,
+          createdAt: challenge.createdAt,
+          author: challenge.author,
+          tags: challenge.tags,
+          rate: challenge.rate,
+          numRates: challenge.numRates,
         });
       });
-      console.log(data)
-      return {...state,
+      return {
+        ...state,
         data: data,
       }
     default:

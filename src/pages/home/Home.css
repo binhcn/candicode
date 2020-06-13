@@ -62,16 +62,16 @@
 /* ######################################################################################### */
 /* ######################################################################################### */
 
-#reccomended {
+#recommended {
   margin: 40px;
 }
 @media (max-width: 767px) {
-  #reccomended {
+  #recommended {
     /* For less than 767px */
     margin: 0 0 15px 0;
   }
 }
-#reccomended .item .title {
+#recommended .item .title {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -79,7 +79,7 @@
   width: 100%;
   z-index: 9;
 }
-#reccomended .item .title h4 {
+#recommended .item .title h4 {
   background-color: #3f4079;
   background-color: #3f4079;
   display: inline-block;
@@ -94,7 +94,7 @@
   font-size: 1rem;
   opacity: 0;
 }
-#reccomended .item .title h4 em {
+#recommended .item .title h4 em {
   display: block;
   font-size: 13px;
   font-size: 13px;
@@ -102,11 +102,11 @@
   font-weight: 300;
   margin-top: 3px;
 }
-#reccomended .item a {
+#recommended .item a {
   position: relative;
   display: block;
 }
-#reccomended .item a .views {
+#recommended .item a .views {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -125,7 +125,7 @@
   font-size: 0.75rem;
   opacity: 0;
 }
-#reccomended .item a .views i {
+#recommended .item a .views i {
   font-size: 16px;
   font-size: 1rem;
   font-weight: normal;
@@ -134,7 +134,7 @@
   top: 1px;
 }
 
-#reccomended .owl-item {
+#recommended .owl-item {
   opacity: 0.5;
   transform: scale(0.85);
   -webkit-backface-visibility: hidden;
@@ -151,7 +151,7 @@
   overflow: hidden;
 }
 
-#reccomended .owl-item.active.center {
+#recommended .owl-item.active.center {
   opacity: 1;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -162,8 +162,8 @@
   transform: scale(1);
 }
 
-#reccomended .owl-item.active.center .item .title h4,
-#reccomended .owl-item.active.center .item .views {
+#recommended .owl-item.active.center .item .title h4,
+#recommended .owl-item.active.center .item .views {
   opacity: 1;
 }
 
@@ -174,4 +174,12 @@
 .owl-theme .owl-dots .owl-dot.active span,
 .owl-theme .owl-dots .owl-dot:hover span {
   background: #e74e84 !important;
+}
+
+#recommended .title {
+  position: static !important;
+}
+
+#recommended a {
+  display: inline !important;
 }

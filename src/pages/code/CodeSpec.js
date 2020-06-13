@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import { Tabs, Icon, Typography, Divider } from 'antd';
 
 import './Code.css';
@@ -10,87 +11,84 @@ const { Title, Text } = Typography;
 
 const { TabPane } = Tabs;
 
-export default function CodeSpec() {
-  return (
-    <Tabs type="card" size="small" defaultActiveKey="discussion">
-      <TabPane tab={
-        <span>
-          <Icon type="read" />
-          Description
-        </span>
-      } key="description">
-        <Title level={4}>Challenge Title</Title>
-        <div className="challenge-info">
+class CodeSpec extends React.Component {
+  render() {
+    return (
+      <Tabs type="card" defaultActiveKey="description">
+        <TabPane tab={
           <span>
-            <Icon type="user" />&nbsp;
-            Smith
-        </span>
-          <span><Text type="danger">Easy</Text></span>
-          <span>
-            <Icon type="heart" />&nbsp;
-            100 Points
-        </span>
-          <span>
-            <Icon type="like" />&nbsp;
-            1000
-        </span>
-          <span>
-            <Icon type="dislike" />&nbsp;
-            100
-        </span>
-          <span>
-            <Icon type="share-alt" />&nbsp;
-            Share
-        </span>
-        </div>
+            <Icon type="read" />
+            Description
+          </span>
+        } key="description">
+          <Title level={4}>{this.props.title}</Title>
+          <div className="challenge-info">
+            <span>
+              <Icon type="user" />&nbsp;
+              Binh Cao
+            </span>
+            <span><Text type="danger">{this.props.level}</Text></span>
+            <span>
+              <Icon type="heart" />&nbsp;
+              {this.props.points} Points
+          </span>
+            <span>
+              <Icon type="like" />&nbsp;
+              1000
+          </span>
+            <span>
+              <Icon type="dislike" />&nbsp;
+              100
+          </span>
+            <span>
+              <Icon type="share-alt" />&nbsp;
+              Share
+          </span>
+          </div>
 
-        <Divider />
-        <Text strong>Description</Text>
-        <p>
-          Given an array of integers, return <strong>indices</strong> of the two numbers such that
-          they add up to a specific target.
-          </p>
-        <p>
-          You may assume that each input would have <strong>exactly</strong> one solution, and you
-          may not use the same element twice.
-          </p>
-          <Text strong>Input format</Text>
-        <p>
-          The first line contains an integer <code>n</code> , the number of socks represented in{' '}
-          <code>arr</code>. The second line contains <code>n</code> space-separated integers
-            describing the colors <code>arr[i]</code> of the socks in the pile.
-          </p>
-          <Text strong>Contrainsts</Text>
-            <pre className="code">1 &lt; n &lt; 100 </pre>
-        <Text strong>Output format</Text>
-        <pre className="code">Becasue 1 + 1 = 2, so 2 - 1 = 1</pre>
-
-
-      </TabPane>
-      <TabPane tab={
-        <span>
-          <Icon type="ordered-list" />
-          Leaderboard
-        </span>
-      } key="leaderboard">
-        <LeaderBoard />
-      </TabPane>
-      <TabPane tab={
-        <span>
-          <Icon type="save" />
-          Submission
-        </span>
-      } key="submission">
-        <Submission />
-      </TabPane>
-      <TabPane tab={
-        <span>
-          <Icon type="aliwangwang" />
-          Discussion
-        </span>
-      } key="discussion">
-        <Discussion />
-      </TabPane>
-    </Tabs>
-  )
+          <Divider />
+          <Text strong>Description</Text>
+          <div dangerouslySetInnerHTML={{ __html: this.props.description }} />
+          
+        </TabPane>
+        <TabPane tab={
+          <span>
+            <Icon type="ordered-list" />
+            Leaderboard
+          </span>
+        } key="leaderboard">
+          <LeaderBoard />
+        </TabPane>
+        <TabPane tab={
+          <span>
+            <Icon type="save" />
+            Submission
+          </span>
+        } key="submission">
+          <Submission />
+        </TabPane>
+        <TabPane tab={
+          <span>
+            <Icon type="aliwangwang" />
+            Discussion
+          </span>
+        } key="discussion">
+          <Discussion />
+        </TabPane>
+      </Tabs>
+    )
+  }
 }
+
+const mapStateToProps = state => ({
+  title: state.codeEditorReducer.title,
+  level: state.codeEditorReducer.level,
+  points: state.codeEditorReducer.points,
+  description: state.codeEditorReducer.description,
+});
+
+const mapDispatchToProps = dispatch => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CodeSpec);

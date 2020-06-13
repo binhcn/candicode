@@ -15,10 +15,12 @@ class StepTwo extends React.Component {
       if (!err) {
         console.log('Received values of form: ', values);
         const data = {
-          buildPath: values.buildPath.slice(-1)[0],
-          targetPath: values.targetPath.slice(-1)[0],
-          editPath: values.editPath.slice(-1)[0],
           language: this.props.language[0],
+          compilePath: values.compilePath.slice(-1)[0],
+          runPath: values.runPath.slice(-1)[0],
+          implementedPath: values.implementedPath.slice(-1)[0],
+          nonImplementedPath: values.nonImplementedPath.slice(-1)[0],
+          challengeDir: this.props.challengeDir,
         };
         this.props.addLanguage({data, id: this.props.id});
         this.props.handleSourceModal(false);
@@ -64,24 +66,35 @@ class StepTwo extends React.Component {
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-        <Form.Item label="Edited file">
-          {getFieldDecorator('targetPath', {
+        <Form.Item label="Compiled file path">
+          {getFieldDecorator('compilePath', {
+            initialValue: this.props.compilePath,
             rules: [
-              { type: 'array', required: true, message: 'Please select your edited file path!' },
+              { type: 'array', required: true, message: 'Please select your compiled file path!' },
             ],
           })(<Cascader options={this.props.projectStructure} />)}
         </Form.Item>
-        <Form.Item label="Build file">
-          {getFieldDecorator('buildPath', {
+        <Form.Item label="Run file path">
+          {getFieldDecorator('runPath', {
+            initialValue: this.props.runPath,
             rules: [
-              { type: 'array', required: true, message: 'Please select your build path!' },
+              { type: 'array', required: true, message: 'Please select your run file path!' },
             ],
           })(<Cascader options={this.props.projectStructure} />)}
         </Form.Item>
-        <Form.Item label="Prototype file">
-          {getFieldDecorator('editPath', {
+        <Form.Item label="Implemented file path">
+          {getFieldDecorator('implementedPath', {
+            initialValue: this.props.implementedPath,
             rules: [
-              { type: 'array', required: true, message: 'Please select your prototype file path!' },
+              { type: 'array', required: true, message: 'Please select your implemented file path!' },
+            ],
+          })(<Cascader options={this.props.projectStructure} />)}
+        </Form.Item>
+        <Form.Item label="Non-implemented file path">
+          {getFieldDecorator('nonImplementedPath', {
+            initialValue: this.props.nonImplementedPath,
+            rules: [
+              { type: 'array', required: true, message: 'Please select your non-implemented file path!' },
             ],
           })(<Cascader options={this.props.projectStructure} />)}
         </Form.Item>
@@ -106,6 +119,7 @@ const mapStateToProps = state => ({
   projectStructure: state.challengeReducer.projectStructure,
   currentStep: state.challengeReducer.currentStep,
   language: state.challengeReducer.language,
+  challengeDir: state.challengeReducer.challengeDir,
   id: state.challengeReducer.id,
 });
 const mapDispatchToProps = dispatch => ({

@@ -14,3 +14,30 @@
 .challenge-source-modal .ant-form-item-control-wrapper {
   width: 60%;
 }
+
+.testcase-update .switch {
+  display: inline-block;
+  margin: 0;
+  top: -10px;
+  left: 10px;
+}
+
+.testcase-update .output {
+  top: 40px;
+}
+
+.testcase-update .output .ant-form-item-children-icon {
+  right: 65px !important;
+}
+
+.testcase-update .is-public-testcase-icon {
+  position: absolute;
+  margin-left: 5px;
+  top: 1px;
+}
+
+.testcase-update .remove-testcase-icon {
+  margin-right: 8px;
+  position: relative;
+  top: -3px;
+}

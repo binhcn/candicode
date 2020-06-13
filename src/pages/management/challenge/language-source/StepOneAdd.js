@@ -21,7 +21,7 @@ class SourceUpdate extends React.Component {
         const formData = new FormData();
         var step = 1;
         if (values.sourceCode) { 
-          formData.append('sourceCode', values.sourceCode[0].originFileObj);
+          formData.append('source', values.sourceCode[0].originFileObj);
           this.props.uploadSource(formData);
           this.props.updateStep(step);
         }
@@ -60,7 +60,7 @@ class SourceUpdate extends React.Component {
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit} className="challenge-source-modal">
-        <Form.Item label="Language" hasFeedback>
+        <Form.Item label="Language">
           {getFieldDecorator('language', {
             initialValue: this.props.language,
             rules: [{ required: true, message: 'Please select its language!' }],

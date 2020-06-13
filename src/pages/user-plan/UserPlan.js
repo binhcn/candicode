@@ -1,23 +1,29 @@
 import React from 'react';
+import { Icon, Divider } from 'antd';
+
 import './UserPlan.css';
 
 export default function UserPlan() {
   return (
     <div id="price" className="container-fluid">
+      <img
+        className="paper-plane"
+        src="https://pngimg.com/uploads/paper_plane/paper_plane_PNG83.png"
+        alt="paper-plane"
+      />
       <div className="plan basic">
         <div className="plan-inner">
           <div className="entry-title">
             <h3>Basic PACKAGE</h3>
-            <div className="price">$Free<span>/PER YEAR</span>
+            <div className="price">$Free<span>/PER MONTH</span>
             </div>
           </div>
           <div className="entry-content">
             <ul>
-              <li><strong>1x</strong> option 1</li>
-              <li><strong>2x</strong> option 2</li>
-              <li><strong>3x</strong> option 3</li>
-              <li><strong>Free</strong> option 4</li>
-              <li><strong>Unlimited</strong> option 5</li>
+              <li><strong><Icon type="check" /></strong> Compile &amp; run challenge</li>
+              <li><strong><Icon type="check" /></strong> View public testcases</li>
+              <li><strong><Icon type="check" /></strong> Manage your dashboard</li>
+              <li><strong><Icon type="check" /></strong> Participate contests</li>
             </ul>
           </div>
           <div className="btn">
@@ -31,16 +37,20 @@ export default function UserPlan() {
           <div className="hot">hot</div>
           <div className="entry-title">
             <h3>STANDARD PACKAGE</h3>
-            <div className="price">$75<span>/PER YEAR</span>
+            <div className="price">80k<span>/PER MONTH</span>
             </div>
           </div>
           <div className="entry-content">
             <ul>
-              <li><strong>2x</strong> Free Entrance</li>
-              <li><strong>Free</strong> Snacks</li>
-              <li><strong>Custom</strong> Swags</li>
-              <li><strong>2x</strong> Certificate</li>
-              <li><strong>Free</strong> Wifi</li>
+              <li><strong><Icon type="check" /></strong> Save your submissions</li>
+              <li><strong><Icon type="check" /></strong> View hidden testcases</li>
+              <li><strong><Icon type="check" /></strong> Manage challenges</li>
+              <li><strong><Icon type="check" /></strong> Manage tutorials</li>
+              <Divider />
+              <li><strong><Icon type="check" /></strong> Compile &amp; run challenge</li>
+              <li><strong><Icon type="check" /></strong> View public testcases</li>
+              <li><strong><Icon type="check" /></strong> Manage your dashboard</li>
+              <li><strong><Icon type="check" /></strong> Participate contests</li>
             </ul>
           </div>
           <div className="btn">
@@ -54,16 +64,23 @@ export default function UserPlan() {
           <div className="hot">hot</div>
           <div className="entry-title">
             <h3>PREMIUM PACKAGE</h3>
-            <div className="price">$100<span>/PER YEAR</span>
+            <div className="price">100k<span>/PER MONTH</span>
             </div>
           </div>
           <div className="entry-content">
             <ul>
-              <li><strong>1x</strong> option 1</li>
-              <li><strong>2x</strong> option 2</li>
-              <li><strong>3x</strong> option 3</li>
-              <li><strong>Free</strong> option 4</li>
-              <li><strong>Unlimited</strong> option 5</li>
+              <li><strong><Icon type="check" /></strong> Manage your contests</li>
+              <li><strong><Icon type="check" /></strong> View your contest statistics</li>
+              <Divider />
+              <li><strong><Icon type="check" /></strong> Save your submissions</li>
+              <li><strong><Icon type="check" /></strong> View hidden testcases</li>
+              <li><strong><Icon type="check" /></strong> Manage challenges</li>
+              <li><strong><Icon type="check" /></strong> Manage tutorials</li>
+              <Divider />
+              <li><strong><Icon type="check" /></strong> Compile &amp; run challenge</li>
+              <li><strong><Icon type="check" /></strong> View public testcases</li>
+              <li><strong><Icon type="check" /></strong> Manage your dashboard</li>
+              <li><strong><Icon type="check" /></strong> Participate contests</li>
             </ul>
           </div>
           <div className="btn">

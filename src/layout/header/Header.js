@@ -98,7 +98,7 @@ class Header extends React.Component {
               selectedKeys={[this.props.location.pathname]}
               mode="horizontal"
             >
-              <Menu.SubMenu
+              {/* <Menu.SubMenu
                 title={
                   <span className="submenu-title-wrapper">
                     Challenges
@@ -149,19 +149,26 @@ class Header extends React.Component {
                     <Link to="/tutorials/sql">SQL</Link>
                   </Menu.Item>
                 </Menu.ItemGroup>
-              </Menu.SubMenu>
+              </Menu.SubMenu> */}
+
+              <Menu.Item key="/challenges">
+                <Link to="/challenges">Challenge</Link>
+              </Menu.Item>
+              <Menu.Item key="/tutorials">
+                <Link to="/tutorials">Tutorial</Link>
+              </Menu.Item>
               <Menu.Item key="/contests">
-                <Link to="/contests">Contests</Link>
+                <Link to="/contests">Contest</Link>
               </Menu.Item>
               <Menu.Item key="/user-plans">
                 <Link to="/user-plans">Upgrade</Link>
               </Menu.Item>
-              <Menu.Item key="/code-editor">
-                <Link to="/code-editor">Code Editor</Link>
-              </Menu.Item>
               <Menu.Item key="/management">
                 <Link to="/management">Management</Link>
               </Menu.Item>
+              {/* <Menu.Item key="/code-editor">
+                <Link to="/code-editor">Code Editor</Link>
+              </Menu.Item> */}
             </Menu>
           </Col>
 
@@ -180,9 +187,6 @@ function ProfileDropdownMenu(props) {
     <Menu onClick={props.handleMenuClick}>
       <Menu.Item key="/profile">
         <Link to="/profile">Profile</Link>
-      </Menu.Item>
-      <Menu.Item key="/settings">
-        <Link to="/settings">Settings</Link>
       </Menu.Item>
       <Menu.Item key="/logout">
         <Link to="/logout">Logout</Link>

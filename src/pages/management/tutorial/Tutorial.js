@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { Table, Popconfirm, Button, Tag, Divider, Modal } from 'antd';
-import {
-	deleteChallenge, handleModal, handleChallenge
-} from "../../../actions/actions.creator";
 
+import {
+	deleteTutorial, handleTutorialModal, handleTutorial,
+} from "../../../actions/actions.creator";
+import { randomColor } from '../../../constants';
+import TutorialModal from './TutorialModal';
 import './Tutorial.css';
 
 class Tutorial extends React.Component {
@@ -22,26 +24,13 @@ class Tutorial extends React.Component {
         width: '20%',
       },
       {
-        title: 'Level',
-        dataIndex: 'level',
-        width: '15%',
-        render: level => {
-          var color = level === 'easy' ? 'blue' : (level === 'moderate' ? 'green' : 'red');
-          return (
-            <Tag key={level} color={color}>
-              {level.toUpperCase()}
-            </Tag>
-          )
-        },
-      },
-      {
-        title: 'Language',
-        dataIndex: 'language',
-        width: '15%',
-        render: languageSet => {
-          var html = languageSet.map(item => {
+        title: 'Tag',
+        dataIndex: 'tagList',
+        width: '30%',
+        render: tagList => {
+          const html = tagList.map((item, index) => {
             return (
-              <Tag color={item.toLowerCase() === 'java' ? 'geekblue' : 'green'} key={item}>
+              <Tag key={index} color={randomColor()}>
                 {item}
               </Tag>
             )
@@ -56,11 +45,11 @@ class Tutorial extends React.Component {
           return (
             <span>
               <Button type="link" onClick={() => this.showModal(record)}>
-                Edit info
+                Edit
               </Button>
               <Divider type="vertical" />
               <Popconfirm title="Sure to delete?"
-                onConfirm={() => this.props.deleteChallenge(record.id)}
+                onConfirm={() => this.props.deleteTutorial(record.id)}
               >
                 <Button type="link">
                   Delete
@@ -78,43 +67,34 @@ class Tutorial extends React.Component {
       record = {
         id: '',
         title: "",
-        level: "",
-        language: "",
-        source: null,
+        tagList: [],
         banner: null,
         imageUrl: "",
-
-        targetPath: "",
-        buildPath: "",
-
-        testcaseInputFormat: "",
-        testcaseOutputFormat: "",
-
         description: "",
       }
     }
-    this.props.handleChallenge(record);
-    this.props.handleModal(true);
+    this.props.handleTutorial(record);
+    this.props.handleTutorialModal(true);
   };
 
   render() {
     return (
       <div>
         <Button onClick={() => this.showModal(null)} type="primary" style={{ marginBottom: 16 }}>
-          Create challenge
+          Create tutorial
         </Button>
         { this.props.visible && 
           <Modal 
-            className="challenge-modal"
+            className="tutorial-modal"
             key="modal"
-            title="Create challenge"
-            centered={true}
+            title="Create tutorial"
             width="1200px"
+            centered={true}
             visible={this.props.visible}
-            onCancel={() => this.props.handleModal(false)}
+            onCancel={() => this.props.handleTutorialModal(false)}
             footer={null}
           >
-            I love you
+            <TutorialModal />
           </Modal>
         }
         <Table
@@ -128,14 +108,14 @@ class Tutorial extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  data: state.challengeReducer.data,
-  visible: state.challengeReducer.visible,
+  data: state.tutorialReducer.data,
+  visible: state.tutorialReducer.visible,
 });
 
 const mapDispatchToProps = dispatch => ({
-  deleteChallenge: id => dispatch(deleteChallenge(id)),
-  handleModal: status => dispatch(handleModal(status)),
-  handleChallenge: record => dispatch(handleChallenge(record)),
+  deleteTutorial: id => dispatch(deleteTutorial(id)),
+  handleTutorialModal: status => dispatch(handleTutorialModal(status)),
+  handleTutorial: record => dispatch(handleTutorial(record)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tutorial);

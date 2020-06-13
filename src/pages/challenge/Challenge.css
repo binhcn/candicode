@@ -1,0 +1,156 @@
+/*Blog Sidebar*/
+.alignleft {
+  float: left;
+  margin: 0 15px 10px 0;
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+}
+.alignleft img {
+  width: auto;
+  height: 80px;
+}
+
+.comments-list {
+  padding: 0;
+  list-style: none;
+}
+.comments-list h3 {
+  font-size: 14px;
+  padding: 0 0 0;
+  margin-bottom: 0;
+  margin-top: 5px;
+  text-transform: capitalize;
+  letter-spacing: 0;
+}
+.comments-list h3 a {
+  color: #333;
+}
+.comments-list h3 a:hover {
+  color: #e74e84;
+}
+.comments-list li {
+  margin-bottom: 10px;
+  display: table;
+  width: 100%;
+}
+.comments-list li:last-child {
+  margin-bottom: 0;
+}
+.comments-list small {
+  color: #999999;
+}
+
+.widget-title {
+  padding: 15px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e1e8ed;
+}
+.widget-title h4 {
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+  line-height: 1;
+  font-size: 15px;
+  font-size: 0.9375rem;
+}
+
+.widget {
+  position: relative;
+  display: block;
+  margin-bottom: 15px;
+}
+.widget ul.cats {
+  list-style: none;
+  padding: 0;
+}
+.widget ul.cats li {
+  padding: 0 0 5px 2px;
+  position: relative;
+}
+.widget ul.cats a {
+  color: #333;
+}
+.widget ul.cats a:hover {
+  color: #e74e84;
+}
+.widget ul.cats a span {
+  position: absolute;
+  right: 0;
+}
+
+.tags a {
+  padding: 3px 10px;
+  font-size: 13px;
+  margin: 0 0 4px;
+  letter-spacing: 0.4px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.tags a:hover {
+  background-color: #e74e84;
+  color: #fff;
+}
+
+.challenge-card .ant-card-body {
+  padding: 8px;
+}
+
+.challenge-card .ant-badge {
+  float: right;
+  margin: 10px;
+}
+
+.challenge-card .ant-typography .ant-typography-ellipsis {
+  width: 95%;
+  margin: 4px 0px;
+}
+
+.challenge-card .ant-rate-star:not(:last-child) {
+  margin-right: 0px;
+}
+
+.challenge-card .challenge-level {
+  background-color: yellowgreen;
+  width: 150px;
+  color: white;
+  height: 30px;
+  text-align: center;
+  position: absolute;
+  line-height: 30px;
+  transform: rotate(-45deg);
+  left: -35px;
+  top: 20px;
+}
+
+.challenge-card {
+  overflow: hidden;
+  border-radius: 10px !important;
+  box-shadow: 2px 2px 5px 0px indigo;
+}
+
+.challenge-card .title {
+  font-size: 1.3rem;
+  font-family: Mali;
+  font-weight: 700;
+}
+
+.challenge-card .ant-typography {
+  margin: 0 !important;
+  width: 100%;
+}
+
+.challenge-card .ant-btn {
+  float: right;
+  border-radius: 20px;
+  padding: 0 20px;
+  border: 2px solid white;
+  box-shadow: 2px 2px 5px 0px indigo;
+}

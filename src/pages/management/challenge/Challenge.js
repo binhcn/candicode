@@ -1,21 +1,24 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Table, Popconfirm, Button, Tag, Divider, Modal } from 'antd';
+import { Table, Popconfirm, Button, Tag, Modal, Icon } from 'antd';
 import {
   deleteChallenge, handleModal, handleChallenge, handleSourceModal,
-  handleTestcaseModal, getAllChallenges, handleDeleteLanguageModal
+  handleTestcaseModal, getUserChallenges, handleDeleteLanguageModal,
+  handleUpdateTestcaseModal, handleDeleteTestcaseModal
 } from "../../../actions/actions.creator";
 
 import ChallengeModal from './ChallengeModal';
-import SourceUpdate from './sourceUpdate/AddLanguage';
-import DeleteLanguage from './sourceUpdate/DeleteLanguage';
-import TestcaseUpdate from './TestcaseUpdate';
+import AddLanguageSource from './language-source/AddLanguageSource';
+import DeleteLanguageSource from './language-source/DeleteLanguageSource';
+import AddTestcase from './testcase/AddTestcase';
+import DeleteTestcase from './testcase/DeleteTestcase';
+import UpdateTestcase from './testcase/UpdateTestcase';
 import './Challenge.css';
 
 class Challenge extends React.Component {
   constructor(props) {
     super(props);
-    this.props.getAllChallenges();
+    this.props.getUserChallenges();
     this.columns = [
       {
         title: 'ID',
@@ -60,31 +63,50 @@ class Challenge extends React.Component {
         dataIndex: 'operation',
         render: (text, record) => {
           return (
-            <span>
-              <Button size="small" type="link" onClick={() => this.showModal(record)}>
-                Edit info
-              </Button>
-              <Divider type="vertical" />
-              <Button size="small" type="link" onClick={() => this.showTestcaseModal(record)}>
-                Edit testcase
-              </Button>
-              <Divider type="vertical" />
-              <Popconfirm title="Sure to delete?"
-                onConfirm={() => this.props.deleteChallenge(record.id)}
-              >
-                <Button size="small" type="link">
-                  Delete challenge
+            <div>
+              <div>
+                <Button type="link" onClick={() => this.showTestcaseModal(record)}>
+                  <Icon type="plus-circle" />
                 </Button>
-              </Popconfirm>
-              <Divider type="vertical" />
-              <Button size="small" type="link" onClick={() => this.showSourceModal(record)}>
-                Add language
-              </Button>
-              <Divider type="vertical" />
-              <Button size="small" type="link" onClick={() => this.showDeleteLanguageModal(record)}>
-                Delete language
-              </Button>
-            </span>
+                <Button type="link" onClick={() => this.showUpdateTestcaseModal(record)}>
+                  <Icon type="edit" />
+                </Button>
+                <Button type="link" onClick={() => this.showDeleteTestcaseModal(record)}>
+                  <Icon type="minus-circle" />
+                </Button>
+                Testcase
+              </div>
+
+              <div>
+                <Button type="link" onClick={() => this.showSourceModal(record)}>
+                  <Icon type="plus-circle" />
+                </Button>
+                <Button disabled={true} type="link" >
+                  <Icon type="edit" />
+                </Button>
+                <Button type="link" onClick={() => this.showDeleteLanguageModal(record)}>
+                  <Icon type="minus-circle" />
+                </Button>
+                Language Source
+              </div>
+              
+              <div>
+              <Button disabled={true} type="link" >
+                  <Icon type="plus-circle" />
+                </Button>
+                <Button type="link" onClick={() => this.showModal(record)}>
+                  <Icon type="edit" />
+                </Button>
+                <Popconfirm title="Sure to delete?"
+                  onConfirm={() => this.props.deleteChallenge(record.id)}
+                >
+                  <Button type="link">
+                    <Icon type="minus-circle" />
+                  </Button>
+                </Popconfirm>
+                Challenge
+              </div>
+            </div>
           );
         },
       },
@@ -130,6 +152,16 @@ class Challenge extends React.Component {
     this.props.handleTestcaseModal(true);
   };
 
+  showUpdateTestcaseModal = (record) => {
+    this.props.handleChallenge(record);
+    this.props.handleUpdateTestcaseModal(true);
+  };
+
+  showDeleteTestcaseModal = (record) => {
+    this.props.handleChallenge(record);
+    this.props.handleDeleteTestcaseModal(true);
+  };
+
   render() {
     return (
       <div>
@@ -161,20 +193,7 @@ class Challenge extends React.Component {
             onCancel={() => this.props.handleSourceModal(false)}
             footer={null}
           >
-            <SourceUpdate />
-          </Modal>
-        }
-        { this.props.visibleTestcaseModal && 
-          <Modal 
-            className="testcase-modal"
-            key="testcase-modal"
-            title="Update testcase"
-            width="800px"
-            visible={this.props.visibleTestcaseModal}
-            onCancel={() => this.props.handleTestcaseModal(false)}
-            footer={null}
-          >
-            <TestcaseUpdate />
+            <AddLanguageSource />
           </Modal>
         }
         { this.props.visibleDeleteLanguageModal && 
@@ -186,7 +205,46 @@ class Challenge extends React.Component {
             onCancel={() => this.props.handleDeleteLanguageModal(false)}
             footer={null}
           >
-            <DeleteLanguage />
+            <DeleteLanguageSource />
+          </Modal>
+        }
+        { this.props.visibleTestcaseModal && 
+          <Modal 
+            className="testcase-modal"
+            key="testcase-modal"
+            title="Add testcase"
+            width="800px"
+            visible={this.props.visibleTestcaseModal}
+            onCancel={() => this.props.handleTestcaseModal(false)}
+            footer={null}
+          >
+            <AddTestcase />
+          </Modal>
+        }
+        { this.props.visibleUpdateTestcaseModal && 
+          <Modal 
+            className="update-testcase-modal"
+            key="update-testcase-modal"
+            title="Update testcase"
+            width="800px"
+            visible={this.props.visibleUpdateTestcaseModal}
+            onCancel={() => this.props.handleUpdateTestcaseModal(false)}
+            footer={null}
+          >
+            <UpdateTestcase />
+          </Modal>
+        }
+        { this.props.visibleDeleteTestcaseModal && 
+          <Modal 
+            className="delete-testcase-modal"
+            key="delete-testcase-modal"
+            title="Delete testcase"
+            width="800px"
+            visible={this.props.visibleDeleteTestcaseModal}
+            onCancel={() => this.props.handleDeleteTestcaseModal(false)}
+            footer={null}
+          >
+            <DeleteTestcase />
           </Modal>
         }
         <Table
@@ -203,8 +261,10 @@ const mapStateToProps = state => ({
   data: state.challengeReducer.data,
   visible: state.challengeReducer.visible,
   visibleSourceModal: state.challengeReducer.visibleSourceModal,
-  visibleTestcaseModal: state.challengeReducer.visibleTestcaseModal,
   visibleDeleteLanguageModal: state.challengeReducer.visibleDeleteLanguageModal,
+  visibleTestcaseModal: state.challengeReducer.visibleTestcaseModal,
+  visibleUpdateTestcaseModal: state.challengeReducer.visibleUpdateTestcaseModal,
+  visibleDeleteTestcaseModal: state.challengeReducer.visibleDeleteTestcaseModal,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -213,8 +273,10 @@ const mapDispatchToProps = dispatch => ({
   handleSourceModal: status => dispatch(handleSourceModal(status)),
   handleDeleteLanguageModal: status => dispatch(handleDeleteLanguageModal(status)),
   handleTestcaseModal: status => dispatch(handleTestcaseModal(status)),
+  handleUpdateTestcaseModal: status => dispatch(handleUpdateTestcaseModal(status)),
+  handleDeleteTestcaseModal: status => dispatch(handleDeleteTestcaseModal(status)),
   handleChallenge: record => dispatch(handleChallenge(record)),
-  getAllChallenges: () => dispatch(getAllChallenges()),
+  getUserChallenges: () => dispatch(getUserChallenges()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Challenge);

@@ -2,6 +2,8 @@ import React from "react";
 import { Layout, Row, Input } from 'antd';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+
 import './Content.css';
 import Breadcrumb from './Breadcrumb';
 
@@ -11,11 +13,6 @@ const propTypes = {
   }),
 };
 
-const pathList = ['/code-editor', '/new-challenge', '/management',
-                '/management/challenges', '/management/tutorials',
-                '/management/contests', '/management/statistics',
-                ]
-
 function Content(props) {
   const {
     location: { pathname: path },
@@ -23,10 +20,12 @@ function Content(props) {
 
   if (path.localeCompare('/') === 0) {
     return (
-      <Layout.Content>
+      <Layout.Content className="content-background">
         <div className="hero_home version_1">
           <div className="content">
-            <h3>Fight coding!</h3>
+            <h3>
+              <FormattedMessage id='fight_coding' />
+            </h3>
             <p></p>
             <div id="custom-search-input">
               <div className="input-group">
@@ -59,7 +58,7 @@ function Content(props) {
         </div>
       </Layout.Content>
     )
-  } else if (pathList.includes(path)) {
+  } else if (path.startsWith('/code-editor') || path.startsWith('/management')) {
     return (
       <Layout.Content>
         <div>
@@ -69,7 +68,7 @@ function Content(props) {
     );
   } else {
     return (
-      <Layout.Content >
+      <Layout.Content className="content-background">
         <Row type="flex" justify="space-between">
 
           <Breadcrumb />

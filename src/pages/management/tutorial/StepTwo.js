@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import ReactQuill from 'react-quill';
 import { Button, message, Row, Col, Typography, Icon, Upload } from 'antd';
 
-import './Challenge.css';
+import './Tutorial.css';
 import { MODULE_SET, FORMAT_SET } from '../../../constants/index';
 import {
-  updateStepThree, handleModal, updateChallenge, updateStep
+  updateStepTwoTutorial, handleTutorialModal, updateTutorial, updateStepTutorial
 } from "../../../actions/actions.creator";
 
 const { Title } = Typography;
@@ -61,9 +61,9 @@ class StepThree extends React.Component {
 
   handlePrev = e => {
     const values = {description: this.state.description}
-    this.props.updateStepThree(values);
+    this.props.updateStepTwoTutorial(values);
     const step = -1;
-    this.props.updateStep(step);
+    this.props.updateStepTutorial(step);
   };
 
   handleChangeDescription = html => {
@@ -79,37 +79,22 @@ class StepThree extends React.Component {
 
   handleComplete = e => {
     const values = {description: this.state.description}
-    this.props.updateStepThree(values);
+    this.props.updateStepTwoTutorial(values);
 
     const formData = new FormData();
-    if (this.props.challange.banner) {
-      formData.append('banner', this.props.challange.banner);
+    if (this.props.tutorial.banner) {
+      formData.append('banner', this.props.tutorial.banner);
     }
-    if (this.props.challange.id) {
-      formData.append('title', this.props.challange.title);
-      formData.append('level', this.props.challange.level);
-      formData.append('description', this.state.description);
-      formData.append('banner', this.props.challange.banner);
-    } else {
-      console.log(this.props.challange.implementedPath.slice(-1)[0])
-      formData.append('title', this.props.challange.title);
-      formData.append('level', this.props.challange.level);
-      formData.append('language', this.props.challange.language[0]);
-      formData.append('compilePath', this.props.challange.compilePath.slice(-1)[0]);
-      formData.append('runPath', this.props.challange.runPath.slice(-1)[0]);
-      formData.append('implementedPath', this.props.challange.implementedPath.slice(-1)[0]);
-      formData.append('nonImplementedPath', this.props.challange.nonImplementedPath.slice(-1)[0]);
-      formData.append('tcInputFormat', this.props.challange.tcInputFormat);
-      formData.append('tcOutputFormat', this.props.challange.tcOutputFormat);
-      formData.append('description', this.state.description);
-      formData.append('challengeDir', this.props.challange.challengeDir);
-    }
+   
+    formData.append('title', this.props.tutorial.title);
+    formData.append('tagList', this.props.tutorial.tagList);
+    formData.append('description', this.state.description);
 
-    var { data, visible, ...rest } = this.props.challange;
-    const request = Object.assign({}, rest, {id: this.props.challange.id, description: this.state.description});
-    this.props.updateChallenge({formData, request});
+    var { data, visible, ...rest } = this.props.tutorial;
+    const request = Object.assign({}, rest, {id: this.props.tutorial.id, description: this.state.description});
+    this.props.updateTutorial({formData, request});
 
-    this.props.handleModal(false);
+    this.props.handleTutorialModal(false);
   };
 
   render() {
@@ -169,14 +154,14 @@ class StepThree extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  description: state.challengeReducer.description,
-  challange: state.challengeReducer,
+  description: state.tutorialReducer.description,
+  tutorial: state.tutorialReducer,
 });
 const mapDispatchToProps = dispatch => ({
-  updateStepThree: (payload) => dispatch(updateStepThree(payload)),
-  updateStep: (payload) => dispatch(updateStep(payload)),
-  handleModal: status => dispatch(handleModal(status)),
-  updateChallenge: request => dispatch(updateChallenge(request)),
+  updateStepTwoTutorial: (payload) => dispatch(updateStepTwoTutorial(payload)),
+  updateStepTutorial: (payload) => dispatch(updateStepTutorial(payload)),
+  handleTutorialModal: status => dispatch(handleTutorialModal(status)),
+  updateTutorial: request => dispatch(updateTutorial(request)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StepThree);

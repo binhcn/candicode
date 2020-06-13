@@ -20,9 +20,9 @@ export const LANGUAGE_SET = [
 ]
 
 export const LEVEL_SET = [
-  'easy',
-  'moderate',
-  'hard'
+  'Easy',
+  'Moderate',
+  'Hard'
 ]
 
 export const MODULE_SET = {
@@ -49,3 +49,37 @@ export const FORMAT_SET = [
   'link', 'image', 'video',
   'align'
 ]
+
+export const TAG_SET = [
+  'Algorithm', 'SQL', 'Complexity', 'OOP', 'Network',
+  'Data structure', 'Database', 'DBMS', 'AI', 'System',
+]
+
+const TAG_COLOR_SET = [
+  'magenta', 'red', 'volcano', 'orange', 'gold',
+  'lime', 'green', 'cyan', 'blue', 'geekblue',
+  'purple',
+]
+
+export const TESTCASE_FORMAT_SET = [
+  'float', 'float_list',
+  'integer', 'integer_list',
+  'string', 'string_list',
+  'boolean', 'boolean_list',
+]
+
+export function randomColor() {
+  var index = Math.floor(Math.random() * TAG_COLOR_SET.length);
+  return TAG_COLOR_SET[index];
+}
+
+const BANNER_SET = [
+  'https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.jpg',
+  'https://miro.medium.com/max/2560/1*iu5XZBn-sR0qjEkvdD93kw.jpeg',
+  'https://i.ytimg.com/vi/nqiC6o8vj7o/maxresdefault.jpg',
+]
+
+export function randomBanner() {
+  var index = Math.floor(Math.random() * BANNER_SET.length);
+  return BANNER_SET[index];
+}

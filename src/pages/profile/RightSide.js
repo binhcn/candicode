@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import { Table } from 'antd';
 
-import './Profile.scss';
+import './Profile.css';
 
 const columns = [
   {

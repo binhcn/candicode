@@ -6,7 +6,8 @@ import Home from './pages/home/Home';
 import UserPlan from './pages/user-plan/UserPlan';
 import Code from './pages/code/Code';
 import MainService from './layout/MainService';
-import Challenges from './pages/challenges/Challenges';
+import Challenge from './pages/challenge/Challenge';
+import Tutorial from './pages/tutorial/Tutorial';
 import Management from './pages/management/Management';
 import Profile from './pages/profile/Profile';
 import NotFound from './commons/NotFound';
@@ -24,7 +25,8 @@ function Router(props) {
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/code-editor' component={Code} />
-          <Route path="/challenges/language-proficiency" component={Challenges} />
+          <Route path="/challenges" component={Challenge} />
+          <Route path="/tutorials" component={Tutorial} />
           <Route path="/user-plans" component={UserPlan} />
           <Route path="/demo" component={Demo} />
           <PrivateRoute exact authenticated={props.isAuthenticated} path="/profile" component={Profile} />

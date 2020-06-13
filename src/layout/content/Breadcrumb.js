@@ -5,11 +5,11 @@ import './Content.css';
 
 const breadcrumbNameMap = {
   '/challenges': 'Challenges',
-  '/challenges/language-proficiency': 'Language proficiency',
+  '/tutorials': 'Tutorials',
+  '/contests': 'Contests',
   '/user-plans': 'User plans',
   '/login': 'Login',
   '/signup': 'Sign up',
-  '/new-challenge': 'New challenge',
   '/profile': 'Profile',
 };
 

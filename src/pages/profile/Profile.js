@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Row, Col } from 'antd';
 
-import './Profile.scss';
+import './Profile.css';
 import LeftSide from './LeftSide';
 import RightSide from './RightSide';
-
 
 class Profile extends Component {
 	render() {

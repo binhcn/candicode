@@ -31,23 +31,9 @@ const request = (options) => {
 export function signup(signupRequest) {
   console.log(signupRequest)
   return request({
-      url: API_BASE_URL + "/coders",
+      url: API_BASE_URL + "/students",
       method: 'post',
       data: signupRequest
-  });
-}
-
-export function checkUsernameAvailability(username) {
-  return request({
-      url: API_BASE_URL + "/user/checkUsernameAvailability?username=" + username,
-      method: 'GET'
-  });
-}
-
-export function checkEmailAvailability(email) {
-  return request({
-      url: API_BASE_URL + "/user/checkEmailAvailability?email=" + email,
-      method: 'GET'
   });
 }
 
@@ -67,9 +53,18 @@ export function getCurrentUser() {
   });
 }
 
+
+//  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
+// ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
+// ██║     ███████║███████║██║     ██║     █████╗  ██╔██╗ ██║██║  ███╗█████╗  
+// ██║     ██╔══██║██╔══██║██║     ██║     ██╔══╝  ██║╚██╗██║██║   ██║██╔══╝  
+// ╚██████╗██║  ██║██║  ██║███████╗███████╗███████╗██║ ╚████║╚██████╔╝███████╗
+//  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
+
+
 export function uploadSource(source) {
   return request({
-    url: API_BASE_URL + "/challenges/source-upload",
+    url: API_BASE_URL + "/challenges/source",
     method: 'POST',
     data: source
   });
@@ -84,6 +79,7 @@ export function uploadChallenge(challengeRequest) {
 }
 
 export function editChallenge(data) {
+  console.log(data)
   return request({
     url: API_BASE_URL + "/challenges/" + data.id,
     method: 'POST',
@@ -119,5 +115,38 @@ export function deleteLanguage(payload) {
     url: API_BASE_URL + "/challenges/" + payload.id + "/configs",
     method: 'DELETE',
     data: payload.data
+  });
+}
+
+export function verifyTestcase(payload) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + payload.id + "/testcases/verification",
+    method: 'POST',
+    data: payload.data
+  });
+}
+
+export function submitTestcase(payload) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + payload.id + "/testcases",
+    method: 'POST',
+    data: payload.data
+  });
+}
+
+
+//  ██████╗ ██████╗ ██████╗ ███████╗    ███████╗██████╗ ██╗████████╗ ██████╗ ██████╗ 
+// ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔════╝██╔══██╗██║╚══██╔══╝██╔═══██╗██╔══██╗
+// ██║     ██║   ██║██║  ██║█████╗█████╗█████╗  ██║  ██║██║   ██║   ██║   ██║██████╔╝
+// ██║     ██║   ██║██║  ██║██╔══╝╚════╝██╔══╝  ██║  ██║██║   ██║   ██║   ██║██╔══██╗
+// ╚██████╗╚██████╔╝██████╔╝███████╗    ███████╗██████╔╝██║   ██║   ╚██████╔╝██║  ██║
+//  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚══════╝╚═════╝ ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
+
+
+export function getChallengeDetails(id) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + id,
+    method: 'GET',
+    data: {}
   });
 }

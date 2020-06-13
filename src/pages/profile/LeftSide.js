@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, Avatar, Button, Descriptions, Progress, Row, Col, Divider, Statistic } from 'antd';
-import { Link } from 'react-router-dom';
+import { Card, Avatar, Descriptions, Progress, Row, Col, Divider, Statistic } from 'antd';
+import Setting from './Setting';
 
-import './Profile.scss';
+import './Profile.css';
 import { getAvatarColor } from '../../util/Colors';
 
 const { Meta } = Card;
@@ -20,9 +20,7 @@ export default class LeftSide extends React.Component {
 			<div className="leftside-profile">
 				<Card
 					title="Basic information"
-					extra={<Button>
-						<Link to="/settings">Edit profile</Link>
-					</Button>}
+					extra={<Setting />}
 				>
 					<Meta
 						avatar={
@@ -72,27 +70,19 @@ export default class LeftSide extends React.Component {
 					<span style={{ float: 'right' }}>Bach Khoa University</span>
 				</Card>
 
-				<Card title="Contests">
-					<span><i className="fas fa-crown fa-lg" style={{color:"gold"}}></i> Finished Contests</span>
-					<span style={{float:'right'}} >35</span>
-				<Divider />
-					<span><i className="fas fa-star-half-alt fa-lg" style={{color:"royalblue"}}></i> Rating</span>
-					<span style={{float:'right'}}>1998</span>
-				<Divider />
-					<span><i className="fas fa-chart-area fa-lg" style={{color:"sienna"}}></i> Global Ranking</span>
-					<span style={{float:'right'}}>2001/1610228</span>
-			</Card>
-
-			<Card title="Progress">
-					<span><i className="fas fa-code fa-lg" style={{color:"dimgray"}}></i> Coding Challenge</span>
-					<span style={{float:'right'}}>35/130</span>
-				<Divider />
-					<span><i className="fas fa-question-circle fa-lg" style={{color:"chocolate"}}></i> Theory Quiz</span>
-					<span style={{float:'right'}}>56/95</span>
-				<Divider />
-					<span><i className="fas fa-book-open fa-lg" style={{color:"aqua"}}></i> Tutorial</span>
-					<span style={{float:'right'}}>15/45</span>
-			</Card>
+				<Card title="Progress">
+					<span><i className="fas fa-code fa-lg" style={{ color: "dimgray" }}></i> Coding Challenge</span>
+					<span style={{ float: 'right' }}>35/130</span>
+					<Divider />
+					<span><i className="fas fa-book-open fa-lg" style={{ color: "aqua" }}></i> Tutorial</span>
+					<span style={{ float: 'right' }}>15/45</span>
+					<Divider />
+					<span><i className="fas fa-crown fa-lg" style={{ color: "gold" }}></i> Finished Contests</span>
+					<span style={{ float: 'right' }} >35</span>
+					<Divider />
+					<span><i className="fas fa-chart-area fa-lg" style={{ color: "sienna" }}></i> Global Ranking</span>
+					<span style={{ float: 'right' }}>2001/1610228</span>
+				</Card>
 			</div>
 		)
 	}
