@@ -6,6 +6,7 @@ const initState = {
   level: "",
   language: [],
   source: null, //this field should be removed
+  tagList: [],
   banner: null,
   imageUrl: "",
 
@@ -45,7 +46,7 @@ const challengeReducer = (state = initState, action) => {
         title: action.payload.title,
         description: action.payload.description,
         level: action.payload.level,
-
+        tagList: action.payload.tags,
         language: action.payload.languages,
         banner: action.payload.banner,
         tcInputFormat: action.payload.tcInputFormat,
@@ -137,6 +138,7 @@ const challengeReducer = (state = initState, action) => {
         ? action.payload.language : state.language;
       language = Array.isArray(language)
         ? language : [language];
+      var tagList = action.payload.tagList ? action.payload.tagList : [];
       if (state.id !== '') {
         return {
           ...state,
@@ -146,6 +148,7 @@ const challengeReducer = (state = initState, action) => {
           imageUrl: action.payload.imageUrl,
           source: action.payload.sourceCode,
           language: language,
+          tagList: tagList,
         };
       }
       return {
@@ -156,6 +159,7 @@ const challengeReducer = (state = initState, action) => {
         level: action.payload.level,
         banner: action.payload.banner,
         imageUrl: action.payload.imageUrl,
+        tagList: tagList,
       };
     case actions.UPDATE_STEP_TWO:
       return {

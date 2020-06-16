@@ -15,7 +15,6 @@ const request = (options) => {
   const defaults = { headers: headers };
 
   options = Object.assign({}, defaults, options);
-  console.log(options)
   return axios(options)
     .then(response => {
       console.log(response)
@@ -79,7 +78,6 @@ export function uploadChallenge(challengeRequest) {
 }
 
 export function editChallenge(data) {
-  console.log(data)
   return request({
     url: API_BASE_URL + "/challenges/" + data.id,
     method: 'POST',
@@ -87,9 +85,17 @@ export function editChallenge(data) {
   });
 }
 
-export function getAllChallenge() {
+export function getAllChallenges() {
   return request({
     url: API_BASE_URL + "/challenges",
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function getUserChallenges() {
+  return request({
+    url: API_BASE_URL + "/challenges/me",
     method: 'GET',
     data: {}
   });
@@ -104,7 +110,7 @@ export function deleteChallenge(id) {
 
 export function addLanguage(payload) {
   return request({
-    url: API_BASE_URL + "/challenges/" + payload.id + "/configs",
+    url: API_BASE_URL + "/challenges/" + payload.id + "/languages",
     method: 'POST',
     data: payload.data
   });
@@ -112,7 +118,7 @@ export function addLanguage(payload) {
 
 export function deleteLanguage(payload) {
   return request({
-    url: API_BASE_URL + "/challenges/" + payload.id + "/configs",
+    url: API_BASE_URL + "/challenges/" + payload.id + "/languages",
     method: 'DELETE',
     data: payload.data
   });
@@ -134,6 +140,29 @@ export function submitTestcase(payload) {
   });
 }
 
+export function editTestcase(payload) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + payload.id + "/testcases",
+    method: 'PUT',
+    data: payload.data
+  });
+}
+
+export function deleteTestcase(payload) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + payload.id + "/testcases",
+    method: 'DELETE',
+    data: payload.data
+  });
+}
+
+export function createSubmission(payload) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + payload.id + "/submissions",
+    method: 'POST',
+    data: payload.data
+  });
+}
 
 //  ██████╗ ██████╗ ██████╗ ███████╗    ███████╗██████╗ ██╗████████╗ ██████╗ ██████╗ 
 // ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔════╝██╔══██╗██║╚══██╔══╝██╔═══██╗██╔══██╗
@@ -146,6 +175,31 @@ export function submitTestcase(payload) {
 export function getChallengeDetails(id) {
   return request({
     url: API_BASE_URL + "/challenges/" + id,
+    method: 'GET',
+    data: {}
+  });
+}
+
+
+// ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗     
+// ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║     
+//    ██║   ██║   ██║   ██║   ██║   ██║██████╔╝██║███████║██║     
+//    ██║   ██║   ██║   ██║   ██║   ██║██╔══██╗██║██╔══██║██║     
+//    ██║   ╚██████╔╝   ██║   ╚██████╔╝██║  ██║██║██║  ██║███████╗
+//    ╚═╝    ╚═════╝    ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝
+
+
+export function getAllTutorials() {
+  return request({
+    url: API_BASE_URL + "/tutorials",
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function getUserTutorials() {
+  return request({
+    url: API_BASE_URL + "/tutorials/me",
     method: 'GET',
     data: {}
   });

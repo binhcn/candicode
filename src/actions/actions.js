@@ -29,8 +29,13 @@ export const GET_CHALLENGE_DETAILS = "Get challenge details";
 
 export const HANDLE_TUTORIAL = "Handle tutorial";
 export const HANDLE_TUTORIAL_MODAL = "Handle tutorial modal";
+
 export const UPDATE_STEP_ONE_TUTORIAL = "Update step one tutorial";
 export const UPDATE_STEP_TWO_TUTORIAL = "Update step two tutorial";
 export const UPDATE_STEP_TUTORIAL = "Update step tutorial";
+
+export const GET_ALL_TUTORIALS = "Get all tutorials";
+export const GET_TUTORIAL_DETAILS = "Get tutorial details";
+
 export const UPDATE_TUTORIAL = "Update tutorial";
 export const DELETE_TUTORIAL = "Delete tutorial";

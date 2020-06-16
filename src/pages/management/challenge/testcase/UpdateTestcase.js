@@ -6,7 +6,8 @@ import {
 } from 'antd';
 
 import {
-  verifyTestcase, submitTestcase, handleUpdateTestcaseModal,
+  verifyTestcase, handleUpdateTestcaseModal,
+  editTestcase,
 } from "../../../../actions/actions.creator";
 
 
@@ -16,7 +17,7 @@ class UpdateTestcase extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { keys, input, output, isPublic } = values;
+        const { keys, input, output, isHidden } = values;
         if (keys.includes('') || keys.includes('error')) {
           notification['warning']({
             message: 'Validate testcase',
@@ -26,24 +27,34 @@ class UpdateTestcase extends React.Component {
         } else {
           var data = [];
           this.props.testcases.forEach((item, index) => {
-            if (item.input !== input[index] || item.hidden !== isPublic[index]) {
+            if (item.input !== input[index] || item.hidden !== isHidden[index]) {
               data.push({
-                testcaseId: item.id,
-                input: input[index],
-                output: output[index],
-                hidden: isPublic[index],
+                testcaseId: item.testcaseId,
+                input: input[index].replace(/\s/g, ''),
+                output: output[index].replace(/\s/g, ''),
+                hidden: isHidden[index],
               })
             }
           })
-          // var result = this.props.submitTestcase({id: this.props.id, data: {testcases: data}})
-          // result.then(response => {
-          //   notification['success']({
-          //     message: 'Successfully',
-          //     description: response.message,
-          //     duration: 2,
-          //   });
-          //   this.props.handleUpdateTestcaseModal(false);
-          // });
+          if (data.length > 0) {
+            var response = this.props.editTestcase({ id: this.props.id, data: { testcases: data } })
+            response.then(result => {
+              notification['success']({
+                message: 'Successfully',
+                description: result.message,
+                duration: 2,
+              });
+              this.props.handleUpdateTestcaseModal(false);
+            });
+          } else {
+            notification['success']({
+              message: 'Candicode',
+              description: 'Edited 0 testcases successfully',
+              duration: 2,
+            });
+            this.props.handleUpdateTestcaseModal(false);
+          }
+
         }
       }
     });
@@ -58,34 +69,36 @@ class UpdateTestcase extends React.Component {
           id: this.props.id,
           data: {
             language: "Java",
-            input: input[index]
+            input: input[index].replace(/\s/g, '')
           }
         }
         var data = this.props.verifyTestcase(payload);
         var keys = form.getFieldValue('keys');
-        console.log(keys)
         var output = form.getFieldValue('output');
         data.then(result => {
-          if (result.validFormat && result.compiled) {
-            keys[index] = 'success';
-            output[index] = result.output;
+          if (result.validFormat) {
+            result.details.forEach(item => {
+              if (item.compiled) {
+                keys[index] = 'success';
+                output[index] = item.output;
+              } else {
+                keys[index] = 'error';
+                output[index] = "none";
+                notification['error']({
+                  message: `Testcase ${index + 1}: compiled error`,
+                  description: item.compileError ? item.compileError : item.runtimeError,
+                  duration: 0,
+                });
+              }
+            })
           } else {
             keys[index] = 'error';
             output[index] = "none";
-            if (!result.validFormat) {
-              notification['error']({
-                message: `Testcase ${index + 1}: invalid format input`,
-                description: result.validFormatError,
-                duration: 0,
-              });
-            } else {
-              notification['error']({
-                message: `Testcase ${index + 1}: compiled error`,
-                description: result.compileError,
-                duration: 0,
-              });
-            }
-
+            notification['error']({
+              message: `Testcase ${index + 1}: invalid format input`,
+              description: result.validFormatError,
+              duration: 0,
+            });
           }
           form.setFieldsValue({
             keys: keys,
@@ -116,11 +129,11 @@ class UpdateTestcase extends React.Component {
         <Col span={11}>
           <span>Testcase {index + 1}</span>
           <Form.Item className="switch">
-            {getFieldDecorator(`isPublic[${index}]`, {
+            {getFieldDecorator(`isHidden[${index}]`, {
               valuePropName: 'checked',
               initialValue: item.hidden,
             })(<Switch />)}
-            <Tooltip title="Is public testcase?" className="is-public-testcase-icon">
+            <Tooltip title="Is hidden testcase?" className="is-hidden-testcase-icon">
               <Icon type="question-circle-o" />
             </Tooltip>
           </Form.Item>
@@ -175,7 +188,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   verifyTestcase: payload => dispatch(verifyTestcase(payload)),
-  submitTestcase: payload => dispatch(submitTestcase(payload)),
+  editTestcase: payload => dispatch(editTestcase(payload)),
   handleUpdateTestcaseModal: status => dispatch(handleUpdateTestcaseModal(status)),
 });
 

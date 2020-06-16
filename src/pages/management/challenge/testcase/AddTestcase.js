@@ -33,7 +33,7 @@ class AddTestcase extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { keys, input, output, isPublic } = values;
+        const { keys, input, output, isHidden } = values;
         if (keys.includes('') || keys.includes('error')) {
           notification['warning']({
             message: 'Validate testcase',
@@ -44,16 +44,16 @@ class AddTestcase extends React.Component {
           var data = [];
           input.forEach((item, index) => {
             data.push({
-              input: input[index],
-              output: output[index],
-              hidden: isPublic[index],
+              input: input[index].replace(/\s/g, ''),
+              output: output[index].replace(/\s/g, ''),
+              hidden: isHidden[index],
             })
           })
-          var result = this.props.submitTestcase({id: this.props.id, data: {testcases: data}})
-          result.then(response => {
+          var response = this.props.submitTestcase({id: this.props.id, data: {testcases: data}})
+          response.then(result => {
             notification['success']({
               message: 'Successfully',
-              description: response.message,
+              description: result.message,
               duration: 2,
             });
             this.props.handleTestcaseModal(false);
@@ -71,7 +71,7 @@ class AddTestcase extends React.Component {
         var payload = {
           id: this.props.id,
           data: {
-            input: input[index]
+            input: input[index].replace(/\s/g, '')
           }
         }
         var data = this.props.verifyTestcase(payload);
@@ -138,11 +138,11 @@ class AddTestcase extends React.Component {
           ) : null}
           <span>Testcase {index + 1}</span>
           <Form.Item className="switch">
-            {getFieldDecorator(`isPublic[${index}]`, {
+            {getFieldDecorator(`isHidden[${index}]`, {
               valuePropName: 'checked',
-              initialValue: true,
+              initialValue: false,
             })(<Switch />)}
-            <Tooltip title="Is public testcase?" className="is-public-testcase-icon">
+            <Tooltip title="Is hidden testcase?" className="is-hidden-testcase-icon">
               <Icon type="question-circle-o" />
             </Tooltip>
           </Form.Item>

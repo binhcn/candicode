@@ -99,63 +99,51 @@
   color: #fff;
 }
 
-.challenge-card .ant-card-body {
-  padding: 8px;
+.tutorial-item .ant-list-item {
+  display: flex;
 }
 
-.challenge-card .ant-badge {
-  float: right;
-  margin: 10px;
+.tutorial-item .ant-list-item-main {
+  order: 1;
+  padding: 10px;
+}
+.tutorial-item .ant-list-item-extra {
+  order: 0;
+  margin-left: 0 !important;
+  width: 35%;
 }
 
-.challenge-card .ant-typography .ant-typography-ellipsis {
-  width: 95%;
-  margin: 4px 0px;
-}
-
-.challenge-card .ant-rate-star:not(:last-child) {
-  margin-right: 0px;
-}
-
-.challenge-card .challenge-level {
-  background-color: yellowgreen;
-  width: 150px;
-  color: white;
-  height: 30px;
-  text-align: center;
-  position: absolute;
-  line-height: 30px;
-  transform: rotate(-45deg);
-  left: -35px;
-  top: 20px;
-}
-
-.challenge-card {
-  overflow: hidden;
-  border-radius: 10px !important;
-  box-shadow: 2px 2px 5px 0px indigo;
-}
-
-.challenge-card .title {
-  font-size: 1.3rem;
+.tutorial-item .title {
+  font-size: 1.5rem;
   font-family: Mali;
   font-weight: 700;
+  line-height: 1.235;
 }
 
-.challenge-card .ant-typography {
-  margin: 0 !important;
-  width: 100%;
+.tutorial-item .ant-badge {
+  float: right;
+  line-height: 30px;
 }
 
-.challenge-card .ant-btn {
+.tutorial-item .messages {
+  margin: 0px 10px 0px 20px;
+}
+
+.tutorial-item .ant-btn {
   float: right;
   border-radius: 20px;
-  padding: 0 15px;
+  padding: 0 20px;
   border: 2px solid white;
   box-shadow: 2px 2px 5px 0px indigo;
 }
 
-.challenge-card .ant-tag {
-  margin-right: 0px;
-  margin-left: 3px;
+.tutorial-item {
+  border: 1px solid whitesmoke;
+  padding: 0 !important;
+  overflow: hidden;
+  border-radius: 10px !important;
+  /* box-shadow: 3px 3px 5px 0px whitesmoke; */
+  box-shadow: 2px 2px 5px 0px indigo;
+  margin-bottom: 30px;
+  background-color: #fff;
 }

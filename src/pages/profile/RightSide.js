@@ -63,11 +63,12 @@ export default class RightSide extends Component {
 					}}
 				/>
 
+        <div className="table-title">RECENT HISTORY</div>
+
 				<Table
 					columns={columns}
 					dataSource={data}
 					bordered
-					title={() => 'Recent Posts'}
 					pagination={false}
 				/>
 			</div>

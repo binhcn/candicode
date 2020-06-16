@@ -19,7 +19,7 @@ export default class LeftSide extends React.Component {
 		return (
 			<div className="leftside-profile">
 				<Card
-					title="Basic information"
+					title="INFORMATION"
 					extra={<Setting />}
 				>
 					<Meta
@@ -34,15 +34,14 @@ export default class LeftSide extends React.Component {
 
 					<Progress
 						strokeColor={{
-							from: '#cc9900',
-							to: '#0066ff',
+							from: 'red',
+							to: 'yellow',
 						}}
 						percent={value}
 						status="active"
 						format={percent => {
-							return <Statistic value={exp} suffix={`/${maxExp}`} valueStyle={{ fontSize: '100%' }} />
+							return exp + '/' + maxExp;
 						}}
-						style={{ width: '90%' }}
 					/>
 
 					<Descriptions>
@@ -50,7 +49,7 @@ export default class LeftSide extends React.Component {
 						<Descriptions.Item label="Title">Golden </Descriptions.Item>
 					</Descriptions>
 
-					<Row>
+					<Row className="logo">
 						<Col span={6}><img src="img/facebook.png" alt="facebook" width="40px" /></Col>
 						<Col span={6}><img src="img/github.svg" alt="github" width="40px" /></Col>
 						<Col span={6}><img src="img/google.png" alt="google" width="40px" /></Col>
@@ -70,7 +69,7 @@ export default class LeftSide extends React.Component {
 					<span style={{ float: 'right' }}>Bach Khoa University</span>
 				</Card>
 
-				<Card title="Progress">
+				<Card title="PROGRESS">
 					<span><i className="fas fa-code fa-lg" style={{ color: "dimgray" }}></i> Coding Challenge</span>
 					<span style={{ float: 'right' }}>35/130</span>
 					<Divider />

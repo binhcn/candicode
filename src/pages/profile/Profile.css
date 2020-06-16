@@ -1,12 +1,80 @@
-.leftside-profile .ant-card-body, .leftside-profile .ant-card-extra, .leftside-profile .ant-card-head-title {
-  padding: 12px !important; }
+.leftside-profile {
+  padding: 10px;
+}
 
 .leftside-profile .ant-divider {
-  margin: 1em 0 !important; }
+  margin: 1em 0 !important; 
+}
 
 .leftside-profile .ant-card {
   width: 350px !important;
-  margin: 16px !important; }
+  margin: 16px !important;
+  border-radius: 10px !important;
+  box-shadow: 2px 2px 5px 0px indigo;
+}
+
+.leftside-profile .ant-card-meta-title {
+  margin-bottom: 0 !important;
+}
+
+.leftside-profile .ant-progress-outer {
+  margin: 5px 0;
+  padding-right: 0 !important;
+}
+
+.leftside-profile .ant-card .ant-card-head-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 12px 0;
+}
+
+.leftside-profile .ant-progress-inner {
+  height: 15px;
+}
+
+.leftside-profile .ant-progress-bg {
+  height: 15px !important;
+}
+
+.leftside-profile .ant-progress-text {
+  position: absolute;
+  left: 40%;
+  font-family: Mali;
+  top: 10px;
+  font-weight: 900;
+}
+
+.leftside-profile .ant-card-head {
+  border-radius: 10px;
+  background-color: deepskyblue;
+}
+
+.leftside-profile .ant-btn {
+  border-radius: 10px;
+  padding: 0px 10px;
+  border: 2px solid whitesmoke;
+  box-shadow: 2px 2px 5px 0px indigo;
+}
+
+.leftside-profile .ant-btn i {
+  position: relative;
+  top: -3px;
+}
+
+.leftside-profile .logo img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.rightside-profile {
+  padding: 30px;
+}
+
+.rightside-profile .react-calendar-heatmap {
+  font-size: 13px;
+}
 
 .rightside-profile .react-calendar-heatmap .color-scale-1 {
   fill: #d6e685; }
@@ -21,4 +89,18 @@
   fill: #1e6823; }
 
 .rightside-profile .react-calendar-heatmap .color-empty {
-  fill: aqua; }
+  fill: lightblue; }
+
+.rightside-profile .table-title {
+  margin: 50px 30px 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.rightside-profile .ant-table-thead {
+  background-color: deepskyblue !important;
+}
+
+.rightside-profile .ant-table-tbody {
+  background-color: white;
+}

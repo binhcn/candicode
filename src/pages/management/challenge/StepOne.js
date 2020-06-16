@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Form, Input, Tooltip, Icon, Button, Upload, Select, message } from 'antd';
 
 import './Challenge.css';
-import { STEP_LENGTH } from '../../../constants';
+import { STEP_LENGTH, TAG_SET } from '../../../constants';
 import {
   updateStepOne, uploadSource, updateStep,
 } from "../../../actions/actions.creator";
@@ -116,6 +116,10 @@ class StepOne extends React.Component {
       <Select.Option key={level} value={level}>{level}</Select.Option>
     ));
 
+    const tagOpt = TAG_SET.sort().map(level => (
+      <Select.Option key={level} value={level}>{level}</Select.Option>
+    ));
+
     const uploadButton = (
       <div>
         <Icon type={this.state.loading ? 'loading' : 'plus'} />
@@ -124,7 +128,7 @@ class StepOne extends React.Component {
     );
     const { imageUrl } = this.state;
     return (
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+      <Form {...formItemLayout} onSubmit={this.handleSubmit} className="add-edit-challenge-form">
         <Form.Item
           label={
             <span>
@@ -185,6 +189,15 @@ class StepOne extends React.Component {
             )}
           </Form.Item>
         }
+        <Form.Item label="Tag" hasFeedback>
+          {getFieldDecorator('tagList', {
+            initialValue: this.props.tagList,
+          })(
+            <Select mode="tags" style={{ width: '100%' }} placeholder="Tags Mode">
+              {tagOpt}
+            </Select>,
+          )}
+        </Form.Item>
         <Form.Item label="Your banner">
           {getFieldDecorator('banner', {
             initialValue: this.props.banner,
@@ -223,7 +236,7 @@ const mapStateToProps = state => ({
   language: state.challengeReducer.language,
   level: state.challengeReducer.level,
   banner: state.challengeReducer.banner,
-  projectStructure: state.challengeReducer.projectStructure,
+  tagList: state.challengeReducer.tagList,
   currentStep: state.challengeReducer.currentStep,
 });
 const mapDispatchToProps = dispatch => ({

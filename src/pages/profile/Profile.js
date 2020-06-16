@@ -9,10 +9,10 @@ class Profile extends Component {
 	render() {
 		return (
 			<Row>
-				<Col span={8}>
+				<Col span={7}>
 					<LeftSide />
 				</Col>
-				<Col span={16}>
+				<Col span={17}>
 					<RightSide />
 				</Col>
 			</Row>

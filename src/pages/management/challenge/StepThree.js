@@ -85,11 +85,13 @@ class StepThree extends React.Component {
     if (this.props.challange.banner) {
       formData.append('banner', this.props.challange.banner);
     }
+    if (this.props.challange.tagList.length > 0) {
+      formData.append('tags', this.props.challange.tagList);
+    }
     if (this.props.challange.id) {
       formData.append('title', this.props.challange.title);
       formData.append('level', this.props.challange.level);
       formData.append('description', this.state.description);
-      formData.append('banner', this.props.challange.banner);
     } else {
       console.log(this.props.challange.implementedPath.slice(-1)[0])
       formData.append('title', this.props.challange.title);

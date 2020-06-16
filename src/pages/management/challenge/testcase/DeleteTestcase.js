@@ -6,7 +6,7 @@ import {
 } from 'antd';
 
 import {
-  verifyTestcase, submitTestcase, handleDeleteTestcaseModal,
+  verifyTestcase, deleteTestcase, handleDeleteTestcaseModal,
 } from "../../../../actions/actions.creator";
 
 
@@ -28,21 +28,20 @@ class DeleteTestcase extends React.Component {
         const { keys } = values;
         var data = [];
         const idList = keys.map(item => item.testcaseId);
-        this.props.testcase.forEach(item => {
+        this.props.testcases.forEach(item => {
           if (!idList.includes(item.testcaseId)) {
             data.push(item.testcaseId);
           }
         })
-        console.log(data)
-        // var result = this.props.submitTestcase({id: this.props.id, data: {testcaseIds: data}})
-        // result.then(response => {
-        //   notification['success']({
-        //     message: 'Successfully',
-        //     description: response.message,
-        //     duration: 2,
-        //   });
-        //   this.props.handleDeleteTestcaseModal(false);
-        // });
+        var response = this.props.deleteTestcase({id: this.props.id, data: {testcaseIds: data}})
+        response.then(result => {
+          notification['success']({
+            message: 'Successfully',
+            description: `Deleted ${result.removedTestcase} testcases successfully`,
+            duration: 2,
+          });
+          this.props.handleDeleteTestcaseModal(false);
+        });
 
       }
     });
@@ -61,7 +60,7 @@ class DeleteTestcase extends React.Component {
       },
     };
     var { tcInputFormat, testcases } = this.props;
-    getFieldDecorator('keys', { initialValue: testcases });
+    getFieldDecorator('keys', { initialValue: testcases ? [...testcases] : [] });
     var keys = getFieldValue('keys');
     var formItems = Array.isArray(keys) ? keys.map((item, index) => (
       <Row key={index} gutter={16}>
@@ -78,11 +77,11 @@ class DeleteTestcase extends React.Component {
           ) : null}
           <span>Testcase {index + 1}</span>
           <Form.Item className="switch">
-            {getFieldDecorator(`isPublic[${index}]`, {
+            {getFieldDecorator(`isHidden[${index}]`, {
               valuePropName: 'checked',
               initialValue: item.hidden,
             })(<Switch disabled={true} />)}
-            <Tooltip title="Is public testcase?" className="is-public-testcase-icon">
+            <Tooltip title="Is hidden testcase?" className="is-hidden-testcase-icon">
               <Icon type="question-circle-o" />
             </Tooltip>
           </Form.Item>
@@ -134,7 +133,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   verifyTestcase: payload => dispatch(verifyTestcase(payload)),
-  submitTestcase: payload => dispatch(submitTestcase(payload)),
+  deleteTestcase: payload => dispatch(deleteTestcase(payload)),
   handleDeleteTestcaseModal: status => dispatch(handleDeleteTestcaseModal(status)),
 });
 

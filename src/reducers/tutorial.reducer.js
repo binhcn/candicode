@@ -22,6 +22,7 @@ const initState = {
   imageUrl: "",
 
   description: "",
+  content: "",
 
   data: data,
   visible: false,
@@ -31,20 +32,22 @@ const initState = {
 const tutorialReducer = (state = initState, action) => {
   switch (action.type) {
     case actions.HANDLE_TUTORIAL:
-      return { ...state,
+      return {
+        ...state,
         id: action.payload.id,
         title: action.payload.title,
         tagList: action.payload.tagList,
-        banner: action.payload.banner,        
+        banner: action.payload.banner,
         description: action.payload.description,
         currentStep: 0,
       };
 
     case actions.HANDLE_TUTORIAL_MODAL:
-      return {...state, visible: action.payload };
+      return { ...state, visible: action.payload };
 
     case actions.UPDATE_STEP_ONE_TUTORIAL:
-      return { ...state,
+      return {
+        ...state,
         title: action.payload.title,
         tagList: action.payload.tagList,
         banner: action.payload.banner,
@@ -52,7 +55,8 @@ const tutorialReducer = (state = initState, action) => {
       };
 
     case actions.UPDATE_STEP_TWO_TUTORIAL:
-      return { ...state,
+      return {
+        ...state,
         description: action.payload.description,
       };
 
@@ -66,18 +70,45 @@ const tutorialReducer = (state = initState, action) => {
           ...action.payload,
         });
       } else {
-        newData.push({...action.payload, id:state.data.length + 1, 
-                  key:state.data.length + 1 });
+        newData.push({
+          ...action.payload, id: state.data.length + 1,
+          key: state.data.length + 1
+        });
       }
-      return {...state, data: newData };
+      return { ...state, data: newData };
 
     case actions.UPDATE_STEP_TUTORIAL:
-      return {...state,
+      return {
+        ...state,
         currentStep: state.currentStep + action.payload,
       }
 
     case actions.DELETE_TUTORIAL:
-      return {...state, data: state.data.filter(item => item.id !== action.payload) };
+      return { ...state, data: state.data.filter(item => item.id !== action.payload) };
+
+    case actions.GET_ALL_TUTORIALS:
+      var data = [];
+      action.payload.forEach((tutorial, index) => {
+        data.push({
+          key: index + 1,
+          id: tutorial.challengeId,
+          title: tutorial.title,
+          banner: tutorial.banner,
+          imageUrl: "",
+
+          description: tutorial.description,
+          numComments: tutorial.numComments,
+          createdAt: tutorial.createdAt,
+          author: tutorial.author,
+          tags: tutorial.tags,
+          rate: tutorial.rate,
+          numRates: tutorial.numRates,
+        });
+      });
+      return {
+        ...state,
+        data: data,
+      }
 
     default:
       return state;

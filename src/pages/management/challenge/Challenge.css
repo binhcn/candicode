@@ -7,6 +7,10 @@
   margin: 10px auto !important;
 }
 
+.challenge-modal .ant-form-item {
+  margin-bottom: 12px !important;
+}
+
 .ant-steps-item-container {
   line-height: 170px;
 }
@@ -30,7 +34,7 @@
   right: 65px !important;
 }
 
-.testcase-update .is-public-testcase-icon {
+.testcase-update .is-hidden-testcase-icon {
   position: absolute;
   margin-left: 5px;
   top: 1px;

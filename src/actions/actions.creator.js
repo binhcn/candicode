@@ -137,6 +137,7 @@ export function updateChallenge(data) {
   return async function (dispatch) {
     if (data.request.id) {
       const response = await apiService.editChallenge({ formData: data.formData, id: data.request.id });
+      console.log(response)
       if (response.status === 200) {
         dispatch({ type: actions.UPDATE_CHALLENGE, payload: data.request });
         message.success('Edit challenge successfully!');
@@ -174,7 +175,7 @@ export function updateStep(payload) {
 
 export function getUserChallenges() {
   return async function (dispatch) {
-    const response = await apiService.getAllChallenge();
+    const response = await apiService.getAllChallenges();
     if (response.status === 200) {
       dispatch({ type: actions.GET_ALL_CHALLENGES, payload: response.data.result.items })
     }
@@ -183,8 +184,8 @@ export function getUserChallenges() {
 
 export function getAllChallenges() {
   return async function (dispatch) {
-    const response = await apiService.getAllChallenge();
-    if (response.status === 200) {
+    const response = await apiService.getAllChallenges();
+    if (response && response.status === 200) {
       dispatch({ type: actions.GET_ALL_CHALLENGES, payload: response.data.result.items })
     }
   };
@@ -192,8 +193,9 @@ export function getAllChallenges() {
 
 export function addLanguage(payload) {
   return async function (dispatch) {
-    // const response = await apiService.addLanguage(payload);
-    const response = { status: 200 };
+    const response = await apiService.addLanguage(payload);
+    console.log(payload)
+    console.log(response)
     if (response.status === 200) {
       dispatch({ type: actions.ADD_LANGUAGE, payload: payload.data });
     } else {
@@ -204,8 +206,9 @@ export function addLanguage(payload) {
 
 export function deleteLanguage(payload) {
   return async function (dispatch) {
-    // const response = await apiService.deleteLanguage(payload);
-    const response = { status: 200 };
+    const response = await apiService.deleteLanguage(payload);
+    console.log(payload)
+    console.log(response)
     if (response.status === 200) {
       dispatch({ type: actions.DELETE_LANGUAGE, payload: payload });
     } else {
@@ -228,6 +231,39 @@ export function verifyTestcase(payload) {
 export function submitTestcase(payload) {
   return async function (dispatch) {
     const response = await apiService.submitTestcase(payload);
+    if (response.status === 200) {
+      return response.data.result;
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function editTestcase(payload) {
+  return async function (dispatch) {
+    const response = await apiService.editTestcase(payload);
+    if (response.status === 200) {
+      return response.data.result;
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function deleteTestcase(payload) {
+  return async function (dispatch) {
+    const response = await apiService.deleteTestcase(payload);
+    if (response.status === 200) {
+      return response.data.result;
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function createSubmission(payload) {
+  return async function (dispatch) {
+    const response = await apiService.createSubmission(payload);
     if (response.status === 200) {
       return response.data.result;
     } else {
@@ -308,6 +344,24 @@ export function deleteTutorial(id) {
       dispatch({ type: actions.DELETE_TUTORIAL, payload: id });
     } else {
       message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function getUserTutorials() {
+  return async function (dispatch) {
+    const response = await apiService.getAllTutorials();
+    if (response.status === 200) {
+      dispatch({ type: actions.GET_ALL_TUTORIALS, payload: response.data.result.items })
+    }
+  };
+}
+
+export function getAllTutorials() {
+  return async function (dispatch) {
+    const response = await apiService.getAllTutorials();
+    if (response && response.status === 200) {
+      dispatch({ type: actions.GET_ALL_TUTORIALS, payload: response.data.result.items })
     }
   };
 }

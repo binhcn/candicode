@@ -135,7 +135,6 @@ class StepOne extends React.Component {
         <Form.Item label="Tag" hasFeedback>
           {getFieldDecorator('tagList', {
             initialValue: this.props.tagList,
-            rules: [{ required: true, message: 'Please select its tags!' }],
           })(
             <Select mode="tags" style={{ width: '100%' }} placeholder="Tags Mode">
               {tagOpt}

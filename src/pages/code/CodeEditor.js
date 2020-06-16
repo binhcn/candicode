@@ -1,33 +1,59 @@
 import React from 'react';
 import { ControlledEditor } from '@monaco-editor/react';
 import { connect } from "react-redux";
-import { Input, Select, Button, Row, Col, Collapse, notification, } from 'antd';
+import {
+  Input, Select, Button, Row, Col,
+  Collapse, notification,
+} from 'antd';
+
+import {
+  createSubmission,
+} from "../../actions/actions.creator";
 
 const { Panel } = Collapse;
 
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
 class CodeEditor extends React.Component {
 
   state = {
     code: '',
-    language: this.props.contents[0] ? this.props.contents[0].language : null,
+    language: '',
+    details: [],
+    isSubmitted: false,
   }
 
   handleEditorChange = (event, value) => {
-    this.setState({code: value});
+    this.setState({ code: value });
   };
-  
+
   handleCompile = () => {
-    if (this.state.code && this.state.language) {
+    var language = this.state.language ? this.state.language : this.props.contents[0].language;
+    if (this.state.code && language) {
       var payload = {
         id: this.props.id,
-        data: this.state
+        data: {
+          code: this.state.code,
+          language: language,
+        },
       }
-      console.log(payload)
+      var response = this.props.createSubmission(payload);
+      response.then(result => {
+        if (result.compiled === 'Success') {
+          this.setState({
+            details: result.details,
+            isSubmitted: true,
+          });
+          notification[result.passed === result.total ? 'success' : 'error']({
+            message: 'Candicode',
+            description: `The submission passed ${result.passed}/${result.total}`,
+          });
+        } else {
+          notification['error']({
+            message: `Compiled error`,
+            description: result.error,
+            duration: 0,
+          });
+        }
+      })
     } else {
       notification['warning']({
         message: 'Candidate',
@@ -38,21 +64,35 @@ class CodeEditor extends React.Component {
   };
 
   handleLanguageChange = lang => {
-    this.setState({language: lang});
+    this.setState({ language: lang });
   }
 
   render() {
     const languageOpt = this.props.contents.map((item, index) => (
       <Select.Option key={index} value={item.language}>{item.language}</Select.Option>
     ));
+    var testcaseHtml = this.props.testcases.map((item, index) => (
+      <Panel header={`Testcase ${index + 1} ${item.hidden ? '(hidden)' : ''}`} key={index}>
+        <p>
+          <span>Input: {item.hidden ? '' : item.input}</span>
+          <span style={{marginLeft:'50px'}}>Output: {item.hidden ? '' : item.output}</span>
+        </p>
+        {this.state.isSubmitted &&
+          <>
+            <p>Actual output: {this.state.details[index].actualOutput}</p>
+            <p>Runtime error: {this.state.details[index].error}</p>
+          </>
+        }
+      </Panel>
+    ));
     return (
       <div>
         {this.props.contents[0] &&
           <Input.Group style={{ margin: '2px' }}>
             <span>Language: </span>
-            <Select 
-              defaultValue={this.props.contents[0].language} 
-              style={{ width: 200 }} 
+            <Select
+              defaultValue={this.props.contents[0].language}
+              style={{ width: 200 }}
               onChange={this.handleLanguageChange}
             >
               {languageOpt}
@@ -70,12 +110,7 @@ class CodeEditor extends React.Component {
 
         <div id="testcase" className="collapse">
           <Collapse>
-            <Panel header="Testcase 1" key="1">
-              <p>{text}</p>
-            </Panel>
-            <Panel header="Testcase 2" key="2">
-              <p>{text}</p>
-            </Panel>
+            {testcaseHtml}
           </Collapse>
         </div>
 
@@ -98,10 +133,11 @@ class CodeEditor extends React.Component {
 const mapStateToProps = state => ({
   contents: state.codeEditorReducer.contents,
   id: state.codeEditorReducer.id,
+  testcases: state.codeEditorReducer.testcases,
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  createSubmission: payload => dispatch(createSubmission(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);
