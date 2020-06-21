@@ -65,7 +65,20 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 40%;
+}
+
+.ant-drawer .upload-avatar {
+  position: absolute;
+  z-index: 5;
+}
+
+.ant-drawer .ant-form-item {
+  margin-bottom: 12px;
+}
+
+.ant-drawer .ant-row .ant-row {
+  left: 9px;
 }
 
 .rightside-profile {

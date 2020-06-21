@@ -8,6 +8,7 @@ import Code from './pages/code/Code';
 import MainService from './layout/MainService';
 import Challenge from './pages/challenge/Challenge';
 import Tutorial from './pages/tutorial/Tutorial';
+import TutorialDetails from './pages/tutorial/TutorialDetails';
 import Contest from './pages/contest/Contest';
 import Management from './pages/management/Management';
 import Profile from './pages/profile/Profile';
@@ -27,12 +28,12 @@ function Router(props) {
           <Route path='/' exact component={Home} />
           <Route path='/code-editor' component={Code} />
           <Route path="/challenges" component={Challenge} />
-          <Route path="/tutorials" component={Tutorial} />
+          <Route path="/tutorials" exact component={Tutorial} />
+          <Route path={`/tutorials/:tutorialId`} component={TutorialDetails} />
           <Route path="/contests" component={Contest} />
           <Route path="/user-plans" component={UserPlan} />
           <Route path="/demo" component={Demo} />
-          <Route path="/profile" component={Profile} />
-          {/* <PrivateRoute exact authenticated={props.isAuthenticated} path="/profile" component={Profile} /> */}
+          <PrivateRoute exact authenticated={props.isAuthenticated} path="/profile" component={Profile} />
           <PrivateRoute authenticated={props.isAuthenticated} path="/management" component={Management} />
           <Route component={NotFound} />
         </Switch>

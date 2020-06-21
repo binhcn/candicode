@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Avatar, Descriptions, Progress, Row, Col, Divider, Statistic } from 'antd';
+import { Card, Avatar, Descriptions, Progress, Row, Col, Divider } from 'antd';
 import Setting from './Setting';
 
 import './Profile.css';
@@ -50,14 +50,10 @@ export default class LeftSide extends React.Component {
 					</Descriptions>
 
 					<Row className="logo">
-						<Col span={6}><img src="img/facebook.png" alt="facebook" width="40px" /></Col>
-						<Col span={6}><img src="img/github.svg" alt="github" width="40px" /></Col>
-						<Col span={6}><img src="img/google.png" alt="google" width="40px" /></Col>
-						<Col span={6}><img src="img/linkin.png" alt="facebook" width="40px" /></Col>
+						<Col span={8}><img src="img/facebook.png" alt="facebook" /></Col>
+						<Col span={8}><img src="img/github.svg" alt="github" /></Col>
+						<Col span={8}><img src="img/linkin.png" alt="facebook" /></Col>
 					</Row>
-					<Divider />
-					<span><i className="fas fa-cogs fa-lg" style={{ color: "mediumslateblue" }}></i> Website</span>
-					<span style={{ float: 'right' }}>fb.com/binhcaong</span>
 					<Divider />
 					<span><i className="fas fa-map-marker-alt fa-lg" style={{ color: "tomato" }}></i> Location</span>
 					<span style={{ float: 'right' }}>TpHCM, Vietnam</span>

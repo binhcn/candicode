@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Input, Button, notification, Icon, Row, Col } from 'antd';
 
 import './Signup.css';
-import { signup } from '../../services/project.services';
+import { signup } from '../../services/api.services';
 import {
 	USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
 	EMAIL_MAX_LENGTH,

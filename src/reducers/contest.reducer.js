@@ -15,12 +15,12 @@ const initState = {
   currentStep: 0,
 };
 
-const tutorialReducer = (state = initState, action) => {
+const contestReducer = (state = initState, action) => {
   switch (action.type) {
-    case actions.HANDLE_TUTORIAL:
+    case actions.HANDLE_CONTEST:
       return {
         ...state,
-        id: action.payload.tutorialId,
+        id: action.payload.contestId,
         title: action.payload.title,
         author: action.payload.author,
         tagList: action.payload.tags,
@@ -33,10 +33,10 @@ const tutorialReducer = (state = initState, action) => {
         currentStep: 0,
       };
 
-    case actions.HANDLE_TUTORIAL_MODAL:
+    case actions.HANDLE_CONTEST_MODAL:
       return { ...state, visible: action.payload };
 
-    case actions.UPDATE_STEP_ONE_TUTORIAL:
+    case actions.UPDATE_STEP_ONE_CONTEST:
       return {
         ...state,
         title: action.payload.title,
@@ -46,13 +46,13 @@ const tutorialReducer = (state = initState, action) => {
         imageUrl: action.payload.imageUrl,
       };
 
-    case actions.UPDATE_STEP_TWO_TUTORIAL:
+    case actions.UPDATE_STEP_TWO_CONTEST:
       return {
         ...state,
         content: action.payload.content,
       };
 
-    case actions.UPDATE_TUTORIAL:
+    case actions.UPDATE_CONTEST:
       var newData = [...state.data];
       var index = newData.findIndex(item => action.payload.id === item.id)
       if (index > -1) {
@@ -69,32 +69,32 @@ const tutorialReducer = (state = initState, action) => {
       }
       return { ...state, data: newData };
 
-    case actions.UPDATE_STEP_TUTORIAL:
+    case actions.UPDATE_STEP_CONTEST:
       return {
         ...state,
         currentStep: state.currentStep + action.payload,
       }
 
-    case actions.DELETE_TUTORIAL:
+    case actions.DELETE_CONTEST:
       return { ...state, data: state.data.filter(item => item.id !== action.payload) };
 
-    case actions.GET_ALL_TUTORIALS:
+    case actions.GET_ALL_CONTESTS:
       var data = [];
-      action.payload.forEach((tutorial, index) => {
+      action.payload.forEach((contest, index) => {
         data.push({
           key: index + 1,
-          id: tutorial.tutorialId,
-          title: tutorial.title,
-          banner: tutorial.banner,
+          id: contest.contestId,
+          title: contest.title,
+          banner: contest.banner,
           imageUrl: "",
 
-          description: tutorial.description,
-          numComments: tutorial.numComments,
-          createdAt: tutorial.createdAt,
-          author: tutorial.author,
-          tagList: tutorial.tags,
-          likes: tutorial.likes,
-          dislikes: tutorial.dislikes,
+          description: contest.description,
+          numComments: contest.numComments,
+          createdAt: contest.createdAt,
+          author: contest.author,
+          tagList: contest.tags,
+          likes: contest.likes,
+          dislikes: contest.dislikes,
         });
       });
       return {
@@ -107,4 +107,4 @@ const tutorialReducer = (state = initState, action) => {
   }
 };
 
-export default tutorialReducer;
+export default contestReducer;

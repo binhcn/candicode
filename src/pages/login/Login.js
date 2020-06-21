@@ -4,7 +4,7 @@ import { Form, Input, Button, Icon, notification } from 'antd';
 
 import './Login.css';
 import { ACCESS_TOKEN } from '../../constants';
-import { login } from '../../services/project.services';
+import { login } from '../../services/api.services';
 import {
 	getCurrentUser,
 } from "../../actions/actions.creator";

@@ -45,3 +45,20 @@
   position: relative;
   top: -3px;
 }
+
+.add-language-result .switch {
+  display: inline-block;
+  margin: 0;
+  top: -10px;
+  left: 10px;
+}
+
+.add-language-result .output {
+  top: 40px;
+}
+
+.add-language-result .is-hidden-testcase-icon {
+  position: absolute;
+  margin-left: 5px;
+  top: 1px;
+}

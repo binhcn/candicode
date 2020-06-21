@@ -4,12 +4,13 @@ import { Table, Popconfirm, Button, Tag, Modal, Icon } from 'antd';
 import {
   deleteChallenge, handleModal, handleChallenge, handleSourceModal,
   handleTestcaseModal, getUserChallenges, handleDeleteLanguageModal,
-  handleUpdateTestcaseModal, handleDeleteTestcaseModal
+  handleUpdateTestcaseModal, handleDeleteTestcaseModal, handleAddResultModal,
 } from "../../../actions/actions.creator";
 
 import ChallengeModal from './ChallengeModal';
 import AddLanguageSource from './language-source/AddLanguageSource';
 import DeleteLanguageSource from './language-source/DeleteLanguageSource';
+import AddResult from './language-source/AddResult';
 import AddTestcase from './testcase/AddTestcase';
 import DeleteTestcase from './testcase/DeleteTestcase';
 import UpdateTestcase from './testcase/UpdateTestcase';
@@ -49,11 +50,16 @@ class Challenge extends React.Component {
         width: '20%',
         render: languageSet => {
           var html = languageSet.map(item => {
-            return (
-              <Tag color={item.toLowerCase() === 'java' ? 'geekblue' : 'green'} key={item}>
-                {item}
-              </Tag>
-            )
+            if (item) {
+              return (
+                <Tag color={item === 'Java' ? 'geekblue' : 'green'} key={item}>
+                  {item}
+                </Tag>
+              )
+            } else {
+              return null;
+            }
+            
           })
           return html;
         },
@@ -89,9 +95,9 @@ class Challenge extends React.Component {
                 </Button>
                 Language Source
               </div>
-              
+
               <div>
-              <Button disabled={true} type="link" >
+                <Button disabled={true} type="link" >
                   <Icon type="plus-circle" />
                 </Button>
                 <Button type="link" onClick={() => this.showModal(record)}>
@@ -168,8 +174,8 @@ class Challenge extends React.Component {
         <Button onClick={() => this.showModal(null)} type="primary" style={{ marginBottom: 16 }}>
           Create challenge
         </Button>
-        { this.props.visible && 
-          <Modal 
+        {this.props.visible &&
+          <Modal
             className="challenge-modal"
             key="modal"
             title="Create challenge"
@@ -182,8 +188,8 @@ class Challenge extends React.Component {
             <ChallengeModal />
           </Modal>
         }
-        { this.props.visibleSourceModal && 
-          <Modal 
+        {this.props.visibleSourceModal &&
+          <Modal
             className="challenge-modal"
             key="add-source-modal"
             title="Add language source"
@@ -196,8 +202,8 @@ class Challenge extends React.Component {
             <AddLanguageSource />
           </Modal>
         }
-        { this.props.visibleDeleteLanguageModal && 
-          <Modal 
+        {this.props.visibleDeleteLanguageModal &&
+          <Modal
             className="testcase-modal"
             key="delete-source-modal"
             title="Delete language source"
@@ -208,8 +214,8 @@ class Challenge extends React.Component {
             <DeleteLanguageSource />
           </Modal>
         }
-        { this.props.visibleTestcaseModal && 
-          <Modal 
+        {this.props.visibleTestcaseModal &&
+          <Modal
             className="testcase-modal"
             key="testcase-modal"
             title="Add testcase"
@@ -221,8 +227,8 @@ class Challenge extends React.Component {
             <AddTestcase />
           </Modal>
         }
-        { this.props.visibleUpdateTestcaseModal && 
-          <Modal 
+        {this.props.visibleUpdateTestcaseModal &&
+          <Modal
             className="update-testcase-modal"
             key="update-testcase-modal"
             title="Update testcase"
@@ -234,8 +240,8 @@ class Challenge extends React.Component {
             <UpdateTestcase />
           </Modal>
         }
-        { this.props.visibleDeleteTestcaseModal && 
-          <Modal 
+        {this.props.visibleDeleteTestcaseModal &&
+          <Modal
             className="delete-testcase-modal"
             key="delete-testcase-modal"
             title="Delete testcase"
@@ -245,6 +251,19 @@ class Challenge extends React.Component {
             footer={null}
           >
             <DeleteTestcase />
+          </Modal>
+        }
+        {this.props.visibleAddResultModal &&
+          <Modal
+            className="add-source-modal"
+            key="add-source-language-result"
+            title="New source language result"
+            width="800px"
+            visible={this.props.visibleAddResultModal}
+            onCancel={() => this.props.handleAddResultModal(false)}
+            footer={null}
+          >
+            <AddResult />
           </Modal>
         }
         <Table
@@ -265,6 +284,7 @@ const mapStateToProps = state => ({
   visibleTestcaseModal: state.challengeReducer.visibleTestcaseModal,
   visibleUpdateTestcaseModal: state.challengeReducer.visibleUpdateTestcaseModal,
   visibleDeleteTestcaseModal: state.challengeReducer.visibleDeleteTestcaseModal,
+  visibleAddResultModal: state.challengeReducer.visibleAddResultModal,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -275,6 +295,7 @@ const mapDispatchToProps = dispatch => ({
   handleTestcaseModal: status => dispatch(handleTestcaseModal(status)),
   handleUpdateTestcaseModal: status => dispatch(handleUpdateTestcaseModal(status)),
   handleDeleteTestcaseModal: status => dispatch(handleDeleteTestcaseModal(status)),
+  handleAddResultModal: status => dispatch(handleAddResultModal(status)),
   handleChallenge: record => dispatch(handleChallenge(record)),
   getUserChallenges: () => dispatch(getUserChallenges()),
 });

@@ -1,7 +1,7 @@
 import { notification, message } from 'antd';
 
 import * as actions from "./actions";
-import * as apiService from "../services/project.services";
+import * as apiService from "../services/api.services";
 import { ACCESS_TOKEN } from '../constants';
 
 export function getCurrentUser() {
@@ -118,6 +118,12 @@ export function handleDeleteTestcaseModal(status) {
   };
 }
 
+export function handleAddResultModal(status) {
+  return async function (dispatch) {
+    dispatch({ type: actions.HANDLE_ADD_RESULT_MODAL, payload: status });
+  };
+}
+
 export function handleChallenge(record) {
   return async function (dispatch) {
     if (record.id) {
@@ -128,7 +134,7 @@ export function handleChallenge(record) {
         message.fail('Sorry! Something went wrong. Please try again!');
       }
     } else {
-      dispatch({ type: actions.HANDLE_CHALLENGE, payload: {...record, challengeId: '', languages: []} });
+      dispatch({ type: actions.HANDLE_CHALLENGE, payload: { ...record, challengeId: '', languages: [] } });
     }
   };
 }
@@ -194,10 +200,18 @@ export function getAllChallenges() {
 export function addLanguage(payload) {
   return async function (dispatch) {
     const response = await apiService.addLanguage(payload);
-    console.log(payload)
-    console.log(response)
     if (response.status === 200) {
-      dispatch({ type: actions.ADD_LANGUAGE, payload: payload.data });
+      var { result } = response.data;
+      if (result.compiled === 'Success') {
+        message.info(`Your new language source passed ${result.passed}/${result.total}`, 2);
+        dispatch({ type: actions.ADD_LANGUAGE, payload: { data: payload.data, result: response.data.result } });
+      } else {
+        notification['error']({
+          message: 'Compiled error',
+          description: result.error,
+          duration: 0,
+        });
+      }
     } else {
       message.fail('Sorry! Something went wrong. Please try again!');
     }
@@ -207,8 +221,6 @@ export function addLanguage(payload) {
 export function deleteLanguage(payload) {
   return async function (dispatch) {
     const response = await apiService.deleteLanguage(payload);
-    console.log(payload)
-    console.log(response)
     if (response.status === 200) {
       dispatch({ type: actions.DELETE_LANGUAGE, payload: payload });
     } else {
@@ -261,17 +273,6 @@ export function deleteTestcase(payload) {
   };
 }
 
-export function createSubmission(payload) {
-  return async function (dispatch) {
-    const response = await apiService.createSubmission(payload);
-    if (response.status === 200) {
-      return response.data.result;
-    } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
-    }
-  };
-}
-
 
 // ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗     
 // ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║     
@@ -283,7 +284,12 @@ export function createSubmission(payload) {
 
 export function handleTutorial(record) {
   return async function (dispatch) {
-    dispatch({ type: actions.HANDLE_TUTORIAL, payload: record });
+    const response = await apiService.getTutorialDetails(record.id);
+    if (response.status === 200) {
+      dispatch({ type: actions.HANDLE_TUTORIAL, payload: response.data.result });
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
   };
 }
 
@@ -314,8 +320,7 @@ export function updateStepTwoTutorial(payload) {
 export function updateTutorial(data) {
   return async function (dispatch) {
     if (data.request.id) {
-      // const response = await apiService.editTutorial({formData: data.formData, id: data.request.id});
-      const response = { status: 200 };
+      const response = await apiService.editTutorial({formData: data.formData, id: data.request.id});
       if (response.status === 200) {
         dispatch({ type: actions.UPDATE_TUTORIAL, payload: data.request });
         message.success('Edit tutorial successfully!');
@@ -323,12 +328,11 @@ export function updateTutorial(data) {
         message.fail('Sorry! Something went wrong. Please try again!');
       }
     } else {
-      // const response = await apiService.uploadTutorial(data.formData);
-      const response = { status: 201, data: { id: 10 } }
-      var newTutorial = { ...data.request, id: response.data.id };
+      const response = await apiService.uploadTutorial(data.formData);
+      var newTutorial = { ...data.request, id: response.data.result.tutorialId };
       if (response.status === 201) {
         dispatch({ type: actions.UPDATE_TUTORIAL, payload: newTutorial });
-        message.success('Create new tutorial successfully!');
+        message.success(response.data.result.message);
       } else {
         message.fail('Sorry! Something went wrong. Please try again!');
       }
@@ -338,8 +342,7 @@ export function updateTutorial(data) {
 
 export function deleteTutorial(id) {
   return async function (dispatch) {
-    // const response = await apiService.deleteTutorial(id);
-    const response = { status: 200 };
+    const response = await apiService.deleteTutorial(id);
     if (response.status === 200) {
       dispatch({ type: actions.DELETE_TUTORIAL, payload: id });
     } else {
@@ -350,7 +353,7 @@ export function deleteTutorial(id) {
 
 export function getUserTutorials() {
   return async function (dispatch) {
-    const response = await apiService.getAllTutorials();
+    const response = await apiService.getUserTutorials();
     if (response.status === 200) {
       dispatch({ type: actions.GET_ALL_TUTORIALS, payload: response.data.result.items })
     }
@@ -366,6 +369,15 @@ export function getAllTutorials() {
   };
 }
 
+export function getTutorialDetails(id) {
+  return async function (dispatch) {
+    const response = await apiService.getTutorialDetails(id);
+    if (response.status === 200) {
+      dispatch({ type: actions.HANDLE_TUTORIAL, payload: { ...response.data.result, id } })
+    }
+  };
+}
+
 
 //  ██████╗ ██████╗ ██████╗ ███████╗    ███████╗██████╗ ██╗████████╗ ██████╗ ██████╗ 
 // ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔════╝██╔══██╗██║╚══██╔══╝██╔═══██╗██╔══██╗
@@ -375,6 +387,17 @@ export function getAllTutorials() {
 //  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚══════╝╚═════╝ ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
 
 
+export function createSubmission(payload) {
+  return async function (dispatch) {
+    const response = await apiService.createSubmission(payload);
+    if (response.status === 200) {
+      return response.data.result;
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
 export function getChallengeDetails(id) {
   return async function (dispatch) {
     const response = await apiService.getChallengeDetails(id);
@@ -383,3 +406,109 @@ export function getChallengeDetails(id) {
     }
   };
 }
+
+
+//  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███████╗████████╗
+// ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝
+// ██║     ██║   ██║██╔██╗ ██║   ██║   █████╗  ███████╗   ██║   
+// ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║   ██║   
+// ╚██████╗╚██████╔╝██║ ╚████║   ██║   ███████╗███████║   ██║   
+//  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝   ╚═╝  
+
+
+export function handleContest(record) {
+  return async function (dispatch) {
+    const response = await apiService.getContestDetails(record.id);
+    if (response.status === 200) {
+      dispatch({ type: actions.HANDLE_CONTEST, payload: response.data.result });
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function handleContestModal(status) {
+  return async function (dispatch) {
+    dispatch({ type: actions.HANDLE_CONTEST_MODAL, payload: status });
+  };
+}
+
+export function updateStepContest(payload) {
+  return async function (dispatch) {
+    dispatch({ type: actions.UPDATE_STEP_CONTEST, payload: payload });
+  };
+}
+
+export function updateStepOneContest(payload) {
+  return async function (dispatch) {
+    dispatch({ type: actions.UPDATE_STEP_ONE_CONTEST, payload });
+  };
+}
+
+export function updateStepTwoContest(payload) {
+  return async function (dispatch) {
+    dispatch({ type: actions.UPDATE_STEP_TWO_CONTEST, payload });
+  };
+}
+
+export function updateContest(data) {
+  return async function (dispatch) {
+    if (data.request.id) {
+      const response = await apiService.editContest({formData: data.formData, id: data.request.id});
+      if (response.status === 200) {
+        dispatch({ type: actions.UPDATE_CONTEST, payload: data.request });
+        message.success('Edit tutorial successfully!');
+      } else {
+        message.fail('Sorry! Something went wrong. Please try again!');
+      }
+    } else {
+      const response = await apiService.uploadContest(data.formData);
+      var newContest = { ...data.request, id: response.data.result.contestId };
+      if (response.status === 201) {
+        dispatch({ type: actions.UPDATE_CONTEST, payload: newContest });
+        message.success(response.data.result.message);
+      } else {
+        message.fail('Sorry! Something went wrong. Please try again!');
+      }
+    }
+  };
+}
+
+export function deleteContest(id) {
+  return async function (dispatch) {
+    const response = await apiService.deleteContest(id);
+    if (response.status === 200) {
+      dispatch({ type: actions.DELETE_CONTEST, payload: id });
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function getUserContests() {
+  return async function (dispatch) {
+    const response = await apiService.getUserContests();
+    if (response.status === 200) {
+      dispatch({ type: actions.GET_ALL_CONTESTS, payload: response.data.result.items })
+    }
+  };
+}
+
+export function getAllContests() {
+  return async function (dispatch) {
+    const response = await apiService.getAllContests();
+    if (response && response.status === 200) {
+      dispatch({ type: actions.GET_ALL_CONTESTS, payload: response.data.result.items })
+    }
+  };
+}
+
+export function getContestDetails(id) {
+  return async function (dispatch) {
+    const response = await apiService.getContestDetails(id);
+    if (response.status === 200) {
+      dispatch({ type: actions.HANDLE_CONTEST, payload: { ...response.data.result, id } })
+    }
+  };
+}
+

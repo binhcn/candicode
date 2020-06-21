@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from "react-redux";
 import { Form, Input, Tooltip, Icon, Button, Upload, Select, message } from 'antd';
 
-import './Tutorial.css';
+import './Contest.css';
 import { STEP_LENGTH, TAG_SET } from '../../../constants';
 import {
-  updateStepOneTutorial, updateStepTutorial,
+  updateStepOneContest, updateStepContest,
 } from "../../../actions/actions.creator";
 
 function getBase64(img, callback) {
@@ -67,10 +67,10 @@ class StepOne extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         const payload = Object.assign({}, values, {imageUrl: this.state.imageUrl});
-        this.props.updateStepOneTutorial(payload);
+        this.props.updateStepOneContest(payload);
         console.log('Received values of form: ', payload);
         var step = 1;
-        this.props.updateStepTutorial(step);
+        this.props.updateStepContest(step);
       }
     });
   };
@@ -116,8 +116,8 @@ class StepOne extends React.Component {
         <Form.Item
           label={
             <span>
-              Tutorial title&nbsp;
-              <Tooltip title="What is your new tutorial's name?">
+              Contest title&nbsp;
+              <Tooltip title="What is your new contest's name?">
                 <Icon type="question-circle-o" />
               </Tooltip>
             </span>
@@ -127,7 +127,7 @@ class StepOne extends React.Component {
             initialValue: this.props.title,
             validateTrigger: ['onBlur'],
             rules: [{ 
-              required: true, message: "Please input your new tutorial's name!", 
+              required: true, message: "Please input your new contest's name!", 
               whitespace: true 
             }],
           })(<Input />)}
@@ -178,16 +178,16 @@ class StepOne extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  id: state.tutorialReducer.id,
-  title: state.tutorialReducer.title,
-  tagList: state.tutorialReducer.tagList,
-  description: state.tutorialReducer.description,
-  banner: state.tutorialReducer.banner,
-  currentStep: state.tutorialReducer.currentStep,
+  id: state.contestReducer.id,
+  title: state.contestReducer.title,
+  tagList: state.contestReducer.tagList,
+  description: state.contestReducer.description,
+  banner: state.contestReducer.banner,
+  currentStep: state.contestReducer.currentStep,
 });
 const mapDispatchToProps = dispatch => ({
-  updateStepOneTutorial: (payload) => dispatch(updateStepOneTutorial(payload)),
-  updateStepTutorial: (payload) => dispatch(updateStepTutorial(payload)),
+  updateStepOneContest: (payload) => dispatch(updateStepOneContest(payload)),
+  updateStepContest: (payload) => dispatch(updateStepContest(payload)),
 });
 
 const WrappedStepOne = Form.create({ name: 'stepOne' })(

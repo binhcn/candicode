@@ -204,3 +204,90 @@ export function getUserTutorials() {
     data: {}
   });
 }
+
+export function uploadTutorial(tutorialRequest) {
+  return request({
+    url: API_BASE_URL + "/tutorials",
+    method: 'POST',
+    data: tutorialRequest,
+  });
+}
+
+export function editTutorial(data) {
+  return request({
+    url: API_BASE_URL + "/tutorials/" + data.id,
+    method: 'POST',
+    data: data.formData
+  });
+}
+
+export function getTutorialDetails(id) {
+  return request({
+    url: API_BASE_URL + "/tutorials/" + id,
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function deleteTutorial(id) {
+  return request({
+    url: API_BASE_URL + "/tutorials/" + id,
+    method: 'DELETE'
+  });
+}
+
+
+//  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███████╗████████╗
+// ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝
+// ██║     ██║   ██║██╔██╗ ██║   ██║   █████╗  ███████╗   ██║   
+// ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║   ██║   
+// ╚██████╗╚██████╔╝██║ ╚████║   ██║   ███████╗███████║   ██║   
+//  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝   ╚═╝  
+
+
+export function getAllContests() {
+  return request({
+    url: API_BASE_URL + "/contests",
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function getUserContests() {
+  return request({
+    url: API_BASE_URL + "/contests/me",
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function uploadContest(contestRequest) {
+  return request({
+    url: API_BASE_URL + "/contests",
+    method: 'POST',
+    data: contestRequest,
+  });
+}
+
+export function editContest(data) {
+  return request({
+    url: API_BASE_URL + "/contests/" + data.id,
+    method: 'POST',
+    data: data.formData
+  });
+}
+
+export function getContestDetails(id) {
+  return request({
+    url: API_BASE_URL + "/contests/" + id,
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function deleteContest(id) {
+  return request({
+    url: API_BASE_URL + "/contests/" + id,
+    method: 'DELETE'
+  });
+}

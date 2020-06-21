@@ -30,10 +30,13 @@ const initState = {
   visibleTestcaseModal: false,
   visibleUpdateTestcaseModal: false,
   visibleDeleteTestcaseModal: false,
+  visibleAddResultModal: false,
   projectStructure: null,
   currentStep: 0,
 
   challengeDir: '',
+
+  addResult: null,
 };
 
 const challengeReducer = (state = initState, action) => {
@@ -78,6 +81,9 @@ const challengeReducer = (state = initState, action) => {
     case actions.HANDLE_DELETE_TESTCASE_MODAL:
       return { ...state, visibleDeleteTestcaseModal: action.payload };
 
+    case actions.HANDLE_ADD_RESULT_MODAL:
+      return { ...state, visibleAddResultModal: action.payload };
+
     case actions.UPDATE_CHALLENGE:
       newData = [...state.data];
       index = newData.findIndex(item => action.payload.id === item.id)
@@ -96,13 +102,14 @@ const challengeReducer = (state = initState, action) => {
       return { ...state, data: newData };
 
     case actions.ADD_LANGUAGE:
+      console.log(action.payload)
       newData = [...state.data];
       index = newData.findIndex(item => state.id === item.id);
       state.language = newData[index].language
 
-      var idxLan = state.language.findIndex(item => item === action.payload.language);
+      var idxLan = state.language.findIndex(item => item === action.payload.data.language);
       if (idxLan < 0) {
-        state.language.push(action.payload.language);
+        state.language.push(action.payload.data.language);
       }
 
       item = newData[index];
@@ -110,13 +117,11 @@ const challengeReducer = (state = initState, action) => {
         ...item,
         language: state.language,
       });
-      return { ...state, data: newData };
+      return { ...state, data: newData, addResult: action.payload.result, visibleAddResultModal: true };
 
     case actions.DELETE_LANGUAGE:
-      for (let lang of action.payload.language) {
-        index = state.language.findIndex(item => item === lang);
-        state.language.splice(index, 1);
-      }
+      index = state.language.findIndex(item => item === action.payload.language);
+      state.language.splice(index, 1);
 
       newData = [...state.data];
       index = newData.findIndex(item => state.id === item.id);

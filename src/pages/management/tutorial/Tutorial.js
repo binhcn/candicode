@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Table, Popconfirm, Button, Tag, Divider, Modal } from 'antd';
 
 import {
-	deleteTutorial, handleTutorialModal, handleTutorial,
+	deleteTutorial, handleTutorialModal, handleTutorial, getUserTutorials,
 } from "../../../actions/actions.creator";
 import { randomColor } from '../../../constants';
 import TutorialModal from './TutorialModal';
@@ -12,10 +12,11 @@ import './Tutorial.css';
 class Tutorial extends React.Component {
   constructor(props) {
     super(props);
+    this.props.getUserTutorials();
     this.columns = [
       {
         title: 'ID',
-        dataIndex: 'id',
+        dataIndex: 'key',
         width: '5%',
       },
       {
@@ -116,6 +117,7 @@ const mapDispatchToProps = dispatch => ({
   deleteTutorial: id => dispatch(deleteTutorial(id)),
   handleTutorialModal: status => dispatch(handleTutorialModal(status)),
   handleTutorial: record => dispatch(handleTutorial(record)),
+  getUserTutorials: () => dispatch(getUserTutorials()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tutorial);

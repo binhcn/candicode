@@ -27,8 +27,8 @@ const codeEditorReducer = (state = initState, action) => {
         testcases: action.payload.testcases,
       };
 
-    case actions.HANDLE_TUTORIAL_MODAL:
-      return {...state, visible: action.payload };
+    // case actions.HANDLE_TUTORIAL_MODAL:
+    //   return {...state, visible: action.payload };
 
     default:
       return state;

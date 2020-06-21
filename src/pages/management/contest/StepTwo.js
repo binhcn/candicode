@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import ReactQuill from 'react-quill';
 import { Button, message, Row, Col, Typography, Icon, Upload } from 'antd';
 
-import './Tutorial.css';
+import './Contest.css';
 import { MODULE_SET, FORMAT_SET } from '../../../constants/index';
 import {
-  updateStepTwoTutorial, handleTutorialModal, updateTutorial, updateStepTutorial
+  updateStepTwoContest, handleContestModal, updateContest, updateStepContest
 } from "../../../actions/actions.creator";
 
 const { Title } = Typography;
@@ -61,9 +61,9 @@ class StepTwo extends React.Component {
 
   handlePrev = e => {
     const values = {content: this.state.content}
-    this.props.updateStepTwoTutorial(values);
+    this.props.updateStepTwoContest(values);
     const step = -1;
-    this.props.updateStepTutorial(step);
+    this.props.updateStepContest(step);
   };
 
   handleChangeDescription = html => {
@@ -79,23 +79,23 @@ class StepTwo extends React.Component {
 
   handleComplete = e => {
     const values = {content: this.state.content}
-    this.props.updateStepTwoTutorial(values);
+    this.props.updateStepTwoContest(values);
 
     const formData = new FormData();
-    if (this.props.tutorial.banner) {
-      formData.append('banner', this.props.tutorial.banner);
+    if (this.props.contest.banner) {
+      formData.append('banner', this.props.contest.banner);
     }
    
-    formData.append('title', this.props.tutorial.title);
-    formData.append('tags', this.props.tutorial.tagList);
-    formData.append('description', this.props.tutorial.description);
+    formData.append('title', this.props.contest.title);
+    formData.append('tags', this.props.contest.tagList);
+    formData.append('description', this.props.contest.description);
     formData.append('content', this.state.content);
 
-    var { data, visible, ...rest } = this.props.tutorial;
-    const request = Object.assign({}, rest, {id: this.props.tutorial.id, content: this.state.content});
-    this.props.updateTutorial({formData, request});
+    var { data, visible, ...rest } = this.props.contest;
+    const request = Object.assign({}, rest, {id: this.props.contest.id, content: this.state.content});
+    this.props.updateContest({formData, request});
 
-    this.props.handleTutorialModal(false);
+    this.props.handleContestModal(false);
   };
 
   render() {
@@ -155,14 +155,14 @@ class StepTwo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  content: state.tutorialReducer.content,
-  tutorial: state.tutorialReducer,
+  content: state.contestReducer.content,
+  contest: state.contestReducer,
 });
 const mapDispatchToProps = dispatch => ({
-  updateStepTwoTutorial: (payload) => dispatch(updateStepTwoTutorial(payload)),
-  updateStepTutorial: (payload) => dispatch(updateStepTutorial(payload)),
-  handleTutorialModal: status => dispatch(handleTutorialModal(status)),
-  updateTutorial: request => dispatch(updateTutorial(request)),
+  updateStepTwoContest: (payload) => dispatch(updateStepTwoContest(payload)),
+  updateStepContest: (payload) => dispatch(updateStepContest(payload)),
+  handleContestModal: status => dispatch(handleContestModal(status)),
+  updateContest: request => dispatch(updateContest(request)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StepTwo);

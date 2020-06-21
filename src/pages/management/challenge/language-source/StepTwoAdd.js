@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Form, Button, Cascader } from 'antd';
+import { Form, Button, Cascader, } from 'antd';
 
 import '../Challenge.css';
 import { STEP_LENGTH } from '../../../../constants';
 import {
-  updateStepTwo, updateStep, handleSourceModal, addLanguage
+  updateStepTwo, updateStep, handleSourceModal, addLanguage,
 } from "../../../../actions/actions.creator";
 
 class StepTwo extends React.Component {
@@ -121,6 +121,7 @@ const mapStateToProps = state => ({
   language: state.challengeReducer.language,
   challengeDir: state.challengeReducer.challengeDir,
   id: state.challengeReducer.id,
+  tcInputFormat: state.challengeReducer.tcInputFormat,
 });
 const mapDispatchToProps = dispatch => ({
 	updateStepTwo: (payload) => dispatch(updateStepTwo(payload)),

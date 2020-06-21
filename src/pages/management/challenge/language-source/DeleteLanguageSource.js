@@ -9,7 +9,7 @@ import {
 
 class DeleteLanguage extends React.Component {
   state = {
-    removedSource: [],
+    removedSource: "",
   };
 
   handleChange = removedSource => {
@@ -20,10 +20,9 @@ class DeleteLanguage extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        
         console.log('Received values of form: ', values);
         var data = {...values};
-        this.props.deleteLanguage({...data, id: this.props.id});
+        this.props.deleteLanguage({data: data, id: this.props.id});
         this.props.handleDeleteLanguageModal(false);
       }
     });
@@ -55,7 +54,7 @@ class DeleteLanguage extends React.Component {
     };
     
     const { removedSource } = this.state;
-    const filteredOptions = this.props.language.filter(item => !removedSource.includes(item));
+    const filteredOptions = this.props.language.filter(item => removedSource !== item);
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit} className="challenge-source-modal">
@@ -64,7 +63,6 @@ class DeleteLanguage extends React.Component {
             rules: [{ required: true, message: 'Please select its language!' }],
           })(
             <Select
-              mode="multiple"
               placeholder="Language inserted are removed"
               onChange={this.handleChange}
             >
