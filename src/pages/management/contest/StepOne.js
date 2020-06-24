@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Form, Input, Tooltip, Icon, Button, Upload, Select, message } from 'antd';
+import { Form, Input, Tooltip, Icon, Button, Upload,
+        Select, message, InputNumber, DatePicker,
+} from 'antd';
 
 import './Contest.css';
 import { STEP_LENGTH, TAG_SET } from '../../../constants';
@@ -66,6 +68,7 @@ class StepOne extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        // var formatTime = values.registrationDeadline.format('YYYY-MM-DD HH:mm:ss.SSS');
         const payload = Object.assign({}, values, {imageUrl: this.state.imageUrl});
         this.props.updateStepOneContest(payload);
         console.log('Received values of form: ', payload);
@@ -112,7 +115,7 @@ class StepOne extends React.Component {
     );
     const { imageUrl } = this.state;
     return (
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+      <Form {...formItemLayout} className="step-one" onSubmit={this.handleSubmit}>
         <Form.Item
           label={
             <span>
@@ -126,13 +129,29 @@ class StepOne extends React.Component {
           {getFieldDecorator('title', {
             initialValue: this.props.title,
             validateTrigger: ['onBlur'],
-            rules: [{ 
-              required: true, message: "Please input your new contest's name!", 
-              whitespace: true 
+            rules: [{
+              required: true, message: "Please input your new contest's name!",
+              whitespace: true
             }],
           })(<Input />)}
         </Form.Item>
-        <Form.Item label="Tag" hasFeedback>
+        <Form.Item label="Max registration amount">
+          {getFieldDecorator('maxRegister', {
+            initialValue: this.props.maxRegister,
+            rules: [{
+              required: true,
+            }],
+          })(<InputNumber min={-1} max={50} />)}
+        </Form.Item>
+        <Form.Item label="Registration deadline">
+          {getFieldDecorator('registrationDeadline', {
+            initialValue: this.props.registrationDeadline,
+            rules: [{
+              required: true,
+            }],
+          })(<DatePicker showTime placeholder="" />)}
+        </Form.Item>
+        <Form.Item label="Tag">
           {getFieldDecorator('tagList', {
             initialValue: this.props.tagList,
           })(
@@ -180,6 +199,8 @@ class StepOne extends React.Component {
 const mapStateToProps = state => ({
   id: state.contestReducer.id,
   title: state.contestReducer.title,
+  maxRegister: state.contestReducer.maxRegister,
+  registrationDeadline: state.contestReducer.registrationDeadline,
   tagList: state.contestReducer.tagList,
   description: state.contestReducer.description,
   banner: state.contestReducer.banner,

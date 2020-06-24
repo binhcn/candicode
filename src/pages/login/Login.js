@@ -65,8 +65,8 @@ class LoginForm extends React.Component {
 									description: 'Your Username or Password is incorrect. Please try again!'
 								});
 							} else {
-								const msg = response.subErrors 
-								? response.subErrors[0].message + ': ' + response.subErrors[0].reason 
+								const msg = response.subErrors
+								? response.subErrors[0].message + ': ' + response.subErrors[0].reason
 								: response.message + ': ' + response.reason;
 								notification.error({
 									message: "Failure",

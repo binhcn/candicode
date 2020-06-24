@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Table, Popconfirm, Button, Tag, Modal, Icon } from 'antd';
 import {
   deleteChallenge, handleModal, handleChallenge, handleSourceModal,
-  handleTestcaseModal, getUserChallenges, handleDeleteLanguageModal,
+  handleDeleteLanguageModal, getUserChallenges, handleTestcaseModal,
   handleUpdateTestcaseModal, handleDeleteTestcaseModal, handleAddResultModal,
 } from "../../../actions/actions.creator";
 

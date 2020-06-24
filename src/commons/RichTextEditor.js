@@ -18,7 +18,7 @@ export default class Editor extends React.Component {
     render () {
       return (
         <div>
-          <ReactQuill 
+          <ReactQuill
             theme="snow"
             onChange={this.handleChange}
             value={this.state.editorHtml}
@@ -37,7 +37,7 @@ export default class Editor extends React.Component {
       [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
       [{size: []}],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, 
+      [{'list': 'ordered'}, {'list': 'bullet'},
        {'indent': '-1'}, {'indent': '+1'}],
       ['link', 'image', 'video'],
       ['clean'],

@@ -144,7 +144,7 @@ class StepThree extends React.Component {
             </Col>
           </Row>
 
-          <ReactQuill 
+          <ReactQuill
             theme="snow"
             value={this.state.description}
             onChange={this.handleChangeDescription}

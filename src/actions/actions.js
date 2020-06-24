@@ -7,8 +7,8 @@ export const LOGOUT = "Logout";
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 // ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
-// ██║     ███████║███████║██║     ██║     █████╗  ██╔██╗ ██║██║  ███╗█████╗  
-// ██║     ██╔══██║██╔══██║██║     ██║     ██╔══╝  ██║╚██╗██║██║   ██║██╔══╝  
+// ██║     ███████║███████║██║     ██║     █████╗  ██╔██╗ ██║██║  ███╗█████╗
+// ██║     ██╔══██║██╔══██║██║     ██║     ██╔══╝  ██║╚██╗██║██║   ██║██╔══╝
 // ╚██████╗██║  ██║██║  ██║███████╗███████╗███████╗██║ ╚████║╚██████╔╝███████╗
 //  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
 
@@ -38,10 +38,10 @@ export const GET_ALL_CHALLENGES = "Get all challenges";
 export const GET_CHALLENGE_DETAILS = "Get challenge details";
 
 
-// ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗     
-// ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║     
-//    ██║   ██║   ██║   ██║   ██║   ██║██████╔╝██║███████║██║     
-//    ██║   ██║   ██║   ██║   ██║   ██║██╔══██╗██║██╔══██║██║     
+// ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗
+// ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║
+//    ██║   ██║   ██║   ██║   ██║   ██║██████╔╝██║███████║██║
+//    ██║   ██║   ██║   ██║   ██║   ██║██╔══██╗██║██╔══██║██║
 //    ██║   ╚██████╔╝   ██║   ╚██████╔╝██║  ██║██║██║  ██║███████╗
 //    ╚═╝    ╚═════╝    ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝
 
@@ -62,10 +62,10 @@ export const DELETE_TUTORIAL = "Delete tutorial";
 
 //  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███████╗████████╗
 // ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝
-// ██║     ██║   ██║██╔██╗ ██║   ██║   █████╗  ███████╗   ██║   
-// ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║   ██║   
-// ╚██████╗╚██████╔╝██║ ╚████║   ██║   ███████╗███████║   ██║   
-//  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝   ╚═╝   
+// ██║     ██║   ██║██╔██╗ ██║   ██║   █████╗  ███████╗   ██║
+// ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║   ██║
+// ╚██████╗╚██████╔╝██║ ╚████║   ██║   ███████╗███████║   ██║
+//  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝   ╚═╝
 
 
 export const HANDLE_CONTEST = "Handle contest";
@@ -73,7 +73,6 @@ export const HANDLE_CONTEST_MODAL = "Handle contest modal";
 
 export const UPDATE_STEP_ONE_CONTEST = "Update step one contest";
 export const UPDATE_STEP_TWO_CONTEST = "Update step two contest";
-export const UPDATE_STEP_THREE_CONTEST = "Update step three contest";
 export const UPDATE_STEP_CONTEST = "Update step contest";
 
 export const GET_ALL_CONTESTS = "Get all contests";
@@ -81,3 +80,7 @@ export const GET_CONTEST_DETAILS = "Get contest details";
 
 export const UPDATE_CONTEST = "Update contest";
 export const DELETE_CONTEST = "Delete contest";
+
+export const HANDLE_ROUND_MODAL = "Handle round modal";
+export const HANDLE_UPDATE_ROUND_MODAL = "Handle update round modal";
+export const HANDLE_DELETE_ROUND_MODAL = "Handle delete round modal";

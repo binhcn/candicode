@@ -45,8 +45,8 @@ export function logout(notificationType = "success", description = "You're succe
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 // ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
-// ██║     ███████║███████║██║     ██║     █████╗  ██╔██╗ ██║██║  ███╗█████╗  
-// ██║     ██╔══██║██╔══██║██║     ██║     ██╔══╝  ██║╚██╗██║██║   ██║██╔══╝  
+// ██║     ███████║███████║██║     ██║     █████╗  ██╔██╗ ██║██║  ███╗█████╗
+// ██║     ██╔══██║██╔══██║██║     ██║     ██╔══╝  ██║╚██╗██║██║   ██║██╔══╝
 // ╚██████╗██║  ██║██║  ██║███████╗███████╗███████╗██║ ╚████║╚██████╔╝███████╗
 //  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
 
@@ -274,21 +274,25 @@ export function deleteTestcase(payload) {
 }
 
 
-// ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗     
-// ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║     
-//    ██║   ██║   ██║   ██║   ██║   ██║██████╔╝██║███████║██║     
-//    ██║   ██║   ██║   ██║   ██║   ██║██╔══██╗██║██╔══██║██║     
+// ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗
+// ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║
+//    ██║   ██║   ██║   ██║   ██║   ██║██████╔╝██║███████║██║
+//    ██║   ██║   ██║   ██║   ██║   ██║██╔══██╗██║██╔══██║██║
 //    ██║   ╚██████╔╝   ██║   ╚██████╔╝██║  ██║██║██║  ██║███████╗
 //    ╚═╝    ╚═════╝    ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝
 
 
 export function handleTutorial(record) {
   return async function (dispatch) {
-    const response = await apiService.getTutorialDetails(record.id);
-    if (response.status === 200) {
-      dispatch({ type: actions.HANDLE_TUTORIAL, payload: response.data.result });
+    if (record.id) {
+      const response = await apiService.getTutorialDetails(record.id);
+      if (response.status === 200) {
+        dispatch({ type: actions.HANDLE_TUTORIAL, payload: response.data.result });
+      } else {
+        message.fail('Sorry! Something went wrong. Please try again!');
+      }
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      dispatch({ type: actions.HANDLE_TUTORIAL, payload: record });
     }
   };
 }
@@ -320,7 +324,7 @@ export function updateStepTwoTutorial(payload) {
 export function updateTutorial(data) {
   return async function (dispatch) {
     if (data.request.id) {
-      const response = await apiService.editTutorial({formData: data.formData, id: data.request.id});
+      const response = await apiService.editTutorial({ formData: data.formData, id: data.request.id });
       if (response.status === 200) {
         dispatch({ type: actions.UPDATE_TUTORIAL, payload: data.request });
         message.success('Edit tutorial successfully!');
@@ -379,7 +383,7 @@ export function getTutorialDetails(id) {
 }
 
 
-//  ██████╗ ██████╗ ██████╗ ███████╗    ███████╗██████╗ ██╗████████╗ ██████╗ ██████╗ 
+//  ██████╗ ██████╗ ██████╗ ███████╗    ███████╗██████╗ ██╗████████╗ ██████╗ ██████╗
 // ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔════╝██╔══██╗██║╚══██╔══╝██╔═══██╗██╔══██╗
 // ██║     ██║   ██║██║  ██║█████╗█████╗█████╗  ██║  ██║██║   ██║   ██║   ██║██████╔╝
 // ██║     ██║   ██║██║  ██║██╔══╝╚════╝██╔══╝  ██║  ██║██║   ██║   ██║   ██║██╔══██╗
@@ -410,19 +414,23 @@ export function getChallengeDetails(id) {
 
 //  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███████╗████████╗
 // ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝
-// ██║     ██║   ██║██╔██╗ ██║   ██║   █████╗  ███████╗   ██║   
-// ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║   ██║   
-// ╚██████╗╚██████╔╝██║ ╚████║   ██║   ███████╗███████║   ██║   
-//  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝   ╚═╝  
+// ██║     ██║   ██║██╔██╗ ██║   ██║   █████╗  ███████╗   ██║
+// ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══╝  ╚════██║   ██║
+// ╚██████╗╚██████╔╝██║ ╚████║   ██║   ███████╗███████║   ██║
+//  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝   ╚═╝
 
 
 export function handleContest(record) {
   return async function (dispatch) {
-    const response = await apiService.getContestDetails(record.id);
-    if (response.status === 200) {
-      dispatch({ type: actions.HANDLE_CONTEST, payload: response.data.result });
+    if (record.id) {
+      const response = await apiService.getContestDetails(record.id);
+      if (response.status === 200) {
+        dispatch({ type: actions.HANDLE_CONTEST, payload: response.data.result });
+      } else {
+        message.fail('Sorry! Something went wrong. Please try again!');
+      }
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      dispatch({ type: actions.HANDLE_CONTEST, payload: record });
     }
   };
 }
@@ -454,7 +462,8 @@ export function updateStepTwoContest(payload) {
 export function updateContest(data) {
   return async function (dispatch) {
     if (data.request.id) {
-      const response = await apiService.editContest({formData: data.formData, id: data.request.id});
+      // const response = await apiService.editContest({ formData: data.formData, id: data.request.id });
+      const response = { status: 200 };
       if (response.status === 200) {
         dispatch({ type: actions.UPDATE_CONTEST, payload: data.request });
         message.success('Edit tutorial successfully!');
@@ -462,11 +471,13 @@ export function updateContest(data) {
         message.fail('Sorry! Something went wrong. Please try again!');
       }
     } else {
-      const response = await apiService.uploadContest(data.formData);
-      var newContest = { ...data.request, id: response.data.result.contestId };
+      // const response = await apiService.uploadContest(data.formData);
+      // var newContest = { ...data.request, id: response.data.result.contestId };
+      var response = { status: 201 };
+      var newContest = { ...data.request, id: 7 };
       if (response.status === 201) {
         dispatch({ type: actions.UPDATE_CONTEST, payload: newContest });
-        message.success(response.data.result.message);
+        // message.success(response.data.result.message);
       } else {
         message.fail('Sorry! Something went wrong. Please try again!');
       }
@@ -487,7 +498,8 @@ export function deleteContest(id) {
 
 export function getUserContests() {
   return async function (dispatch) {
-    const response = await apiService.getUserContests();
+    // const response = await apiService.getUserContests();
+    var response = { status: -1 };
     if (response.status === 200) {
       dispatch({ type: actions.GET_ALL_CONTESTS, payload: response.data.result.items })
     }
@@ -512,3 +524,20 @@ export function getContestDetails(id) {
   };
 }
 
+export function handleRoundModal(status) {
+  return async function (dispatch) {
+    dispatch({ type: actions.HANDLE_ROUND_MODAL, payload: status });
+  };
+}
+
+export function handleUpdateRoundModal(status) {
+  return async function (dispatch) {
+    dispatch({ type: actions.HANDLE_UPDATE_ROUND_MODAL, payload: status });
+  };
+}
+
+export function handleDeleteRoundModal(status) {
+  return async function (dispatch) {
+    dispatch({ type: actions.HANDLE_DELETE_ROUND_MODAL, payload: status });
+  };
+}

@@ -128,7 +128,7 @@ class StepTwo extends React.Component {
             </Col>
           </Row>
 
-          <ReactQuill 
+          <ReactQuill
             theme="snow"
             value={this.state.content}
             onChange={this.handleChangeDescription}

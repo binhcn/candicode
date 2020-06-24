@@ -1,8 +1,19 @@
 import * as actions from "../actions/actions";
 
+var data = [
+  {
+    id: 11,
+    key: 1,
+    title: 'con heo',
+  }
+]
+
 const initState = {
   id: '',
   title: "",
+  rounds: 1,
+  maxRegister: -1,
+  registrationDeadline: null,
   tagList: [],
   banner: null,
   imageUrl: "",
@@ -10,8 +21,11 @@ const initState = {
   description: "",
   content: "",
 
-  data: [],
+  data: data,
   visible: false,
+  visibleRoundModal: false,
+  visibleUpdateRoundModal: false,
+  visibleDeleteRoundModal: false,
   currentStep: 0,
 };
 
@@ -28,18 +42,30 @@ const contestReducer = (state = initState, action) => {
         description: action.payload.description,
         content: action.payload.content,
         createdAt: action.payload.createdAt,
-        likes: action.payload.likes,
-        dislikes: action.payload.dislikes,
+        maxRegister: action.payload.maxRegister,
+        registrationDeadline: action.payload.registrationDeadline,
         currentStep: 0,
       };
 
     case actions.HANDLE_CONTEST_MODAL:
       return { ...state, visible: action.payload };
 
+    case actions.HANDLE_ROUND_MODAL:
+      return { ...state, visibleRoundModal: action.payload };
+
+    case actions.HANDLE_UPDATE_ROUND_MODAL:
+      return { ...state, visibleUpdateRoundModal: action.payload };
+
+    case actions.HANDLE_DELETE_ROUND_MODAL:
+      return { ...state, visibleDeleteRoundModal: action.payload };
+
     case actions.UPDATE_STEP_ONE_CONTEST:
       return {
         ...state,
         title: action.payload.title,
+        rounds: action.payload.rounds,
+        maxRegister: action.payload.maxRegister,
+        registrationDeadline: action.payload.registrationDeadline,
         tagList: action.payload.tagList,
         description: action.payload.description,
         banner: action.payload.banner,

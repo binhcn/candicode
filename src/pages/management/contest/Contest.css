@@ -1,0 +1,21 @@
+.contest-modal .step-one .ant-form-item {
+  margin-bottom: 0px;
+}
+
+.round-modal .ant-form-item {
+  margin-bottom: 0px;
+}
+
+.round-modal .ant-divider {
+  margin: 12px 0;
+}
+
+.round-modal .output .ant-form-item-children-icon {
+  right: 65px !important;
+}
+
+.round-modal .remove-round-icon {
+  margin-right: 8px;
+  position: relative;
+  top: -3px;
+}

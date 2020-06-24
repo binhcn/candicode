@@ -43,14 +43,14 @@ class Header extends React.Component {
 
   render() {
     let userInfo;
-    if (this.props.isAuthenticated) {      
+    if (this.props.isAuthenticated) {
       let { firstName, lastName } = this.props.currentUser;
       userInfo = [
         <Notification key="notification" />,
         <Avatar key="avatar" className="avatar" style={{ backgroundColor: getAvatarColor(firstName + lastName) }}>
           {firstName[0].toUpperCase()}
         </Avatar>,
-        <ProfileDropdownMenu key="ProfileDropdownMenu" 
+        <ProfileDropdownMenu key="ProfileDropdownMenu"
           handleMenuClick={this.handleMenuClick}
           username={firstName + lastName}
         />,

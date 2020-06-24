@@ -12,7 +12,7 @@ const { Step } = Steps;
 class ChallengeModal extends React.Component {
 
   render() {
-    var steps = this.props.id ? 
+    var steps = this.props.id ?
     [
       {
         title: 'First',

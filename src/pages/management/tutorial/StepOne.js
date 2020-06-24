@@ -126,9 +126,9 @@ class StepOne extends React.Component {
           {getFieldDecorator('title', {
             initialValue: this.props.title,
             validateTrigger: ['onBlur'],
-            rules: [{ 
-              required: true, message: "Please input your new tutorial's name!", 
-              whitespace: true 
+            rules: [{
+              required: true, message: "Please input your new tutorial's name!",
+              whitespace: true
             }],
           })(<Input />)}
         </Form.Item>

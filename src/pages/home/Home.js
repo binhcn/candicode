@@ -1,32 +1,35 @@
 import React from 'react';
+import { connect } from "react-redux";
 import $ from 'jquery';
-import './Home.css';
-import Challenge from '../challenge/ChallengeList';
 
-export default class Home extends React.Component {
+import './Home.css';
+import ChallengeCard from '../challenge/ChallengeCard';
+import {
+  getAllChallenges,
+} from "../../actions/actions.creator";
+
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props.getAllChallenges();
+  }
+
   componentDidMount() {
     $(document).ready(function () {
-      // (function ($) {
-      //   $('.owl-carousel').owlCarousel({
-      //     center: true,
-      //     items: 2,
-      //     loop: true,
-      //     margin: 10,
-      //     responsive: {
-      //       0: {
-      //         items: 1
-      //       },
-      //       600: {
-      //         items: 2
-      //       },
-      //       1000: {
-      //         items: 4
-      //       }
-      //     }
-      //   });
-      // })(window.jQuery);
+      (function ($) {
+        $('.owl-carousel').owlCarousel({
+          items: 4,
+          center: false,
+          loop: false,
+          margin: 0,
+          rewind: false,
+          nav: true,
+          dotsEach: true,
+        });
+      })(window.jQuery);
     });
   }
+
   render() {
     return (
       <div className="container">
@@ -55,10 +58,39 @@ export default class Home extends React.Component {
 
         <div id="recommended" className="owl-carousel owl-theme">
           <div className="item">
-            <Challenge style={{ zIndex: '-5' }} />
+            {this.props.data[0] && <ChallengeCard item={this.props.data[0]} />}
           </div>
+          <div className="item">
+            {this.props.data[1] && <ChallengeCard item={this.props.data[1]} />}
+          </div>
+          {this.props.data[2] && <div className="item">
+            <ChallengeCard item={this.props.data[2]} />
+          </div>}
+          {this.props.data[3] && <div className="item">
+            <ChallengeCard item={this.props.data[3]} />
+          </div>}
+          {this.props.data[4] && <div className="item">
+            <ChallengeCard item={this.props.data[4]} />
+          </div>}
+          {this.props.data[5] && <div className="item">
+            <ChallengeCard item={this.props.data[5]} />
+          </div>}
+          {this.props.data[6] && <div className="item">
+            <ChallengeCard item={this.props.data[6]} />
+          </div>}
         </div>
+
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  data: state.challengeReducer.data,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAllChallenges: () => dispatch(getAllChallenges()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

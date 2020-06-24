@@ -18,6 +18,7 @@ class UpdateTestcase extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const { keys, input, output, isHidden } = values;
+        var { tcInputFormat } = this.props;
         if (keys.includes('') || keys.includes('error')) {
           notification['warning']({
             message: 'Validate testcase',
@@ -27,10 +28,13 @@ class UpdateTestcase extends React.Component {
         } else {
           var data = [];
           this.props.testcases.forEach((item, index) => {
-            if (item.input !== input[index] || item.hidden !== isHidden[index]) {
+            var formattedInput = input.filter((itm, idx) =>
+                idx >= index * tcInputFormat.numArgs && idx < (index + 1) * tcInputFormat.numArgs)
+                .reduce((accumulator, currentValue) => accumulator + '|' + currentValue);
+            if (item.input !== formattedInput || item.hidden !== isHidden[index]) {
               data.push({
                 testcaseId: item.testcaseId,
-                input: input[index].replace(/\s/g, ''),
+                input: formattedInput.replace(/\s/g, ''),
                 output: output[index].replace(/\s/g, ''),
                 hidden: isHidden[index],
               })
@@ -63,13 +67,16 @@ class UpdateTestcase extends React.Component {
   runTestcase = index => {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { form } = this.props;
-        const input = form.getFieldValue('input');
+        const { form, tcInputFormat } = this.props;
+        const inputList = form.getFieldValue('input');
+        var formattedInput = inputList.filter((input, idx) =>
+            idx >= index * tcInputFormat.numArgs && idx < (index + 1) * tcInputFormat.numArgs)
+            .reduce((accumulator, currentValue) => accumulator + '|' + currentValue);
+
         var payload = {
           id: this.props.id,
           data: {
-            language: "Java",
-            input: input[index].replace(/\s/g, '')
+            input: formattedInput.replace(/\s/g, '')
           }
         }
         var data = this.props.verifyTestcase(payload);

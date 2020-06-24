@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Table, Popconfirm, Button, Tag, Divider, Modal } from 'antd';
+import { Table, Popconfirm, Button, Tag, Icon, Modal } from 'antd';
 
 import {
-	deleteContest, handleContestModal, handleContest, getUserContests,
+  deleteContest, handleContestModal, handleContest, getUserContests,
+  handleRoundModal, handleUpdateRoundModal, handleDeleteRoundModal,
 } from "../../../actions/actions.creator";
 import { randomColor } from '../../../constants';
 import ContestModal from './ContestModal';
+import AddRound from './round/AddRound';
+import DeleteRound from './round/DeleteRound';
+import UpdateRound from './round/UpdateRound';
 import './Contest.css';
 
 class Contest extends React.Component {
@@ -25,27 +29,17 @@ class Contest extends React.Component {
         width: '20%',
       },
       {
-        title: 'Round',
-        dataIndex: 'round',
-        width: '10%',
-      },
-      {
-        title: 'Max register',
-        dataIndex: 'maxRegister',
-        width: '15%',
-      },
-      {
         title: 'Tag',
         dataIndex: 'tagList',
         width: '25%',
         render: tagList => {
-          const html = tagList.map((item, index) => {
+          const html = tagList ? tagList.map((item, index) => {
             return (
               <Tag key={index} color={randomColor()}>
                 {item}
               </Tag>
             )
-          })
+          }) : '';
           return html;
         },
       },
@@ -54,19 +48,37 @@ class Contest extends React.Component {
         dataIndex: 'operation',
         render: (text, record) => {
           return (
-            <span>
-              <Button type="link" onClick={() => this.showModal(record)}>
-                Edit
-              </Button>
-              <Divider type="vertical" />
-              <Popconfirm title="Sure to delete?"
-                onConfirm={() => this.props.deleteContest(record.id)}
-              >
-                <Button type="link">
-                  Delete
+            <>
+              <div>
+                <Button type="link" onClick={() => this.showRoundModal(record)}>
+                  <Icon type="plus-circle" />
                 </Button>
-              </Popconfirm>
-            </span>
+                <Button type="link" onClick={() => this.showUpdateRoundModal(record)}>
+                  <Icon type="edit" />
+                </Button>
+                <Button type="link" onClick={() => this.showDeleteRoundModal(record)}>
+                  <Icon type="minus-circle" />
+                </Button>
+                Round
+              </div>
+
+              <div>
+                <Button disabled={true} type="link" >
+                  <Icon type="plus-circle" />
+                </Button>
+                <Button type="link" onClick={() => this.showModal(record)}>
+                  <Icon type="edit" />
+                </Button>
+                <Popconfirm title="Sure to delete?"
+                  onConfirm={() => this.props.deleteContest(record.id)}
+                >
+                  <Button type="link">
+                    <Icon type="minus-circle" />
+                  </Button>
+                </Popconfirm>
+                Contest
+              </div>
+            </>
           );
         },
       },
@@ -78,6 +90,8 @@ class Contest extends React.Component {
       record = {
         id: '',
         title: "",
+        maxRegister: -1,
+        registrationDeadline: null,
         tagList: [],
         banner: null,
         imageUrl: "",
@@ -88,14 +102,29 @@ class Contest extends React.Component {
     this.props.handleContestModal(true);
   };
 
+  showRoundModal = (record) => {
+    // this.props.handleContest(record);
+    this.props.handleRoundModal(true);
+  };
+
+  showUpdateRoundModal = (record) => {
+    // this.props.handleContest(record);
+    this.props.handleUpdateRoundModal(true);
+  };
+
+  showDeleteRoundModal = (record) => {
+    // this.props.handleContest(record);
+    this.props.handleDeleteRoundModal(true);
+  };
+
   render() {
     return (
       <div>
         <Button onClick={() => this.showModal(null)} type="primary" style={{ marginBottom: 16 }}>
           Create contest
         </Button>
-        { this.props.visible && 
-          <Modal 
+        {this.props.visible &&
+          <Modal
             className="contest-modal"
             key="modal"
             title="Create contest"
@@ -106,6 +135,45 @@ class Contest extends React.Component {
             footer={null}
           >
             <ContestModal />
+          </Modal>
+        }
+        {this.props.visibleRoundModal &&
+          <Modal
+            className="testcase-modal"
+            key="round-modal"
+            title="Add round"
+            width="800px"
+            visible={this.props.visibleRoundModal}
+            onCancel={() => this.props.handleRoundModal(false)}
+            footer={null}
+          >
+            <AddRound />
+          </Modal>
+        }
+        {this.props.visibleUpdateRoundModal &&
+          <Modal
+            className="update-testcase-modal"
+            key="update-round-modal"
+            title="Update round"
+            width="800px"
+            visible={this.props.visibleUpdateRoundModal}
+            onCancel={() => this.props.handleUpdateRoundModal(false)}
+            footer={null}
+          >
+            <UpdateRound />
+          </Modal>
+        }
+        {this.props.visibleDeleteRoundModal &&
+          <Modal
+            className="delete-testcase-modal"
+            key="delete-round-modal"
+            title="Delete round"
+            width="800px"
+            visible={this.props.visibleDeleteRoundModal}
+            onCancel={() => this.props.handleDeleteRoundModal(false)}
+            footer={null}
+          >
+            <DeleteRound />
           </Modal>
         }
         <Table
@@ -121,6 +189,9 @@ class Contest extends React.Component {
 const mapStateToProps = state => ({
   data: state.contestReducer.data,
   visible: state.contestReducer.visible,
+  visibleRoundModal: state.contestReducer.visibleRoundModal,
+  visibleUpdateRoundModal: state.contestReducer.visibleUpdateRoundModal,
+  visibleDeleteRoundModal: state.contestReducer.visibleDeleteRoundModal,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -128,6 +199,9 @@ const mapDispatchToProps = dispatch => ({
   handleContestModal: status => dispatch(handleContestModal(status)),
   handleContest: record => dispatch(handleContest(record)),
   getUserContests: () => dispatch(getUserContests()),
+  handleRoundModal: status => dispatch(handleRoundModal(status)),
+  handleUpdateRoundModal: status => dispatch(handleUpdateRoundModal(status)),
+  handleDeleteRoundModal: status => dispatch(handleDeleteRoundModal(status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contest);

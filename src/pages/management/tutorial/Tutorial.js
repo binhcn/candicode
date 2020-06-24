@@ -84,8 +84,8 @@ class Tutorial extends React.Component {
         <Button onClick={() => this.showModal(null)} type="primary" style={{ marginBottom: 16 }}>
           Create tutorial
         </Button>
-        { this.props.visible && 
-          <Modal 
+        { this.props.visible &&
+          <Modal
             className="tutorial-modal"
             key="modal"
             title="Create tutorial"

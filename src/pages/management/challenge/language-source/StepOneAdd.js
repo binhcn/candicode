@@ -20,7 +20,7 @@ class SourceUpdate extends React.Component {
 
         const formData = new FormData();
         var step = 1;
-        if (values.sourceCode) { 
+        if (values.sourceCode) {
           formData.append('source', values.sourceCode[0].originFileObj);
           this.props.uploadSource(formData);
           this.props.updateStep(step);
@@ -56,7 +56,7 @@ class SourceUpdate extends React.Component {
 
     const languageOpt = LANGUAGE_SET.sort().map(language => (
       <Select.Option key={language} value={language}>{language}</Select.Option>
-    )); 
+    ));
 
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit} className="challenge-source-modal">
@@ -77,8 +77,8 @@ class SourceUpdate extends React.Component {
             valuePropName: 'fileList',
             getValueFromEvent: (e) => { return [e.file]; },
           })(
-            <Upload 
-              name="source" 
+            <Upload
+              name="source"
               method="get"
             >
               <Button>

@@ -43,8 +43,8 @@ class SignupForm extends React.Component {
 							});
 							this.convertLogin();
 						} else {
-							const msg = response.subErrors 
-								? response.subErrors[0].message + ': ' + response.subErrors[0].reason 
+							const msg = response.subErrors
+								? response.subErrors[0].message + ': ' + response.subErrors[0].reason
 								: response.message + ': ' + response.reason;
 							notification.error({
 								message: "Failure",

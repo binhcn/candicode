@@ -72,7 +72,7 @@ class StepOne extends React.Component {
 
         const formData = new FormData();
         var step = 1;
-        if (values.source) { 
+        if (values.source) {
           formData.append('source', values.source[0].originFileObj);
           this.props.uploadSource(formData);
           this.props.updateStep(step);
@@ -142,9 +142,9 @@ class StepOne extends React.Component {
           {getFieldDecorator('title', {
             initialValue: this.props.title,
             validateTrigger: ['onBlur'],
-            rules: [{ 
-              required: true, message: "Please input your new challenge's name!", 
-              whitespace: true 
+            rules: [{
+              required: true, message: "Please input your new challenge's name!",
+              whitespace: true
             }],
           })(<Input />)}
         </Form.Item>
@@ -158,7 +158,7 @@ class StepOne extends React.Component {
             </Select>,
           )}
         </Form.Item>
-        {this.props.id === '' && 
+        {this.props.id === '' &&
           <Form.Item label="Language">
             {getFieldDecorator('language', {
               initialValue: this.props.language,
@@ -170,7 +170,7 @@ class StepOne extends React.Component {
             )}
           </Form.Item>
         }
-        {this.props.id === '' && 
+        {this.props.id === '' &&
           <Form.Item label="Your challenge (.zip)">
             {getFieldDecorator('source', {
               initialValue: this.props.source,
@@ -178,7 +178,7 @@ class StepOne extends React.Component {
               valuePropName: 'fileList',
               getValueFromEvent: (e) => { return [e.file]; },
             })(
-              <Upload 
+              <Upload
                 name="source"
                 method="get"
               >

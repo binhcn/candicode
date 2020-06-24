@@ -87,6 +87,8 @@ class StepTwo extends React.Component {
     }
    
     formData.append('title', this.props.contest.title);
+    formData.append('maxRegister', this.props.contest.maxRegister);
+    formData.append('registrationDeadline', this.props.contest.registrationDeadline);
     formData.append('tags', this.props.contest.tagList);
     formData.append('description', this.props.contest.description);
     formData.append('content', this.state.content);
@@ -128,7 +130,7 @@ class StepTwo extends React.Component {
             </Col>
           </Row>
 
-          <ReactQuill 
+          <ReactQuill
             theme="snow"
             value={this.state.content}
             onChange={this.handleChangeDescription}

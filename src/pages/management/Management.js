@@ -56,7 +56,7 @@ class Management extends React.Component {
                 <Route path='/management/challenges' exact component={Challenge} />
                 <Route path='/management/tutorials' exact component={Tutorial} />
                 <Route path='/management/contests' exact component={Contest} />
-                <Route path='/management' exact component={Statistics} />                
+                <Route path='/management' exact component={Statistics} />
               </Switch>
             </div>
           </Content>

@@ -13,11 +13,11 @@ class ContestModal extends React.Component {
   render() {
     var steps = [
       {
-        title: 'First',
+        title: '',
         content: <StepOne />,
       },
       {
-        title: 'Second',
+        title: '',
         content: <StepTwo />,
       },
     ];
@@ -25,8 +25,8 @@ class ContestModal extends React.Component {
       <Row>
         <Col span={4}>
           <Steps direction="vertical" current={this.props.currentStep} style={{width: '50%', margin: '10vh auto' }} >
-            {steps.map(item => (
-              <Step key={item.title} title={item.title}/>
+            {steps.map((item, index) => (
+              <Step key={index} title={item.title}/>
             ))}
           </Steps>
         </Col>

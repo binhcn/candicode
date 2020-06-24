@@ -16,8 +16,8 @@ const propTypes = {
 };
 
 const isCodingPage = (path) => {
-  return path.startsWith('/code-editor') 
-          || path.startsWith('/new-challenge') 
+  return path.startsWith('/code-editor')
+          || path.startsWith('/new-challenge')
           || path.startsWith('/management');
 }
 
