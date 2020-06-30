@@ -5,9 +5,10 @@ import {
   notification, Popconfirm, Divider,
   InputNumber, Select,
 } from 'antd';
+import moment from 'moment';
 
 import {
-  deleteTestcase, handleDeleteRoundModal,
+  deleteRound, handleDeleteRoundModal,
 } from "../../../../actions/actions.creator";
 
 
@@ -28,22 +29,21 @@ class DeleteRound extends React.Component {
       if (!err) {
         const { keys } = values;
         var data = [];
-        const idList = keys.map(item => item.testcaseId);
+        const idList = keys.map(item => item.roundId);
         this.props.rounds.forEach(item => {
-          if (!idList.includes(item.testcaseId)) {
-            data.push(item.testcaseId);
+          if (!idList.includes(item.roundId)) {
+            data.push(item.roundId);
           }
         })
-        var response = this.props.deleteTestcase({ id: this.props.id, data: { testcaseIds: data } })
+        var response = this.props.deleteRound({ id: this.props.id, data: { roundIds: data } })
         response.then(result => {
           notification['success']({
             message: 'Successfully',
-            description: `Deleted ${result.removedTestcase} rounds successfully`,
+            description: `Deleted ${data.length} rounds successfully`,
             duration: 2,
           });
           this.props.handleDeleteRoundModal(false);
         });
-
       }
     });
   };
@@ -100,13 +100,13 @@ class DeleteRound extends React.Component {
         sm: { span: 20, offset: 4 },
       },
     };
-    const tagOpt = ['1', '2', '3'].map((item, index) => (
-      <Select.Option key={index} value={item}>{item}</Select.Option>
-    ));
+    const challengeSet = this.props.contestChallengeList ?
+      this.props.contestChallengeList.map((item, index) => (
+        <Select.Option key={index} value={`${item.challengeId}`}>{item.title}</Select.Option>
+      )) : [];
     var { rounds } = this.props;
     getFieldDecorator('keys', { initialValue: rounds ? [...rounds] : [] });
     var keys = getFieldValue('keys');
-    keys = ['', ''];
     var formItems = Array.isArray(keys) ? keys.map((item, index) => (
       <div key={index}>
         {keys.length > 0 ? (
@@ -115,7 +115,6 @@ class DeleteRound extends React.Component {
           >
             <Icon
               type="minus-circle-o"
-              onClick={() => this.remove(index)}
               className="remove-round-icon"
             />
           </Popconfirm>
@@ -125,13 +124,13 @@ class DeleteRound extends React.Component {
           <Col span={11}>
             <Form.Item label="Challenges" {...challengeLayout}>
               {getFieldDecorator(`challenges[${index}]`, {
-                initialValue: this.props.tagList,
+                initialValue: item.challenges.map(itm => `${itm.challengeId}`),
                 rules: [{
                   required: true,
                 }],
               })(
                 <Select mode="tags" style={{ width: '100%' }}>
-                  {tagOpt}
+                  {challengeSet}
                 </Select>,
               )}
             </Form.Item>
@@ -139,6 +138,7 @@ class DeleteRound extends React.Component {
           <Col span={13}>
             <Form.Item label="Period" {...periodLayout}>
               {getFieldDecorator(`period[${index}]`, {
+                initialValue: [moment(item.startsAt), moment(item.endsAt)],
                 rules: [
                   {
                     type: 'array',
@@ -201,12 +201,11 @@ class DeleteRound extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  id: state.challengeReducer.id,
-  rounds: state.challengeReducer.rounds,
-  tcInputFormat: state.challengeReducer.tcInputFormat,
+  id: state.contestReducer.id,
+  rounds: state.contestReducer.rounds,
 });
 const mapDispatchToProps = dispatch => ({
-  deleteTestcase: payload => dispatch(deleteTestcase(payload)),
+  deleteRound: payload => dispatch(deleteRound(payload)),
   handleDeleteRoundModal: status => dispatch(handleDeleteRoundModal(status)),
 });
 

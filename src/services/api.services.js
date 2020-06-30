@@ -180,6 +180,22 @@ export function getChallengeDetails(id) {
   });
 }
 
+export function getChallengeComments(id) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + id + "/comments",
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function addChallengeComments(data) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + data.id + "/comments",
+    method: 'POST',
+    data: data.payload
+  });
+}
+
 
 // ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗
 // ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║
@@ -236,6 +252,22 @@ export function deleteTutorial(id) {
   });
 }
 
+export function getTutorialComments(id) {
+  return request({
+    url: API_BASE_URL + "/tutorials/" + id + "/comments",
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function addTutorialComments(data) {
+  return request({
+    url: API_BASE_URL + "/tutorials/" + data.id + "/comments",
+    method: 'POST',
+    data: data.payload
+  });
+}
+
 
 //  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███████╗████████╗
 // ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝
@@ -255,7 +287,7 @@ export function getAllContests() {
 
 export function getUserContests() {
   return request({
-    url: API_BASE_URL + "/contests/me",
+    url: API_BASE_URL + "/contests",
     method: 'GET',
     data: {}
   });
@@ -289,5 +321,37 @@ export function deleteContest(id) {
   return request({
     url: API_BASE_URL + "/contests/" + id,
     method: 'DELETE'
+  });
+}
+
+export function submitRound(payload) {
+  return request({
+    url: API_BASE_URL + "/contests/" + payload.id + "/rounds",
+    method: 'POST',
+    data: payload.data
+  });
+}
+
+export function editRound(payload) {
+  return request({
+    url: API_BASE_URL + "/contests/" + payload.id + "/rounds",
+    method: 'PUT',
+    data: payload.data
+  });
+}
+
+export function deleteRound(payload) {
+  return request({
+    url: API_BASE_URL + "/contests/" + payload.id + "/rounds",
+    method: 'DELETE',
+    data: payload.data
+  });
+}
+
+export function getContestChallenge() {
+  return request({
+    url: API_BASE_URL + "/challenges/me?contestChallenge=true",
+    method: 'GET',
+    data: {}
   });
 }

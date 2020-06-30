@@ -10,6 +10,7 @@ const initState = {
   tcInputFormat: "",
   contents: [],
   testcases: [],
+  comments: [],
 };
 
 const codeEditorReducer = (state = initState, action) => {
@@ -27,8 +28,12 @@ const codeEditorReducer = (state = initState, action) => {
         testcases: action.payload.testcases,
       };
 
-    // case actions.HANDLE_TUTORIAL_MODAL:
-    //   return {...state, visible: action.payload };
+      case actions.GET_CHALLENGE_COMMENTS:
+        return { ...state, comments: action.payload };
+  
+      case actions.ADD_CHALLENGE_COMMENTS:
+        var comments = [...state.comments, action.payload];
+        return { ...state, comments: comments };
 
     default:
       return state;

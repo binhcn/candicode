@@ -17,12 +17,16 @@ class ChallengeList extends React.Component {
   render() {
     return (
       <List
-        grid={{ gutter: 8, column: 3 }}
+        grid={{ gutter: 8,
+          sm: 1,
+          md: 2,
+          lg: 3, 
+        }}
         dataSource={this.props.data}
         pagination={{
           onChange: page => {
           },
-          pageSize: 9,
+          pageSize: 6,
         }}
         renderItem={item => (
           <List.Item>

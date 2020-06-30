@@ -5,6 +5,7 @@ import { Table, Popconfirm, Button, Tag, Icon, Modal } from 'antd';
 import {
   deleteContest, handleContestModal, handleContest, getUserContests,
   handleRoundModal, handleUpdateRoundModal, handleDeleteRoundModal,
+  getContestChallenges,
 } from "../../../actions/actions.creator";
 import { randomColor } from '../../../constants';
 import ContestModal from './ContestModal';
@@ -17,6 +18,7 @@ class Contest extends React.Component {
   constructor(props) {
     super(props);
     this.props.getUserContests();
+    this.props.getContestChallenges();
     this.columns = [
       {
         title: 'ID',
@@ -103,17 +105,17 @@ class Contest extends React.Component {
   };
 
   showRoundModal = (record) => {
-    // this.props.handleContest(record);
+    this.props.handleContest(record);
     this.props.handleRoundModal(true);
   };
 
   showUpdateRoundModal = (record) => {
-    // this.props.handleContest(record);
+    this.props.handleContest(record);
     this.props.handleUpdateRoundModal(true);
   };
 
   showDeleteRoundModal = (record) => {
-    // this.props.handleContest(record);
+    this.props.handleContest(record);
     this.props.handleDeleteRoundModal(true);
   };
 
@@ -155,7 +157,7 @@ class Contest extends React.Component {
             className="update-testcase-modal"
             key="update-round-modal"
             title="Update round"
-            width="800px"
+            width="850px"
             visible={this.props.visibleUpdateRoundModal}
             onCancel={() => this.props.handleUpdateRoundModal(false)}
             footer={null}
@@ -199,6 +201,7 @@ const mapDispatchToProps = dispatch => ({
   handleContestModal: status => dispatch(handleContestModal(status)),
   handleContest: record => dispatch(handleContest(record)),
   getUserContests: () => dispatch(getUserContests()),
+  getContestChallenges: () => dispatch(getContestChallenges()),
   handleRoundModal: status => dispatch(handleRoundModal(status)),
   handleUpdateRoundModal: status => dispatch(handleUpdateRoundModal(status)),
   handleDeleteRoundModal: status => dispatch(handleDeleteRoundModal(status)),

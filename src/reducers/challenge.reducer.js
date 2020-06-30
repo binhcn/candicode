@@ -17,11 +17,9 @@ const initState = {
 
   tcInputFormat: [],
   tcOutputFormat: [],
+  contestChallenge: false,
 
   description: "",
-
-  testcaseInput: ['1', '2'],
-  testcaseOutput: ['a', 'b'],
 
   data: [],
   visible: false,
@@ -54,6 +52,7 @@ const challengeReducer = (state = initState, action) => {
         banner: action.payload.banner,
         tcInputFormat: action.payload.tcInputFormat,
         tcOutputFormat: action.payload.tcOutputFormat,
+        contestChallenge: action.payload.contestChallenge,
         contents: action.payload.contents,
         testcases: action.payload.testcases,
         categories: action.payload.categories,
@@ -175,6 +174,7 @@ const challengeReducer = (state = initState, action) => {
         nonImplementedPath: action.payload.nonImplementedPath,
         tcInputFormat: action.payload.tcInputFormat,
         tcOutputFormat: action.payload.tcOutputFormat,
+        contestChallenge: action.payload.contestChallenge ? action.payload.contestChallenge : false,
       };
 
     case actions.UPDATE_STEP_THREE:

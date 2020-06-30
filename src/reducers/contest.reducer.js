@@ -1,17 +1,9 @@
 import * as actions from "../actions/actions";
-
-var data = [
-  {
-    id: 11,
-    key: 1,
-    title: 'con heo',
-  }
-]
+import moment from 'moment';
 
 const initState = {
   id: '',
   title: "",
-  rounds: 1,
   maxRegister: -1,
   registrationDeadline: null,
   tagList: [],
@@ -21,12 +13,14 @@ const initState = {
   description: "",
   content: "",
 
-  data: data,
+  data: [],
   visible: false,
   visibleRoundModal: false,
   visibleUpdateRoundModal: false,
   visibleDeleteRoundModal: false,
   currentStep: 0,
+
+  contestChallengeList: [],
 };
 
 const contestReducer = (state = initState, action) => {
@@ -43,7 +37,8 @@ const contestReducer = (state = initState, action) => {
         content: action.payload.content,
         createdAt: action.payload.createdAt,
         maxRegister: action.payload.maxRegister,
-        registrationDeadline: action.payload.registrationDeadline,
+        registrationDeadline: moment(action.payload.registrationDeadline),
+        rounds: action.payload.rounds,
         currentStep: 0,
       };
 
@@ -116,7 +111,8 @@ const contestReducer = (state = initState, action) => {
 
           description: contest.description,
           numComments: contest.numComments,
-          createdAt: contest.createdAt,
+          registrationDeadline: contest.registrationDeadline,
+          status: contest.status,
           author: contest.author,
           tagList: contest.tags,
           likes: contest.likes,
@@ -127,6 +123,9 @@ const contestReducer = (state = initState, action) => {
         ...state,
         data: data,
       }
+
+    case actions.GET_CONTEST_CHALLENGES:
+      return { ...state, contestChallengeList: action.payload };
 
     default:
       return state;

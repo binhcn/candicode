@@ -14,6 +14,7 @@ import AddResult from './language-source/AddResult';
 import AddTestcase from './testcase/AddTestcase';
 import DeleteTestcase from './testcase/DeleteTestcase';
 import UpdateTestcase from './testcase/UpdateTestcase';
+import { randomColor } from '../../../constants';
 import './Challenge.css';
 
 class Challenge extends React.Component {
@@ -49,17 +50,14 @@ class Challenge extends React.Component {
         dataIndex: 'language',
         width: '20%',
         render: languageSet => {
-          var html = languageSet.map(item => {
+          var html = languageSet.map((item, index) => {
             if (item) {
               return (
-                <Tag color={item === 'Java' ? 'geekblue' : 'green'} key={item}>
+                <Tag key={index} color={randomColor()}>
                   {item}
                 </Tag>
               )
-            } else {
-              return null;
-            }
-            
+            } else return null;
           })
           return html;
         },

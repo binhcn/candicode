@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from "react-redux";
 import {
-  Form, Icon, Button, Row, Col, Divider,
+  Form, Button, Row, Col, Divider,
   Select, DatePicker, notification, InputNumber,
 } from 'antd';
+import moment from 'moment';
 
 import {
-  verifyTestcase, handleUpdateRoundModal,
-  editTestcase,
+  handleUpdateRoundModal, editRound,
 } from "../../../../actions/actions.creator";
 
 
@@ -17,51 +17,50 @@ class UpdateRound extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { keys, input, output, isHidden } = values;
-        if (keys.includes('') || keys.includes('error')) {
-          notification['warning']({
-            message: 'Validate testcase',
-            description: "Please run your testcase input",
-            duration: 0,
-          });
-        } else {
-          var data = [];
-          this.props.testcases.forEach((item, index) => {
-            if (item.input !== input[index] || item.hidden !== isHidden[index]) {
-              data.push({
-                testcaseId: item.testcaseId,
-                input: input[index].replace(/\s/g, ''),
-                output: output[index].replace(/\s/g, ''),
-                hidden: isHidden[index],
-              })
-            }
-          })
-          if (data.length > 0) {
-            var response = this.props.editTestcase({ id: this.props.id, data: { testcases: data } })
-            response.then(result => {
-              notification['success']({
-                message: 'Successfully',
-                description: result.message,
-                duration: 2,
-              });
-              this.props.handleUpdateRoundModal(false);
-            });
-          } else {
+        const { challenges, period, attendeePercent, scorePercent } = values;
+        var data = [];
+        this.props.rounds.forEach((item, index) => {
+
+          var oldChallenges = item.challenges.map(itm => itm.challengeId);
+          var newChallenges = challenges[index].map(itm => parseInt(itm));
+
+          if (JSON.stringify(oldChallenges) !== JSON.stringify(newChallenges)
+                || period[index][0].format('YYYY-MM-DD HH:mm:ss.SSS') !== item.startsAt
+                || period[index][1].format('YYYY-MM-DD HH:mm:ss.SSS') !== item.endsAt) {
+            data.push({
+              roundId: item.roundId,
+              challenges: challenges[index],
+              startsAt: period[index][0].format('YYYY-MM-DD HH:mm:ss.SSS'),
+              endsAt: period[index][1].format('YYYY-MM-DD HH:mm:ss.SSS'),
+              attendeePercent: attendeePercent[index],
+              scorePercent: scorePercent[index],
+            })
+          }
+        })
+        if (data.length > 0) {
+          var response = this.props.editRound({ id: this.props.id, data: { rounds: data } })
+          response.then(result => {
             notification['success']({
-              message: 'Candicode',
-              description: 'Edited 0 testcases successfully',
+              message: 'Successfully',
+              description: `Edited ${data.length} rounds successfully`,
               duration: 2,
             });
             this.props.handleUpdateRoundModal(false);
-          }
-
+          });
+        } else {
+          notification['success']({
+            message: 'Candicode',
+            description: 'Edited 0 rounds successfully',
+            duration: 2,
+          });
+          this.props.handleUpdateRoundModal(false);
         }
       }
     });
   };
 
   render() {
-    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { getFieldDecorator } = this.props.form;
     const challengeLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -112,34 +111,25 @@ class UpdateRound extends React.Component {
         sm: { span: 20, offset: 4 },
       },
     };
-    const tagOpt = ['1', '2', '3'].map((item, index) => (
-      <Select.Option key={index} value={item}>{item}</Select.Option>
-    ));
-    var { testcases } = this.props;
-    getFieldDecorator('keys', { initialValue: Array(testcases ? testcases.length : 0).fill('success') });
-    var keys = getFieldValue('keys');
-    testcases = ['', ''];
-    var formItems = Array.isArray(testcases) ? testcases.map((item, index) => (
+    const challengeSet = this.props.contestChallengeList ?
+      this.props.contestChallengeList.map((item, index) => (
+        <Select.Option key={index} value={`${item.challengeId}`}>{item.title}</Select.Option>
+      )) : [];
+    var { rounds } = this.props;
+    var formItems = Array.isArray(rounds) ? rounds.map((item, index) => (
       <div key={index}>
-        {keys.length > 0 ? (
-          <Icon
-            type="minus-circle-o"
-            onClick={() => this.remove(index)}
-            className="remove-round-icon"
-          />
-        ) : null}
         <span>Round {index + 1}</span>
         <Row>
           <Col span={11}>
             <Form.Item label="Challenges" {...challengeLayout}>
               {getFieldDecorator(`challenges[${index}]`, {
-                initialValue: this.props.tagList,
+                initialValue: item.challenges.map(itm => `${itm.challengeId}`),
                 rules: [{
                   required: true,
                 }],
               })(
                 <Select mode="tags" style={{ width: '100%' }}>
-                  {tagOpt}
+                  {challengeSet}
                 </Select>,
               )}
             </Form.Item>
@@ -147,6 +137,7 @@ class UpdateRound extends React.Component {
           <Col span={13}>
             <Form.Item label="Period" {...periodLayout}>
               {getFieldDecorator(`period[${index}]`, {
+                initialValue: [moment(item.startsAt), moment(item.endsAt)],
                 rules: [
                   {
                     type: 'array',
@@ -209,12 +200,12 @@ class UpdateRound extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  id: state.challengeReducer.id,
-  testcases: state.challengeReducer.testcases,
+  id: state.contestReducer.id,
+  rounds: state.contestReducer.rounds,
+  contestChallengeList: state.contestReducer.contestChallengeList,
 });
 const mapDispatchToProps = dispatch => ({
-  verifyTestcase: payload => dispatch(verifyTestcase(payload)),
-  editTestcase: payload => dispatch(editTestcase(payload)),
+  editRound: payload => dispatch(editRound(payload)),
   handleUpdateRoundModal: status => dispatch(handleUpdateRoundModal(status)),
 });
 

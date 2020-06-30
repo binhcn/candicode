@@ -10,6 +10,7 @@ import Challenge from './pages/challenge/Challenge';
 import Tutorial from './pages/tutorial/Tutorial';
 import TutorialDetails from './pages/tutorial/TutorialDetails';
 import Contest from './pages/contest/Contest';
+import ContestDetails from './pages/contest/ContestDetails';
 import Management from './pages/management/Management';
 import Profile from './pages/profile/Profile';
 import NotFound from './commons/NotFound';
@@ -31,6 +32,7 @@ function Router(props) {
           <Route path="/tutorials" exact component={Tutorial} />
           <Route path={`/tutorials/:tutorialId`} component={TutorialDetails} />
           <Route path="/contests" component={Contest} />
+          <Route path={`/contests/:contestId`} component={ContestDetails} />
           <Route path="/user-plans" component={UserPlan} />
           <Route path="/demo" component={Demo} />
           <PrivateRoute exact authenticated={props.isAuthenticated} path="/profile" component={Profile} />

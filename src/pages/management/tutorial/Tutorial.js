@@ -29,13 +29,13 @@ class Tutorial extends React.Component {
         dataIndex: 'tagList',
         width: '30%',
         render: tagList => {
-          const html = tagList.map((item, index) => {
-            return (
-              <Tag key={index} color={randomColor()}>
-                {item}
-              </Tag>
-            )
-          })
+          const html = tagList ? tagList.map((item, index) => {
+              return (
+                <Tag key={index} color={randomColor()}>
+                  {item}
+                </Tag>
+              ) 
+          }) : null;
           return html;
         },
       },

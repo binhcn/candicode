@@ -13,6 +13,8 @@ const initState = {
   data: [],
   visible: false,
   currentStep: 0,
+
+  comments: [],
 };
 
 const tutorialReducer = (state = initState, action) => {
@@ -101,6 +103,13 @@ const tutorialReducer = (state = initState, action) => {
         ...state,
         data: data,
       }
+
+    case actions.GET_TUTORIAL_COMMENTS:
+      return { ...state, comments: action.payload };
+
+    case actions.ADD_TUTORIAL_COMMENTS:
+      var comments = [action.payload, ...state.comments];
+      return { ...state, comments: comments };
 
     default:
       return state;

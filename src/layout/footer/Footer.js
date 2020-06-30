@@ -46,16 +46,16 @@ class Footer extends React.Component {
           </h3>
           <ul>
             <li>
-              <a href="#0">Challenges</a>
+              <Link to="/challenges">Challenge</Link>
             </li>
             <li>
-              <a href="/">Tutorials</a>
+              <Link to="/tutorials">Tutorial</Link>
             </li>
             <li>
-              <a href="/contests">Contests</a>
+              <Link to="/contests">Contest</Link>
             </li>
             <li>
-              <Link to="/user-plan">Upgrade</Link>
+              <Link to="/user-plans">Upgrade</Link>
             </li>
           </ul>
         </Col>

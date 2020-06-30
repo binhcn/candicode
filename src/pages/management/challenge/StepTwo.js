@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Form, Button, Cascader, Select } from 'antd';
+import { Form, Button, Cascader, Select, Checkbox, } from 'antd';
 
 import './Challenge.css';
 import { STEP_LENGTH, TESTCASE_FORMAT_SET } from '../../../constants';
@@ -117,6 +117,15 @@ class StepTwo extends React.Component {
             </Select>,
           )}
         </Form.Item>
+        <Form.Item label="Is contest challenge?" >
+          {getFieldDecorator('contestChallenge', {
+            valuePropName: 'checked',
+            initialValue: this.props.contestChallenge,
+            validateTrigger: ['onBlur'],
+          })(
+            <Checkbox />
+          )}
+        </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           {this.props.currentStep < STEP_LENGTH - 1 && (
             <Button type="primary" htmlType="submit">
@@ -141,6 +150,7 @@ const mapStateToProps = state => ({
   nonImplementedPath: state.challengeReducer.nonImplementedPath,
   tcInputFormat: state.challengeReducer.tcInputFormat,
   tcOutputFormat: state.challengeReducer.tcOutputFormat,
+  contestChallenge: state.challengeReducer.contestChallenge,
   projectStructure: state.challengeReducer.projectStructure,
   currentStep: state.challengeReducer.currentStep,
 });

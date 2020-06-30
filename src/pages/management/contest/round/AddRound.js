@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from "react-redux";
 import {
   Form, InputNumber, Icon, Button, Row, Col,
-  DatePicker, Select, Divider,
+  DatePicker, Select, Divider, notification,
 } from 'antd';
 
 import {
-  submitTestcase, handleRoundModal,
+  submitRound, handleRoundModal,
 } from "../../../../actions/actions.creator";
 
 
@@ -34,32 +34,26 @@ class AddRound extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log(values)
-        // const { keys, input, output, isHidden } = values;
-        // if (keys.includes('') || keys.includes('error')) {
-        //   notification['warning']({
-        //     message: 'Validate testcase',
-        //     description: "Please run your testcase input or fix bugs",
-        //     duration: 0,
-        //   });
-        // } else {
-        //   var data = [];
-        //   input.forEach((item, index) => {
-        //     data.push({
-        //       input: input[index].replace(/\s/g, ''),
-        //       output: output[index].replace(/\s/g, ''),
-        //       hidden: isHidden[index],
-        //     })
-        //   })
-        //   var response = this.props.submitTestcase({ id: this.props.id, data: { testcases: data } })
-        //   response.then(result => {
-        //     notification['success']({
-        //       message: 'Successfully',
-        //       description: result.message,
-        //       duration: 2,
-        //     });
-        //     this.props.handleRoundModal(false);
-        //   });
-        // }
+        const { keys, challenges, period, attendeePercent, scorePercent } = values;
+        var data = [];
+        keys.forEach((item, index) => {
+          data.push({
+            challenges: challenges[index],
+            startsAt: period[index][0].format('YYYY-MM-DD HH:mm:ss.SSS'),
+            endsAt: period[index][1].format('YYYY-MM-DD HH:mm:ss.SSS'),
+            attendeePercent: attendeePercent[index],
+            scorePercent: scorePercent[index],
+          })
+        })
+        var response = this.props.submitRound({ id: this.props.id, data: { rounds: data } })
+        response.then(result => {
+          notification['success']({
+            message: 'Successfully',
+            description: result.message,
+            duration: 2,
+          });
+          this.props.handleRoundModal(false);
+        });
       }
     });
   };
@@ -116,9 +110,10 @@ class AddRound extends React.Component {
         sm: { span: 20, offset: 4 },
       },
     };
-    const tagOpt = ['1', '2', '3'].map((item, index) => (
-      <Select.Option key={index} value={item}>{item}</Select.Option>
-    ));
+    const challengeSet = this.props.contestChallengeList ?
+      this.props.contestChallengeList.map((item, index) => (
+      <Select.Option key={index} value={`${item.challengeId}`}>{item.title}</Select.Option>
+    )) : [];
     getFieldDecorator('keys', { initialValue: [] });
     var keys = getFieldValue('keys');
     var formItems = Array.isArray(keys) ? keys.map((item, index) => (
@@ -135,13 +130,13 @@ class AddRound extends React.Component {
           <Col span={11}>
             <Form.Item label="Challenges" {...challengeLayout}>
               {getFieldDecorator(`challenges[${index}]`, {
-                initialValue: this.props.tagList,
+                initialValue: [],
                 rules: [{
                   required: true,
                 }],
               })(
                 <Select mode="tags" style={{ width: '100%' }}>
-                  {tagOpt}
+                  {challengeSet}
                 </Select>,
               )}
             </Form.Item>
@@ -149,11 +144,12 @@ class AddRound extends React.Component {
           <Col span={13}>
             <Form.Item label="Period" {...periodLayout}>
               {getFieldDecorator(`period[${index}]`, {
+                initialValue: [],
                 rules: [
                   {
                     type: 'array',
                     required: true,
-                    message: 'Please select contest\'s period!'
+                    message: 'Please select round\'s period!'
                   }
                 ],
               })(
@@ -216,10 +212,11 @@ class AddRound extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  id: state.challengeReducer.id,
+  id: state.contestReducer.id,
+  contestChallengeList: state.contestReducer.contestChallengeList,
 });
 const mapDispatchToProps = dispatch => ({
-  submitTestcase: payload => dispatch(submitTestcase(payload)),
+  submitRound: payload => dispatch(submitRound(payload)),
   handleRoundModal: status => dispatch(handleRoundModal(status)),
 });
 

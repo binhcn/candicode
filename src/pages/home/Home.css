@@ -58,3 +58,65 @@
   }
 }
 
+.owl-carousel .owl-prev {
+  height: 40px;
+  width: 40px;
+  font-size: 30px !important;
+  border-radius: 50% !important;
+  line-height: 30px;
+  position: absolute;
+  top: 160px;
+  left: -5%;
+}
+
+.owl-carousel .owl-next {
+  height: 40px;
+  width: 40px;
+  font-size: 30px !important;
+  border-radius: 50% !important;
+  line-height: 30px;
+  position: absolute;
+  top: 160px;
+  right: -5%;
+}
+
+.tutorial-contest .item {
+  width: 90%;
+  height: 250px;
+  border-radius: 10px;
+  margin: 30px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.8;
+  color: white;
+  padding: 40px !important;
+}
+
+.tutorial-contest .item:hover {
+  opacity: 1;
+}
+
+.tutorial-contest .tutorial-item {
+  background-image: url("../../img/img1.jpg");
+}
+
+.tutorial-contest .contest-item {
+  background-image: url("https://cdn.mos.cms.futurecdn.net/tKLoCsLGrThMKd5J4RmhME.jpg");
+}
+
+.tutorial-contest .item .topic {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 0px;
+}
+
+.tutorial-contest .item .divider {
+  height: 3px;
+  background-color: white;
+  width: 50%;
+  margin: 10px 0;
+}
+
+.tutorial-contest .item a {
+  color: white;
+}

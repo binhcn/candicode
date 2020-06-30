@@ -37,6 +37,11 @@ export const UPDATE_STEP = "Update step";
 export const GET_ALL_CHALLENGES = "Get all challenges";
 export const GET_CHALLENGE_DETAILS = "Get challenge details";
 
+export const GET_CHALLENGE_COMMENTS = "Get all challenge comments";
+export const ADD_CHALLENGE_COMMENTS = "Add all challenge comments";
+export const EDIT_CHALLENGE_COMMENTS = "Edit all challenge comments";
+export const DELETE_CHALLENGE_COMMENTS = "Delete all challenge comments";
+
 
 // ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗
 // ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║
@@ -58,6 +63,12 @@ export const GET_TUTORIAL_DETAILS = "Get tutorial details";
 
 export const UPDATE_TUTORIAL = "Update tutorial";
 export const DELETE_TUTORIAL = "Delete tutorial";
+
+
+export const GET_TUTORIAL_COMMENTS = "Get all tutorial comments";
+export const ADD_TUTORIAL_COMMENTS = "Add all tutorial comments";
+export const EDIT_TUTORIAL_COMMENTS = "Edit all tutorial comments";
+export const DELETE_TUTORIAL_COMMENTS = "Delete all tutorial comments";
 
 
 //  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███████╗████████╗
@@ -84,3 +95,5 @@ export const DELETE_CONTEST = "Delete contest";
 export const HANDLE_ROUND_MODAL = "Handle round modal";
 export const HANDLE_UPDATE_ROUND_MODAL = "Handle update round modal";
 export const HANDLE_DELETE_ROUND_MODAL = "Handle delete round modal";
+
+export const GET_CONTEST_CHALLENGES = "Get all contest challenges";

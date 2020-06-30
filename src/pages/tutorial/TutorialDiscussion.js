@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Comment, Avatar, Form, Button, List, Input } from 'antd';
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
 
 import {
-  getChallengeComments, addChallengeComments,
+  getTutorialComments, addTutorialComments,
 } from "../../actions/actions.creator";
 
 const { TextArea } = Input;
@@ -32,20 +32,14 @@ const Editor = ({ onChange, onSubmit, submitting, value, onKeyPress }) => (
 );
 
 const Comments = ({ comments }) => {
-  const messagesEndRef = useRef(null);
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-  useEffect(scrollToBottom, [comments]);
   return (
     <div className="comments">
       {comments.length > 0 && <CommentList comments={comments} />}
-      <div ref={messagesEndRef} />
     </div>
   )
 }
 
-class Discussion extends React.Component {
+class TutorialDiscussion extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +50,7 @@ class Discussion extends React.Component {
       location: { pathname: path },
     } = this.props;
     const tutorialId = path.split('/').slice(-1)[0];
-    this.props.getChallengeComments(tutorialId);
+    this.props.getTutorialComments(tutorialId);
   }
 
   keyPressed = event => {
@@ -78,7 +72,7 @@ class Discussion extends React.Component {
       content: this.state.value,
     };
 
-    var response = this.props.addChallengeComments({id: this.props.id, payload: payload});
+    var response = this.props.addTutorialComments({id: this.props.id, payload: payload});
     response.then(result => {
       setTimeout(() => {
         this.setState({
@@ -110,7 +104,6 @@ class Discussion extends React.Component {
 
     return (
       <div>
-        <Comments comments={commentList} />
         <Comment
           avatar={
             <Avatar
@@ -128,19 +121,20 @@ class Discussion extends React.Component {
             />
           }
         />
+        <Comments comments={commentList} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  comments: state.codeEditorReducer.comments,
-  id: state.codeEditorReducer.id,
+  comments: state.tutorialReducer.comments,
+  id: state.tutorialReducer.id,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getChallengeComments: id => dispatch(getChallengeComments(id)),
-  addChallengeComments: data => dispatch(addChallengeComments(data)),
+  getTutorialComments: id => dispatch(getTutorialComments(id)),
+  addTutorialComments: data => dispatch(addTutorialComments(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Discussion));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TutorialDiscussion));

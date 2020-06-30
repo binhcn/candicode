@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
 import $ from 'jquery';
+import { Row, Col, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 
 import './Home.css';
 import ChallengeCard from '../challenge/ChallengeCard';
@@ -25,6 +27,7 @@ class Home extends React.Component {
           rewind: false,
           nav: true,
           dotsEach: true,
+          navText: ['&lt;', '&gt;'],
         });
       })(window.jQuery);
     });
@@ -32,8 +35,8 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row" style={{ margin: '50px 0' }}>
+      <div className="container" style={{marginTop:'30px'}}>
+        <div className="row">
           <div className="col-lg-4">
             <div className="box_feat" id="icon_1">
               <span></span>
@@ -63,24 +66,41 @@ class Home extends React.Component {
           <div className="item">
             {this.props.data[1] && <ChallengeCard item={this.props.data[1]} />}
           </div>
-          {this.props.data[2] && <div className="item">
-            <ChallengeCard item={this.props.data[2]} />
-          </div>}
-          {this.props.data[3] && <div className="item">
-            <ChallengeCard item={this.props.data[3]} />
-          </div>}
-          {this.props.data[4] && <div className="item">
-            <ChallengeCard item={this.props.data[4]} />
-          </div>}
-          {this.props.data[5] && <div className="item">
-            <ChallengeCard item={this.props.data[5]} />
-          </div>}
-          {this.props.data[6] && <div className="item">
-            <ChallengeCard item={this.props.data[6]} />
-          </div>}
+          <div className="item">
+           {this.props.data[2] && <ChallengeCard item={this.props.data[2]} />}
+          </div>
+          <div className="item">
+           {this.props.data[3] && <ChallengeCard item={this.props.data[3]} />}
+          </div>
+          <div className="item">
+           {this.props.data[4] && <ChallengeCard item={this.props.data[4]} />}
+          </div>
+          <div className="item">
+           {this.props.data[0] && <ChallengeCard item={this.props.data[0]} />}
+          </div>
+          <div className="item">
+           {this.props.data[1] && <ChallengeCard item={this.props.data[1]} />}
+          </div>
         </div>
 
-      </div>
+        <Row>
+          <Col sm={{ span: 24, offset: 0 }} md={{ span: 12, offset: 0 }} className="tutorial-contest">
+            <div className="item tutorial-item">
+              <p className="topic">TUTORIALS</p>
+              <div className="divider" />
+              <Link to="/tutorials">View details <Icon type="arrow-right" /></Link>
+            </div>
+          </Col>
+          <Col sm={{ span: 24, offset: 0 }} md={{ span: 12, offset: 0 }} className="tutorial-contest">
+            <div className="item contest-item">
+              <p className="topic">CONTESTS</p>
+              <div className="divider" />
+              <Link to="/contests">View details <Icon type="arrow-right" /></Link>
+            </div>
+          </Col>
+        </Row>
+
+      </div >
     );
   }
 }

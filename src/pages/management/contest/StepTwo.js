@@ -85,10 +85,10 @@ class StepTwo extends React.Component {
     if (this.props.contest.banner) {
       formData.append('banner', this.props.contest.banner);
     }
-   
+    
     formData.append('title', this.props.contest.title);
     formData.append('maxRegister', this.props.contest.maxRegister);
-    formData.append('registrationDeadline', this.props.contest.registrationDeadline);
+    formData.append('registrationDeadline', this.props.contest.registrationDeadline.format('YYYY-MM-DD HH:mm:ss.SSS'));
     formData.append('tags', this.props.contest.tagList);
     formData.append('description', this.props.contest.description);
     formData.append('content', this.state.content);

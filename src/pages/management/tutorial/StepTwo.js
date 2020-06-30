@@ -87,7 +87,7 @@ class StepTwo extends React.Component {
     }
    
     formData.append('title', this.props.tutorial.title);
-    formData.append('tags', this.props.tutorial.tagList);
+    formData.append('tags', this.props.tutorial.tagList ? this.props.tutorial.tagList : []);
     formData.append('description', this.props.tutorial.description);
     formData.append('content', this.state.content);
 

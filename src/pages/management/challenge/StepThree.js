@@ -103,6 +103,7 @@ class StepThree extends React.Component {
       formData.append('nonImplementedPath', this.props.challange.nonImplementedPath.slice(-1)[0]);
       formData.append('tcInputFormat', this.props.challange.tcInputFormat);
       formData.append('tcOutputFormat', this.props.challange.tcOutputFormat);
+      formData.append('contestChallenge', this.props.challange.contestChallenge);
       formData.append('description', this.state.description);
       formData.append('challengeDir', this.props.challange.challengeDir);
     }

@@ -1,135 +1,34 @@
-/*Blog Sidebar*/
-.alignleft {
-  float: left;
-  margin: 0 15px 10px 0;
-  width: 80px;
-  height: 80px;
-  overflow: hidden;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  border-radius: 5px;
-}
-.alignleft img {
-  width: auto;
-  height: 80px;
-}
-
-.comments-list {
-  padding: 0;
-  list-style: none;
-}
-.comments-list h3 {
-  font-size: 14px;
-  padding: 0 0 0;
-  margin-bottom: 0;
-  margin-top: 5px;
-  text-transform: capitalize;
-  letter-spacing: 0;
-}
-.comments-list h3 a {
-  color: #333;
-}
-.comments-list h3 a:hover {
-  color: #e74e84;
-}
-.comments-list li {
-  margin-bottom: 10px;
-  display: table;
-  width: 100%;
-}
-.comments-list li:last-child {
-  margin-bottom: 0;
-}
-.comments-list small {
-  color: #999999;
-}
-
-.widget-title {
-  padding: 15px 0;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #e1e8ed;
-}
-.widget-title h4 {
-  padding: 0;
-  margin: 0;
-  font-weight: 500;
-  line-height: 1;
-  font-size: 15px;
-  font-size: 0.9375rem;
-}
-
-.widget {
-  position: relative;
-  display: block;
-  margin-bottom: 15px;
-}
-.widget ul.cats {
-  list-style: none;
-  padding: 0;
-}
-.widget ul.cats li {
-  padding: 0 0 5px 2px;
-  position: relative;
-}
-.widget ul.cats a {
-  color: #333;
-}
-.widget ul.cats a:hover {
-  color: #e74e84;
-}
-.widget ul.cats a span {
-  position: absolute;
-  right: 0;
-}
-
-.tags a {
-  padding: 3px 10px;
-  font-size: 13px;
-  margin: 0 0 4px;
-  letter-spacing: 0.4px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  border-radius: 3px;
-  display: inline-block;
-}
-.tags a:hover {
-  background-color: #e74e84;
-  color: #fff;
-}
-
-.tutorial-item .ant-list-item {
+.contest-item .ant-list-item {
   display: flex;
 }
 
-.tutorial-item .ant-list-item-main {
+.contest-item .ant-list-item-main {
   order: 1;
   padding: 10px;
 }
-.tutorial-item .ant-list-item-extra {
+.contest-item .ant-list-item-extra {
   order: 0;
   margin-left: 0 !important;
   width: 35%;
 }
 
-.tutorial-item .title {
+.contest-item .title {
   font-size: 1.5rem;
   font-family: Mali;
   font-weight: 700;
   line-height: 1.235;
 }
 
-.tutorial-item .ant-badge {
+.contest-item .ant-badge {
   float: right;
   line-height: 30px;
 }
 
-.tutorial-item .messages {
-  margin: 0px 10px 0px 20px;
+.contest-item .messages {
+  margin: 0px 10px 0px 10px !important;
 }
 
-.tutorial-item .ant-btn {
+.contest-item .ant-btn {
   float: right;
   border-radius: 20px;
   padding: 0 20px;
@@ -137,13 +36,47 @@
   box-shadow: 2px 2px 5px 0px indigo;
 }
 
-.tutorial-item {
+.contest-item {
   border: 1px solid whitesmoke;
   padding: 0 !important;
-  overflow: hidden;
-  border-radius: 10px !important;
+    border-radius: 10px !important;
+    overflow: hidden;
   /* box-shadow: 3px 3px 5px 0px whitesmoke; */
   box-shadow: 2px 2px 5px 0px indigo;
   margin-bottom: 30px;
   background-color: #fff;
+  height: 230px;
+}
+
+.contest-item .description {
+  min-height: 70px;
+}
+
+.contest-item .like-dislike {
+  font-size: 20px;
+}
+
+.contest-item .like-dislike i {
+  position: relative;
+  bottom: 5px;
+  margin: 0px 3px 0px 15px;
+}
+
+.contest-item .contest-status {
+  background-color: yellowgreen;
+  width: 160px;
+  color: white;
+  height: 30px;
+  text-align: center;
+  position: relative;
+  line-height: 30px;
+  transform: rotate(-45deg);
+  left: -370px;
+  top: 20px;
+}
+
+.contest-details {
+  background-color: white;
+  margin: 10px 0px 0px 0px;
+  padding: 20px 20px 0px 40px !important;
 }

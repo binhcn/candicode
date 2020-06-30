@@ -15,7 +15,8 @@ class CodeSpec extends React.Component {
   render() {
     return (
       <Tabs type="card" defaultActiveKey="description">
-        <TabPane tab={
+        <TabPane className="description"
+          tab={
           <span>
             <Icon type="read" />
             Description

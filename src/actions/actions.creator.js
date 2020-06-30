@@ -382,6 +382,24 @@ export function getTutorialDetails(id) {
   };
 }
 
+export function getTutorialComments(id) {
+  return async function (dispatch) {
+    const response = await apiService.getTutorialComments(id);
+    if (response && response.status === 200) {
+      dispatch({ type: actions.GET_TUTORIAL_COMMENTS, payload: response.data.result.items })
+    }
+  };
+}
+
+export function addTutorialComments(data) {
+  return async function (dispatch) {
+    const response = await apiService.addTutorialComments(data);
+    if (response && response.status === 200) {
+      dispatch({ type: actions.ADD_TUTORIAL_COMMENTS, payload: response.data.result })
+    }
+  };
+}
+
 
 //  ██████╗ ██████╗ ██████╗ ███████╗    ███████╗██████╗ ██╗████████╗ ██████╗ ██████╗
 // ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔════╝██╔══██╗██║╚══██╔══╝██╔═══██╗██╔══██╗
@@ -407,6 +425,24 @@ export function getChallengeDetails(id) {
     const response = await apiService.getChallengeDetails(id);
     if (response.status === 200) {
       dispatch({ type: actions.GET_CHALLENGE_DETAILS, payload: { ...response.data.result, id } })
+    }
+  };
+}
+
+export function getChallengeComments(id) {
+  return async function (dispatch) {
+    const response = await apiService.getChallengeComments(id);
+    if (response && response.status === 200) {
+      dispatch({ type: actions.GET_CHALLENGE_COMMENTS, payload: response.data.result.items })
+    }
+  };
+}
+
+export function addChallengeComments(data) {
+  return async function (dispatch) {
+    const response = await apiService.addChallengeComments(data);
+    if (response && response.status === 200) {
+      dispatch({ type: actions.ADD_CHALLENGE_COMMENTS, payload: response.data.result })
     }
   };
 }
@@ -462,8 +498,7 @@ export function updateStepTwoContest(payload) {
 export function updateContest(data) {
   return async function (dispatch) {
     if (data.request.id) {
-      // const response = await apiService.editContest({ formData: data.formData, id: data.request.id });
-      const response = { status: 200 };
+      const response = await apiService.editContest({ formData: data.formData, id: data.request.id });
       if (response.status === 200) {
         dispatch({ type: actions.UPDATE_CONTEST, payload: data.request });
         message.success('Edit tutorial successfully!');
@@ -471,13 +506,11 @@ export function updateContest(data) {
         message.fail('Sorry! Something went wrong. Please try again!');
       }
     } else {
-      // const response = await apiService.uploadContest(data.formData);
-      // var newContest = { ...data.request, id: response.data.result.contestId };
-      var response = { status: 201 };
-      var newContest = { ...data.request, id: 7 };
+      const response = await apiService.uploadContest(data.formData);
+      var newContest = { ...data.request, id: response.data.result.contestId };
       if (response.status === 201) {
         dispatch({ type: actions.UPDATE_CONTEST, payload: newContest });
-        // message.success(response.data.result.message);
+        message.success(response.data.result.message);
       } else {
         message.fail('Sorry! Something went wrong. Please try again!');
       }
@@ -498,8 +531,7 @@ export function deleteContest(id) {
 
 export function getUserContests() {
   return async function (dispatch) {
-    // const response = await apiService.getUserContests();
-    var response = { status: -1 };
+    const response = await apiService.getUserContests();
     if (response.status === 200) {
       dispatch({ type: actions.GET_ALL_CONTESTS, payload: response.data.result.items })
     }
@@ -539,5 +571,47 @@ export function handleUpdateRoundModal(status) {
 export function handleDeleteRoundModal(status) {
   return async function (dispatch) {
     dispatch({ type: actions.HANDLE_DELETE_ROUND_MODAL, payload: status });
+  };
+}
+
+export function submitRound(payload) {
+  return async function (dispatch) {
+    const response = await apiService.submitRound(payload);
+    if (response.status === 200) {
+      return response.data.result;
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function editRound(payload) {
+  return async function (dispatch) {
+    const response = await apiService.editRound(payload);
+    if (response.status === 200) {
+      return response.data.result;
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function deleteRound(payload) {
+  return async function (dispatch) {
+    const response = await apiService.deleteRound(payload);
+    if (response.status === 200) {
+      return response.data.result;
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function getContestChallenges() {
+  return async function (dispatch) {
+    const response = await apiService.getContestChallenge();
+    if (response && response.status === 200) {
+      dispatch({ type: actions.GET_CONTEST_CHALLENGES, payload: response.data.result.items })
+    }
   };
 }

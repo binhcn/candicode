@@ -32,11 +32,43 @@
 .split {
   display: flex;
   background: white;
-  padding: 0 2px;
 }
 
 .split_left {
-  width: 50%;
+  width: 50%;  
+}
+
+.split_left .ant-tabs-nav-container {
+  padding: 3px;
+}
+
+.split_left .ant-tabs-bar {
+  margin: 0;
+}
+
+.split_left .description {
+  padding: 5px 15px;
+  height: 86vh;
+  overflow: auto;
+}
+
+.split_left .ant-comment-inner {
+  padding: 0;
+  margin: 8px 0;
+}
+
+.split_left .comments {
+  height: 62vh;
+  overflow: auto;
+  padding: 0px 10px;
+}
+
+.split_left .ant-comment-avatar {
+  margin: 6px;
+}
+
+.split_left .ant-form-item {
+  margin-bottom: 12px;
 }
 
 .split_right {
@@ -44,8 +76,7 @@
 }
 
 .split_bar {
-  background-color: #3C3530;
-  width: 5px;
+  width: 1px;
   cursor: col-resize;
 }
 
@@ -63,3 +94,41 @@
     width: 100% !important;
   }
 }
+
+.split_right .options {
+  padding: 5px 15px;
+}
+
+.split_right section {
+  box-shadow: 2px 2px 5px 0px purple;
+}
+
+.split_right .navigation {
+  float: right;
+}
+
+.split_right .prev {
+  transform: rotate(-180deg);
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.split_right .next {
+  cursor: pointer;
+}
+
+.testcase-drawer .ant-drawer-body {
+  padding: 12px;
+}
+
+.testcase-drawer .ant-drawer-header {
+  background-color: deepskyblue;
+}
+
+.testcase-drawer .ant-drawer-title {
+  font-size: 30px;
+  font-weight: 600;
+  color: white;
+}
+
+

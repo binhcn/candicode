@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Form, Input, Tooltip, Icon, Button, Upload,
-        Select, message, InputNumber, DatePicker,
+import {
+  Form, Input, Tooltip, Icon, Button, Upload,
+  Select, message, InputNumber, DatePicker,
 } from 'antd';
 
 import './Contest.css';
@@ -68,8 +69,7 @@ class StepOne extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        // var formatTime = values.registrationDeadline.format('YYYY-MM-DD HH:mm:ss.SSS');
-        const payload = Object.assign({}, values, {imageUrl: this.state.imageUrl});
+        const payload = Object.assign({}, values, { imageUrl: this.state.imageUrl });
         this.props.updateStepOneContest(payload);
         console.log('Received values of form: ', payload);
         var step = 1;

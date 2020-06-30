@@ -2,10 +2,11 @@ import React from 'react';
 import { ControlledEditor } from '@monaco-editor/react';
 import { connect } from "react-redux";
 import {
-  Input, Select, Button, Row, Col,
-  Collapse, notification,
+  Select, Button, Row, Col,
+  Collapse, notification, Drawer,
 } from 'antd';
 
+import './Code.css';
 import {
   createSubmission,
 } from "../../actions/actions.creator";
@@ -19,6 +20,8 @@ class CodeEditor extends React.Component {
     language: '',
     details: [],
     isSubmitted: false,
+    visible: false,
+    theme: 'dark',
   }
 
   handleEditorChange = (event, value) => {
@@ -67,6 +70,24 @@ class CodeEditor extends React.Component {
     this.setState({ language: lang });
   }
 
+  handleThemeChange = theme => {
+    this.setState({ theme: theme });
+  }
+
+  showTestcase = (status) => {
+    this.setState({
+      visible: status,
+    })
+  }
+
+  next = () => {
+    console.log("next");
+  }
+
+  prev = () => {
+
+  }
+
   render() {
     const languageOpt = this.props.contents.map((item, index) => (
       <Select.Option key={index} value={item.language}>{item.language}</Select.Option>
@@ -75,7 +96,7 @@ class CodeEditor extends React.Component {
       <Panel header={`Testcase ${index + 1} ${item.hidden ? '(hidden)' : ''}`} key={index}>
         <p>
           <span>Input: {item.hidden ? '' : item.input}</span>
-          <span style={{marginLeft:'50px'}}>Output: {item.hidden ? '' : item.output}</span>
+          <span style={{ marginLeft: '50px' }}>Output: {item.hidden ? '' : item.output}</span>
         </p>
         {this.state.isSubmitted &&
           <>
@@ -88,35 +109,57 @@ class CodeEditor extends React.Component {
     return (
       <div>
         {this.props.contents[0] &&
-          <Input.Group style={{ margin: '2px' }}>
-            <span>Language: </span>
-            <Select
-              defaultValue={this.props.contents[0].language}
-              style={{ width: 200 }}
-              onChange={this.handleLanguageChange}
-            >
-              {languageOpt}
-            </Select>
-          </Input.Group>
+          <div className="options">
+              <span>Language: </span>
+              <Select
+                defaultValue={this.props.contents[0].language}
+                style={{ width:'100px', marginRight:'20px' }}
+                onChange={this.handleLanguageChange}
+              >
+                {languageOpt}
+              </Select>
+              <span>Theme: </span>
+              <Select
+                defaultValue={this.state.theme}
+                style={{ width:'100px' }}
+                onChange={this.handleThemeChange}
+              >
+                <Select.Option value='light'>light</Select.Option>
+                <Select.Option value='dark'>dark</Select.Option>
+              </Select>
+              <span className="navigation">
+                <img className="prev" onClick={this.prev} alt="prev" src="/img/nxt-btn.png" width='40x' />
+                <img alt="next" className="next" onClick={this.next} src="/img/nxt-btn.png" width='40x' />
+              </span>
+          </div>
         }
 
         {this.props.contents[0] &&
-          <ControlledEditor height="78vh" theme="light"
+          <ControlledEditor height="79vh"
+            theme={this.state.theme}
             value={this.props.contents[0].text}
             language={this.props.contents[0].language.toLowerCase()}
             onChange={this.handleEditorChange}
           />
         }
 
-        <div id="testcase" className="collapse">
+        <Drawer
+          className="testcase-drawer"
+          title='Testcase'
+          placement='left'
+          closable={true}
+          onClose={() => this.showTestcase(false)}
+          visible={this.state.visible}
+          width='40%'
+        >
           <Collapse>
             {testcaseHtml}
           </Collapse>
-        </div>
+        </Drawer>
 
         <Row style={{ margin: '5px' }}>
           <Col span={15}>
-            <Button type="danger" data-toggle="collapse" data-target="#testcase">Show testcases</Button>
+            <Button type="danger" onClick={() => this.showTestcase(true)} data-target="#testcase">Show testcases</Button>
           </Col>
           <Col span={5} onClick={this.handleCompile}>
             <Button type="primary">Compile</Button>

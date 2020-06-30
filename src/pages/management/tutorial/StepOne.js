@@ -144,6 +144,10 @@ class StepOne extends React.Component {
         <Form.Item label="Description">
           {getFieldDecorator('description', {
             initialValue: this.props.description,
+            rules: [{
+              required: true, message: "Please give your new tutorial's description!",
+              whitespace: true
+            }],
           })(<Input.TextArea rows={4} allowClear={true} />)}
         </Form.Item>
         <Form.Item label="Your banner">
