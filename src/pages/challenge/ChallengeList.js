@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 import {
   List,
 } from 'antd';
@@ -12,7 +13,10 @@ import ChallengeCard from './ChallengeCard';
 class ChallengeList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.getAllChallenges();
+    const {
+      location: { search: params },
+    } = this.props;
+    this.props.getAllChallenges(params);
   }
   render() {
     return (
@@ -43,7 +47,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAllChallenges: () => dispatch(getAllChallenges()),
+  getAllChallenges: params => dispatch(getAllChallenges(params)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChallengeList);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ChallengeList));

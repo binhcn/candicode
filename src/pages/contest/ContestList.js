@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {
   Avatar, Tag, Icon,
   Badge, Divider, Button, List
@@ -14,7 +15,10 @@ import { randomColor } from '../../constants';
 class ContestList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.getAllContests();
+    const {
+      location: { search: params },
+    } = this.props;
+    this.props.getAllContests(params);
   }
   render() {
     return (
@@ -80,16 +84,10 @@ class ContestList extends React.Component {
 
             <Divider style={{ margin: '4px 0' }} />
 
-            <div className="like-dislike">
-              <Icon type="like" />
-              {item.likes > 0 ? item.likes : 9}
-              <Icon type="dislike" />
-              {item.dislikes > 0 ? item.dislikes : 3}
+            <Link to={'/contests/' + item.id}>
+              <Button type="primary" >View details</Button>
+            </Link>
 
-              <Link to={'/contests/' + item.id}>
-                <Button type="primary" >Read</Button>
-              </Link>
-            </div>
           </List.Item>
         )}
       />
@@ -102,7 +100,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAllContests: () => dispatch(getAllContests()),
+  getAllContests: params => dispatch(getAllContests(params)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContestList);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ContestList));

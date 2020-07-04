@@ -181,16 +181,17 @@ export function updateStep(payload) {
 
 export function getUserChallenges() {
   return async function (dispatch) {
-    const response = await apiService.getAllChallenges();
+    const response = await apiService.getUserChallenges();
     if (response.status === 200) {
       dispatch({ type: actions.GET_ALL_CHALLENGES, payload: response.data.result.items })
     }
   };
 }
 
-export function getAllChallenges() {
+export function getAllChallenges(params) {
+  console.log(params)
   return async function (dispatch) {
-    const response = await apiService.getAllChallenges();
+    const response = await apiService.getAllChallenges(params);
     if (response && response.status === 200) {
       dispatch({ type: actions.GET_ALL_CHALLENGES, payload: response.data.result.items })
     }
@@ -364,9 +365,9 @@ export function getUserTutorials() {
   };
 }
 
-export function getAllTutorials() {
+export function getAllTutorials(params) {
   return async function (dispatch) {
-    const response = await apiService.getAllTutorials();
+    const response = await apiService.getAllTutorials(params);
     if (response && response.status === 200) {
       dispatch({ type: actions.GET_ALL_TUTORIALS, payload: response.data.result.items })
     }
@@ -409,9 +410,20 @@ export function addTutorialComments(data) {
 //  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚══════╝╚═════╝ ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
 
 
-export function createSubmission(payload) {
+export function compileSubmission(payload) {
   return async function (dispatch) {
-    const response = await apiService.createSubmission(payload);
+    const response = await apiService.compileSubmission(payload);
+    if (response.status === 200) {
+      return response.data.result;
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function saveSubmission(payload) {
+  return async function (dispatch) {
+    const response = await apiService.saveSubmission(payload);
     if (response.status === 200) {
       return response.data.result;
     } else {
@@ -444,6 +456,24 @@ export function addChallengeComments(data) {
     if (response && response.status === 200) {
       dispatch({ type: actions.ADD_CHALLENGE_COMMENTS, payload: response.data.result })
     }
+  };
+}
+
+export function prepareContestChallenges(payload) {
+  return async function (dispatch) {
+    dispatch({ type: actions.PREPARE_CONTEST_CHALLENGES, payload: payload });
+  };
+}
+
+export function handleContestMode(status) {
+  return async function (dispatch) {
+    dispatch({ type: actions.HANDLE_CONTEST_MODE, payload: status });
+  };
+}
+
+export function navigateRoundChallenge(difference) {
+  return async function (dispatch) {
+    dispatch({ type: actions.NAVIGATE_ROUND_CHALLENGE, payload: difference });
   };
 }
 
@@ -495,6 +525,7 @@ export function updateStepTwoContest(payload) {
   };
 }
 
+
 export function updateContest(data) {
   return async function (dispatch) {
     if (data.request.id) {
@@ -538,9 +569,9 @@ export function getUserContests() {
   };
 }
 
-export function getAllContests() {
+export function getAllContests(params) {
   return async function (dispatch) {
-    const response = await apiService.getAllContests();
+    const response = await apiService.getAllContests(params);
     if (response && response.status === 200) {
       dispatch({ type: actions.GET_ALL_CONTESTS, payload: response.data.result.items })
     }

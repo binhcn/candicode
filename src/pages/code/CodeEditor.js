@@ -5,13 +5,19 @@ import {
   Select, Button, Row, Col,
   Collapse, notification, Drawer,
 } from 'antd';
+import { withRouter } from 'react-router-dom';
 
 import './Code.css';
 import {
-  createSubmission,
+  compileSubmission, navigateRoundChallenge, getChallengeDetails,
 } from "../../actions/actions.creator";
 
 const { Panel } = Collapse;
+
+var newData = {
+  language: 'cpp',
+  code: 'binh cao nguyen',
+};
 
 class CodeEditor extends React.Component {
 
@@ -38,9 +44,48 @@ class CodeEditor extends React.Component {
           language: language,
         },
       }
-      var response = this.props.createSubmission(payload);
+      var response = this.props.compileSubmission(payload);
       response.then(result => {
-        if (result.compiled === 'Success') {
+        if (result.compiled.toLowerCase() === 'success') {
+          this.setState({
+            details: result.details,
+            isSubmitted: true,
+          });
+          notification[result.passed === result.total ? 'success' : 'error']({
+            message: 'Candicode',
+            description: `The submission passed ${result.passed}/${result.total}`,
+          });
+        } else {
+          notification['error']({
+            message: `Compiled error`,
+            description: result.error,
+            duration: 0,
+          });
+        }
+      })
+    } else {
+      notification['warning']({
+        message: 'Candidate',
+        description: "Please edit code",
+        duration: 2,
+      });
+    }
+  };
+
+  handleSubmit = () => {
+    var language = this.state.language ? this.state.language : this.props.contents[0].language;
+    if (this.state.code && language) {
+      var payload = {
+        id: this.props.id,
+        data: {
+          code: this.state.code,
+          language: language,
+          doneWithin: '',
+        },
+      }
+      var response = this.props.saveSubmission(payload);
+      response.then(result => {
+        if (result.compiled.toLowerCase() === 'success') {
           this.setState({
             details: result.details,
             isSubmitted: true,
@@ -67,7 +112,11 @@ class CodeEditor extends React.Component {
   };
 
   handleLanguageChange = lang => {
-    this.setState({ language: lang });
+    var content = this.props.contents.filter(item => item.language === lang);
+    this.setState({
+      language: lang,
+      code: content[0].text,
+    });
   }
 
   handleThemeChange = theme => {
@@ -81,17 +130,46 @@ class CodeEditor extends React.Component {
   }
 
   next = () => {
-    console.log("next");
+    var { currentRoundChallengeIdx, roundChallengeList } = this.props;
+    this.props.navigateRoundChallenge(1);
+    var challengeId = roundChallengeList[currentRoundChallengeIdx + 1].challengeId;
+    this.props.history.push('/code-editor/' + challengeId);
+    this.props.getChallengeDetails(challengeId);
   }
 
   prev = () => {
-
+    var { currentRoundChallengeIdx, roundChallengeList } = this.props;
+    this.props.navigateRoundChallenge(-1);
+    var challengeId = roundChallengeList[currentRoundChallengeIdx - 1].challengeId;
+    this.props.history.push('/code-editor/' + challengeId);
+    this.props.getChallengeDetails(challengeId);
   }
 
   render() {
+    var { currentRoundChallengeIdx, roundChallengeList } = this.props;
     const languageOpt = this.props.contents.map((item, index) => (
       <Select.Option key={index} value={item.language}>{item.language}</Select.Option>
     ));
+    var editorHtml = null;
+    if (newData) {
+      editorHtml = <ControlledEditor height="79vh"
+        theme={this.state.theme}
+        value={newData.code}
+        language={newData.language.toLowerCase()}
+        onChange={this.handleEditorChange}
+      />;
+    } else {
+      var contentId = this.props.contents.findIndex(item => this.state.language === item.language);
+      if (contentId < 0) contentId = 0;
+      editorHtml = this.props.contents[contentId] ?
+        <ControlledEditor height="79vh"
+          theme={this.state.theme}
+          value={this.props.contents[contentId].text}
+          language={this.props.contents[contentId].language.toLowerCase()}
+          onChange={this.handleEditorChange}
+        /> : null;
+    }
+
     var testcaseHtml = this.props.testcases.map((item, index) => (
       <Panel header={`Testcase ${index + 1} ${item.hidden ? '(hidden)' : ''}`} key={index}>
         <p>
@@ -110,38 +188,38 @@ class CodeEditor extends React.Component {
       <div>
         {this.props.contents[0] &&
           <div className="options">
-              <span>Language: </span>
-              <Select
-                defaultValue={this.props.contents[0].language}
-                style={{ width:'100px', marginRight:'20px' }}
-                onChange={this.handleLanguageChange}
-              >
-                {languageOpt}
-              </Select>
-              <span>Theme: </span>
-              <Select
-                defaultValue={this.state.theme}
-                style={{ width:'100px' }}
-                onChange={this.handleThemeChange}
-              >
-                <Select.Option value='light'>light</Select.Option>
-                <Select.Option value='dark'>dark</Select.Option>
-              </Select>
+            <span>Language: </span>
+            <Select
+              defaultValue={this.props.contents[0].language}
+              style={{ width: '100px', marginRight: '20px' }}
+              onChange={this.handleLanguageChange}
+            >
+              {languageOpt}
+            </Select>
+            <span>Theme: </span>
+            <Select
+              defaultValue={this.state.theme}
+              style={{ width: '100px' }}
+              onChange={this.handleThemeChange}
+            >
+              <Select.Option value='light'>light</Select.Option>
+              <Select.Option value='dark'>dark</Select.Option>
+            </Select>
+            {this.props.isContest &&
               <span className="navigation">
-                <img className="prev" onClick={this.prev} alt="prev" src="/img/nxt-btn.png" width='40x' />
-                <img alt="next" className="next" onClick={this.next} src="/img/nxt-btn.png" width='40x' />
+                <Button disabled={currentRoundChallengeIdx > 0 ? false : true} type="link">
+                  <img className="prev" onClick={this.prev} alt="prev" src="/img/nxt-btn.png" width='40x' />
+                </Button>
+                <span className="current-round-challenge">Challenge {currentRoundChallengeIdx + 1}/{roundChallengeList.length}</span>
+                <Button disabled={currentRoundChallengeIdx < roundChallengeList.length - 1 ? false : true} type="link">
+                  <img alt="next" className="next" onClick={this.next} src="/img/nxt-btn.png" width='40x' />
+                </Button>
               </span>
+            }
           </div>
         }
 
-        {this.props.contents[0] &&
-          <ControlledEditor height="79vh"
-            theme={this.state.theme}
-            value={this.props.contents[0].text}
-            language={this.props.contents[0].language.toLowerCase()}
-            onChange={this.handleEditorChange}
-          />
-        }
+        {editorHtml}
 
         <Drawer
           className="testcase-drawer"
@@ -164,7 +242,7 @@ class CodeEditor extends React.Component {
           <Col span={5} onClick={this.handleCompile}>
             <Button type="primary">Compile</Button>
           </Col>
-          <Col span={4}>
+          <Col span={4} onClick={this.handleSubmit}>
             <Button type="primary">Submit</Button>
           </Col>
         </Row>
@@ -177,10 +255,15 @@ const mapStateToProps = state => ({
   contents: state.codeEditorReducer.contents,
   id: state.codeEditorReducer.id,
   testcases: state.codeEditorReducer.testcases,
+  isContest: state.codeEditorReducer.isContest,
+  roundChallengeList: state.codeEditorReducer.roundChallengeList,
+  currentRoundChallengeIdx: state.codeEditorReducer.currentRoundChallengeIdx,
 });
 
 const mapDispatchToProps = dispatch => ({
-  createSubmission: payload => dispatch(createSubmission(payload)),
+  compileSubmission: payload => dispatch(compileSubmission(payload)),
+  navigateRoundChallenge: difference => dispatch(navigateRoundChallenge(difference)),
+  getChallengeDetails: (challengeId) => dispatch(getChallengeDetails(challengeId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CodeEditor));

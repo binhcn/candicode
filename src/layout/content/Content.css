@@ -143,51 +143,7 @@ body {
     padding-left: 15px;
   }
 }
-#custom-search-input ul {
-  text-align: center;
-  margin-top: 25px;
-}
-#custom-search-input ul li {
-  display: inline-block;
-  margin-right: 5px;
-  font-size: 13px;
-  font-size: 0.8125rem;
-  font-weight: 600;
-}
-#custom-search-input ul li input[type="radio"] {
-  display: none;
-}
-#custom-search-input ul li input[type="radio"]:checked + label, #custom-search-input ul li input[type="radio"]:checked + label:hover {
-  background-color: #74d1c6;
-  color: #fff;
-}
-#custom-search-input ul li input[type="radio"]:hover + label {
-  background-color: #e74e84;
-  color: #fff;
-}
-#custom-search-input ul li label {
-  display: inline-block;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  -webkit-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.3);
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  border-radius: 3px;
-  padding: 8px 10px 6px 10px;
-  line-height: 1;
-  text-shadow: none;
-  min-width: 80px;
-  text-align: center;
-  cursor: pointer;
-}
-#custom-search-input ul li:last-child {
-  margin-right: 0;
-}
+
 #custom-search-input input[type='submit'] {
   position: absolute;
   -moz-transition: all 0.3s ease-in-out;
@@ -221,4 +177,44 @@ body {
     text-indent: -999px;
     background: #74d1c6 url(../../img/search.svg) no-repeat center center;
   }
+}
+
+.home-search-type {
+  margin-top: 20px !important;
+}
+
+.home-search-type .middle {
+  margin: 0 10px;
+}
+
+.home-search-type .ant-radio-button-wrapper-checked {
+  background: wheat !important;
+  border: none;
+  font-weight: 500 !important;
+  border-left: none;
+}
+
+.home-search-type .ant-radio-button-wrapper {
+  background: white;
+  font-weight: 300;
+  border-radius: 5px !important;
+}
+
+.hero_home .ant-input-group-addon {
+  border-radius: 10px;
+}
+
+.hero_home .ant-input-search {
+  height: 45px;
+}
+
+.hero_home .ant-input {
+  padding-left: 20px;
+  border-radius: 10px;
+}
+
+.hero_home .ant-input-search-button {
+  height: 45px;
+  width: 100px;
+  border-radius: 10px;
 }

@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import './Tutorial.css';
 import { getTutorialDetails } from '../../actions/actions.creator';
 import Sidebar from '../common/Sidebar';
-import Discussion from './TutorialDiscussion';
+import TutorialDiscussion from './TutorialDiscussion';
 
 class TutorialDetails extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ class TutorialDetails extends React.Component {
           <div className="description">{this.props.description}</div>
           <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
 
-          <Discussion />
+          <TutorialDiscussion />
         </Col>
         <Col span={6}>
           <Sidebar />

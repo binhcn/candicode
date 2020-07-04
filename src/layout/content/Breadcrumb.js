@@ -32,9 +32,9 @@ function Navigation(props) {
     </Breadcrumb.Item>,
   ].concat(extraBreadcrumbItems);
   return (
-        <Breadcrumb separator=">">
-          {breadcrumbItems}
-        </Breadcrumb>
+    <Breadcrumb separator=">">
+      {breadcrumbItems}
+    </Breadcrumb>
   );
 }
 

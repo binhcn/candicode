@@ -3,11 +3,10 @@ import { connect } from "react-redux";
 import { Form, Input, Tooltip, Icon, Button, Upload, Select, message } from 'antd';
 
 import './Challenge.css';
-import { STEP_LENGTH, TAG_SET } from '../../../constants';
+import { STEP_LENGTH, TAG_SET, LANGUAGE_SET, LEVEL_SET } from '../../../constants';
 import {
   updateStepOne, uploadSource, updateStep,
 } from "../../../actions/actions.creator";
-import { LANGUAGE_SET, LEVEL_SET } from '../../../constants';
 
 function getBase64(img, callback) {
   const reader = new FileReader();

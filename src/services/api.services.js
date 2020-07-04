@@ -85,9 +85,9 @@ export function editChallenge(data) {
   });
 }
 
-export function getAllChallenges() {
+export function getAllChallenges(params) {
   return request({
-    url: API_BASE_URL + "/challenges",
+    url: API_BASE_URL + "/challenges" + params,
     method: 'GET',
     data: {}
   });
@@ -156,13 +156,6 @@ export function deleteTestcase(payload) {
   });
 }
 
-export function createSubmission(payload) {
-  return request({
-    url: API_BASE_URL + "/challenges/" + payload.id + "/submissions",
-    method: 'POST',
-    data: payload.data
-  });
-}
 
 //  ██████╗ ██████╗ ██████╗ ███████╗    ███████╗██████╗ ██╗████████╗ ██████╗ ██████╗
 // ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔════╝██╔══██╗██║╚══██╔══╝██╔═══██╗██╔══██╗
@@ -177,6 +170,22 @@ export function getChallengeDetails(id) {
     url: API_BASE_URL + "/challenges/" + id,
     method: 'GET',
     data: {}
+  });
+}
+
+export function compileSubmission(payload) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + payload.id + "/submissions",
+    method: 'POST',
+    data: payload.data
+  });
+}
+
+export function saveSubmission(payload) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + payload.id + "/submissions",
+    method: 'POST',
+    data: payload.data
   });
 }
 
@@ -205,9 +214,9 @@ export function addChallengeComments(data) {
 //    ╚═╝    ╚═════╝    ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝
 
 
-export function getAllTutorials() {
+export function getAllTutorials(params) {
   return request({
-    url: API_BASE_URL + "/tutorials",
+    url: API_BASE_URL + "/tutorials" + params,
     method: 'GET',
     data: {}
   });
@@ -277,9 +286,9 @@ export function addTutorialComments(data) {
 //  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚══════╝   ╚═╝
 
 
-export function getAllContests() {
+export function getAllContests(params) {
   return request({
-    url: API_BASE_URL + "/contests",
+    url: API_BASE_URL + "/contests" + params,
     method: 'GET',
     data: {}
   });

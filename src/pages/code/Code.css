@@ -109,12 +109,14 @@
 
 .split_right .prev {
   transform: rotate(-180deg);
-  margin-right: 20px;
-  cursor: pointer;
 }
 
-.split_right .next {
-  cursor: pointer;
+.split_right .ant-btn-link {
+  padding: 0;
+}
+
+.split_right .current-round-challenge {
+  margin: 0 10px;
 }
 
 .testcase-drawer .ant-drawer-body {

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
 import {
   Card, Avatar, Typography, Tag, Icon,
-  Badge, Divider, Rate, Button
+  Badge, Divider, Button
 } from 'antd';
 
+import { handleContestMode } from '../../actions/actions.creator';
 import { randomColor, randomBanner } from '../../constants';
 
 class ChallengeCard extends React.Component {
@@ -53,14 +55,26 @@ class ChallengeCard extends React.Component {
         </div>
         <Divider style={{ margin: '8px 0' }} />
 
-        <Rate disabled allowHalf={true} defaultValue={2.5} />
-        <span>&nbsp;{item.rate} ({item.numRates})</span>
+        <span className="like-dislike">
+          <Icon type="like" />
+          {item.likes > 0 ? item.likes : 9}
+          <Icon type="dislike" />
+          {item.dislikes > 0 ? item.dislikes : 3}
+        </span>
+
         <Link to={"/code-editor/" + item.id}>
-          <Button type="primary" >Fight</Button>
+          <Button onClick={() => this.props.handleContestMode(false)} type="primary" >Fight</Button>
         </Link>
       </Card>
     );
   }
 }
 
-export default ChallengeCard;
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleContestMode: (status) => dispatch(handleContestMode(status)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengeCard);

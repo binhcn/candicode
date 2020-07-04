@@ -42,6 +42,10 @@ export const ADD_CHALLENGE_COMMENTS = "Add all challenge comments";
 export const EDIT_CHALLENGE_COMMENTS = "Edit all challenge comments";
 export const DELETE_CHALLENGE_COMMENTS = "Delete all challenge comments";
 
+export const PREPARE_CONTEST_CHALLENGES = "Prepare contest challenges";
+export const HANDLE_CONTEST_MODE = "Handle off contest mode";
+export const NAVIGATE_ROUND_CHALLENGE = "Navigate round challenge";
+
 
 // ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗
 // ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║

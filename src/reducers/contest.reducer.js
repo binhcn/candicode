@@ -21,6 +21,7 @@ const initState = {
   currentStep: 0,
 
   contestChallengeList: [],
+  comments: [],
 };
 
 const contestReducer = (state = initState, action) => {

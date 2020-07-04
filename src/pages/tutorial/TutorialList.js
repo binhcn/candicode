@@ -5,6 +5,7 @@ import {
   Avatar, Tag, Icon,
   Badge, Divider, Button, List
 } from 'antd';
+import { withRouter } from 'react-router-dom';
 
 import {
   getAllTutorials,
@@ -14,7 +15,10 @@ import { randomColor } from '../../constants';
 class TutorialList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.getAllTutorials();
+    const {
+      location: { search: params },
+    } = this.props;
+    this.props.getAllTutorials(params);
   }
   render() {
     return (
@@ -97,7 +101,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAllTutorials: () => dispatch(getAllTutorials()),
+  getAllTutorials: params => dispatch(getAllTutorials(params)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TutorialList);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TutorialList));

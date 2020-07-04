@@ -17,11 +17,11 @@ class CodeSpec extends React.Component {
       <Tabs type="card" defaultActiveKey="description">
         <TabPane className="description"
           tab={
-          <span>
-            <Icon type="read" />
+            <span>
+              <Icon type="read" />
             Description
           </span>
-        } key="description">
+          } key="description">
           <Title level={4}>{this.props.title}</Title>
           <div className="challenge-info">
             <span>
@@ -50,7 +50,7 @@ class CodeSpec extends React.Component {
           <Divider />
           <Text strong>Description</Text>
           <div dangerouslySetInnerHTML={{ __html: this.props.description }} />
-          
+
         </TabPane>
         <TabPane tab={
           <span>
@@ -68,14 +68,16 @@ class CodeSpec extends React.Component {
         } key="submission">
           <Submission />
         </TabPane>
-        <TabPane tab={
-          <span>
-            <Icon type="aliwangwang" />
+        {!this.props.isContest &&
+          <TabPane tab={
+            <span>
+              <Icon type="aliwangwang" />
             Discussion
           </span>
-        } key="discussion">
-          <Discussion />
-        </TabPane>
+          } key="discussion">
+            <Discussion />
+          </TabPane>
+        }
       </Tabs>
     )
   }
@@ -86,6 +88,7 @@ const mapStateToProps = state => ({
   level: state.codeEditorReducer.level,
   points: state.codeEditorReducer.points,
   description: state.codeEditorReducer.description,
+  isContest: state.codeEditorReducer.isContest,
 });
 
 const mapDispatchToProps = dispatch => ({

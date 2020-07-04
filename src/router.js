@@ -31,7 +31,7 @@ function Router(props) {
           <Route path="/challenges" component={Challenge} />
           <Route path="/tutorials" exact component={Tutorial} />
           <Route path={`/tutorials/:tutorialId`} component={TutorialDetails} />
-          <Route path="/contests" component={Contest} />
+          <Route path="/contests" exact component={Contest} />
           <Route path={`/contests/:contestId`} component={ContestDetails} />
           <Route path="/user-plans" component={UserPlan} />
           <Route path="/demo" component={Demo} />

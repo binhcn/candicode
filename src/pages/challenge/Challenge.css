@@ -58,3 +58,21 @@
   margin-right: 0px;
   margin-left: 3px;
 }
+
+.challenge-card .like-dislike {
+  font-size: 20px;
+}
+
+.challenge-card .like-dislike i {
+  position: relative;
+  bottom: 5px;
+  margin: 0px 3px 0px 15px;
+}
+
+.container-fluid .filter {
+  float: right;
+  border-radius: 20px;
+  padding: 0 15px;
+  border: 2px solid white;
+  box-shadow: 2px 2px 5px 0px indigo;
+}
