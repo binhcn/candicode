@@ -1,6 +1,12 @@
 import React from 'react';
 import { Table } from 'antd';
+import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 import moment from 'moment';
+
+import {
+  getChallengeSubmissions,
+} from "../../actions/actions.creator";
 
 const columns = [
   {
@@ -27,7 +33,16 @@ for (let i = 0; i < 5; i++) {
   });
 }
 
-export default class App extends React.Component {
+class Submission extends React.Component {
+
+  constructor(props) {
+    super(props);
+    const {
+      location: { pathname: path },
+    } = this.props;
+    const challengeId = path.split('/').slice(-1)[0];
+    this.props.getChallengeSubmissions(challengeId);
+  }
 
   render() {
     return (
@@ -45,3 +60,13 @@ export default class App extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  submissions: state.codeEditorReducer.submissions,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getChallengeSubmissions: id => dispatch(getChallengeSubmissions(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Submission));

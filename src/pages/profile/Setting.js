@@ -3,8 +3,12 @@ import { connect } from "react-redux";
 import {
   Drawer, Form, Button, Upload, Input,
   Icon, message, Row, Col,
-
 } from 'antd';
+
+import {
+  updateUserProfile,
+} from "../../actions/actions.creator";
+import Password from './Password';
 
 function getBase64(img, callback) {
   console.log(img)
@@ -73,6 +77,26 @@ class Setting extends React.Component {
     }
   };
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        const formData = new FormData();
+        formData.append('firstName', values.firstName);
+        formData.append('lastName', values.lastName);
+        formData.append('slogan', values.slogan);
+        formData.append('facebook', values.facebook);
+        formData.append('github', values.github);
+        formData.append('linkedin', values.linkedin);
+        formData.append('location', values.location);
+        formData.append('company', values.company);
+        formData.append('university', values.university);
+        formData.append('avatar', this.state.imageUrl);
+        this.props.updateUserProfile(formData);
+      }
+    });
+  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const formItemLayout = {
@@ -83,6 +107,18 @@ class Setting extends React.Component {
       wrapperCol: {
         xs: { span: 24 },
         sm: { span: 10 },
+      },
+    };
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 16,
+          offset: 8,
+        },
       },
     };
 
@@ -109,7 +145,7 @@ class Setting extends React.Component {
             <Row>
               <Col span={4}>
                 <Form.Item className="upload-avatar">
-                  {getFieldDecorator('banner', {
+                  {getFieldDecorator('avatar', {
                     initialValue: this.props.banner,
                     valuePropName: 'file',
                     getValueFromEvent: (e) => { return e.file.originFileObj; }
@@ -132,7 +168,7 @@ class Setting extends React.Component {
                 <Col span={10}>
                   <Form.Item label="First name">
                     {getFieldDecorator('firstName', {
-                      // initialValue: this.props.title,
+                      initialValue: this.props.currentUser.firstName,
                       validateTrigger: ['onBlur'],
                       rules: [{
                         required: true, message: "Please input your first name!",
@@ -144,7 +180,7 @@ class Setting extends React.Component {
                 <Col span={10}>
                   <Form.Item label="Last name">
                     {getFieldDecorator('lastName', {
-                      // initialValue: this.props.title,
+                      initialValue: this.props.currentUser.lastName,
                       validateTrigger: ['onBlur'],
                       rules: [{
                         required: true, message: "Please input your last name!",
@@ -156,32 +192,26 @@ class Setting extends React.Component {
               </Row>
 
               <Row>
-              <Col span={2} />
-              <Col span={16}>
-                <Form.Item label="Slogan">
-                  {getFieldDecorator('slogan', {
-                    // initialValue: this.props.title,
-                    validateTrigger: ['onBlur'],
-                    rules: [{
-                      whitespace: true
-                    }],
-                  })(<Input style={{ width: "150%" }} />)}
-                </Form.Item>
-              </Col>
-              <Col span={4}>
-                <Button type="link">
-                  Change password
-                  </Button>
-              </Col>
+                <Col span={2} />
+                <Col span={16}>
+                  <Form.Item label="Slogan">
+                    {getFieldDecorator('slogan', {
+                      initialValue: this.props.currentUser.slogan,
+                      validateTrigger: ['onBlur'],
+                      rules: [{
+                        whitespace: true
+                      }],
+                    })(<Input style={{ width: "150%" }} />)}
+                  </Form.Item>
+                </Col>
+                <Col span={4}>
+                  <Password />
+                </Col>
+              </Row>
             </Row>
-            </Row>
-
-            
-
-
             <Form.Item label="Facebook">
               {getFieldDecorator('facebook', {
-                // initialValue: this.props.title,
+                initialValue: this.props.currentUser.facebook,
                 validateTrigger: ['onBlur'],
                 rules: [{
                   whitespace: true
@@ -190,16 +220,16 @@ class Setting extends React.Component {
             </Form.Item>
             <Form.Item label="Github">
               {getFieldDecorator('github', {
-                // initialValue: this.props.title,
+                initialValue: this.props.currentUser.github,
                 validateTrigger: ['onBlur'],
                 rules: [{
                   whitespace: true
                 }],
               })(<Input />)}
             </Form.Item>
-            <Form.Item label="LinkedIn">
-              {getFieldDecorator('linkedIn', {
-                // initialValue: this.props.title,
+            <Form.Item label="Linkedin">
+              {getFieldDecorator('linkedin', {
+                initialValue: this.props.currentUser.linkedin,
                 validateTrigger: ['onBlur'],
                 rules: [{
                   whitespace: true
@@ -209,7 +239,7 @@ class Setting extends React.Component {
 
             <Form.Item label="Location">
               {getFieldDecorator('location', {
-                // initialValue: this.props.title,
+                initialValue: this.props.currentUser.location,
                 validateTrigger: ['onBlur'],
                 rules: [{
                   whitespace: true
@@ -218,7 +248,7 @@ class Setting extends React.Component {
             </Form.Item>
             <Form.Item label="Company">
               {getFieldDecorator('company', {
-                // initialValue: this.props.title,
+                initialValue: this.props.currentUser.company,
                 validateTrigger: ['onBlur'],
                 rules: [{
                   whitespace: true
@@ -227,33 +257,20 @@ class Setting extends React.Component {
             </Form.Item>
             <Form.Item label="University">
               {getFieldDecorator('university', {
-                // initialValue: this.props.title,
+                initialValue: this.props.currentUser.university,
                 validateTrigger: ['onBlur'],
                 rules: [{
                   whitespace: true
                 }],
               })(<Input />)}
             </Form.Item>
+
+            <Form.Item {...tailFormItemLayout}>
+              <Button htmlType="submit" type="primary">
+                Save
+              </Button>
+            </Form.Item>
           </Form>
-          <div
-            style={{
-              position: 'absolute',
-              right: 0,
-              bottom: 0,
-              width: '100%',
-              borderTop: '1px solid #e9e9e9',
-              padding: '10px 16px',
-              background: '#fff',
-              textAlign: 'right',
-            }}
-          >
-            <Button onClick={this.onClose} style={{ marginRight: 8 }}>
-              Cancel
-            </Button>
-            <Button htmlType="submit" type="primary">
-              Submit
-            </Button>
-          </div>
         </Drawer>
       </div>
     );
@@ -261,10 +278,10 @@ class Setting extends React.Component {
 }
 
 const mapStateToProps = state => ({
-
+  currentUser: state.userReducer.currentUser,
 });
 const mapDispatchToProps = dispatch => ({
-
+  updateUserProfile: () => dispatch(updateUserProfile()),
 });
 
 const WrappedSetting = Form.create({ name: 'setting' })(

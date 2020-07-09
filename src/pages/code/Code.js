@@ -7,7 +7,7 @@ import './Code.css';
 import CodeSpec from './CodeSpec';
 import CodeEditor from './CodeEditor';
 import CodeOutput from './CodeOutput';
-import { getChallengeDetails } from '../../actions/actions.creator';
+import { getChallengeDetails, } from '../../actions/actions.creator';
 
 class Code extends React.Component {
 

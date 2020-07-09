@@ -4,6 +4,12 @@ export const GET_CURRENT_USER_SUCCESS = "Load current user successfully";
 export const GET_CURRENT_USER_FAILED = "Load current user failed";
 export const LOGOUT = "Logout";
 
+export const OPEN_USER_FORM= "Open user modal";
+export const CLOSE_USER_FORM = "Close user modal";
+
+export const GET_PROFILE_SUBMISSIONS = "Get profile submissions";
+export const UPDATE_USER_PROFILE = "Update user profile";
+
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 // ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
@@ -45,6 +51,9 @@ export const DELETE_CHALLENGE_COMMENTS = "Delete all challenge comments";
 export const PREPARE_CONTEST_CHALLENGES = "Prepare contest challenges";
 export const HANDLE_CONTEST_MODE = "Handle off contest mode";
 export const NAVIGATE_ROUND_CHALLENGE = "Navigate round challenge";
+
+export const GET_CHALLENGE_SUBMISSIONS = "Get challenge submissions";
+export const GET_CHALLENGE_LEADER_BOARD = "Get challenge leader board";
 
 
 // ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗

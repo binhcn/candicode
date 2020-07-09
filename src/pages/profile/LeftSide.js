@@ -1,19 +1,20 @@
 import React from 'react';
 import { Card, Avatar, Descriptions, Progress, Row, Col, Divider } from 'antd';
 import Setting from './Setting';
+import { connect } from "react-redux";
 
 import './Profile.css';
 import { getAvatarColor } from '../../util/Colors';
 
 const { Meta } = Card;
-const username = "binh";
 
-export default class LeftSide extends React.Component {
+class LeftSide extends React.Component {
 	state = {
 		exp: 700,
 		maxExp: 1000,
 	}
 	render() {
+		var { currentUser } = this.props;
 		const { exp, maxExp } = this.state;
 		const value = exp / maxExp * 100;
 		return (
@@ -24,12 +25,12 @@ export default class LeftSide extends React.Component {
 				>
 					<Meta
 						avatar={
-							<Avatar key="avatar" size="large" style={{ backgroundColor: getAvatarColor(username) }}>
-								{username[0].toUpperCase()}
+							<Avatar key="avatar" size="large" style={{ backgroundColor: getAvatarColor(currentUser.firstName) }}>
+								{currentUser.firstName[0].toUpperCase()}
 							</Avatar>
 						}
-						title="Binh Cao Nguyen"
-						description="Không gì quý hơn độc lập, tự do"
+						title={currentUser.fullName}
+						description={currentUser.slogan}
 					/>
 
 					<Progress
@@ -50,19 +51,40 @@ export default class LeftSide extends React.Component {
 					</Descriptions>
 
 					<Row className="logo">
-						<Col span={8}><img src="img/facebook.png" alt="facebook" /></Col>
-						<Col span={8}><img src="img/github.svg" alt="github" /></Col>
-						<Col span={8}><img src="img/linkin.png" alt="facebook" /></Col>
+						{currentUser.facebook &&
+							<Col span={8}><img src="img/facebook.png" alt="facebook" /></Col>
+						}
+						{currentUser.github &&
+							<Col span={8}><img src="img/github.svg" alt="github" /></Col>
+						}
+						{currentUser.linkedin &&
+							<Col span={8}><img src="img/linkin.png" alt="facebook" /></Col>
+						}
 					</Row>
-					<Divider />
-					<span><i className="fas fa-map-marker-alt fa-lg" style={{ color: "tomato" }}></i> Location</span>
-					<span style={{ float: 'right' }}>TpHCM, Vietnam</span>
-					<Divider />
-					<span><i className="fas fa-building fa-lg" style={{ color: "limegreen" }}></i> Company</span>
-					<span style={{ float: 'right' }}>VNG Group</span>
-					<Divider />
-					<span><i className="fas fa-university fa-lg" style={{ color: "teal" }}></i> University</span>
-					<span style={{ float: 'right' }}>Bach Khoa University</span>
+					{currentUser.location &&
+						<>
+							<Divider />
+							<span>
+								<i className="fas fa-map-marker-alt fa-lg" style={{ color: "tomato" }} />
+								Location
+							</span>
+							<span style={{ float: 'right' }}>TpHCM, Vietnam</span>
+						</>
+					}
+					{currentUser.company &&
+						<>
+							<Divider />
+							<span><i className="fas fa-building fa-lg" style={{ color: "limegreen" }}></i> Company</span>
+							<span style={{ float: 'right' }}>VNG Group</span>
+						</>
+					}
+					{currentUser.university &&
+						<>
+							<Divider />
+							<span><i className="fas fa-university fa-lg" style={{ color: "teal" }}></i> University</span>
+							<span style={{ float: 'right' }}>Bach Khoa University</span>
+						</>
+					}
 				</Card>
 
 				<Card title="PROGRESS">
@@ -82,3 +104,12 @@ export default class LeftSide extends React.Component {
 		)
 	}
 }
+
+const mapStateToProps = state => ({
+	currentUser: state.userReducer.currentUser,
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftSide);

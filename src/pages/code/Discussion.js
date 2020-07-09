@@ -55,8 +55,8 @@ class Discussion extends React.Component {
     const {
       location: { pathname: path },
     } = this.props;
-    const tutorialId = path.split('/').slice(-1)[0];
-    this.props.getChallengeComments(tutorialId);
+    const challengeId = path.split('/').slice(-1)[0];
+    this.props.getChallengeComments(challengeId);
   }
 
   keyPressed = event => {

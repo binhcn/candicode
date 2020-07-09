@@ -41,6 +41,7 @@
   font-weight: 700;
   margin: 0;
   border-radius: 20px;
+  color: white;
 }
 
 .entry-title .price {
@@ -83,18 +84,6 @@
 
 .entry-content li:last-child {
   border: none; }
-
-.btn {
-  padding: 1.25em 0;
-  text-align: center; }
-
-.btn a {
-  background: #323232;
-  padding: 10px 30px;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: 700;
-  text-decoration: none; }
 
 .hot {
   position: absolute;
@@ -148,3 +137,56 @@
 .plan-inner .ant-divider-horizontal {
   margin: 3px 0 0 0;
 }
+
+.plan-inner .ant-btn {
+  border-radius: 20px;
+  padding: 15px 20px;
+  border: 2px solid white;
+  box-shadow: 2px 2px 5px 0px indigo;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.plan-inner .ant-btn span {
+  top: -10px;
+  position: relative;
+}
+
+.payment-modal .user-plan .details {
+  border-bottom: 1px solid black;
+  padding-bottom: 0;
+}
+
+.payment-modal .ant-modal-title {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.payment-modal .ant-modal-header {
+  background-color: #20BADA;
+}
+
+.payment-modal .ant-modal-body {
+  padding: 12px;
+}
+
+.payment-modal .ant-divider {
+  margin: 10px 0px;
+}
+
+.payment-modal .header {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.user-plan span {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.user-plan .price {
+  float: right;
+  color: orangered;
+}
+

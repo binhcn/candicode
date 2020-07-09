@@ -11,6 +11,8 @@ const initState = {
   contents: [],
   testcases: [],
   comments: [],
+  submissions: [],
+  leaderBoard: [],
 
   isContest: false,
   roundChallengeList: [],
@@ -49,6 +51,12 @@ const codeEditorReducer = (state = initState, action) => {
     case actions.NAVIGATE_ROUND_CHALLENGE:
       var newCurrentRoundChallengeIdx = state.currentRoundChallengeIdx + action.payload;
       return { ...state, currentRoundChallengeIdx: newCurrentRoundChallengeIdx };
+
+    case actions.GET_CHALLENGE_SUBMISSIONS:
+      return { ...state, submissions: action.payload };
+
+    case actions.GET_CHALLENGE_LEADER_BOARD:
+      return { ...state, leaderBoard: action.payload };
 
     default:
       return state;

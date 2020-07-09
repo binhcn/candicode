@@ -1,6 +1,12 @@
 import React from 'react';
 import { Table } from 'antd';
 import moment from 'moment';
+import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
+
+import {
+  getChallengeLeaderBoard,
+} from "../../actions/actions.creator";
 
 const columns = [
   {
@@ -38,7 +44,18 @@ for (let i = 0; i < 10; i++) {
   });
 }
 
-export default class App extends React.Component {
+class LeaderBoard extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+    const {
+      location: { pathname: path },
+    } = this.props;
+    const challengeId = path.split('/').slice(-1)[0];
+    this.props.getChallengeLeaderBoard(challengeId);
+  }
 
   render() {
     return (
@@ -56,3 +73,13 @@ export default class App extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  leaderBoard: state.codeEditorReducer.leaderBoard,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getChallengeLeaderBoard: data => dispatch(getChallengeLeaderBoard(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LeaderBoard));

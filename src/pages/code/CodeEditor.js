@@ -9,15 +9,16 @@ import { withRouter } from 'react-router-dom';
 
 import './Code.css';
 import {
-  compileSubmission, navigateRoundChallenge, getChallengeDetails,
+  runCode, navigateRoundChallenge, getChallengeDetails, saveSubmission,
 } from "../../actions/actions.creator";
 
 const { Panel } = Collapse;
 
-var newData = {
-  language: 'cpp',
-  code: 'binh cao nguyen',
-};
+var newData = null;
+// var newData = {
+//   language: 'cpp',
+//   code: 'binh cao nguyen',
+// };
 
 class CodeEditor extends React.Component {
 
@@ -28,6 +29,13 @@ class CodeEditor extends React.Component {
     isSubmitted: false,
     visible: false,
     theme: 'dark',
+    submitStatus: true,
+
+    compiled: '',
+    doneWithin: 0,
+    executionTime: 0,
+    passed: 0,
+    total: 0,
   }
 
   handleEditorChange = (event, value) => {
@@ -44,12 +52,18 @@ class CodeEditor extends React.Component {
           language: language,
         },
       }
-      var response = this.props.compileSubmission(payload);
+      var response = this.props.runCode(payload);
       response.then(result => {
+        this.setState({
+          compiled: result.compiled,
+          submitStatus: false,
+        });
         if (result.compiled.toLowerCase() === 'success') {
           this.setState({
             details: result.details,
             isSubmitted: true,
+            passed: result.passed,
+            total: result.total,
           });
           notification[result.passed === result.total ? 'success' : 'error']({
             message: 'Candicode',
@@ -73,14 +87,19 @@ class CodeEditor extends React.Component {
   };
 
   handleSubmit = () => {
-    var language = this.state.language ? this.state.language : this.props.contents[0].language;
-    if (this.state.code && language) {
+    var { details, language } = this.state;
+    var lang = language ? language : this.props.contents[0].language;
+    if (this.state.code && lang) {
       var payload = {
         id: this.props.id,
         data: {
           code: this.state.code,
-          language: language,
+          language: lang,
           doneWithin: '',
+          compiled: this.state.compiled,
+          passed: this.state.passed,
+          total: this.state.total,
+          executionTime: details.reduce((a, b) => a + b) / details.length,
         },
       }
       var response = this.props.saveSubmission(payload);
@@ -240,10 +259,10 @@ class CodeEditor extends React.Component {
             <Button type="danger" onClick={() => this.showTestcase(true)} data-target="#testcase">Show testcases</Button>
           </Col>
           <Col span={5} onClick={this.handleCompile}>
-            <Button type="primary">Compile</Button>
+            <Button type="primary">Run code</Button>
           </Col>
           <Col span={4} onClick={this.handleSubmit}>
-            <Button type="primary">Submit</Button>
+            <Button disabled={this.state.submitStatus} type="primary">Submit</Button>
           </Col>
         </Row>
       </div>
@@ -261,7 +280,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  compileSubmission: payload => dispatch(compileSubmission(payload)),
+  runCode: payload => dispatch(runCode(payload)),
+  saveSubmission: payload => dispatch(saveSubmission(payload)),
   navigateRoundChallenge: difference => dispatch(navigateRoundChallenge(difference)),
   getChallengeDetails: (challengeId) => dispatch(getChallengeDetails(challengeId)),
 });

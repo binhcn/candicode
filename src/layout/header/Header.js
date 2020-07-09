@@ -1,50 +1,29 @@
 import React from 'react';
-import { Layout, Menu, Row, Avatar, Dropdown, Icon, Col, Modal, Button } from 'antd';
+import { Layout, Menu, Row, Avatar, Dropdown, Icon, Col, Button } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import './Header.css';
 import Notification from './Notification';
 import {
-  logout,
+  logout, openUserForm,
 } from "../../actions/actions.creator";
 import { getAvatarColor } from '../../util/Colors';
-import Login from '../../pages/login/Login';
-import Signup from '../../pages/signup/Signup';
+import UserForm from './UserForm';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: false,
-      status: "",
-    };
-    this.handleMenuClick = this.handleMenuClick.bind(this);
-  }
 
-  showModal = (status) => {
-    this.setState({
-      visible: true,
-      status: status,
-    });
-  };
-
-  handleCancel = e => {
-    this.setState({
-      visible: false,
-    });
-  };
-
-  handleMenuClick({ key }) {
-    if (key === "/logout") {
+  handleMenuClick = key => {
+    if (key.key === "/logout") {
       this.props.history.push('/');
       this.props.logout();
     }
   }
 
   render() {
+    var { openUserForm } = this.props;
     let userInfo;
     if (this.props.isAuthenticated) {
-      let { firstName, lastName } = this.props.currentUser;
+      var { firstName, lastName } = this.props.currentUser;
       userInfo = [
         <Notification key="notification" />,
         <Avatar key="avatar" className="avatar" style={{ backgroundColor: getAvatarColor(firstName + lastName) }}>
@@ -56,33 +35,14 @@ class Header extends React.Component {
         />,
       ];
     } else {
-      let { status } = this.state;
-      let component = <Login
-        convertModal={() => this.showModal("Signup")}
-        handleCancel={() => this.handleCancel()}
-      />;
-      if (status.toLowerCase() === "signup") {
-        component = <Signup
-          convertModal={() => this.showModal("Login")}
-          handleCancel={() => this.handleCancel()}
-        />
-      }
       userInfo = [
-        <Button key="login" className="mr-10" type="primary" onClick={() => this.showModal("Login")}>
+        <Button key="login" className="mr-10" type="primary" onClick={() => openUserForm("Login")}>
           Login
         </Button>,
-        <Button key="signup" type="primary" onClick={() => this.showModal("Signup")}>
+        <Button key="signup" type="primary" onClick={() => openUserForm("Signup")}>
           Signup
         </Button>,
-        <Modal
-          key="modal"
-          title={status}
-          visible={this.state.visible}
-          onCancel={this.handleCancel}
-          footer={null}
-        >
-          {component}
-        </Modal>,
+        <UserForm key="modal" />,
       ];
     }
     return (
@@ -210,6 +170,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
+  openUserForm: status => dispatch(openUserForm(status)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

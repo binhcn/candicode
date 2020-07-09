@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import { Table } from 'antd';
+import { connect } from "react-redux";
+
+import {
+  getProfileSubmissions,
+} from "../../actions/actions.creator";
 
 import './Profile.css';
 
@@ -41,8 +46,13 @@ const data = [
   },
 ];
 
+class RightSide extends Component {
 
-export default class RightSide extends Component {
+  constructor(props) {
+    super(props);
+    this.props.getProfileSubmissions();
+  }
+
 	render() {
 		return (
 			<div className="rightside-profile">
@@ -75,3 +85,13 @@ export default class RightSide extends Component {
 		)
 	}
 }
+
+const mapStateToProps = state => ({
+  submissions: state.userReducer.submissions,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getProfileSubmissions: () => dispatch(getProfileSubmissions()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RightSide);

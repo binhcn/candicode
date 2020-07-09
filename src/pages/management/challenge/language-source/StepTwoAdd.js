@@ -22,6 +22,7 @@ class StepTwo extends React.Component {
           nonImplementedPath: values.nonImplementedPath.slice(-1)[0],
           challengeDir: this.props.challengeDir,
         };
+        console.log(data)
         this.props.addLanguage({data, id: this.props.id});
         this.props.handleSourceModal(false);
       }

@@ -52,6 +52,30 @@ export function getCurrentUser() {
   });
 }
 
+export function getProfileSubmissions(id) {
+  return request({
+    url: API_BASE_URL + '/submissions/me',
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function updateUserProfile(payload) {
+  return request({
+    url: API_BASE_URL + "/profiles",
+    method: 'POST',
+    data: payload
+  });
+}
+
+export function changeUserPassword(payload) {
+  return request({
+    url: API_BASE_URL + "/profiles",
+    method: 'PUT',
+    data: payload
+  });
+}
+
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 // ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
@@ -173,9 +197,9 @@ export function getChallengeDetails(id) {
   });
 }
 
-export function compileSubmission(payload) {
+export function runCode(payload) {
   return request({
-    url: API_BASE_URL + "/challenges/" + payload.id + "/submissions",
+    url: API_BASE_URL + "/challenges/" + payload.id + "/score",
     method: 'POST',
     data: payload.data
   });
@@ -202,6 +226,22 @@ export function addChallengeComments(data) {
     url: API_BASE_URL + "/challenges/" + data.id + "/comments",
     method: 'POST',
     data: data.payload
+  });
+}
+
+export function getChallengeSubmissions(id) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + id + '/submissions',
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function getChallengeLeaderBoard(id) {
+  return request({
+    url: API_BASE_URL + "/challenges/" + id + '/leaderboard',
+    method: 'GET',
+    data: {}
   });
 }
 
@@ -296,7 +336,7 @@ export function getAllContests(params) {
 
 export function getUserContests() {
   return request({
-    url: API_BASE_URL + "/contests",
+    url: API_BASE_URL + "/contests/me",
     method: 'GET',
     data: {}
   });

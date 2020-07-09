@@ -42,6 +42,50 @@ export function logout(notificationType = "success", description = "You're succe
   };
 }
 
+export function getProfileSubmissions() {
+  return async function (dispatch) {
+    const response = await apiService.getProfileSubmissions();
+    if (response.status === 200) {
+      dispatch({ type: actions.GET_PROFILE_SUBMISSIONS, payload: response.data.result })
+    }
+  };
+}
+
+export function updateUserProfile(data) {
+  return async function (dispatch) {
+    const response = await apiService.updateUserProfile(data);
+    if (response.status === 200) {
+      dispatch({ type: actions.UPDATE_USER_PROFILE, payload: response.data.result });
+      message.success(response.data.result.message);
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function changeUserPassword(data) {
+  return async function () {
+    const response = await apiService.changeUserPassword(data);
+    if (response.status === 200) {
+      message.success('Change user password successfully!');
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function openUserForm(payload) {
+  return async function (dispatch) {
+    dispatch({ type: actions.OPEN_USER_FORM, payload });
+  };
+}
+
+export function closeUserForm() {
+  return async function (dispatch) {
+    dispatch({ type: actions.CLOSE_USER_FORM });
+  };
+}
+
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 // ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
@@ -203,7 +247,7 @@ export function addLanguage(payload) {
     const response = await apiService.addLanguage(payload);
     if (response.status === 200) {
       var { result } = response.data;
-      if (result.compiled === 'Success') {
+      if (result.compiled.toLowerCase() === 'success') {
         message.info(`Your new language source passed ${result.passed}/${result.total}`, 2);
         dispatch({ type: actions.ADD_LANGUAGE, payload: { data: payload.data, result: response.data.result } });
       } else {
@@ -410,9 +454,9 @@ export function addTutorialComments(data) {
 //  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝    ╚══════╝╚═════╝ ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
 
 
-export function compileSubmission(payload) {
+export function runCode(payload) {
   return async function (dispatch) {
-    const response = await apiService.compileSubmission(payload);
+    const response = await apiService.runCode(payload);
     if (response.status === 200) {
       return response.data.result;
     } else {
@@ -474,6 +518,24 @@ export function handleContestMode(status) {
 export function navigateRoundChallenge(difference) {
   return async function (dispatch) {
     dispatch({ type: actions.NAVIGATE_ROUND_CHALLENGE, payload: difference });
+  };
+}
+
+export function getChallengeSubmissions(id) {
+  return async function (dispatch) {
+    const response = await apiService.getChallengeSubmissions(id);
+    if (response.status === 200) {
+      dispatch({ type: actions.GET_CHALLENGE_SUBMISSIONS, payload: response.data.result })
+    }
+  };
+}
+
+export function getChallengeLeaderBoard(id) {
+  return async function (dispatch) {
+    const response = await apiService.getChallengeLeaderBoard(id);
+    if (response.status === 200) {
+      dispatch({ type: actions.GET_CHALLENGE_LEADER_BOARD, payload: response.data.result })
+    }
   };
 }
 
