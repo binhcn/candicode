@@ -3,12 +3,15 @@ import { connect } from "react-redux";
 import $ from 'jquery';
 import { Row, Col, Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import loadable from '@loadable/component';
 
 import './Home.css';
-import ChallengeCard from '../challenge/ChallengeCard';
+// import ChallengeCard from '../challenge/ChallengeCard';
 import {
   getAllChallenges,
 } from "../../actions/actions.creator";
+
+const ChallengeCard = loadable(() => import('../challenge/ChallengeCard'))
 
 class Home extends React.Component {
   constructor(props) {
