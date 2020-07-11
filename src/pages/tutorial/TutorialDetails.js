@@ -35,7 +35,7 @@ class TutorialDetails extends React.Component {
           <div className="title">{this.props.title}</div>
           <Row>
             <Col span={2}>
-              <Avatar size="large" src="https://scontent-hkt1-1.xx.fbcdn.net/v/t1.0-9/50654668_2359749710921468_7719574428836691968_n.jpg?_nc_cat=110&_nc_sid=85a577&_nc_ohc=A7gnCAwC2DMAX8evK4Z&_nc_ht=scontent-hkt1-1.xx&oh=ad83b5ac0cf79e94fa3657158cc34b08&oe=5EF4FED3" />
+              <Avatar size="large" src="https://scontent.fhan3-3.fna.fbcdn.net/v/t1.0-1/p160x160/50654668_2359749710921468_7719574428836691968_n.jpg?_nc_cat=110&_nc_sid=dbb9e7&_nc_ohc=ywl75FfGtDwAX9AiRfH&_nc_ht=scontent.fhan3-3.fna&_nc_tp=6&oh=6d4f8a6c781967aad7afc644a04e66f4&oe=5F2D716A" />
             </Col>
             <Col span={22} className="info">
               <div>{this.props.author}</div>
@@ -45,7 +45,8 @@ class TutorialDetails extends React.Component {
               </div>
             </Col>
           </Row>
-          <div className="description">{this.props.description}</div>
+          <img src="https://www.w3resource.com/w3r_images/bubble-short.png" width="40%" alt="bubble-sort" />
+          {/* <div className="description">{this.props.description}</div> */}
           <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
 
           <TutorialDiscussion />

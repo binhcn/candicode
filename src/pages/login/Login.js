@@ -29,7 +29,6 @@ class Login extends React.Component {
 		this.props.getCurrentUser();
 		// this.props.history.push("/");
 		this.props.handleCancel();
-
 	}
 
 	render() {

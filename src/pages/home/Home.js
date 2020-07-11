@@ -13,23 +13,23 @@ import {
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.props.getAllChallenges();
+    this.props.getAllChallenges('');
   }
 
   componentDidMount() {
     $(document).ready(function () {
-      // (function ($) {
-      //   $('.owl-carousel').owlCarousel({
-      //     items: 4,
-      //     center: false,
-      //     loop: false,
-      //     margin: 0,
-      //     rewind: false,
-      //     nav: true,
-      //     dotsEach: true,
-      //     navText: ['&lt;', '&gt;'],
-      //   });
-      // })(window.jQuery);
+      (function ($) {
+        // $('.owl-carousel').owlCarousel({
+        //   items: 4,
+        //   center: false,
+        //   loop: false,
+        //   margin: 0,
+        //   rewind: false,
+        //   nav: true,
+        //   dotsEach: true,
+        //   navText: ['&lt;', '&gt;'],
+        // });
+      })(window.jQuery);
     });
   }
 

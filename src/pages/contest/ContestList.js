@@ -10,7 +10,7 @@ import {
 import {
   getAllContests,
 } from "../../actions/actions.creator";
-import { randomColor } from '../../constants';
+import { randomColor, randomBanner, } from '../../constants';
 
 class ContestList extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class ContestList extends React.Component {
         pagination={{
           onChange: page => {
           },
-          pageSize: 3,
+          pageSize: 2,
         }}
         dataSource={this.props.data}
         // header={
@@ -45,7 +45,7 @@ class ContestList extends React.Component {
                 width="100%"
                 height="100%"
                 alt="logo"
-                src="https://eponaquest.com/wp-content/uploads/beautiful-scenery.jpg"
+                src={randomBanner()}
               />
             }
           >

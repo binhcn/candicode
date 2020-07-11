@@ -77,9 +77,18 @@ const BANNER_SET = [
   'https://images.idgesg.net/images/article/2019/03/javaworld_jvm_jdk_jre_explainer_java_development_kit_write_3x2_2400x1600_by_idg_oracle_vasabii_gettyimages-100790551-large.jpg',
   'https://miro.medium.com/max/2560/1*iu5XZBn-sR0qjEkvdD93kw.jpeg',
   'https://i.ytimg.com/vi/nqiC6o8vj7o/maxresdefault.jpg',
+  'https://previews.123rf.com/images/karpenkoilia/karpenkoilia1709/karpenkoilia170900117/86423976-modern-line-web-concept-for-programming-linear-web-banner-for-coding-.jpg',
+  'https://previews.123rf.com/images/vectorlab/vectorlab1609/vectorlab160900093/62507457-coding-and-programming-line-art-thin-vector-icons-set-with-laptop-and-computer-languages.jpg',
+  'https://image.freepik.com/free-vector/flat-design-line-concept-banner-seo-coding_145666-623.jpg',
+  'https://as1.ftcdn.net/jpg/02/09/90/86/500_F_209908619_pcIfQ4fk1zwBlaL2Bs6gRT0rclY18gVo.jpg',
 ]
 
 export function randomBanner() {
   var index = Math.floor(Math.random() * BANNER_SET.length);
   return BANNER_SET[index];
+}
+
+export function randomNumber() {
+  var index = Math.floor(Math.random() * 20);;
+  return index;
 }
