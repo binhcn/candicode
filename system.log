@@ -1,0 +1,1452 @@
+yarn run v1.22.4
+$ npm-run-all -p watch-css start-js lint
+$ npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive
+$ react-scripts start
+$ eslint . --cache --report-unused-disable-directives
+
+> demo-client@0.1.0 build-css /home/binhcao/Documents/candicode
+> node-sass-chokidar src/ -o src/
+
+
+/home/binhcao/Documents/candicode/src/App.js
+  15:11  warning  'lang' is missing in props validation                                                                                    react/prop-types
+  27:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/actions/actions.creator.js
+  278:26  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  289:26  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  300:26  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  311:26  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  458:26  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  469:26  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  671:26  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  682:26  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  693:26  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/commons/PrivateRoute.js
+   8:25  warning  'component' is missing in props validation      react/prop-types
+   8:47  warning  'authenticated' is missing in props validation  react/prop-types
+  18:36  warning  'location' is missing in props validation       react/prop-types
+
+/home/binhcao/Documents/candicode/src/commons/RichTextEditor.js
+  15:21  warning  Must use destructuring state assignment       react/destructuring-assignment
+  24:20  warning  Must use destructuring state assignment       react/destructuring-assignment
+  28:26  warning  Must use destructuring props assignment       react/destructuring-assignment
+  28:37  warning  'placeholder' is missing in props validation  react/prop-types
+
+/home/binhcao/Documents/candicode/src/constants/index.js
+  92:46  error  Unnecessary semicolon  no-extra-semi
+
+/home/binhcao/Documents/candicode/src/layout/MainService.js
+  13:12  warning  Must use destructuring props assignment  react/destructuring-assignment
+
+/home/binhcao/Documents/candicode/src/layout/content/Breadcrumb.js
+  17:11  warning  'location' is missing in props validation                 react/prop-types
+  18:33  warning  'location.pathname' is missing in props validation        react/prop-types
+  18:42  warning  'location.pathname.split' is missing in props validation  react/prop-types
+
+/home/binhcao/Documents/candicode/src/layout/content/Content.js
+   17:7    warning  'location' is missing in props validation           react/prop-types
+   17:19   warning  'location.pathname' is missing in props validation  react/prop-types
+   21:7    warning  Must use destructuring props assignment             react/destructuring-assignment
+   21:37   warning  Must use destructuring state assignment             react/destructuring-assignment
+   23:7    warning  Must use destructuring props assignment             react/destructuring-assignment
+   25:7    warning  Must use destructuring props assignment             react/destructuring-assignment
+   27:7    warning  Must use destructuring props assignment             react/destructuring-assignment
+   39:7    warning  'location' is missing in props validation           react/prop-types
+   39:19   warning  'location.pathname' is missing in props validation  react/prop-types
+   61:101  warning  Must use destructuring state assignment             react/destructuring-assignment
+   69:14   warning  Must use destructuring props assignment             react/destructuring-assignment
+   77:14   warning  Must use destructuring props assignment             react/destructuring-assignment
+  100:14   warning  Must use destructuring props assignment             react/destructuring-assignment
+
+/home/binhcao/Documents/candicode/src/layout/footer/Footer.js
+  13:3   warning  propType "location" is not required, but has no corresponding defaultProps declaration  react/require-default-props
+  26:5   warning  Must use destructuring props assignment                                                 react/destructuring-assignment
+  26:16  warning  'translateLanguage' is missing in props validation                                      react/prop-types
+  72:35  warning  Must use destructuring props assignment                                                 react/destructuring-assignment
+  72:46  warning  'lang' is missing in props validation                                                   react/prop-types
+
+/home/binhcao/Documents/candicode/src/layout/header/Header.js
+   17:7   warning  Must use destructuring props assignment                               react/destructuring-assignment
+   18:7   warning  Must use destructuring props assignment                               react/destructuring-assignment
+   18:18  warning  'logout' is missing in props validation                               react/prop-types
+   23:11  warning  'openUserForm' is missing in props validation                         react/prop-types
+   25:9   warning  Must use destructuring props assignment                               react/destructuring-assignment
+   25:20  warning  'isAuthenticated' is missing in props validation                      react/prop-types
+   26:13  warning  'currentUser.firstName' is missing in props validation                react/prop-types
+   26:24  warning  'currentUser.lastName' is missing in props validation                 react/prop-types
+   26:37  warning  Must use destructuring props assignment                               react/destructuring-assignment
+   26:48  warning  'currentUser' is missing in props validation                          react/prop-types
+   30:25  warning  'currentUser.firstName[].toUpperCase' is missing in props validation  react/prop-types
+   58:30  warning  Must use destructuring props assignment                               react/destructuring-assignment
+   58:41  warning  'location' is missing in props validation                             react/prop-types
+   58:50  warning  'location.pathname' is missing in props validation                    react/prop-types
+  147:20  warning  Must use destructuring props assignment                               react/destructuring-assignment
+  147:26  warning  'handleMenuClick' is missing in props validation                      react/prop-types
+  160:10  warning  Must use destructuring props assignment                               react/destructuring-assignment
+  160:16  warning  'username' is missing in props validation                             react/prop-types
+
+/home/binhcao/Documents/candicode/src/layout/header/Notification.js
+  68:23  warning  Must use destructuring state assignment  react/destructuring-assignment
+  68:45  warning  Must use destructuring state assignment  react/destructuring-assignment
+  72:27  warning  Must use destructuring state assignment  react/destructuring-assignment
+  85:16  warning  Must use destructuring state assignment  react/destructuring-assignment
+  85:38  warning  Must use destructuring state assignment  react/destructuring-assignment
+
+/home/binhcao/Documents/candicode/src/layout/header/UserForm.js
+  15:11  warning  'visible' is missing in props validation             react/prop-types
+  15:20  warning  'status' is missing in props validation              react/prop-types
+  15:28  warning  'openUserForm' is missing in props validation        react/prop-types
+  15:42  warning  'closeUserForm' is missing in props validation       react/prop-types
+  16:28  warning  'status.toLowerCase' is missing in props validation  react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/challenge/Challenge.js
+  31:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/challenge/ChallengeCard.js
+  15:11  warning  'item' is missing in props validation               react/prop-types
+  23:23  warning  'item.banner' is missing in props validation        react/prop-types
+  23:37  warning  'item.banner' is missing in props validation        react/prop-types
+  30:53  warning  'item.author' is missing in props validation        react/prop-types
+  31:30  warning  'item.numComments' is missing in props validation   react/prop-types
+  31:49  warning  'item.numComments' is missing in props validation   react/prop-types
+  34:30  warning  'item.numAttendees' is missing in props validation  react/prop-types
+  34:50  warning  'item.numAttendees' is missing in props validation  react/prop-types
+  40:17  warning  'item.title' is missing in props validation         react/prop-types
+  43:46  warning  'item.level' is missing in props validation         react/prop-types
+  46:23  warning  'item.language' is missing in props validation      react/prop-types
+  46:40  warning  'item.language' is missing in props validation      react/prop-types
+  46:49  warning  'item.language.map' is missing in props validation  react/prop-types
+  52:23  warning  'item.tags' is missing in props validation          react/prop-types
+  52:36  warning  'item.tags' is missing in props validation          react/prop-types
+  52:41  warning  'item.tags.map' is missing in props validation      react/prop-types
+  60:17  warning  'item.likes' is missing in props validation         react/prop-types
+  60:34  warning  'item.likes' is missing in props validation         react/prop-types
+  62:17  warning  'item.dislikes' is missing in props validation      react/prop-types
+  62:37  warning  'item.dislikes' is missing in props validation      react/prop-types
+  65:42  warning  'item.id' is missing in props validation            react/prop-types
+  66:34  warning  Must use destructuring props assignment             react/destructuring-assignment
+  66:45  warning  'handleContestMode' is missing in props validation  react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/challenge/ChallengeList.js
+  17:7   warning  'location' is missing in props validation                                                                            react/prop-types
+  17:19  warning  'location.search' is missing in props validation                                                                     react/prop-types
+  19:5   warning  Must use destructuring props assignment                                                                              react/destructuring-assignment
+  19:16  warning  'getAllChallenges' is missing in props validation                                                                    react/prop-types
+  27:17  warning  Trailing spaces not allowed                                                                                          no-trailing-spaces
+  29:21  warning  Must use destructuring props assignment                                                                              react/destructuring-assignment
+  29:32  warning  'data' is missing in props validation                                                                                react/prop-types
+  31:21  warning  'page' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/code/Code.js
+  17:7   warning  'location' is missing in props validation                                                                         react/prop-types
+  17:19  warning  'location.pathname' is missing in props validation                                                                react/prop-types
+  20:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  20:16  warning  'getChallengeDetails' is missing in props validation                                                              react/prop-types
+  29:23  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  39:27  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  42:24  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/code/CodeEditor.js
+   46:20   warning  Must use destructuring state assignment                            react/destructuring-assignment
+   46:42   warning  Must use destructuring state assignment                            react/destructuring-assignment
+   46:64   warning  Must use destructuring props assignment                            react/destructuring-assignment
+   46:75   warning  'contents' is missing in props validation                          react/prop-types
+   46:87   warning  'contents[].language' is missing in props validation               react/prop-types
+   47:9    warning  Must use destructuring state assignment                            react/destructuring-assignment
+   49:13   warning  Must use destructuring props assignment                            react/destructuring-assignment
+   49:24   warning  'id' is missing in props validation                                react/prop-types
+   51:17   warning  Must use destructuring state assignment                            react/destructuring-assignment
+   55:22   warning  Must use destructuring props assignment                            react/destructuring-assignment
+   55:33   warning  'runCode' is missing in props validation                           react/prop-types
+   91:38   warning  Must use destructuring props assignment                            react/destructuring-assignment
+   91:49   warning  'contents' is missing in props validation                          react/prop-types
+   91:61   warning  'contents[].language' is missing in props validation               react/prop-types
+   92:9    warning  Must use destructuring state assignment                            react/destructuring-assignment
+   94:13   warning  Must use destructuring props assignment                            react/destructuring-assignment
+   94:24   warning  'id' is missing in props validation                                react/prop-types
+   96:17   warning  Must use destructuring state assignment                            react/destructuring-assignment
+   99:21   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  100:19   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  101:18   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  105:22   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  105:33   warning  'saveSubmission' is missing in props validation                    react/prop-types
+  134:19   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  134:30   warning  'contents' is missing in props validation                          react/prop-types
+  134:39   warning  'contents.filter' is missing in props validation                   react/prop-types
+  152:11   warning  'currentRoundChallengeIdx' is missing in props validation          react/prop-types
+  152:37   warning  'roundChallengeList' is missing in props validation                react/prop-types
+  153:5    warning  Must use destructuring props assignment                            react/destructuring-assignment
+  153:16   warning  'navigateRoundChallenge' is missing in props validation            react/prop-types
+  154:72   warning  'roundChallengeList[].challengeId' is missing in props validation  react/prop-types
+  155:5    warning  Must use destructuring props assignment                            react/destructuring-assignment
+  156:5    warning  Must use destructuring props assignment                            react/destructuring-assignment
+  156:16   warning  'getChallengeDetails' is missing in props validation               react/prop-types
+  160:11   warning  'currentRoundChallengeIdx' is missing in props validation          react/prop-types
+  160:37   warning  'roundChallengeList' is missing in props validation                react/prop-types
+  161:5    warning  Must use destructuring props assignment                            react/destructuring-assignment
+  161:16   warning  'navigateRoundChallenge' is missing in props validation            react/prop-types
+  162:72   warning  'roundChallengeList[].challengeId' is missing in props validation  react/prop-types
+  163:5    warning  Must use destructuring props assignment                            react/destructuring-assignment
+  164:5    warning  Must use destructuring props assignment                            react/destructuring-assignment
+  164:16   warning  'getChallengeDetails' is missing in props validation               react/prop-types
+  168:11   warning  'currentRoundChallengeIdx' is missing in props validation          react/prop-types
+  168:37   warning  'roundChallengeList' is missing in props validation                react/prop-types
+  169:25   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  169:36   warning  'contents' is missing in props validation                          react/prop-types
+  169:45   warning  'contents.map' is missing in props validation                      react/prop-types
+  175:16   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  181:23   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  181:34   warning  'contents' is missing in props validation                          react/prop-types
+  181:43   warning  'contents.findIndex' is missing in props validation                react/prop-types
+  181:61   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  183:20   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  183:31   warning  'contents' is missing in props validation                          react/prop-types
+  185:18   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  186:18   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  186:29   warning  'contents' is missing in props validation                          react/prop-types
+  186:49   warning  'contents[].text' is missing in props validation                   react/prop-types
+  187:21   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  187:32   warning  'contents' is missing in props validation                          react/prop-types
+  187:52   warning  'contents[].language' is missing in props validation               react/prop-types
+  187:61   warning  'contents[].language.toLowerCase' is missing in props validation   react/prop-types
+  192:24   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  192:35   warning  'testcases' is missing in props validation                         react/prop-types
+  192:45   warning  'testcases.map' is missing in props validation                     react/prop-types
+  198:10   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  200:32   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  201:32   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  208:10   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  208:21   warning  'contents' is missing in props validation                          react/prop-types
+  212:29   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  212:40   warning  'contents' is missing in props validation                          react/prop-types
+  212:52   warning  'contents[].language' is missing in props validation               react/prop-types
+  220:29   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  227:14   warning  Must use destructuring props assignment                            react/destructuring-assignment
+  227:25   warning  'isContest' is missing in props validation                         react/prop-types
+  232:120  warning  'roundChallengeList.length' is missing in props validation         react/prop-types
+  233:81   warning  'roundChallengeList.length' is missing in props validation         react/prop-types
+  249:20   warning  Must use destructuring state assignment                            react/destructuring-assignment
+  265:31   warning  Must use destructuring state assignment                            react/destructuring-assignment
+
+/home/binhcao/Documents/candicode/src/pages/code/CodeSpec.js
+  25:29  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  25:40  warning  'title' is missing in props validation                                                                                   react/prop-types
+  31:40  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  31:51  warning  'level' is missing in props validation                                                                                   react/prop-types
+  34:16  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  34:27  warning  'points' is missing in props validation                                                                                  react/prop-types
+  52:51  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  52:62  warning  'description' is missing in props validation                                                                             react/prop-types
+  71:11  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  71:22  warning  'isContest' is missing in props validation                                                                               react/prop-types
+  94:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/code/Discussion.js
+   12:24  warning  'comments' is missing in props validation                                                                              react/prop-types
+   15:25  warning  'comments.length' is missing in props validation                                                                       react/prop-types
+   15:44  warning  'comments.length' is missing in props validation                                                                       react/prop-types
+   21:19  warning  'onChange' is missing in props validation                                                                              react/prop-types
+   21:29  warning  'onSubmit' is missing in props validation                                                                              react/prop-types
+   21:39  warning  'submitting' is missing in props validation                                                                            react/prop-types
+   21:51  warning  'value' is missing in props validation                                                                                 react/prop-types
+   21:58  warning  'onKeyPress' is missing in props validation                                                                            react/prop-types
+   34:21  warning  'comments' is missing in props validation                                                                              react/prop-types
+   42:17  warning  'comments.length' is missing in props validation                                                                       react/prop-types
+   56:7   warning  'location' is missing in props validation                                                                              react/prop-types
+   56:19  warning  'location.pathname' is missing in props validation                                                                     react/prop-types
+   59:5   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   59:16  warning  'getChallengeComments' is missing in props validation                                                                  react/prop-types
+   69:10  warning  Must use destructuring state assignment                                                                                react/destructuring-assignment
+   78:16  warning  Must use destructuring state assignment                                                                                react/destructuring-assignment
+   81:20  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   81:31  warning  'addChallengeComments' is missing in props validation                                                                  react/prop-types
+   81:57  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   81:68  warning  'id' is missing in props validation                                                                                    react/prop-types
+   82:19  warning  'result' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  102:23  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  102:34  warning  'comments' is missing in props validation                                                                              react/prop-types
+  102:43  warning  'comments.map' is missing in props validation                                                                          react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/code/LeaderBoard.js
+  54:7   warning  'location' is missing in props validation                 react/prop-types
+  54:19  warning  'location.pathname' is missing in props validation        react/prop-types
+  57:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  57:16  warning  'getChallengeLeaderBoard' is missing in props validation  react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/code/Submission.js
+  41:7   warning  'location' is missing in props validation                 react/prop-types
+  41:19  warning  'location.pathname' is missing in props validation        react/prop-types
+  44:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  44:16  warning  'getChallengeSubmissions' is missing in props validation  react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/common/Filter.js
+   37:5   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   37:16  warning  'form' is missing in props validation                          react/prop-types
+   37:21  warning  'form.validateFieldsAndScroll' is missing in props validation  react/prop-types
+   64:11  warning  'location' is missing in props validation                      react/prop-types
+   64:23  warning  'location.pathname' is missing in props validation             react/prop-types
+   67:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   67:22  warning  'getAllTutorials' is missing in props validation               react/prop-types
+   68:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   70:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   70:22  warning  'getAllContests' is missing in props validation                react/prop-types
+   71:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   72:17  warning  Trailing spaces not allowed                                    no-trailing-spaces
+   73:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   73:22  warning  'getAllChallenges' is missing in props validation              react/prop-types
+   74:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   75:10  warning  Trailing spaces not allowed                                    no-trailing-spaces
+   82:13  warning  'form.getFieldDecorator' is missing in props validation        react/prop-types
+   82:35  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   82:46  warning  'form' is missing in props validation                          react/prop-types
+  118:7   warning  'location' is missing in props validation                      react/prop-types
+  118:19  warning  'location.search' is missing in props validation               react/prop-types
+  120:24  warning  'location.search.substring' is missing in props validation     react/prop-types
+  130:20  warning  Must use destructuring state assignment                        react/destructuring-assignment
+
+/home/binhcao/Documents/candicode/src/pages/common/Sidebar.js
+  70:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/contest/Contest.js
+  30:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/contest/ContestCard.js
+  16:11  warning  'rounds' is missing in props validation                             react/prop-types
+  16:19  warning  'banner' is missing in props validation                             react/prop-types
+  17:43  warning  'rounds.findIndex' is missing in props validation                   react/prop-types
+  22:32  warning  'rounds.map' is missing in props validation                         react/prop-types
+  47:65  warning  Trailing spaces not allowed                                         no-trailing-spaces
+  48:31  warning  'rounds[].challenges' is missing in props validation                react/prop-types
+  48:45  warning  'rounds[].challenges[].challengeId' is missing in props validation  react/prop-types
+  49:62  warning  Trailing spaces not allowed                                         no-trailing-spaces
+  50:29  warning  'rounds[].challenges' is missing in props validation                react/prop-types
+  70:39  warning  Trailing spaces not allowed                                         no-trailing-spaces
+  71:36  warning  Must use destructuring props assignment                             react/destructuring-assignment
+  71:47  warning  'prepareContestChallenges' is missing in props validation           react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/contest/ContestDetails.js
+  16:7   warning  'location' is missing in props validation             react/prop-types
+  16:19  warning  'location.pathname' is missing in props validation    react/prop-types
+  20:5   warning  Must use destructuring props assignment               react/destructuring-assignment
+  20:16  warning  'getContestDetails' is missing in props validation    react/prop-types
+  29:14  warning  Must use destructuring props assignment               react/destructuring-assignment
+  29:25  warning  'likes' is missing in props validation                react/prop-types
+  29:37  warning  Must use destructuring props assignment               react/destructuring-assignment
+  29:48  warning  'likes' is missing in props validation                react/prop-types
+  31:14  warning  Must use destructuring props assignment               react/destructuring-assignment
+  31:25  warning  'dislikes' is missing in props validation             react/prop-types
+  31:40  warning  Must use destructuring props assignment               react/destructuring-assignment
+  31:51  warning  'dislikes' is missing in props validation             react/prop-types
+  33:35  warning  Must use destructuring props assignment               react/destructuring-assignment
+  33:46  warning  'title' is missing in props validation                react/prop-types
+  39:21  warning  Must use destructuring props assignment               react/destructuring-assignment
+  39:32  warning  'author' is missing in props validation               react/prop-types
+  40:32  warning  Must use destructuring props assignment               react/destructuring-assignment
+  40:43  warning  'createdAt' is missing in props validation            react/prop-types
+  41:17  warning  Must use destructuring props assignment               react/destructuring-assignment
+  41:28  warning  'createdAt' is missing in props validation            react/prop-types
+  41:38  warning  'createdAt.substring' is missing in props validation  react/prop-types
+  41:51  warning  Must use destructuring props assignment               react/destructuring-assignment
+  41:62  warning  'createdAt' is missing in props validation            react/prop-types
+  41:72  warning  'createdAt.length' is missing in props validation     react/prop-types
+  46:41  warning  Must use destructuring props assignment               react/destructuring-assignment
+  46:52  warning  'description' is missing in props validation          react/prop-types
+  47:51  warning  Must use destructuring props assignment               react/destructuring-assignment
+  47:62  warning  'content' is missing in props validation              react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/contest/ContestDiscussion.js
+  12:24  warning  'comments' is missing in props validation                                                                              react/prop-types
+  15:25  warning  'comments.length' is missing in props validation                                                                       react/prop-types
+  15:44  warning  'comments.length' is missing in props validation                                                                       react/prop-types
+  21:19  warning  'onChange' is missing in props validation                                                                              react/prop-types
+  21:29  warning  'onSubmit' is missing in props validation                                                                              react/prop-types
+  21:39  warning  'submitting' is missing in props validation                                                                            react/prop-types
+  21:51  warning  'value' is missing in props validation                                                                                 react/prop-types
+  21:58  warning  'onKeyPress' is missing in props validation                                                                            react/prop-types
+  34:21  warning  'comments' is missing in props validation                                                                              react/prop-types
+  37:17  warning  'comments.length' is missing in props validation                                                                       react/prop-types
+  50:7   warning  'location' is missing in props validation                                                                              react/prop-types
+  50:19  warning  'location.pathname' is missing in props validation                                                                     react/prop-types
+  53:5   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  53:16  warning  'getTutorialComments' is missing in props validation                                                                   react/prop-types
+  63:10  warning  Must use destructuring state assignment                                                                                react/destructuring-assignment
+  72:16  warning  Must use destructuring state assignment                                                                                react/destructuring-assignment
+  75:20  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  75:31  warning  'addTutorialComments' is missing in props validation                                                                   react/prop-types
+  75:56  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  75:67  warning  'id' is missing in props validation                                                                                    react/prop-types
+  76:19  warning  'result' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  96:23  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  96:34  warning  'comments' is missing in props validation                                                                              react/prop-types
+  96:43  warning  'comments.map' is missing in props validation                                                                          react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/contest/ContestList.js
+  19:7   warning  'location' is missing in props validation                                                                            react/prop-types
+  19:19  warning  'location.search' is missing in props validation                                                                     react/prop-types
+  21:5   warning  Must use destructuring props assignment                                                                              react/destructuring-assignment
+  21:16  warning  'getAllContests' is missing in props validation                                                                      react/prop-types
+  30:21  warning  'page' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  34:21  warning  Must use destructuring props assignment                                                                              react/destructuring-assignment
+  34:32  warning  'data' is missing in props validation                                                                                react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/home/Home.js
+  16:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  16:16  warning  'getAllChallenges' is missing in props validation                                                                 react/prop-types
+  21:18  warning  '$' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  64:14  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  64:25  warning  'data' is missing in props validation                                                                             react/prop-types
+  64:57  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  64:68  warning  'data' is missing in props validation                                                                             react/prop-types
+  67:14  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  67:25  warning  'data' is missing in props validation                                                                             react/prop-types
+  67:57  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  67:68  warning  'data' is missing in props validation                                                                             react/prop-types
+  70:13  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  70:24  warning  'data' is missing in props validation                                                                             react/prop-types
+  70:56  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  70:67  warning  'data' is missing in props validation                                                                             react/prop-types
+  73:13  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  73:24  warning  'data' is missing in props validation                                                                             react/prop-types
+  73:56  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  73:67  warning  'data' is missing in props validation                                                                             react/prop-types
+  76:13  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  76:24  warning  'data' is missing in props validation                                                                             react/prop-types
+  76:56  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  76:67  warning  'data' is missing in props validation                                                                             react/prop-types
+  79:13  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  79:24  warning  'data' is missing in props validation                                                                             react/prop-types
+  79:56  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  79:67  warning  'data' is missing in props validation                                                                             react/prop-types
+  82:13  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  82:24  warning  'data' is missing in props validation                                                                             react/prop-types
+  82:56  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  82:67  warning  'data' is missing in props validation                                                                             react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/login/Login.js
+  29:3    warning  Must use destructuring props assignment                  react/destructuring-assignment
+  29:14   warning  'getCurrentUser' is missing in props validation          react/prop-types
+  31:3    warning  Must use destructuring props assignment                  react/destructuring-assignment
+  31:14   warning  'handleCancel' is missing in props validation            react/prop-types
+  37:60   warning  Must use destructuring props assignment                  react/destructuring-assignment
+  37:71   warning  'convertModal' is missing in props validation            react/prop-types
+  37:99   warning  Must use destructuring props assignment                  react/destructuring-assignment
+  37:110  warning  'handleCancel' is missing in props validation            react/prop-types
+  51:3    warning  Must use destructuring props assignment                  react/destructuring-assignment
+  51:14   warning  'form' is missing in props validation                    react/prop-types
+  51:19   warning  'form.validateFields' is missing in props validation     react/prop-types
+  58:8    warning  Must use destructuring props assignment                  react/destructuring-assignment
+  58:19   warning  'onLogin' is missing in props validation                 react/prop-types
+  84:3    warning  Must use destructuring props assignment                  react/destructuring-assignment
+  84:14   warning  'handleCancel' is missing in props validation            react/prop-types
+  85:3    warning  Must use destructuring props assignment                  react/destructuring-assignment
+  85:14   warning  'showSignup' is missing in props validation              react/prop-types
+  89:11   warning  'form.getFieldDecorator' is missing in props validation  react/prop-types
+  89:33   warning  Must use destructuring props assignment                  react/destructuring-assignment
+  89:44   warning  'form' is missing in props validation                    react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/Management.js
+  32:39  warning  Must use destructuring state assignment                                                                                  react/destructuring-assignment
+  33:66  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  33:77  warning  'location' is missing in props validation                                                                                react/prop-types
+  33:86  warning  'location.pathname' is missing in props validation                                                                       react/prop-types
+  73:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/Challenge.js
+   23:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+   23:16  warning  'getUserChallenges' is missing in props validation           react/prop-types
+  105:36  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  105:47  warning  'deleteChallenge' is missing in props validation             react/prop-types
+  140:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  140:16  warning  'handleChallenge' is missing in props validation             react/prop-types
+  141:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  141:16  warning  'handleModal' is missing in props validation                 react/prop-types
+  145:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  145:16  warning  'handleChallenge' is missing in props validation             react/prop-types
+  146:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  146:16  warning  'handleSourceModal' is missing in props validation           react/prop-types
+  150:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  150:16  warning  'handleChallenge' is missing in props validation             react/prop-types
+  151:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  151:16  warning  'handleDeleteLanguageModal' is missing in props validation   react/prop-types
+  155:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  155:16  warning  'handleChallenge' is missing in props validation             react/prop-types
+  156:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  156:16  warning  'handleTestcaseModal' is missing in props validation         react/prop-types
+  160:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  160:16  warning  'handleChallenge' is missing in props validation             react/prop-types
+  161:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  161:16  warning  'handleUpdateTestcaseModal' is missing in props validation   react/prop-types
+  165:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  165:16  warning  'handleChallenge' is missing in props validation             react/prop-types
+  166:5   warning  Must use destructuring props assignment                      react/destructuring-assignment
+  166:16  warning  'handleDeleteTestcaseModal' is missing in props validation   react/prop-types
+  175:10  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  175:21  warning  'visible' is missing in props validation                     react/prop-types
+  182:22  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  182:33  warning  'visible' is missing in props validation                     react/prop-types
+  183:29  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  183:40  warning  'handleModal' is missing in props validation                 react/prop-types
+  189:10  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  189:21  warning  'visibleSourceModal' is missing in props validation          react/prop-types
+  196:22  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  196:33  warning  'visibleSourceModal' is missing in props validation          react/prop-types
+  197:29  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  197:40  warning  'handleSourceModal' is missing in props validation           react/prop-types
+  203:10  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  203:21  warning  'visibleDeleteLanguageModal' is missing in props validation  react/prop-types
+  208:22  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  208:33  warning  'visibleDeleteLanguageModal' is missing in props validation  react/prop-types
+  209:29  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  209:40  warning  'handleDeleteLanguageModal' is missing in props validation   react/prop-types
+  215:10  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  215:21  warning  'visibleTestcaseModal' is missing in props validation        react/prop-types
+  221:22  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  221:33  warning  'visibleTestcaseModal' is missing in props validation        react/prop-types
+  222:29  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  222:40  warning  'handleTestcaseModal' is missing in props validation         react/prop-types
+  228:10  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  228:21  warning  'visibleUpdateTestcaseModal' is missing in props validation  react/prop-types
+  234:22  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  234:33  warning  'visibleUpdateTestcaseModal' is missing in props validation  react/prop-types
+  235:29  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  235:40  warning  'handleUpdateTestcaseModal' is missing in props validation   react/prop-types
+  241:10  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  241:21  warning  'visibleDeleteTestcaseModal' is missing in props validation  react/prop-types
+  247:22  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  247:33  warning  'visibleDeleteTestcaseModal' is missing in props validation  react/prop-types
+  248:29  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  248:40  warning  'handleDeleteTestcaseModal' is missing in props validation   react/prop-types
+  254:10  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  254:21  warning  'visibleAddResultModal' is missing in props validation       react/prop-types
+  260:22  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  260:33  warning  'visibleAddResultModal' is missing in props validation       react/prop-types
+  261:29  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  261:40  warning  'handleAddResultModal' is missing in props validation        react/prop-types
+  269:23  warning  Must use destructuring props assignment                      react/destructuring-assignment
+  269:34  warning  'data' is missing in props validation                        react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/ChallengeModal.js
+  15:17  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  15:28  warning  'id' is missing in props validation                                                                                      react/prop-types
+  43:48  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  43:59  warning  'currentStep' is missing in props validation                                                                             react/prop-types
+  50:23  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  50:34  warning  'currentStep' is missing in props validation                                                                             react/prop-types
+  62:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/StepOne.js
+   37:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   37:20  warning  'banner' is missing in props validation                        react/prop-types
+   38:17  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   38:28  warning  'banner' is missing in props validation                        react/prop-types
+   66:5   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   66:16  warning  'form' is missing in props validation                          react/prop-types
+   66:21  warning  'form.validateFieldsAndScroll' is missing in props validation  react/prop-types
+   68:62  warning  Must use destructuring state assignment                        react/destructuring-assignment
+   69:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   69:20  warning  'updateStepOne' is missing in props validation                 react/prop-types
+   76:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   76:22  warning  'uploadSource' is missing in props validation                  react/prop-types
+   77:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   77:22  warning  'updateStep' is missing in props validation                    react/prop-types
+   79:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   79:22  warning  'updateStep' is missing in props validation                    react/prop-types
+   86:13  warning  'form.getFieldDecorator' is missing in props validation        react/prop-types
+   86:35  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   86:46  warning  'form' is missing in props validation                          react/prop-types
+  124:21  warning  Must use destructuring state assignment                        react/destructuring-assignment
+  142:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  142:38  warning  'title' is missing in props validation                         react/prop-types
+  152:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  152:38  warning  'level' is missing in props validation                         react/prop-types
+  160:10  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  160:21  warning  'id' is missing in props validation                            react/prop-types
+  163:29  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  163:40  warning  'language' is missing in props validation                      react/prop-types
+  172:10  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  172:21  warning  'id' is missing in props validation                            react/prop-types
+  175:29  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  175:40  warning  'source' is missing in props validation                        react/prop-types
+  193:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  193:38  warning  'tagList' is missing in props validation                       react/prop-types
+  202:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  202:38  warning  'banner' is missing in props validation                        react/prop-types
+  220:12  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  220:23  warning  'currentStep' is missing in props validation                   react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/StepThree.js
+   37:18  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   37:29  warning  'description' is missing in props validation                                                                      react/prop-types
+   62:16  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   63:34  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   64:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   64:16  warning  'updateStepThree' is missing in props validation                                                                  react/prop-types
+   66:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   66:16  warning  'updateStep' is missing in props validation                                                                       react/prop-types
+   74:26  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   80:20  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   81:34  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   82:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   82:16  warning  'updateStepThree' is missing in props validation                                                                  react/prop-types
+   85:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   85:20  warning  'challange' is missing in props validation                                                                        react/prop-types
+   85:30  warning  'challange.banner' is missing in props validation                                                                 react/prop-types
+   86:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   86:44  warning  'challange' is missing in props validation                                                                        react/prop-types
+   86:54  warning  'challange.banner' is missing in props validation                                                                 react/prop-types
+   88:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   88:20  warning  'challange' is missing in props validation                                                                        react/prop-types
+   88:30  warning  'challange.tagList' is missing in props validation                                                                react/prop-types
+   88:38  warning  'challange.tagList.length' is missing in props validation                                                         react/prop-types
+   89:31  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   89:42  warning  'challange' is missing in props validation                                                                        react/prop-types
+   89:52  warning  'challange.tagList' is missing in props validation                                                                react/prop-types
+   91:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   91:20  warning  'challange' is missing in props validation                                                                        react/prop-types
+   91:30  warning  'challange.id' is missing in props validation                                                                     react/prop-types
+   92:32  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   92:43  warning  'challange' is missing in props validation                                                                        react/prop-types
+   92:53  warning  'challange.title' is missing in props validation                                                                  react/prop-types
+   93:32  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   93:43  warning  'challange' is missing in props validation                                                                        react/prop-types
+   93:53  warning  'challange.level' is missing in props validation                                                                  react/prop-types
+   94:38  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   96:19  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   96:30  warning  'challange' is missing in props validation                                                                        react/prop-types
+   96:40  warning  'challange.implementedPath' is missing in props validation                                                        react/prop-types
+   96:56  warning  'challange.implementedPath.slice' is missing in props validation                                                  react/prop-types
+   97:32  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   97:43  warning  'challange' is missing in props validation                                                                        react/prop-types
+   97:53  warning  'challange.title' is missing in props validation                                                                  react/prop-types
+   98:32  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   98:43  warning  'challange' is missing in props validation                                                                        react/prop-types
+   98:53  warning  'challange.level' is missing in props validation                                                                  react/prop-types
+   99:35  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   99:46  warning  'challange' is missing in props validation                                                                        react/prop-types
+   99:56  warning  'challange.language' is missing in props validation                                                               react/prop-types
+  100:38  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  100:49  warning  'challange' is missing in props validation                                                                        react/prop-types
+  100:59  warning  'challange.compilePath' is missing in props validation                                                            react/prop-types
+  100:71  warning  'challange.compilePath.slice' is missing in props validation                                                      react/prop-types
+  101:34  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  101:45  warning  'challange' is missing in props validation                                                                        react/prop-types
+  101:55  warning  'challange.runPath' is missing in props validation                                                                react/prop-types
+  101:63  warning  'challange.runPath.slice' is missing in props validation                                                          react/prop-types
+  102:42  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  102:53  warning  'challange' is missing in props validation                                                                        react/prop-types
+  102:63  warning  'challange.implementedPath' is missing in props validation                                                        react/prop-types
+  102:79  warning  'challange.implementedPath.slice' is missing in props validation                                                  react/prop-types
+  103:45  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  103:56  warning  'challange' is missing in props validation                                                                        react/prop-types
+  103:66  warning  'challange.nonImplementedPath' is missing in props validation                                                     react/prop-types
+  103:85  warning  'challange.nonImplementedPath.slice' is missing in props validation                                               react/prop-types
+  104:40  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  104:51  warning  'challange' is missing in props validation                                                                        react/prop-types
+  104:61  warning  'challange.tcInputFormat' is missing in props validation                                                          react/prop-types
+  105:41  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  105:52  warning  'challange' is missing in props validation                                                                        react/prop-types
+  105:62  warning  'challange.tcOutputFormat' is missing in props validation                                                         react/prop-types
+  106:43  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  106:54  warning  'challange' is missing in props validation                                                                        react/prop-types
+  106:64  warning  'challange.contestChallenge' is missing in props validation                                                       react/prop-types
+  107:38  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+  108:39  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  108:50  warning  'challange' is missing in props validation                                                                        react/prop-types
+  108:60  warning  'challange.challengeDir' is missing in props validation                                                           react/prop-types
+  111:11  warning  'challange.data' is missing in props validation                                                                   react/prop-types
+  111:11  warning  'data' is assigned a value but never used                                                                         no-unused-vars
+  111:17  warning  'challange.visible' is missing in props validation                                                                react/prop-types
+  111:17  warning  'visible' is assigned a value but never used                                                                      no-unused-vars
+  111:38  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  111:49  warning  'challange' is missing in props validation                                                                        react/prop-types
+  112:50  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  112:61  warning  'challange' is missing in props validation                                                                        react/prop-types
+  112:71  warning  'challange.id' is missing in props validation                                                                     react/prop-types
+  112:88  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+  113:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  113:16  warning  'updateChallenge' is missing in props validation                                                                  react/prop-types
+  115:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  115:16  warning  'handleModal' is missing in props validation                                                                      react/prop-types
+  140:24  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+  150:20  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/StepTwo.js
+   14:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   14:16  warning  'form' is missing in props validation                                                                             react/prop-types
+   14:21  warning  'form.validateFieldsAndScroll' is missing in props validation                                                     react/prop-types
+   16:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   16:20  warning  'updateStepTwo' is missing in props validation                                                                    react/prop-types
+   19:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   19:20  warning  'updateStep' is missing in props validation                                                                       react/prop-types
+   24:16  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   25:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   25:16  warning  'form' is missing in props validation                                                                             react/prop-types
+   25:21  warning  'form.validateFieldsAndScroll' is missing in props validation                                                     react/prop-types
+   27:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   27:20  warning  'updateStepTwo' is missing in props validation                                                                    react/prop-types
+   30:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   30:20  warning  'updateStep' is missing in props validation                                                                       react/prop-types
+   36:13  warning  'form.getFieldDecorator' is missing in props validation                                                           react/prop-types
+   36:35  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   36:46  warning  'form' is missing in props validation                                                                             react/prop-types
+   68:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   68:38  warning  'compilePath' is missing in props validation                                                                      react/prop-types
+   72:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   72:44  warning  'projectStructure' is missing in props validation                                                                 react/prop-types
+   76:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   76:38  warning  'runPath' is missing in props validation                                                                          react/prop-types
+   80:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   80:44  warning  'projectStructure' is missing in props validation                                                                 react/prop-types
+   84:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   84:38  warning  'implementedPath' is missing in props validation                                                                  react/prop-types
+   88:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   88:44  warning  'projectStructure' is missing in props validation                                                                 react/prop-types
+   92:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   92:38  warning  'nonImplementedPath' is missing in props validation                                                               react/prop-types
+   96:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   96:44  warning  'projectStructure' is missing in props validation                                                                 react/prop-types
+  100:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  100:38  warning  'tcInputFormat' is missing in props validation                                                                    react/prop-types
+  111:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  111:38  warning  'tcOutputFormat' is missing in props validation                                                                   react/prop-types
+  123:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  123:38  warning  'contestChallenge' is missing in props validation                                                                 react/prop-types
+  130:12  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  130:23  warning  'currentStep' is missing in props validation                                                                      react/prop-types
+  135:12  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  135:23  warning  'currentStep' is missing in props validation                                                                      react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/language-source/AddLanguageSource.js
+  27:48  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  27:59  warning  'currentStep' is missing in props validation                                                                             react/prop-types
+  34:23  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  34:34  warning  'currentStep' is missing in props validation                                                                             react/prop-types
+  45:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/language-source/AddResult.js
+  19:13  warning  'form.getFieldDecorator' is missing in props validation                                                                  react/prop-types
+  19:32  warning  'form.getFieldValue' is missing in props validation                                                                      react/prop-types
+  19:50  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  19:61  warning  'form' is missing in props validation                                                                                    react/prop-types
+  20:11  warning  'tcInputFormat' is missing in props validation                                                                           react/prop-types
+  20:26  warning  'testcases' is missing in props validation                                                                               react/prop-types
+  36:26  warning  'tcInputFormat.format' is missing in props validation                                                                    react/prop-types
+  36:50  warning  'tcInputFormat.format' is missing in props validation                                                                    react/prop-types
+  36:57  warning  'tcInputFormat.format.map' is missing in props validation                                                                react/prop-types
+  41:65  warning  'tcInputFormat.numArgs' is missing in props validation                                                                   react/prop-types
+  76:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/language-source/DeleteLanguageSource.js
+  21:5   warning  Must use destructuring props assignment                        react/destructuring-assignment
+  21:16  warning  'form' is missing in props validation                          react/prop-types
+  21:21  warning  'form.validateFieldsAndScroll' is missing in props validation  react/prop-types
+  25:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+  25:20  warning  'deleteLanguage' is missing in props validation                react/prop-types
+  25:52  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  25:63  warning  'id' is missing in props validation                            react/prop-types
+  26:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+  26:20  warning  'handleDeleteLanguageModal' is missing in props validation     react/prop-types
+  32:13  warning  'form.getFieldDecorator' is missing in props validation        react/prop-types
+  32:35  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  32:46  warning  'form' is missing in props validation                          react/prop-types
+  57:29  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  57:40  warning  'language' is missing in props validation                      react/prop-types
+  57:49  warning  'language.filter' is missing in props validation               react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/language-source/StepOneAdd.js
+  15:5   warning  Must use destructuring props assignment                        react/destructuring-assignment
+  15:16  warning  'form' is missing in props validation                          react/prop-types
+  15:21  warning  'form.validateFieldsAndScroll' is missing in props validation  react/prop-types
+  19:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+  19:20  warning  'updateStepOne' is missing in props validation                 react/prop-types
+  25:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  25:22  warning  'uploadSource' is missing in props validation                  react/prop-types
+  26:11  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  26:22  warning  'updateStep' is missing in props validation                    react/prop-types
+  33:13  warning  'form.getFieldDecorator' is missing in props validation        react/prop-types
+  33:35  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  33:46  warning  'form' is missing in props validation                          react/prop-types
+  65:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  65:38  warning  'language' is missing in props validation                      react/prop-types
+  75:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  75:38  warning  'source' is missing in props validation                        react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/language-source/StepTwoAdd.js
+   14:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   14:16  warning  'form' is missing in props validation                                                                             react/prop-types
+   14:21  warning  'form.validateFieldsAndScroll' is missing in props validation                                                     react/prop-types
+   18:21  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   18:32  warning  'language' is missing in props validation                                                                         react/prop-types
+   23:25  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   23:36  warning  'challengeDir' is missing in props validation                                                                     react/prop-types
+   26:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   26:20  warning  'addLanguage' is missing in props validation                                                                      react/prop-types
+   26:43  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   26:54  warning  'id' is missing in props validation                                                                               react/prop-types
+   27:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   27:20  warning  'handleSourceModal' is missing in props validation                                                                react/prop-types
+   32:16  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   33:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   33:16  warning  'form' is missing in props validation                                                                             react/prop-types
+   33:21  warning  'form.validateFieldsAndScroll' is missing in props validation                                                     react/prop-types
+   35:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   35:20  warning  'updateStepTwo' is missing in props validation                                                                    react/prop-types
+   38:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   38:20  warning  'updateStep' is missing in props validation                                                                       react/prop-types
+   44:13  warning  'form.getFieldDecorator' is missing in props validation                                                           react/prop-types
+   44:35  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   44:46  warning  'form' is missing in props validation                                                                             react/prop-types
+   72:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   72:38  warning  'compilePath' is missing in props validation                                                                      react/prop-types
+   76:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   76:44  warning  'projectStructure' is missing in props validation                                                                 react/prop-types
+   80:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   80:38  warning  'runPath' is missing in props validation                                                                          react/prop-types
+   84:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   84:44  warning  'projectStructure' is missing in props validation                                                                 react/prop-types
+   88:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   88:38  warning  'implementedPath' is missing in props validation                                                                  react/prop-types
+   92:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   92:44  warning  'projectStructure' is missing in props validation                                                                 react/prop-types
+   96:27  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   96:38  warning  'nonImplementedPath' is missing in props validation                                                               react/prop-types
+  100:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  100:44  warning  'projectStructure' is missing in props validation                                                                 react/prop-types
+  103:12  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  103:23  warning  'currentStep' is missing in props validation                                                                      react/prop-types
+  108:12  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  108:23  warning  'currentStep' is missing in props validation                                                                      react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/testcase/AddTestcase.js
+   15:13  warning  'form' is missing in props validation                                                                                  react/prop-types
+   16:23  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+   18:10  warning  'form.setFieldsValue' is missing in props validation                                                                   react/prop-types
+   24:13  warning  'form' is missing in props validation                                                                                  react/prop-types
+   25:23  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+   27:10  warning  'form.setFieldsValue' is missing in props validation                                                                   react/prop-types
+   34:5   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   34:16  warning  'form' is missing in props validation                                                                                  react/prop-types
+   34:21  warning  'form.validateFields' is missing in props validation                                                                   react/prop-types
+   37:15  warning  'tcInputFormat' is missing in props validation                                                                         react/prop-types
+   48:46  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+   48:91  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+   57:26  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   57:37  warning  'submitTestcase' is missing in props validation                                                                        react/prop-types
+   57:57  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   57:68  warning  'id' is missing in props validation                                                                                    react/prop-types
+   64:13  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   64:24  warning  'handleTestcaseModal' is missing in props validation                                                                   react/prop-types
+   72:5   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   72:16  warning  'form' is missing in props validation                                                                                  react/prop-types
+   72:21  warning  'form.validateFields' is missing in props validation                                                                   react/prop-types
+   72:42  warning  'values' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   74:17  warning  'form' is missing in props validation                                                                                  react/prop-types
+   74:23  warning  'tcInputFormat' is missing in props validation                                                                         react/prop-types
+   75:32  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+   77:42  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+   77:87  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+   81:15  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   81:26  warning  'id' is missing in props validation                                                                                    react/prop-types
+   86:20  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   86:31  warning  'verifyTestcase' is missing in props validation                                                                        react/prop-types
+   87:25  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+   88:27  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+  114:16  warning  'form.setFieldsValue' is missing in props validation                                                                   react/prop-types
+  124:13  warning  'form.getFieldDecorator' is missing in props validation                                                                react/prop-types
+  124:32  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+  124:50  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  124:61  warning  'form' is missing in props validation                                                                                  react/prop-types
+  137:11  warning  'tcInputFormat' is missing in props validation                                                                         react/prop-types
+  158:26  warning  'tcInputFormat.format' is missing in props validation                                                                  react/prop-types
+  158:50  warning  'tcInputFormat.format' is missing in props validation                                                                  react/prop-types
+  158:57  warning  'tcInputFormat.format.map' is missing in props validation                                                              react/prop-types
+  163:65  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/testcase/DeleteTestcase.js
+  16:13  warning  'form' is missing in props validation                       react/prop-types
+  17:23  warning  'form.getFieldValue' is missing in props validation         react/prop-types
+  19:10  warning  'form.setFieldsValue' is missing in props validation        react/prop-types
+  26:5   warning  Must use destructuring props assignment                     react/destructuring-assignment
+  26:16  warning  'form' is missing in props validation                       react/prop-types
+  26:21  warning  'form.validateFields' is missing in props validation        react/prop-types
+  31:9   warning  Must use destructuring props assignment                     react/destructuring-assignment
+  31:20  warning  'testcases' is missing in props validation                  react/prop-types
+  31:30  warning  'testcases.forEach' is missing in props validation          react/prop-types
+  36:24  warning  Must use destructuring props assignment                     react/destructuring-assignment
+  36:35  warning  'deleteTestcase' is missing in props validation             react/prop-types
+  36:55  warning  Must use destructuring props assignment                     react/destructuring-assignment
+  36:66  warning  'id' is missing in props validation                         react/prop-types
+  43:11  warning  Must use destructuring props assignment                     react/destructuring-assignment
+  43:22  warning  'handleDeleteTestcaseModal' is missing in props validation  react/prop-types
+  51:13  warning  'form.getFieldDecorator' is missing in props validation     react/prop-types
+  51:32  warning  'form.getFieldValue' is missing in props validation         react/prop-types
+  51:50  warning  Must use destructuring props assignment                     react/destructuring-assignment
+  51:61  warning  'form' is missing in props validation                       react/prop-types
+  62:11  warning  'tcInputFormat' is missing in props validation              react/prop-types
+  62:26  warning  'testcases' is missing in props validation                  react/prop-types
+  88:26  warning  'tcInputFormat.format' is missing in props validation       react/prop-types
+  88:50  warning  'tcInputFormat.format' is missing in props validation       react/prop-types
+  88:57  warning  'tcInputFormat.format.map' is missing in props validation   react/prop-types
+  93:65  warning  'tcInputFormat.numArgs' is missing in props validation      react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/challenge/testcase/UpdateTestcase.js
+   18:5   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   18:16  warning  'form' is missing in props validation                                                                                  react/prop-types
+   18:21  warning  'form.validateFields' is missing in props validation                                                                   react/prop-types
+   21:15  warning  'tcInputFormat' is missing in props validation                                                                         react/prop-types
+   30:11  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   30:22  warning  'testcases' is missing in props validation                                                                             react/prop-types
+   30:32  warning  'testcases.forEach' is missing in props validation                                                                     react/prop-types
+   32:46  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+   32:91  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+   44:28  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   44:39  warning  'editTestcase' is missing in props validation                                                                          react/prop-types
+   44:58  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   44:69  warning  'id' is missing in props validation                                                                                    react/prop-types
+   51:15  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   51:26  warning  'handleUpdateTestcaseModal' is missing in props validation                                                             react/prop-types
+   59:13  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   59:24  warning  'handleUpdateTestcaseModal' is missing in props validation                                                             react/prop-types
+   68:5   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   68:16  warning  'form' is missing in props validation                                                                                  react/prop-types
+   68:21  warning  'form.validateFields' is missing in props validation                                                                   react/prop-types
+   68:42  warning  'values' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   70:17  warning  'form' is missing in props validation                                                                                  react/prop-types
+   70:23  warning  'tcInputFormat' is missing in props validation                                                                         react/prop-types
+   71:32  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+   73:42  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+   73:87  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+   77:15  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   77:26  warning  'id' is missing in props validation                                                                                    react/prop-types
+   82:20  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   82:31  warning  'verifyTestcase' is missing in props validation                                                                        react/prop-types
+   83:25  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+   84:27  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+  110:16  warning  'form.setFieldsValue' is missing in props validation                                                                   react/prop-types
+  120:13  warning  'form.getFieldDecorator' is missing in props validation                                                                react/prop-types
+  120:32  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+  120:50  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  120:61  warning  'form' is missing in props validation                                                                                  react/prop-types
+  131:11  warning  'tcInputFormat' is missing in props validation                                                                         react/prop-types
+  131:26  warning  'testcases' is missing in props validation                                                                             react/prop-types
+  132:75  warning  'testcases.length' is missing in props validation                                                                      react/prop-types
+  134:58  warning  'testcases.map' is missing in props validation                                                                         react/prop-types
+  147:26  warning  'tcInputFormat.format' is missing in props validation                                                                  react/prop-types
+  147:50  warning  'tcInputFormat.format' is missing in props validation                                                                  react/prop-types
+  147:57  warning  'tcInputFormat.format.map' is missing in props validation                                                              react/prop-types
+  152:65  warning  'tcInputFormat.numArgs' is missing in props validation                                                                 react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/contest/Contest.js
+   20:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+   20:16  warning  'getUserContests' is missing in props validation          react/prop-types
+   21:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+   21:16  warning  'getContestChallenges' is missing in props validation     react/prop-types
+   75:36  warning  Must use destructuring props assignment                   react/destructuring-assignment
+   75:47  warning  'deleteContest' is missing in props validation            react/prop-types
+  103:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  103:16  warning  'handleContest' is missing in props validation            react/prop-types
+  104:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  104:16  warning  'handleContestModal' is missing in props validation       react/prop-types
+  108:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  108:16  warning  'handleContest' is missing in props validation            react/prop-types
+  109:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  109:16  warning  'handleRoundModal' is missing in props validation         react/prop-types
+  113:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  113:16  warning  'handleContest' is missing in props validation            react/prop-types
+  114:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  114:16  warning  'handleUpdateRoundModal' is missing in props validation   react/prop-types
+  118:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  118:16  warning  'handleContest' is missing in props validation            react/prop-types
+  119:5   warning  Must use destructuring props assignment                   react/destructuring-assignment
+  119:16  warning  'handleDeleteRoundModal' is missing in props validation   react/prop-types
+  128:10  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  128:21  warning  'visible' is missing in props validation                  react/prop-types
+  135:22  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  135:33  warning  'visible' is missing in props validation                  react/prop-types
+  136:29  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  136:40  warning  'handleContestModal' is missing in props validation       react/prop-types
+  142:10  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  142:21  warning  'visibleRoundModal' is missing in props validation        react/prop-types
+  148:22  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  148:33  warning  'visibleRoundModal' is missing in props validation        react/prop-types
+  149:29  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  149:40  warning  'handleRoundModal' is missing in props validation         react/prop-types
+  155:10  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  155:21  warning  'visibleUpdateRoundModal' is missing in props validation  react/prop-types
+  161:22  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  161:33  warning  'visibleUpdateRoundModal' is missing in props validation  react/prop-types
+  162:29  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  162:40  warning  'handleUpdateRoundModal' is missing in props validation   react/prop-types
+  168:10  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  168:21  warning  'visibleDeleteRoundModal' is missing in props validation  react/prop-types
+  174:22  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  174:33  warning  'visibleDeleteRoundModal' is missing in props validation  react/prop-types
+  175:29  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  175:40  warning  'handleDeleteRoundModal' is missing in props validation   react/prop-types
+  183:23  warning  Must use destructuring props assignment                   react/destructuring-assignment
+  183:34  warning  'data' is missing in props validation                     react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/contest/ContestModal.js
+  27:48  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  27:59  warning  'currentStep' is missing in props validation                                                                             react/prop-types
+  34:23  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  34:34  warning  'currentStep' is missing in props validation                                                                             react/prop-types
+  46:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/management/contest/StepOne.js
+   40:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   40:20  warning  'banner' is missing in props validation                        react/prop-types
+   41:17  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   41:28  warning  'banner' is missing in props validation                        react/prop-types
+   70:5   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   70:16  warning  'form' is missing in props validation                          react/prop-types
+   70:21  warning  'form.validateFieldsAndScroll' is missing in props validation  react/prop-types
+   72:63  warning  Must use destructuring state assignment                        react/destructuring-assignment
+   73:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   73:20  warning  'updateStepOneContest' is missing in props validation          react/prop-types
+   76:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   76:20  warning  'updateStepContest' is missing in props validation             react/prop-types
+   82:13  warning  'form.getFieldDecorator' is missing in props validation        react/prop-types
+   82:35  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   82:46  warning  'form' is missing in props validation                          react/prop-types
+  112:21  warning  Must use destructuring state assignment                        react/destructuring-assignment
+  130:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  130:38  warning  'title' is missing in props validation                         react/prop-types
+  140:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  140:38  warning  'maxRegister' is missing in props validation                   react/prop-types
+  148:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  148:38  warning  'registrationDeadline' is missing in props validation          react/prop-types
+  156:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  156:38  warning  'tagList' is missing in props validation                       react/prop-types
+  165:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  165:38  warning  'description' is missing in props validation                   react/prop-types
+  170:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  170:38  warning  'banner' is missing in props validation                        react/prop-types
+  188:12  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  188:23  warning  'currentStep' is missing in props validation                   react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/contest/StepTwo.js
+   37:14  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   37:25  warning  'content' is missing in props validation                                                                          react/prop-types
+   62:16  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   63:30  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   64:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   64:16  warning  'updateStepTwoContest' is missing in props validation                                                             react/prop-types
+   66:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   66:16  warning  'updateStepContest' is missing in props validation                                                                react/prop-types
+   74:26  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   80:20  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   81:30  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   82:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   82:16  warning  'updateStepTwoContest' is missing in props validation                                                             react/prop-types
+   85:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   85:20  warning  'contest' is missing in props validation                                                                          react/prop-types
+   85:28  warning  'contest.banner' is missing in props validation                                                                   react/prop-types
+   86:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   86:44  warning  'contest' is missing in props validation                                                                          react/prop-types
+   86:52  warning  'contest.banner' is missing in props validation                                                                   react/prop-types
+   89:30  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   89:41  warning  'contest' is missing in props validation                                                                          react/prop-types
+   89:49  warning  'contest.title' is missing in props validation                                                                    react/prop-types
+   90:36  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   90:47  warning  'contest' is missing in props validation                                                                          react/prop-types
+   90:55  warning  'contest.maxRegister' is missing in props validation                                                              react/prop-types
+   91:45  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   91:56  warning  'contest' is missing in props validation                                                                          react/prop-types
+   91:64  warning  'contest.registrationDeadline' is missing in props validation                                                     react/prop-types
+   91:85  warning  'contest.registrationDeadline.format' is missing in props validation                                              react/prop-types
+   92:29  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   92:40  warning  'contest' is missing in props validation                                                                          react/prop-types
+   92:48  warning  'contest.tagList' is missing in props validation                                                                  react/prop-types
+   93:36  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   93:47  warning  'contest' is missing in props validation                                                                          react/prop-types
+   93:55  warning  'contest.description' is missing in props validation                                                              react/prop-types
+   94:32  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   96:11  warning  'contest.data' is missing in props validation                                                                     react/prop-types
+   96:11  warning  'data' is assigned a value but never used                                                                         no-unused-vars
+   96:17  warning  'contest.visible' is missing in props validation                                                                  react/prop-types
+   96:17  warning  'visible' is assigned a value but never used                                                                      no-unused-vars
+   96:38  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   96:49  warning  'contest' is missing in props validation                                                                          react/prop-types
+   97:50  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   97:61  warning  'contest' is missing in props validation                                                                          react/prop-types
+   97:69  warning  'contest.id' is missing in props validation                                                                       react/prop-types
+   97:82  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   98:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   98:16  warning  'updateContest' is missing in props validation                                                                    react/prop-types
+  100:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+  100:16  warning  'handleContestModal' is missing in props validation                                                               react/prop-types
+  125:24  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+  135:20  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+
+/home/binhcao/Documents/candicode/src/pages/management/contest/round/AddRound.js
+   15:13  warning  'form' is missing in props validation                      react/prop-types
+   16:23  warning  'form.getFieldValue' is missing in props validation        react/prop-types
+   18:10  warning  'form.setFieldsValue' is missing in props validation       react/prop-types
+   24:13  warning  'form' is missing in props validation                      react/prop-types
+   25:23  warning  'form.getFieldValue' is missing in props validation        react/prop-types
+   27:10  warning  'form.setFieldsValue' is missing in props validation       react/prop-types
+   34:5   warning  Must use destructuring props assignment                    react/destructuring-assignment
+   34:16  warning  'form' is missing in props validation                      react/prop-types
+   34:21  warning  'form.validateFields' is missing in props validation       react/prop-types
+   48:24  warning  Must use destructuring props assignment                    react/destructuring-assignment
+   48:35  warning  'submitRound' is missing in props validation               react/prop-types
+   48:53  warning  Must use destructuring props assignment                    react/destructuring-assignment
+   48:64  warning  'id' is missing in props validation                        react/prop-types
+   55:11  warning  Must use destructuring props assignment                    react/destructuring-assignment
+   55:22  warning  'handleRoundModal' is missing in props validation          react/prop-types
+   62:13  warning  'form.getFieldDecorator' is missing in props validation    react/prop-types
+   62:32  warning  'form.getFieldValue' is missing in props validation        react/prop-types
+   62:50  warning  Must use destructuring props assignment                    react/destructuring-assignment
+   62:61  warning  'form' is missing in props validation                      react/prop-types
+  113:26  warning  Must use destructuring props assignment                    react/destructuring-assignment
+  113:37  warning  'contestChallengeList' is missing in props validation      react/prop-types
+  114:7   warning  Must use destructuring props assignment                    react/destructuring-assignment
+  114:18  warning  'contestChallengeList' is missing in props validation      react/prop-types
+  114:39  warning  'contestChallengeList.map' is missing in props validation  react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/contest/round/DeleteRound.js
+   18:13  warning  'form' is missing in props validation                                                                                  react/prop-types
+   19:23  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+   21:10  warning  'form.setFieldsValue' is missing in props validation                                                                   react/prop-types
+   28:5   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   28:16  warning  'form' is missing in props validation                                                                                  react/prop-types
+   28:21  warning  'form.validateFields' is missing in props validation                                                                   react/prop-types
+   33:9   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   33:20  warning  'rounds' is missing in props validation                                                                                react/prop-types
+   33:27  warning  'rounds.forEach' is missing in props validation                                                                        react/prop-types
+   38:24  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   38:35  warning  'deleteRound' is missing in props validation                                                                           react/prop-types
+   38:53  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   38:64  warning  'id' is missing in props validation                                                                                    react/prop-types
+   39:23  warning  'result' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   45:11  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   45:22  warning  'handleDeleteRoundModal' is missing in props validation                                                                react/prop-types
+   52:13  warning  'form.getFieldDecorator' is missing in props validation                                                                react/prop-types
+   52:32  warning  'form.getFieldValue' is missing in props validation                                                                    react/prop-types
+   52:50  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   52:61  warning  'form' is missing in props validation                                                                                  react/prop-types
+  103:26  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  103:37  warning  'contestChallengeList' is missing in props validation                                                                  react/prop-types
+  104:7   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  104:18  warning  'contestChallengeList' is missing in props validation                                                                  react/prop-types
+  104:39  warning  'contestChallengeList.map' is missing in props validation                                                              react/prop-types
+  107:11  warning  'rounds' is missing in props validation                                                                                react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/contest/round/UpdateRound.js
+   18:5   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   18:16  warning  'form' is missing in props validation                                                                                  react/prop-types
+   18:21  warning  'form.validateFields' is missing in props validation                                                                   react/prop-types
+   22:9   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   22:20  warning  'rounds' is missing in props validation                                                                                react/prop-types
+   22:27  warning  'rounds.forEach' is missing in props validation                                                                        react/prop-types
+   41:26  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   41:37  warning  'editRound' is missing in props validation                                                                             react/prop-types
+   41:53  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   41:64  warning  'id' is missing in props validation                                                                                    react/prop-types
+   42:25  warning  'result' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   48:13  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   48:24  warning  'handleUpdateRoundModal' is missing in props validation                                                                react/prop-types
+   56:11  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   56:22  warning  'handleUpdateRoundModal' is missing in props validation                                                                react/prop-types
+   63:13  warning  'form.getFieldDecorator' is missing in props validation                                                                react/prop-types
+   63:35  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+   63:46  warning  'form' is missing in props validation                                                                                  react/prop-types
+  114:26  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  114:37  warning  'contestChallengeList' is missing in props validation                                                                  react/prop-types
+  115:7   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  115:18  warning  'contestChallengeList' is missing in props validation                                                                  react/prop-types
+  115:39  warning  'contestChallengeList.map' is missing in props validation                                                              react/prop-types
+  118:11  warning  'rounds' is missing in props validation                                                                                react/prop-types
+  119:52  warning  'rounds.map' is missing in props validation                                                                            react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/tutorial/StepOne.js
+   37:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   37:20  warning  'banner' is missing in props validation                        react/prop-types
+   38:17  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   38:28  warning  'banner' is missing in props validation                        react/prop-types
+   67:5   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   67:16  warning  'form' is missing in props validation                          react/prop-types
+   67:21  warning  'form.validateFieldsAndScroll' is missing in props validation  react/prop-types
+   69:62  warning  Must use destructuring state assignment                        react/destructuring-assignment
+   70:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   70:20  warning  'updateStepOneTutorial' is missing in props validation         react/prop-types
+   73:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   73:20  warning  'updateStepTutorial' is missing in props validation            react/prop-types
+   79:13  warning  'form.getFieldDecorator' is missing in props validation        react/prop-types
+   79:35  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   79:46  warning  'form' is missing in props validation                          react/prop-types
+  109:21  warning  Must use destructuring state assignment                        react/destructuring-assignment
+  127:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  127:38  warning  'title' is missing in props validation                         react/prop-types
+  137:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  137:38  warning  'tagList' is missing in props validation                       react/prop-types
+  146:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  146:38  warning  'description' is missing in props validation                   react/prop-types
+  155:27  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  155:38  warning  'banner' is missing in props validation                        react/prop-types
+  173:12  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  173:23  warning  'currentStep' is missing in props validation                   react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/tutorial/StepTwo.js
+   37:14  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   37:25  warning  'content' is missing in props validation                                                                          react/prop-types
+   62:16  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   63:30  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   64:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   64:16  warning  'updateStepTwoTutorial' is missing in props validation                                                            react/prop-types
+   66:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   66:16  warning  'updateStepTutorial' is missing in props validation                                                               react/prop-types
+   74:26  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   80:20  warning  'e' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+   81:30  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   82:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   82:16  warning  'updateStepTwoTutorial' is missing in props validation                                                            react/prop-types
+   85:9   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   85:20  warning  'tutorial' is missing in props validation                                                                         react/prop-types
+   85:29  warning  'tutorial.banner' is missing in props validation                                                                  react/prop-types
+   86:33  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   86:44  warning  'tutorial' is missing in props validation                                                                         react/prop-types
+   86:53  warning  'tutorial.banner' is missing in props validation                                                                  react/prop-types
+   89:30  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   89:41  warning  'tutorial' is missing in props validation                                                                         react/prop-types
+   89:50  warning  'tutorial.title' is missing in props validation                                                                   react/prop-types
+   90:29  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   90:40  warning  'tutorial' is missing in props validation                                                                         react/prop-types
+   90:49  warning  'tutorial.tagList' is missing in props validation                                                                 react/prop-types
+   90:59  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   90:70  warning  'tutorial' is missing in props validation                                                                         react/prop-types
+   90:79  warning  'tutorial.tagList' is missing in props validation                                                                 react/prop-types
+   91:36  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   91:47  warning  'tutorial' is missing in props validation                                                                         react/prop-types
+   91:56  warning  'tutorial.description' is missing in props validation                                                             react/prop-types
+   92:32  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   94:11  warning  'tutorial.data' is missing in props validation                                                                    react/prop-types
+   94:11  warning  'data' is assigned a value but never used                                                                         no-unused-vars
+   94:17  warning  'tutorial.visible' is missing in props validation                                                                 react/prop-types
+   94:17  warning  'visible' is assigned a value but never used                                                                      no-unused-vars
+   94:38  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   94:49  warning  'tutorial' is missing in props validation                                                                         react/prop-types
+   95:50  warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   95:61  warning  'tutorial' is missing in props validation                                                                         react/prop-types
+   95:70  warning  'tutorial.id' is missing in props validation                                                                      react/prop-types
+   95:83  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+   96:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   96:16  warning  'updateTutorial' is missing in props validation                                                                   react/prop-types
+   98:5   warning  Must use destructuring props assignment                                                                           react/destructuring-assignment
+   98:16  warning  'handleTutorialModal' is missing in props validation                                                              react/prop-types
+  123:24  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+  133:20  warning  Must use destructuring state assignment                                                                           react/destructuring-assignment
+
+/home/binhcao/Documents/candicode/src/pages/management/tutorial/Tutorial.js
+   15:5   warning  Must use destructuring props assignment               react/destructuring-assignment
+   15:16  warning  'getUserTutorials' is missing in props validation     react/prop-types
+   37:16  warning  Trailing spaces not allowed                           no-trailing-spaces
+   53:34  warning  Must use destructuring props assignment               react/destructuring-assignment
+   53:45  warning  'deleteTutorial' is missing in props validation       react/prop-types
+   77:5   warning  Must use destructuring props assignment               react/destructuring-assignment
+   77:16  warning  'handleTutorial' is missing in props validation       react/prop-types
+   78:5   warning  Must use destructuring props assignment               react/destructuring-assignment
+   78:16  warning  'handleTutorialModal' is missing in props validation  react/prop-types
+   87:11  warning  Must use destructuring props assignment               react/destructuring-assignment
+   87:22  warning  'visible' is missing in props validation              react/prop-types
+   94:22  warning  Must use destructuring props assignment               react/destructuring-assignment
+   94:33  warning  'visible' is missing in props validation              react/prop-types
+   95:29  warning  Must use destructuring props assignment               react/destructuring-assignment
+   95:40  warning  'handleTutorialModal' is missing in props validation  react/prop-types
+  103:23  warning  Must use destructuring props assignment               react/destructuring-assignment
+  103:34  warning  'data' is missing in props validation                 react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/management/tutorial/TutorialModal.js
+  27:48  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  27:59  warning  'currentStep' is missing in props validation                                                                             react/prop-types
+  34:23  warning  Must use destructuring props assignment                                                                                  react/destructuring-assignment
+  34:34  warning  'currentStep' is missing in props validation                                                                             react/prop-types
+  46:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/profile/LeftSide.js
+   17:9   warning  'currentUser' is missing in props validation                                                                             react/prop-types
+   28:95  warning  'currentUser.firstName' is missing in props validation                                                                   react/prop-types
+   29:22  warning  'currentUser.firstName' is missing in props validation                                                                   react/prop-types
+   29:35  warning  'currentUser.firstName[].toUpperCase' is missing in props validation                                                     react/prop-types
+   32:26  warning  'currentUser.fullName' is missing in props validation                                                                    react/prop-types
+   33:32  warning  'currentUser.slogan' is missing in props validation                                                                      react/prop-types
+   43:15  warning  'percent' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u   no-unused-vars
+   54:20  warning  'currentUser.facebook' is missing in props validation                                                                    react/prop-types
+   57:20  warning  'currentUser.github' is missing in props validation                                                                      react/prop-types
+   60:20  warning  'currentUser.linkedin' is missing in props validation                                                                    react/prop-types
+   64:19  warning  'currentUser.location' is missing in props validation                                                                    react/prop-types
+   74:19  warning  'currentUser.company' is missing in props validation                                                                     react/prop-types
+   81:19  warning  'currentUser.university' is missing in props validation                                                                  react/prop-types
+  112:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/profile/Password.js
+  35:5   warning  Must use destructuring props assignment                        react/destructuring-assignment
+  35:16  warning  'form' is missing in props validation                          react/prop-types
+  35:21  warning  'form.validateFieldsAndScroll' is missing in props validation  react/prop-types
+  37:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+  37:20  warning  'changeUserPassword' is missing in props validation            react/prop-types
+  44:13  warning  'form.getFieldDecorator' is missing in props validation        react/prop-types
+  44:35  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  44:46  warning  'form' is missing in props validation                          react/prop-types
+  72:10  warning  Must use destructuring state assignment                        react/destructuring-assignment
+  72:31  warning  Trailing spaces not allowed                                    no-trailing-spaces
+  77:20  warning  Must use destructuring state assignment                        react/destructuring-assignment
+
+/home/binhcao/Documents/candicode/src/pages/profile/RightSide.js
+  53:5   warning  Must use destructuring props assignment                 react/destructuring-assignment
+  53:16  warning  'getProfileSubmissions' is missing in props validation  react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/profile/Setting.js
+   40:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   40:20  warning  'banner' is missing in props validation                        react/prop-types
+   41:17  warning  Must use destructuring props assignment                        react/destructuring-assignment
+   41:28  warning  'banner' is missing in props validation                        react/prop-types
+   82:5   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   82:16  warning  'form' is missing in props validation                          react/prop-types
+   82:21  warning  'form.validateFieldsAndScroll' is missing in props validation  react/prop-types
+   94:35  warning  Must use destructuring state assignment                        react/destructuring-assignment
+   95:9   warning  Must use destructuring props assignment                        react/destructuring-assignment
+   95:20  warning  'updateUserProfile' is missing in props validation             react/prop-types
+  101:13  warning  'form.getFieldDecorator' is missing in props validation        react/prop-types
+  101:35  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  101:46  warning  'form' is missing in props validation                          react/prop-types
+  127:21  warning  Must use destructuring state assignment                        react/destructuring-assignment
+  141:20  warning  Must use destructuring state assignment                        react/destructuring-assignment
+  149:35  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  149:46  warning  'banner' is missing in props validation                        react/prop-types
+  171:37  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  171:48  warning  'currentUser' is missing in props validation                   react/prop-types
+  171:60  warning  'currentUser.firstName' is missing in props validation         react/prop-types
+  183:37  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  183:48  warning  'currentUser' is missing in props validation                   react/prop-types
+  183:60  warning  'currentUser.lastName' is missing in props validation          react/prop-types
+  199:37  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  199:48  warning  'currentUser' is missing in props validation                   react/prop-types
+  199:60  warning  'currentUser.slogan' is missing in props validation            react/prop-types
+  214:31  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  214:42  warning  'currentUser' is missing in props validation                   react/prop-types
+  214:54  warning  'currentUser.facebook' is missing in props validation          react/prop-types
+  223:31  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  223:42  warning  'currentUser' is missing in props validation                   react/prop-types
+  223:54  warning  'currentUser.github' is missing in props validation            react/prop-types
+  232:31  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  232:42  warning  'currentUser' is missing in props validation                   react/prop-types
+  232:54  warning  'currentUser.linkedin' is missing in props validation          react/prop-types
+  242:31  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  242:42  warning  'currentUser' is missing in props validation                   react/prop-types
+  242:54  warning  'currentUser.location' is missing in props validation          react/prop-types
+  251:31  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  251:42  warning  'currentUser' is missing in props validation                   react/prop-types
+  251:54  warning  'currentUser.company' is missing in props validation           react/prop-types
+  260:31  warning  Must use destructuring props assignment                        react/destructuring-assignment
+  260:42  warning  'currentUser' is missing in props validation                   react/prop-types
+  260:54  warning  'currentUser.university' is missing in props validation        react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/signup/Signup.js
+  18:37  warning  Must use destructuring props assignment                  react/destructuring-assignment
+  18:48  warning  'convertModal' is missing in props validation            react/prop-types
+  18:76  warning  Must use destructuring props assignment                  react/destructuring-assignment
+  18:87  warning  'handleCancel' is missing in props validation            react/prop-types
+  33:3   warning  Must use destructuring props assignment                  react/destructuring-assignment
+  33:14  warning  'form' is missing in props validation                    react/prop-types
+  33:19  warning  'form.validateFields' is missing in props validation     react/prop-types
+  66:3   warning  Must use destructuring props assignment                  react/destructuring-assignment
+  66:14  warning  'handleCancel' is missing in props validation            react/prop-types
+  67:3   warning  Must use destructuring props assignment                  react/destructuring-assignment
+  67:14  warning  'showLogin' is missing in props validation               react/prop-types
+  71:11  warning  'form.getFieldDecorator' is missing in props validation  react/prop-types
+  71:33  warning  Must use destructuring props assignment                  react/destructuring-assignment
+  71:44  warning  'form' is missing in props validation                    react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/tutorial/Tutorial.js
+  30:28  warning  'dispatch' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+/home/binhcao/Documents/candicode/src/pages/tutorial/TutorialDetails.js
+  15:7   warning  'location' is missing in props validation             react/prop-types
+  15:19  warning  'location.pathname' is missing in props validation    react/prop-types
+  18:5   warning  Must use destructuring props assignment               react/destructuring-assignment
+  18:16  warning  'getTutorialDetails' is missing in props validation   react/prop-types
+  31:14  warning  Must use destructuring props assignment               react/destructuring-assignment
+  31:25  warning  'likes' is missing in props validation                react/prop-types
+  31:37  warning  Must use destructuring props assignment               react/destructuring-assignment
+  31:48  warning  'likes' is missing in props validation                react/prop-types
+  33:14  warning  Must use destructuring props assignment               react/destructuring-assignment
+  33:25  warning  'dislikes' is missing in props validation             react/prop-types
+  33:40  warning  Must use destructuring props assignment               react/destructuring-assignment
+  33:51  warning  'dislikes' is missing in props validation             react/prop-types
+  35:35  warning  Must use destructuring props assignment               react/destructuring-assignment
+  35:46  warning  'title' is missing in props validation                react/prop-types
+  41:21  warning  Must use destructuring props assignment               react/destructuring-assignment
+  41:32  warning  'author' is missing in props validation               react/prop-types
+  42:32  warning  Must use destructuring props assignment               react/destructuring-assignment
+  42:43  warning  'createdAt' is missing in props validation            react/prop-types
+  43:17  warning  Must use destructuring props assignment               react/destructuring-assignment
+  43:28  warning  'createdAt' is missing in props validation            react/prop-types
+  43:38  warning  'createdAt.substring' is missing in props validation  react/prop-types
+  43:51  warning  Must use destructuring props assignment               react/destructuring-assignment
+  43:62  warning  'createdAt' is missing in props validation            react/prop-types
+  43:72  warning  'createdAt.length' is missing in props validation     react/prop-types
+  50:51  warning  Must use destructuring props assignment               react/destructuring-assignment
+  50:62  warning  'content' is missing in props validation              react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/tutorial/TutorialDiscussion.js
+  12:24  warning  'comments' is missing in props validation                                                                              react/prop-types
+  15:25  warning  'comments.length' is missing in props validation                                                                       react/prop-types
+  15:44  warning  'comments.length' is missing in props validation                                                                       react/prop-types
+  21:19  warning  'onChange' is missing in props validation                                                                              react/prop-types
+  21:29  warning  'onSubmit' is missing in props validation                                                                              react/prop-types
+  21:39  warning  'submitting' is missing in props validation                                                                            react/prop-types
+  21:51  warning  'value' is missing in props validation                                                                                 react/prop-types
+  21:58  warning  'onKeyPress' is missing in props validation                                                                            react/prop-types
+  34:21  warning  'comments' is missing in props validation                                                                              react/prop-types
+  37:17  warning  'comments.length' is missing in props validation                                                                       react/prop-types
+  50:7   warning  'location' is missing in props validation                                                                              react/prop-types
+  50:19  warning  'location.pathname' is missing in props validation                                                                     react/prop-types
+  53:5   warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  53:16  warning  'getTutorialComments' is missing in props validation                                                                   react/prop-types
+  63:10  warning  Must use destructuring state assignment                                                                                react/destructuring-assignment
+  72:16  warning  Must use destructuring state assignment                                                                                react/destructuring-assignment
+  75:20  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  75:31  warning  'addTutorialComments' is missing in props validation                                                                   react/prop-types
+  75:56  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  75:67  warning  'id' is missing in props validation                                                                                    react/prop-types
+  76:19  warning  'result' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  96:23  warning  Must use destructuring props assignment                                                                                react/destructuring-assignment
+  96:34  warning  'comments' is missing in props validation                                                                              react/prop-types
+  96:43  warning  'comments.map' is missing in props validation                                                                          react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/tutorial/TutorialList.js
+  19:7   warning  'location' is missing in props validation                                                                            react/prop-types
+  19:19  warning  'location.search' is missing in props validation                                                                     react/prop-types
+  21:5   warning  Must use destructuring props assignment                                                                              react/destructuring-assignment
+  21:16  warning  'getAllTutorials' is missing in props validation                                                                     react/prop-types
+  30:23  warning  'page' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+  34:23  warning  Must use destructuring props assignment                                                                              react/destructuring-assignment
+  34:34  warning  'data' is missing in props validation                                                                                react/prop-types
+
+/home/binhcao/Documents/candicode/src/pages/user-plan/UserPlan.js
+  33:5   warning  Must use destructuring props assignment              react/destructuring-assignment
+  33:16  warning  'changeUserPassword' is missing in props validation  react/prop-types
+  39:11  warning  'currentUser' is missing in props validation         react/prop-types
+  83:52  warning  Must use destructuring props assignment              react/destructuring-assignment
+  83:63  warning  'openUserForm' is missing in props validation        react/prop-types
+
+/home/binhcao/Documents/candicode/src/router.js
+  24:3   warning  Must use destructuring props assignment           react/destructuring-assignment
+  24:9   warning  'getCurrentUser' is missing in props validation   react/prop-types
+  38:46  warning  Must use destructuring props assignment           react/destructuring-assignment
+  38:52  warning  'isAuthenticated' is missing in props validation  react/prop-types
+  39:40  warning  Must use destructuring props assignment           react/destructuring-assignment
+  39:46  warning  'isAuthenticated' is missing in props validation  react/prop-types
+
+/home/binhcao/Documents/candicode/src/services/api.services.js
+  56:39  warning  'id' is defined but never used. Allowed unused args must match /^(props|state|prev|next|error|snapshot|event|_)/u  no-unused-vars
+
+✖ 1303 problems (1 error, 1302 warnings)
+  1 error and 8 warnings potentially fixable with the `--fix` option.
+
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

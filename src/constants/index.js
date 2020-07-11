@@ -89,6 +89,6 @@ export function randomBanner() {
 }
 
 export function randomNumber() {
-  var index = Math.floor(Math.random() * 20);;
+  var index = Math.floor(Math.random() * 20);
   return index;
 }
