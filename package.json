@@ -28,7 +28,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "reqwest": "^2.0.5",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "eslint-plugin-react": "^7.16.0"
   },
   "scripts": {
     "start": "npm-run-all -p watch-css start-js lint",
