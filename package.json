@@ -32,10 +32,10 @@
     "eslint-plugin-react": "^7.16.0"
   },
   "scripts": {
-    "start": "npm-run-all -p watch-css start-js lint",
-    "build": "npm-run-all build-css build-js",
-    "start-js": "react-scripts start",
-    "build-js": "react-scripts build",
+    "start-js": "npm-run-all -p watch-css start-js lint",
+    "build-js": "npm-run-all build-css build-js",
+    "start": "react-scripts --max_old_space_size=4096 start",
+    "build": "react-scripts --max_old_space_size=4096 build",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "build-css": "node-sass-chokidar src/ -o src/",
     "test": "react-scripts test",
