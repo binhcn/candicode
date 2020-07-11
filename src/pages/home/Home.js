@@ -16,7 +16,7 @@ const ChallengeCard = loadable(() => import('../challenge/ChallengeCard'))
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.props.getAllChallenges('');
+    // this.props.getAllChallenges('');
   }
 
   componentDidMount() {
