@@ -6,6 +6,7 @@ const initState = {
   tagList: [],
   banner: null,
   imageUrl: "",
+  loading: false,
 
   description: "",
   content: "",
@@ -28,6 +29,7 @@ const tutorialReducer = (state = initState, action) => {
         author: action.payload.author,
         tagList: action.payload.tags,
         banner: action.payload.banner,
+        imageUrl: '',
         description: action.payload.description,
         content: action.payload.content,
         createdAt: action.payload.createdAt,
@@ -37,10 +39,7 @@ const tutorialReducer = (state = initState, action) => {
       };
 
     case actions.HANDLE_TUTORIAL_MODAL:
-      if (action.payload)
-        return { ...state, visible: action.payload };
-      else
-        return { ...state, visible: action.payload, banner: null };
+      return { ...state, visible: action.payload };
 
     case actions.UPDATE_STEP_ONE_TUTORIAL:
       return {
@@ -114,6 +113,12 @@ const tutorialReducer = (state = initState, action) => {
     case actions.ADD_TUTORIAL_COMMENTS:
       var comments = [action.payload, ...state.comments];
       return { ...state, comments: comments };
+
+    case actions.UPDATE_TUTORIAL_IMAGE_URL:
+      return { ...state, imageUrl: action.payload, loading: false };
+
+    case actions.START_TUTORIAL_LOADING:
+      return { ...state, loading: true };
 
     default:
       return state;

@@ -46,16 +46,18 @@ export function getProfileSubmissions() {
   return async function (dispatch) {
     const response = await apiService.getProfileSubmissions();
     if (response.status === 200) {
-      dispatch({ type: actions.GET_PROFILE_SUBMISSIONS, payload: response.data.result })
+      dispatch({ type: actions.GET_PROFILE_SUBMISSIONS, payload: response.data.result.items })
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
     }
   };
 }
 
-export function updateUserProfile(data) {
+export function updateUserProfile(payload) {
   return async function (dispatch) {
-    const response = await apiService.updateUserProfile(data);
+    const response = await apiService.updateUserProfile(payload.formData);
     if (response.status === 200) {
-      dispatch({ type: actions.UPDATE_USER_PROFILE, payload: response.data.result });
+      dispatch({ type: actions.UPDATE_USER_PROFILE, payload: payload.data });
       message.success(response.data.result.message);
     } else {
       message.fail('Sorry! Something went wrong. Please try again!');
@@ -94,13 +96,6 @@ export function upgradeUserPlan(payload) {
     } else {
       message.fail('Sorry! Something went wrong. Please try again!');
     }
-  };
-}
-
-export function getImageFromUrl(url) {
-  return async function (dispatch) {
-    const response = await fetch(url);
-    dispatch({ type: actions.GET_IMAGE_FROM_URL, payload: response });
   };
 }
 
@@ -335,6 +330,18 @@ export function deleteTestcase(payload) {
   };
 }
 
+export function updateChallengeImageUrl(url) {
+  return async function (dispatch) {
+    dispatch({ type: actions.UPDATE_CHALLENGE_IMAGE_URL, payload: url });
+  };
+}
+
+export function startChallengeLoading() {
+  return async function (dispatch) {
+    dispatch({ type: actions.START_CHALLENGE_LOADING });
+  };
+}
+
 
 // ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗
 // ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║
@@ -462,6 +469,18 @@ export function addTutorialComments(data) {
   };
 }
 
+export function updateTutorialImageUrl(url) {
+  return async function (dispatch) {
+    dispatch({ type: actions.UPDATE_TUTORIAL_IMAGE_URL, payload: url });
+  };
+}
+
+export function startTutorialLoading() {
+  return async function (dispatch) {
+    dispatch({ type: actions.START_TUTORIAL_LOADING });
+  };
+}
+
 
 //  ██████╗ ██████╗ ██████╗ ███████╗    ███████╗██████╗ ██╗████████╗ ██████╗ ██████╗
 // ██╔════╝██╔═══██╗██╔══██╗██╔════╝    ██╔════╝██╔══██╗██║╚══██╔══╝██╔═══██╗██╔══██╗
@@ -486,7 +505,10 @@ export function saveSubmission(payload) {
   return async function (dispatch) {
     const response = await apiService.saveSubmission(payload);
     if (response.status === 200) {
-      return response.data.result;
+      notification['success']({
+        message: 'Candicode',
+        description: response.data.result.message,
+      });
     } else {
       message.fail('Sorry! Something went wrong. Please try again!');
     }
@@ -542,7 +564,7 @@ export function getChallengeSubmissions(id) {
   return async function (dispatch) {
     const response = await apiService.getChallengeSubmissions(id);
     if (response.status === 200) {
-      dispatch({ type: actions.GET_CHALLENGE_SUBMISSIONS, payload: response.data.result })
+      dispatch({ type: actions.GET_CHALLENGE_SUBMISSIONS, payload: response.data.result.items })
     }
   };
 }
@@ -733,5 +755,17 @@ export function registerContest(id) {
     if (response && response.status === 200) {
       dispatch({ type: actions.REGISTER_CONTEST })
     }
+  };
+}
+
+export function updateContestImageUrl(url) {
+  return async function (dispatch) {
+    dispatch({ type: actions.UPDATE_CONTEST_IMAGE_URL, payload: url });
+  };
+}
+
+export function startContestLoading() {
+  return async function (dispatch) {
+    dispatch({ type: actions.START_CONTEST_LOADING });
   };
 }

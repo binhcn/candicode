@@ -11,38 +11,28 @@ import './Profile.css';
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: 'ID',
+    dataIndex: 'key',
   },
   {
-    title: 'Cash Assets',
-    className: 'column-money',
-    dataIndex: 'money',
+    title: 'Challenge',
+    dataIndex: 'challengeTitle',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-  },
-];
-
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    money: '￥300,000.00',
-    address: 'New York No. 1 Lake Park',
+    title: 'Submitted at',
+    dataIndex: 'submitAt',
   },
   {
-    key: '2',
-    name: 'Jim Green',
-    money: '￥1,256,000.00',
-    address: 'London No. 1 Lake Park',
+    title: 'Execution time',
+    dataIndex: 'execTime',
   },
   {
-    key: '3',
-    name: 'Joe Black',
-    money: '￥120,000.00',
-    address: 'Sidney No. 1 Lake Park',
+    title: 'Passed testcase',
+    dataIndex: 'formattedTestcase',
+  },
+  {
+    title: 'Score',
+    dataIndex: 'point',
   },
 ];
 
@@ -77,7 +67,7 @@ class RightSide extends Component {
 
 				<Table
 					columns={columns}
-					dataSource={data}
+					dataSource={this.props.submissions}
 					bordered
 					pagination={false}
 				/>

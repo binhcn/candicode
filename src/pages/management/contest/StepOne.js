@@ -9,6 +9,7 @@ import './Contest.css';
 import { STEP_LENGTH, TAG_SET } from '../../../constants';
 import {
   updateStepOneContest, updateStepContest,
+  updateContestImageUrl, startContestLoading,
 } from "../../../actions/actions.creator";
 
 function getBase64(img, callback) {
@@ -33,33 +34,23 @@ function beforeUpload(file) {
 class StepOne extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loading: false,
-      imageUrl: "",
-    };
-    if (this.props.banner) {
+    if (this.props.banner && typeof this.props.banner === 'object') {
       getBase64(this.props.banner, imageUrl => {
-        this.setState({
-          imageUrl,
-          loading: false,
-        });
+        this.props.updateContestImageUrl(imageUrl);
       });
     }
   }
 
   handleChange = info => {
     if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
+      this.props.startContestLoading();
       return;
     }
     console.log(info)
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, imageUrl => {
-        this.setState({
-          imageUrl,
-          loading: false,
-        });
+        this.props.updateContestImageUrl(imageUrl);
       }
       );
     }
@@ -69,7 +60,7 @@ class StepOne extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        const payload = Object.assign({}, values, { imageUrl: this.state.imageUrl });
+        const payload = Object.assign({}, values, { imageUrl: this.props.imageUrl });
         this.props.updateStepOneContest(payload);
         console.log('Received values of form: ', payload);
         var step = 1;
@@ -109,11 +100,11 @@ class StepOne extends React.Component {
 
     const uploadButton = (
       <div>
-        <Icon type={this.state.loading ? 'loading' : 'plus'} />
+        <Icon type={this.props.loading ? 'loading' : 'plus'} />
         <div className="ant-upload-text">Upload</div>
       </div>
     );
-    const { imageUrl } = this.state;
+    const { imageUrl, banner } = this.props;
     return (
       <Form {...formItemLayout} className="step-one" onSubmit={this.handleSubmit}>
         <Form.Item
@@ -180,7 +171,13 @@ class StepOne extends React.Component {
               beforeUpload={beforeUpload}
               onChange={this.handleChange}
             >
-              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+              {banner || imageUrl ?
+                <img
+                  src={imageUrl ? imageUrl : banner}
+                  alt="avatar"
+                  style={{ width: '100%' }}
+                />
+                : uploadButton}
             </Upload>,
           )}
         </Form.Item>
@@ -204,11 +201,15 @@ const mapStateToProps = state => ({
   tagList: state.contestReducer.tagList,
   description: state.contestReducer.description,
   banner: state.contestReducer.banner,
+  imageUrl: state.contestReducer.imageUrl,
+  loading: state.contestReducer.loading,
   currentStep: state.contestReducer.currentStep,
 });
 const mapDispatchToProps = dispatch => ({
   updateStepOneContest: (payload) => dispatch(updateStepOneContest(payload)),
   updateStepContest: (payload) => dispatch(updateStepContest(payload)),
+  updateContestImageUrl: (payload) => dispatch(updateContestImageUrl(payload)),
+  startContestLoading: () => dispatch(startContestLoading()),
 });
 
 const WrappedStepOne = Form.create({ name: 'stepOne' })(
