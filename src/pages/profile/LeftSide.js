@@ -14,7 +14,10 @@ class LeftSide extends React.Component {
 		maxExp: 1000,
 	}
 	render() {
-		var { currentUser } = this.props;
+		var { firstName, slogan,
+			facebook, github, linkedin, location, company,
+			university, fullName,
+		} = this.props;
 		const { exp, maxExp } = this.state;
 		const value = exp / maxExp * 100;
 		return (
@@ -25,12 +28,12 @@ class LeftSide extends React.Component {
 				>
 					<Meta
 						avatar={
-							<Avatar key="avatar" size="large" style={{ backgroundColor: getAvatarColor(currentUser.firstName) }}>
-								{currentUser.firstName[0].toUpperCase()}
+							<Avatar key="avatar" size="large" style={{ backgroundColor: getAvatarColor(firstName) }}>
+								{firstName[0].toUpperCase()}
 							</Avatar>
 						}
-						title={currentUser.fullName}
-						description={currentUser.slogan}
+						title={fullName}
+						description={slogan}
 					/>
 
 					<Progress
@@ -51,17 +54,17 @@ class LeftSide extends React.Component {
 					</Descriptions>
 
 					<Row className="logo">
-						{currentUser.facebook &&
+						{facebook &&
 							<Col span={8}><img src="img/facebook.png" alt="facebook" /></Col>
 						}
-						{currentUser.github &&
+						{github &&
 							<Col span={8}><img src="img/github.svg" alt="github" /></Col>
 						}
-						{currentUser.linkedin &&
+						{linkedin &&
 							<Col span={8}><img src="img/linkin.png" alt="facebook" /></Col>
 						}
 					</Row>
-					{currentUser.location &&
+					{location &&
 						<>
 							<Divider />
 							<span>
@@ -71,14 +74,14 @@ class LeftSide extends React.Component {
 							<span style={{ float: 'right' }}>TpHCM, Vietnam</span>
 						</>
 					}
-					{currentUser.company &&
+					{company &&
 						<>
 							<Divider />
 							<span><i className="fas fa-building fa-lg" style={{ color: "limegreen" }}></i> Company</span>
 							<span style={{ float: 'right' }}>VNG Group</span>
 						</>
 					}
-					{currentUser.university &&
+					{university &&
 						<>
 							<Divider />
 							<span><i className="fas fa-university fa-lg" style={{ color: "teal" }}></i> University</span>
@@ -106,7 +109,15 @@ class LeftSide extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	currentUser: state.userReducer.currentUser,
+	firstName: state.userReducer.firstName,
+	fullName: state.userReducer.fullName,
+	slogan: state.userReducer.slogan,
+	facebook: state.userReducer.facebook,
+	github: state.userReducer.github,
+	linkedin: state.userReducer.linkedin,
+	location: state.userReducer.location,
+	company: state.userReducer.company,
+	university: state.userReducer.university,
 });
 
 const mapDispatchToProps = dispatch => ({

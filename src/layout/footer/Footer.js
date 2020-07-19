@@ -42,26 +42,34 @@ class Footer extends React.Component {
         </Col>
         <Col xs={12} md={7}>
           <h3 style={{paddingLeft:'20px'}}>
-            <FormattedMessage id='content' />
+            <FormattedMessage id='CONTENT' />
           </h3>
           <ul>
             <li>
-              <Link to="/challenges">Challenge</Link>
+              <Link to="/challenges">
+                <FormattedMessage id='challenge' />
+              </Link>
             </li>
             <li>
-              <Link to="/tutorials">Tutorial</Link>
+              <Link to="/tutorials">
+                <FormattedMessage id='tutorial' />
+              </Link>
             </li>
             <li>
-              <Link to="/contests">Contest</Link>
+              <Link to="/contests">
+                <FormattedMessage id='contest' />
+              </Link>
             </li>
             <li>
-              <Link to="/user-plans">Upgrade</Link>
+              <Link to="/user-plans">
+                <FormattedMessage id='upgrade' />
+              </Link>
             </li>
           </ul>
         </Col>
         <Col xs={12} md={7}>
           <h3>
-            <FormattedMessage id='contact_us' />
+            <FormattedMessage id='CONTACT_US' />
           </h3>
           <div style={{margin: '30px'}}>
             <Icon type="facebook" style={{ fontSize: '32px', color: 'white', marginRight: '10px' }} />
@@ -70,8 +78,12 @@ class Footer extends React.Component {
           
           <div>
             <Select defaultValue={this.props.lang} style={{ width: 300 }} onChange={this.handleChange}>
-              <Option value="en">English</Option>
-              <Option value="vi">Vietnamese</Option>
+              <Option value="en">
+                <FormattedMessage id='english' />
+              </Option>
+              <Option value="vi">
+                <FormattedMessage id='vietnamese' />
+              </Option>
             </Select>
           </div>
           

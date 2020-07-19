@@ -14,6 +14,7 @@ const request = (options) => {
   }
 
   const defaults = { headers: headers };
+  console.log(options)
 
   options = Object.assign({}, defaults, options);
   return axios(options)
@@ -38,6 +39,7 @@ export function signup(signupRequest) {
 }
 
 export function login(loginRequest) {
+  localStorage.removeItem(ACCESS_TOKEN);
   return request({
     url: API_BASE_URL + "/auth/login",
     method: 'POST',
@@ -77,6 +79,22 @@ export function changeUserPassword(payload) {
   });
 }
 
+export function upgradeUserPlan(payload) {
+  return request({
+    url: API_BASE_URL + "/plans",
+    method: 'POST',
+    data: payload
+  });
+}
+
+export function getImageFromUrl(url) {
+  return request({
+    url: url,
+    method: 'GET',
+    data: {}
+  });
+}
+
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 // ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
@@ -112,7 +130,7 @@ export function editChallenge(data) {
 
 export function getAllChallenges(params) {
   return request({
-    url: API_BASE_URL + "/challenges" + params,
+    url: API_BASE_URL + "/challenges" + (params ? params : ''),
     method: 'GET',
     data: {}
   });
@@ -402,6 +420,14 @@ export function getContestChallenge() {
   return request({
     url: API_BASE_URL + "/challenges/me?contestChallenge=true",
     method: 'GET',
+    data: {}
+  });
+}
+
+export function registerContest(id) {
+  return request({
+    url: API_BASE_URL + '/contests/' + id + '/registration',
+    method: 'POST',
     data: {}
   });
 }

@@ -78,38 +78,39 @@ class StepThree extends React.Component {
   };
 
   handleComplete = e => {
+    var { challenge } = this.props;
     const values = {description: this.state.description}
     this.props.updateStepThree(values);
 
     const formData = new FormData();
-    if (this.props.challange.banner) {
-      formData.append('banner', this.props.challange.banner);
+    if (challenge.banner && typeof challenge.banner === 'object') {
+      formData.append('banner', this.props.challenge.banner);
     }
-    if (this.props.challange.tagList.length > 0) {
-      formData.append('tags', this.props.challange.tagList);
+    if (this.props.challenge.tagList.length > 0) {
+      formData.append('tags', this.props.challenge.tagList);
     }
-    if (this.props.challange.id) {
-      formData.append('title', this.props.challange.title);
-      formData.append('level', this.props.challange.level);
+    if (this.props.challenge.id) {
+      formData.append('title', this.props.challenge.title);
+      formData.append('level', this.props.challenge.level);
       formData.append('description', this.state.description);
     } else {
-      console.log(this.props.challange.implementedPath.slice(-1)[0])
-      formData.append('title', this.props.challange.title);
-      formData.append('level', this.props.challange.level);
-      formData.append('language', this.props.challange.language[0]);
-      formData.append('compilePath', this.props.challange.compilePath.slice(-1)[0]);
-      formData.append('runPath', this.props.challange.runPath.slice(-1)[0]);
-      formData.append('implementedPath', this.props.challange.implementedPath.slice(-1)[0]);
-      formData.append('nonImplementedPath', this.props.challange.nonImplementedPath.slice(-1)[0]);
-      formData.append('tcInputFormat', this.props.challange.tcInputFormat);
-      formData.append('tcOutputFormat', this.props.challange.tcOutputFormat);
-      formData.append('contestChallenge', this.props.challange.contestChallenge);
+      console.log(this.props.challenge.implementedPath.slice(-1)[0])
+      formData.append('title', this.props.challenge.title);
+      formData.append('level', this.props.challenge.level);
+      formData.append('language', this.props.challenge.language[0]);
+      formData.append('compilePath', this.props.challenge.compilePath.slice(-1)[0]);
+      formData.append('runPath', this.props.challenge.runPath.slice(-1)[0]);
+      formData.append('implementedPath', this.props.challenge.implementedPath.slice(-1)[0]);
+      formData.append('nonImplementedPath', this.props.challenge.nonImplementedPath.slice(-1)[0]);
+      formData.append('tcInputFormat', this.props.challenge.tcInputFormat);
+      formData.append('tcOutputFormat', this.props.challenge.tcOutputFormat);
+      formData.append('contestChallenge', this.props.challenge.contestChallenge);
       formData.append('description', this.state.description);
-      formData.append('challengeDir', this.props.challange.challengeDir);
+      formData.append('challengeDir', this.props.challenge.challengeDir);
     }
 
-    var { data, visible, ...rest } = this.props.challange;
-    const request = Object.assign({}, rest, {id: this.props.challange.id, description: this.state.description});
+    var { data, visible, ...rest } = this.props.challenge;
+    const request = Object.assign({}, rest, {id: this.props.challenge.id, description: this.state.description});
     this.props.updateChallenge({formData, request});
 
     this.props.handleModal(false);
@@ -173,7 +174,7 @@ class StepThree extends React.Component {
 
 const mapStateToProps = state => ({
   description: state.challengeReducer.description,
-  challange: state.challengeReducer,
+  challenge: state.challengeReducer,
 });
 const mapDispatchToProps = dispatch => ({
   updateStepThree: (payload) => dispatch(updateStepThree(payload)),

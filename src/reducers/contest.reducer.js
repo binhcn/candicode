@@ -9,6 +9,7 @@ const initState = {
   tagList: [],
   banner: null,
   imageUrl: "",
+  loading: false,
 
   description: "",
   content: "",
@@ -19,6 +20,8 @@ const initState = {
   visibleUpdateRoundModal: false,
   visibleDeleteRoundModal: false,
   currentStep: 0,
+
+  enrolled: false,
 
   contestChallengeList: [],
   comments: [],
@@ -34,6 +37,7 @@ const contestReducer = (state = initState, action) => {
         author: action.payload.author,
         tagList: action.payload.tags,
         banner: action.payload.banner,
+        imageUrl: '',
         description: action.payload.description,
         content: action.payload.content,
         createdAt: action.payload.createdAt,
@@ -41,6 +45,7 @@ const contestReducer = (state = initState, action) => {
         registrationDeadline: moment(action.payload.registrationDeadline),
         rounds: action.payload.rounds,
         currentStep: 0,
+        enrolled: action.payload.enrolled,
       };
 
     case actions.HANDLE_CONTEST_MODAL:
@@ -127,6 +132,15 @@ const contestReducer = (state = initState, action) => {
 
     case actions.GET_CONTEST_CHALLENGES:
       return { ...state, contestChallengeList: action.payload };
+
+    case actions.REGISTER_CONTEST:
+      return { ...state, enrolled: true };
+
+    case actions.UPDATE_CONTEST_IMAGE_URL:
+      return { ...state, imageUrl: action.payload, loading: false };
+
+    case actions.START_CONTEST_LOADING:
+      return { ...state, loading: true };
 
     default:
       return state;

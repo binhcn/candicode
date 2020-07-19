@@ -91,8 +91,8 @@ class Setting extends React.Component {
         formData.append('location', values.location);
         formData.append('company', values.company);
         formData.append('university', values.university);
-        formData.append('avatar', this.state.imageUrl);
-        this.props.updateUserProfile(formData);
+        var payload = { formData: formData, data: values };
+        this.props.updateUserProfile(payload);
       }
     });
   };
@@ -281,7 +281,7 @@ const mapStateToProps = state => ({
   currentUser: state.userReducer.currentUser,
 });
 const mapDispatchToProps = dispatch => ({
-  updateUserProfile: () => dispatch(updateUserProfile()),
+  updateUserProfile: payload => dispatch(updateUserProfile(payload)),
 });
 
 const WrappedSetting = Form.create({ name: 'setting' })(

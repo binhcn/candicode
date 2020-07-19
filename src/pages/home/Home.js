@@ -4,6 +4,7 @@ import $ from 'jquery';
 import { Row, Col, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import loadable from '@loadable/component';
+import { FormattedMessage } from 'react-intl';
 
 import './Home.css';
 // import ChallengeCard from '../challenge/ChallengeCard';
@@ -16,7 +17,7 @@ const ChallengeCard = loadable(() => import('../challenge/ChallengeCard'))
 class Home extends React.Component {
   constructor(props) {
     super(props);
-    // this.props.getAllChallenges('');
+    this.props.getAllChallenges();
   }
 
   componentDidMount() {
@@ -43,21 +44,33 @@ class Home extends React.Component {
           <div className="col-lg-4">
             <div className="box_feat" id="icon_1">
               <span></span>
-              <h3>Get knowledge</h3>
-              <p>We provides a various tutorials covering a wide range of computer science domains. Deep into them and get strong backgrounds for yourself.</p>
+              <h3>
+                <FormattedMessage id='GET_KNOWLEDGE' />
+              </h3>
+              <p>
+                <FormattedMessage id='get_knowledge_description' />
+              </p>
             </div>
           </div>
           <div className="col-lg-4">
             <div className="box_feat" id="icon_2">
               <span></span>
-              <h3>Practice them</h3>
-              <p>A large community that is willing to help you change your mind in programming world. More passed challenges more rewards. We are here to enjoy programming.</p>
+              <h3>
+                <FormattedMessage id='PRACTICE_THEM' />
+              </h3>
+              <p>
+                <FormattedMessage id='practive_them_description' />
+              </p>
             </div>
           </div>
           <div className="col-lg-4">
             <div className="box_feat" id="icon_3">
-              <h3>Be a champion</h3>
-              <p>Weekly contests and various official bootcamp tour from well-known corporations. Participating in and proving your abilities with the employers.</p>
+              <h3>
+                <FormattedMessage id='BE_A_CHAMPION' />
+              </h3>
+              <p>
+                <FormattedMessage id='be_a_champion_description' />
+              </p>
             </div>
           </div>
         </div>
@@ -89,16 +102,26 @@ class Home extends React.Component {
         <Row>
           <Col sm={{ span: 24, offset: 0 }} md={{ span: 12, offset: 0 }} className="tutorial-contest">
             <div className="item tutorial-item">
-              <p className="topic">TUTORIALS</p>
+              <p className="topic">
+                <FormattedMessage id='TUTORIALS' />
+              </p>
               <div className="divider" />
-              <Link to="/tutorials">View details <Icon type="arrow-right" /></Link>
+              <Link to="/tutorials">
+                <FormattedMessage id='View_details' />
+                <Icon type="arrow-right" />
+              </Link>
             </div>
           </Col>
           <Col sm={{ span: 24, offset: 0 }} md={{ span: 12, offset: 0 }} className="tutorial-contest">
             <div className="item contest-item">
-              <p className="topic">CONTESTS</p>
+              <p className="topic">
+                <FormattedMessage id='CONTESTS' />
+              </p>
               <div className="divider" />
-              <Link to="/contests">View details <Icon type="arrow-right" /></Link>
+              <Link to="/contests">
+                <FormattedMessage id='View_details' />
+                <Icon type="arrow-right" />
+              </Link>
             </div>
           </Col>
         </Row>

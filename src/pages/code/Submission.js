@@ -2,7 +2,6 @@ import React from 'react';
 import { Table } from 'antd';
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom';
-import moment from 'moment';
 
 import {
   getChallengeSubmissions,
@@ -11,27 +10,25 @@ import {
 const columns = [
   {
     title: 'ID',
-    dataIndex: 'id',
-  },
-  {
-    title: 'name',
-    dataIndex: 'name',
+    dataIndex: 'key',
   },
   {
     title: 'Submitted at',
-    dataIndex: 'submittedAt',
+    dataIndex: 'submitAt',
+  },
+  {
+    title: 'Execution time',
+    dataIndex: 'execTime',
+  },
+  {
+    title: 'Passed testcase',
+    dataIndex: 'formattedTestcase',
+  },
+  {
+    title: 'Score',
+    dataIndex: 'point',
   },
 ];
-
-const data = [];
-for (let i = 0; i < 5; i++) {
-  data.push({
-    key: i,
-    id: i+1,
-    name: `Submission ${i+1}`,
-    submittedAt: moment().fromNow(),
-  });
-}
 
 class Submission extends React.Component {
 
@@ -53,7 +50,7 @@ class Submission extends React.Component {
             else return { ...item }
           }
         )}
-        dataSource={data}
+        dataSource={this.props.submissions}
         pagination={false}
         style={{margin: '3vh 3vh'}}
       />

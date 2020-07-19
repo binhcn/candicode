@@ -120,3 +120,9 @@
 .tutorial-contest .item a {
   color: white;
 }
+
+.tutorial-contest .item i {
+  bottom: 3px;
+  left: 5px;
+  position: relative;
+}

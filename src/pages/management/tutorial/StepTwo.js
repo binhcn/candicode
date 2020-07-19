@@ -78,11 +78,13 @@ class StepTwo extends React.Component {
   };
 
   handleComplete = e => {
+    var { tutorial } = this.props;
+
     const values = {content: this.state.content}
     this.props.updateStepTwoTutorial(values);
 
     const formData = new FormData();
-    if (this.props.tutorial.banner) {
+    if (tutorial.banner && typeof tutorial.banner === 'object') {
       formData.append('banner', this.props.tutorial.banner);
     }
    

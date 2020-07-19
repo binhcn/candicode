@@ -6,6 +6,7 @@ const initState = {
   tagList: [],
   banner: null,
   imageUrl: "",
+  loading: false,
 
   description: "",
   content: "",
@@ -20,6 +21,7 @@ const initState = {
 const tutorialReducer = (state = initState, action) => {
   switch (action.type) {
     case actions.HANDLE_TUTORIAL:
+
       return {
         ...state,
         id: action.payload.tutorialId,
@@ -27,6 +29,7 @@ const tutorialReducer = (state = initState, action) => {
         author: action.payload.author,
         tagList: action.payload.tags,
         banner: action.payload.banner,
+        imageUrl: '',
         description: action.payload.description,
         content: action.payload.content,
         createdAt: action.payload.createdAt,
@@ -110,6 +113,12 @@ const tutorialReducer = (state = initState, action) => {
     case actions.ADD_TUTORIAL_COMMENTS:
       var comments = [action.payload, ...state.comments];
       return { ...state, comments: comments };
+
+    case actions.UPDATE_TUTORIAL_IMAGE_URL:
+      return { ...state, imageUrl: action.payload, loading: false };
+
+    case actions.START_TUTORIAL_LOADING:
+      return { ...state, loading: true };
 
     default:
       return state;

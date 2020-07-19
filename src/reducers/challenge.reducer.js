@@ -9,6 +9,7 @@ const initState = {
   tagList: [],
   banner: null,
   imageUrl: "",
+  loading: false,
 
   compilePath: "",
   runPath: "",
@@ -50,6 +51,7 @@ const challengeReducer = (state = initState, action) => {
         tagList: action.payload.tags,
         language: action.payload.languages,
         banner: action.payload.banner,
+        imageUrl: '',
         tcInputFormat: action.payload.tcInputFormat,
         tcOutputFormat: action.payload.tcOutputFormat,
         contestChallenge: action.payload.contestChallenge,
@@ -226,6 +228,13 @@ const challengeReducer = (state = initState, action) => {
         ...state,
         data: data,
       }
+
+    case actions.UPDATE_CHALLENGE_IMAGE_URL:
+      return { ...state, imageUrl: action.payload, loading: false };
+
+    case actions.START_CHALLENGE_LOADING:
+      return { ...state, loading: true };
+
     default:
       return state;
   }

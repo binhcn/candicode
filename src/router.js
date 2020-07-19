@@ -21,7 +21,7 @@ import {
 } from "./actions/actions.creator";
 
 function Router(props) {
-  // props.getCurrentUser();
+  props.getCurrentUser();
   return (
     <BrowserRouter>
       <MainService>

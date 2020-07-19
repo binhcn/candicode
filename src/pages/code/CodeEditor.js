@@ -14,12 +14,6 @@ import {
 
 const { Panel } = Collapse;
 
-var newData = null;
-// var newData = {
-//   language: 'cpp',
-//   code: 'binh cao nguyen',
-// };
-
 class CodeEditor extends React.Component {
 
   state = {
@@ -36,6 +30,7 @@ class CodeEditor extends React.Component {
     executionTime: 0,
     passed: 0,
     total: 0,
+    submitAt: '',
   }
 
   handleEditorChange = (event, value) => {
@@ -64,6 +59,7 @@ class CodeEditor extends React.Component {
             isSubmitted: true,
             passed: result.passed,
             total: result.total,
+            submitAt: result.submitAt,
           });
           notification[result.passed === result.total ? 'success' : 'error']({
             message: 'Candicode',
@@ -95,32 +91,15 @@ class CodeEditor extends React.Component {
         data: {
           code: this.state.code,
           language: lang,
-          doneWithin: '',
+          doneWithin: 0,
           compiled: this.state.compiled,
           passed: this.state.passed,
           total: this.state.total,
-          executionTime: details.reduce((a, b) => a + b) / details.length,
+          executionTime: details.reduce((sum, item) => sum + item.executionTime, 0) / details.length,
+          submitAt: this.state.submitAt,
         },
       }
-      var response = this.props.saveSubmission(payload);
-      response.then(result => {
-        if (result.compiled.toLowerCase() === 'success') {
-          this.setState({
-            details: result.details,
-            isSubmitted: true,
-          });
-          notification[result.passed === result.total ? 'success' : 'error']({
-            message: 'Candicode',
-            description: `The submission passed ${result.passed}/${result.total}`,
-          });
-        } else {
-          notification['error']({
-            message: `Compiled error`,
-            description: result.error,
-            duration: 0,
-          });
-        }
-      })
+      this.props.saveSubmission(payload);
     } else {
       notification['warning']({
         message: 'Candidate',
@@ -170,24 +149,16 @@ class CodeEditor extends React.Component {
       <Select.Option key={index} value={item.language}>{item.language}</Select.Option>
     ));
     var editorHtml = null;
-    if (newData) {
-      editorHtml = <ControlledEditor height="79vh"
+
+    var contentId = this.props.contents.findIndex(item => this.state.language === item.language);
+    if (contentId < 0) contentId = 0;
+    editorHtml = this.props.contents[contentId] ?
+      <ControlledEditor height="79vh"
         theme={this.state.theme}
-        value={newData.code}
-        language={newData.language.toLowerCase()}
+        value={this.props.contents[contentId].text}
+        language={this.props.contents[contentId].language.toLowerCase()}
         onChange={this.handleEditorChange}
-      />;
-    } else {
-      var contentId = this.props.contents.findIndex(item => this.state.language === item.language);
-      if (contentId < 0) contentId = 0;
-      editorHtml = this.props.contents[contentId] ?
-        <ControlledEditor height="79vh"
-          theme={this.state.theme}
-          value={this.props.contents[contentId].text}
-          language={this.props.contents[contentId].language.toLowerCase()}
-          onChange={this.handleEditorChange}
-        /> : null;
-    }
+      /> : null;
 
     var testcaseHtml = this.props.testcases.map((item, index) => (
       <Panel header={`Testcase ${index + 1} ${item.hidden ? '(hidden)' : ''}`} key={index}>

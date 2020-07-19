@@ -55,6 +55,9 @@ export const NAVIGATE_ROUND_CHALLENGE = "Navigate round challenge";
 export const GET_CHALLENGE_SUBMISSIONS = "Get challenge submissions";
 export const GET_CHALLENGE_LEADER_BOARD = "Get challenge leader board";
 
+export const UPDATE_CHALLENGE_IMAGE_URL = "Generate challenge image url";
+export const START_CHALLENGE_LOADING = "Start challenge loading";
+
 
 // ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗
 // ╚══██╔══╝██║   ██║╚══██╔══╝██╔═══██╗██╔══██╗██║██╔══██╗██║
@@ -83,6 +86,9 @@ export const ADD_TUTORIAL_COMMENTS = "Add all tutorial comments";
 export const EDIT_TUTORIAL_COMMENTS = "Edit all tutorial comments";
 export const DELETE_TUTORIAL_COMMENTS = "Delete all tutorial comments";
 
+export const UPDATE_TUTORIAL_IMAGE_URL = "Generate tutorial image url";
+export const START_TUTORIAL_LOADING = "Start tutorial loading";
+
 
 //  ██████╗ ██████╗ ███╗   ██╗████████╗███████╗███████╗████████╗
 // ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝
@@ -110,3 +116,7 @@ export const HANDLE_UPDATE_ROUND_MODAL = "Handle update round modal";
 export const HANDLE_DELETE_ROUND_MODAL = "Handle delete round modal";
 
 export const GET_CONTEST_CHALLENGES = "Get all contest challenges";
+export const REGISTER_CONTEST = "Register contest";
+
+export const UPDATE_CONTEST_IMAGE_URL = "Generate contest image url";
+export const START_CONTEST_LOADING = "Start contest loading";

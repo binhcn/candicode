@@ -53,7 +53,24 @@ const codeEditorReducer = (state = initState, action) => {
       return { ...state, currentRoundChallengeIdx: newCurrentRoundChallengeIdx };
 
     case actions.GET_CHALLENGE_SUBMISSIONS:
-      return { ...state, submissions: action.payload };
+      var data = [];
+      action.payload.forEach((submission, index) => {
+        data.push({
+          key: index + 1,
+          id: submission.submissionId,
+          compiled: submission.compiled,
+          point: submission.point,
+          author: submission.author,
+          execTime: submission.execTime,
+          doneWithin: submission.doneWithin,
+          passedTestcases: submission.passedTestcases,
+          totalTestcases: submission.totalTestcases,
+          submitAt: submission.submitAt.substring(0, submission.submitAt.length - 4),
+          contestChallenge: submission.contestChallenge,
+          formattedTestcase: submission.passedTestcases + '/' + submission.totalTestcases,
+        });
+      });
+      return { ...state, submissions: data };
 
     case actions.GET_CHALLENGE_LEADER_BOARD:
       return { ...state, leaderBoard: action.payload };
