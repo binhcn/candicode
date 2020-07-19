@@ -2,6 +2,8 @@ import React from 'react';
 import { Layout, Menu, Row, Avatar, Dropdown, Icon, Col, Button } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
+import { FormattedMessage } from 'react-intl';
+
 import './Header.css';
 import Notification from './Notification';
 import {
@@ -112,19 +114,29 @@ class Header extends React.Component {
               </Menu.SubMenu> */}
 
               <Menu.Item key="/challenges">
-                <Link to="/challenges">Challenge</Link>
+                <Link to="/challenges">
+                  <FormattedMessage id='challenge' />
+                </Link>
               </Menu.Item>
               <Menu.Item key="/tutorials">
-                <Link to="/tutorials">Tutorial</Link>
+                <Link to="/tutorials">
+                  <FormattedMessage id='tutorial' />
+                </Link>
               </Menu.Item>
               <Menu.Item key="/contests">
-                <Link to="/contests">Contest</Link>
+                <Link to="/contests">
+                  <FormattedMessage id='contest' />
+                </Link>
               </Menu.Item>
               <Menu.Item key="/user-plans">
-                <Link to="/user-plans">Upgrade</Link>
+                <Link to="/user-plans">
+                  <FormattedMessage id='upgrade' />
+                </Link>
               </Menu.Item>
               <Menu.Item key="/management">
-                <Link to="/management">Management</Link>
+                <Link to="/management">
+                  <FormattedMessage id='management' />
+                </Link>
               </Menu.Item>
               {/* <Menu.Item key="/code-editor">
                 <Link to="/code-editor">Code Editor</Link>
@@ -146,10 +158,14 @@ function ProfileDropdownMenu(props) {
   const dropdownMenu = (
     <Menu onClick={props.handleMenuClick}>
       <Menu.Item key="/profile">
-        <Link to="/profile">Profile</Link>
+        <Link to="/profile">
+          <FormattedMessage id='profile' />
+        </Link>
       </Menu.Item>
       <Menu.Item key="/logout">
-        <Link to="/logout">Logout</Link>
+        <Link to="/logout">
+          <FormattedMessage id='logout' />
+        </Link>
       </Menu.Item>
     </Menu>
   );

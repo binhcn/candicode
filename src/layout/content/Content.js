@@ -36,21 +36,23 @@ class Content extends React.Component {
 
   render() {
     const {
-      location: { pathname: path },
+      location: { pathname: path }, history,
     } = this.props;
 
-    if (path.localeCompare('/') === 0) {
+    if (path.localeCompare('/index.html') === 0) {
+      history.push('/');
+      return '';
+    } else if (path.localeCompare('/') === 0) {
       return (
         <Layout.Content className="content-background">
           <div className="hero_home version_1">
             <div className="content">
               <h3>
-                <FormattedMessage id='fight_coding' />
+                <FormattedMessage id='FIGHT_CODING' />
               </h3>
               <p></p>
               <div id="custom-search-input">
                 <Input.Search
-                  placeholder="Ex. Title"
                   size="large"
                   onSearch={keyword => this.searchKeyword(keyword)}
                   enterButton="Search"
@@ -59,9 +61,15 @@ class Content extends React.Component {
               </div>
 
               <Radio.Group className="home-search-type" onChange={this.onChangeRadio} defaultValue={this.state.type}>
-                <Radio.Button value="challenges">Challenge</Radio.Button>
-                <Radio.Button className="middle" value="tutorials">Tutorial</Radio.Button>
-                <Radio.Button value="contests">Contest</Radio.Button>
+                <Radio.Button value="challenges">
+                  <FormattedMessage id='challenge' />
+                </Radio.Button>
+                <Radio.Button className="middle" value="tutorials">
+                  <FormattedMessage id='tutorial' />
+                </Radio.Button>
+                <Radio.Button value="contests">
+                  <FormattedMessage id='contest' />
+                </Radio.Button>
               </Radio.Group>
             </div>
           </div>
@@ -84,7 +92,6 @@ class Content extends React.Component {
           <Row type="flex" justify="space-between">
 
             <Breadcrumb />
-
 
             <Input.Search
               placeholder="Search"

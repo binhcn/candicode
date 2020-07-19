@@ -20,6 +20,7 @@ const initState = {
 const tutorialReducer = (state = initState, action) => {
   switch (action.type) {
     case actions.HANDLE_TUTORIAL:
+
       return {
         ...state,
         id: action.payload.tutorialId,
@@ -36,7 +37,10 @@ const tutorialReducer = (state = initState, action) => {
       };
 
     case actions.HANDLE_TUTORIAL_MODAL:
-      return { ...state, visible: action.payload };
+      if (action.payload)
+        return { ...state, visible: action.payload };
+      else
+        return { ...state, visible: action.payload, banner: null };
 
     case actions.UPDATE_STEP_ONE_TUTORIAL:
       return {

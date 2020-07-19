@@ -20,6 +20,8 @@ const initState = {
   visibleDeleteRoundModal: false,
   currentStep: 0,
 
+  enrolled: false,
+
   contestChallengeList: [],
   comments: [],
 };
@@ -41,6 +43,7 @@ const contestReducer = (state = initState, action) => {
         registrationDeadline: moment(action.payload.registrationDeadline),
         rounds: action.payload.rounds,
         currentStep: 0,
+        enrolled: action.payload.enrolled,
       };
 
     case actions.HANDLE_CONTEST_MODAL:
@@ -127,6 +130,9 @@ const contestReducer = (state = initState, action) => {
 
     case actions.GET_CONTEST_CHALLENGES:
       return { ...state, contestChallengeList: action.payload };
+    
+    case actions.REGISTER_CONTEST:
+      return { ...state, enrolled: true };
 
     default:
       return state;

@@ -16,7 +16,6 @@ class ContestDetails extends React.Component {
       location: { pathname: path },
     } = this.props;
     const contestId = path.split('/').slice(-1)[0];
-    console.log(contestId);
     this.props.getContestDetails(contestId);
   }
 

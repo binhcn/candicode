@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import './UserPlan.css';
 import {
-  openUserForm,
+  openUserForm, upgradeUserPlan,
 } from "../../actions/actions.creator";
 
 class UserPlan extends React.Component {
@@ -33,6 +33,11 @@ class UserPlan extends React.Component {
     this.props.changeUserPassword();
     this.onClose();
   };
+
+  upgradeUserPlan = () => {
+    var payload = { plan: this.state.userPlan.toLowerCase() };
+    this.props.upgradeUserPlan(payload);
+  }
 
   render() {
     var { userPlan, visible } = this.state;
@@ -164,7 +169,7 @@ class UserPlan extends React.Component {
             <Divider />
 
             <Col offset={18}>
-              <Button htmlType="submit" type="primary">
+              <Button htmlType="submit" type="primary" onClick={this.upgradeUserPlan}>
                 Upgrade
               </Button>
             </Col>
@@ -182,6 +187,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   openUserForm: status => dispatch(openUserForm(status)),
+  upgradeUserPlan: payload => dispatch(upgradeUserPlan(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPlan);

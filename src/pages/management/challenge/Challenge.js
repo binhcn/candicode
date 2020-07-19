@@ -50,7 +50,7 @@ class Challenge extends React.Component {
         dataIndex: 'language',
         width: '20%',
         render: languageSet => {
-          var html = languageSet.map((item, index) => {
+          var html = languageSet ? languageSet.map((item, index) => {
             if (item) {
               return (
                 <Tag key={index} color={randomColor()}>
@@ -58,7 +58,7 @@ class Challenge extends React.Component {
                 </Tag>
               )
             } else return null;
-          })
+          }) : '';
           return html;
         },
       },

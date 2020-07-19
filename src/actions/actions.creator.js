@@ -86,6 +86,24 @@ export function closeUserForm() {
   };
 }
 
+export function upgradeUserPlan(payload) {
+  return async function () {
+    const response = await apiService.upgradeUserPlan(payload);
+    if (response.status === 200) {
+      window.location.replace(response.data.result.payUrl);
+    } else {
+      message.fail('Sorry! Something went wrong. Please try again!');
+    }
+  };
+}
+
+export function getImageFromUrl(url) {
+  return async function (dispatch) {
+    const response = await fetch(url);
+    dispatch({ type: actions.GET_IMAGE_FROM_URL, payload: response });
+  };
+}
+
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 // ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
@@ -233,7 +251,6 @@ export function getUserChallenges() {
 }
 
 export function getAllChallenges(params) {
-  console.log(params)
   return async function (dispatch) {
     const response = await apiService.getAllChallenges(params);
     if (response && response.status === 200) {
@@ -532,7 +549,8 @@ export function getChallengeSubmissions(id) {
 
 export function getChallengeLeaderBoard(id) {
   return async function (dispatch) {
-    const response = await apiService.getChallengeLeaderBoard(id);
+    // const response = await apiService.getChallengeLeaderBoard(id);
+    const response = { status: 0 };
     if (response.status === 200) {
       dispatch({ type: actions.GET_CHALLENGE_LEADER_BOARD, payload: response.data.result })
     }
@@ -705,6 +723,15 @@ export function getContestChallenges() {
     const response = await apiService.getContestChallenge();
     if (response && response.status === 200) {
       dispatch({ type: actions.GET_CONTEST_CHALLENGES, payload: response.data.result.items })
+    }
+  };
+}
+
+export function registerContest(id) {
+  return async function (dispatch) {
+    const response = await apiService.registerContest(id);
+    if (response && response.status === 200) {
+      dispatch({ type: actions.REGISTER_CONTEST })
     }
   };
 }

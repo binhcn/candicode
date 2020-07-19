@@ -5,7 +5,7 @@ import { Form, Input, Tooltip, Icon, Button, Upload, Select, message } from 'ant
 import './Tutorial.css';
 import { STEP_LENGTH, TAG_SET } from '../../../constants';
 import {
-  updateStepOneTutorial, updateStepTutorial,
+  updateStepOneTutorial, updateStepTutorial, getImageFromUrl,
 } from "../../../actions/actions.creator";
 
 function getBase64(img, callback) {
@@ -34,7 +34,8 @@ class StepOne extends React.Component {
       loading: false,
       imageUrl: "",
     };
-    if (this.props.banner) {
+
+   if (this.props.banner && typeof this.props.banner === 'object') {
       getBase64(this.props.banner, imageUrl => {
         this.setState({
           imageUrl,
@@ -43,6 +44,7 @@ class StepOne extends React.Component {
       });
     }
   }
+
 
   handleChange = info => {
     if (info.file.status === 'uploading') {
@@ -66,7 +68,7 @@ class StepOne extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        const payload = Object.assign({}, values, {imageUrl: this.state.imageUrl});
+        const payload = Object.assign({}, values, { imageUrl: this.state.imageUrl });
         this.props.updateStepOneTutorial(payload);
         console.log('Received values of form: ', payload);
         var step = 1;
@@ -111,6 +113,7 @@ class StepOne extends React.Component {
       </div>
     );
     const { imageUrl } = this.state;
+    var { banner } = this.props;
     return (
       <Form {...formItemLayout} onSubmit={this.handleSubmit}>
         <Form.Item
@@ -165,7 +168,13 @@ class StepOne extends React.Component {
               beforeUpload={beforeUpload}
               onChange={this.handleChange}
             >
-              {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+              {banner || imageUrl ? 
+                <img 
+                  src={typeof banner === 'string' ? banner : imageUrl} 
+                  alt="avatar" 
+                  style={{ width: '100%' }} 
+                /> 
+                : uploadButton}
             </Upload>,
           )}
         </Form.Item>
@@ -192,6 +201,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   updateStepOneTutorial: (payload) => dispatch(updateStepOneTutorial(payload)),
   updateStepTutorial: (payload) => dispatch(updateStepTutorial(payload)),
+  getImageFromUrl: (payload) => dispatch(getImageFromUrl(payload)),
 });
 
 const WrappedStepOne = Form.create({ name: 'stepOne' })(

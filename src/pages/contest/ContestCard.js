@@ -3,17 +3,20 @@ import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import moment from 'moment';
 import {
-  Card, Divider, Button, Tag,
+  Card, Divider, Button, Tag, Popconfirm,
 } from 'antd';
-import { prepareContestChallenges } from '../../actions/actions.creator';
+import { prepareContestChallenges, registerContest, } from '../../actions/actions.creator';
 
 import { randomBanner, randomColor } from '../../constants';
 
 class ContestCard extends React.Component {
 
+  confirm = () => {
+    this.props.registerContest(this.props.id);
+  }
+
   render() {
-    var flag = true;
-    var { rounds, banner } = this.props;
+    var { rounds, banner, enrolled } = this.props;
     var selectedRoundId = rounds ? rounds.findIndex(item => {
       var now = moment();
       console.log(now.diff(item.startsAt, 'minutes'))
@@ -44,10 +47,10 @@ class ContestCard extends React.Component {
         </div>
       )
     }) : null;
-    var firstRoundChallengeId = rounds && selectedRoundId > -1 ? 
+    var firstRoundChallengeId = rounds && selectedRoundId > -1 ?
       rounds[selectedRoundId].challenges[0].challengeId : '';
-    var roundChallengeList = rounds && selectedRoundId > -1 ? 
-    rounds[selectedRoundId].challenges : '';
+    var roundChallengeList = rounds && selectedRoundId > -1 ?
+      rounds[selectedRoundId].challenges : '';
     return (
       <Card
         className="contest-card"
@@ -63,20 +66,27 @@ class ContestCard extends React.Component {
         {html}
 
         {
-          flag ?
+          enrolled ?
             <>
               <p className="register">REGISTERED</p>
               <Link to={"/code-editor/" + firstRoundChallengeId}>
-                <Button type="primary" 
-                    onClick={() => this.props.prepareContestChallenges(roundChallengeList)}>
-                      Fight
+                <Button type="primary"
+                  onClick={() => this.props.prepareContestChallenges(roundChallengeList)}>
+                  Fight
                 </Button>
               </Link>
             </>
             :
-            <Button type="danger" >
-              Register
-          </Button>
+            <Popconfirm
+              title="Are you sure register this contest?"
+              onConfirm={this.confirm}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button type="danger" >
+                Register
+              </Button>
+            </Popconfirm>
         }
 
       </Card>
@@ -85,12 +95,15 @@ class ContestCard extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  id: state.contestReducer.id,
   banner: state.contestReducer.banner,
   rounds: state.contestReducer.rounds,
+  enrolled: state.contestReducer.enrolled,
 });
 
 const mapDispatchToProps = dispatch => ({
-  prepareContestChallenges: (arr) => dispatch(prepareContestChallenges(arr)),
+  prepareContestChallenges: arr => dispatch(prepareContestChallenges(arr)),
+  registerContest: id => dispatch(registerContest(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContestCard);

@@ -9,6 +9,7 @@ export const CLOSE_USER_FORM = "Close user modal";
 
 export const GET_PROFILE_SUBMISSIONS = "Get profile submissions";
 export const UPDATE_USER_PROFILE = "Update user profile";
+export const GET_IMAGE_FROM_URL = "Get image from url";
 
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
@@ -110,3 +111,4 @@ export const HANDLE_UPDATE_ROUND_MODAL = "Handle update round modal";
 export const HANDLE_DELETE_ROUND_MODAL = "Handle delete round modal";
 
 export const GET_CONTEST_CHALLENGES = "Get all contest challenges";
+export const REGISTER_CONTEST = "Register contest";

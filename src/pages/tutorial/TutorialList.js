@@ -45,7 +45,7 @@ class TutorialList extends React.Component {
                   alt="logo"
                   width="100%"
                   height="100%"
-                  src="tutorial.png"
+                  src= {item.banner ? item.banner : "tutorial.png"}
                 />
               }
             >
