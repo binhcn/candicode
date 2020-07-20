@@ -17,8 +17,11 @@ const columns = [
     dataIndex: 'submitAt',
   },
   {
-    title: 'Execution time',
+    title: 'Execution time (ns)',
     dataIndex: 'execTime',
+    render: time => {
+      return Math.round(time / 1000000) / 1000;
+    }
   },
   {
     title: 'Passed testcase',

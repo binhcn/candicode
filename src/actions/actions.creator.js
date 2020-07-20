@@ -99,6 +99,18 @@ export function upgradeUserPlan(payload) {
   };
 }
 
+export function updateAvatarUrl(url) {
+  return async function (dispatch) {
+    dispatch({ type: actions.UPDATE_AVATAR_URL, payload: url });
+  };
+}
+
+export function startAvatarLoading() {
+  return async function (dispatch) {
+    dispatch({ type: actions.START_AVATAR_LOADING });
+  };
+}
+
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 // ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝

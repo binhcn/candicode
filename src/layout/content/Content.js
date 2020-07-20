@@ -1,10 +1,14 @@
 import React from "react";
 import { Layout, Row, Input, Radio, } from 'antd';
 import { withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 
 import './Content.css';
 import Breadcrumb from './Breadcrumb';
+import {
+  getAllChallenges, getAllTutorials, getAllContests,
+} from "../../actions/actions.creator";
 
 class Content extends React.Component {
 
@@ -21,10 +25,13 @@ class Content extends React.Component {
       this.props.history.push('/' + this.state.type + params);
     } else if (path.startsWith('/tutorials')) {
       this.props.history.push('/tutorials' + params);
+      this.props.getAllTutorials(params);
     } else if (path.startsWith('/contests')) {
       this.props.history.push('/contests' + params);
+      this.props.getAllContests(params);
     } else {
       this.props.history.push('/challenges' + params);
+      this.props.getAllChallenges(params);
     }
   }
 
@@ -94,7 +101,7 @@ class Content extends React.Component {
             <Breadcrumb />
 
             <Input.Search
-              placeholder="Search"
+              placeholder='Search by title'
               style={{ width: 400 }}
               size="large"
               onSearch={keyword => this.searchKeyword(keyword)}
@@ -112,4 +119,14 @@ class Content extends React.Component {
   }
 }
 
-export default withRouter(Content);
+const mapStateToProps = state => ({
+  data: state.challengeReducer.data,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAllChallenges: params => dispatch(getAllChallenges(params)),
+  getAllTutorials: params => dispatch(getAllTutorials(params)),
+  getAllContests: params => dispatch(getAllContests(params)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Content));

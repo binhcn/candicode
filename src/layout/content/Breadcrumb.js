@@ -1,16 +1,16 @@
 import React from "react";
 import { Breadcrumb, Icon } from 'antd';
 import { withRouter, Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+
 import './Content.css';
 
 const breadcrumbNameMap = {
-  '/challenges': 'Challenges',
-  '/tutorials': 'Tutorials',
-  '/contests': 'Contests',
-  '/user-plans': 'User plans',
-  '/login': 'Login',
-  '/signup': 'Sign up',
-  '/profile': 'Profile',
+  '/challenges': <FormattedMessage id='challenge' />,
+  '/tutorials': <FormattedMessage id='tutorial' />,
+  '/contests': <FormattedMessage id='contest' />,
+  '/user-plans': <FormattedMessage id='upgrade' />,
+  '/profile': <FormattedMessage id='profile' />,
 };
 
 function Navigation(props) {

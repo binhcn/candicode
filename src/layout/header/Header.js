@@ -22,9 +22,9 @@ class Header extends React.Component {
   }
 
   render() {
-    var { openUserForm } = this.props;
+    var { openUserForm, isAuthenticated, roles, } = this.props;
     let userInfo;
-    if (this.props.isAuthenticated) {
+    if (isAuthenticated) {
       var { firstName, lastName } = this.props.currentUser;
       userInfo = [
         <Notification key="notification" />,
@@ -39,10 +39,10 @@ class Header extends React.Component {
     } else {
       userInfo = [
         <Button key="login" className="mr-10" type="primary" onClick={() => openUserForm("Login")}>
-          Login
+          <FormattedMessage id='login' />
         </Button>,
         <Button key="signup" type="primary" onClick={() => openUserForm("Signup")}>
-          Signup
+          <FormattedMessage id='signup' />
         </Button>,
         <UserForm key="modal" />,
       ];
@@ -133,14 +133,17 @@ class Header extends React.Component {
                   <FormattedMessage id='upgrade' />
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/management">
-                <Link to="/management">
-                  <FormattedMessage id='management' />
-                </Link>
-              </Menu.Item>
-              {/* <Menu.Item key="/code-editor">
-                <Link to="/code-editor">Code Editor</Link>
-              </Menu.Item> */}
+              {roles && (roles.includes('challenge creator')
+                || roles.includes('tutorial creator')
+                || roles.includes('contest creator')
+                || roles.includes('admin')
+                ) &&
+                < Menu.Item key="/management">
+                  <Link to="/management">
+                    <FormattedMessage id='management' />
+                  </Link>
+                </Menu.Item>
+              }
             </Menu>
           </Col>
 
@@ -149,7 +152,7 @@ class Header extends React.Component {
           </Col>
 
         </Row>
-      </Layout.Header>
+      </Layout.Header >
     );
   }
 }
@@ -182,6 +185,7 @@ function ProfileDropdownMenu(props) {
 const mapStateToProps = state => ({
   currentUser: state.userReducer.currentUser,
   isAuthenticated: state.userReducer.isAuthenticated,
+  roles: state.userReducer.roles,
 });
 
 const mapDispatchToProps = dispatch => ({

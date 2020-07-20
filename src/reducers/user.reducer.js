@@ -25,6 +25,7 @@ const initState = {
   loading: false,
   imageUrl: '',
 
+  roles: null,
   submissions: [],
 };
 
@@ -52,10 +53,12 @@ const UserReducer = (state = initState, action) => {
         location: action.payload.location,
         company: action.payload.company,
         university: action.payload.university,
+        roles: action.payload.roles,
+        avatar: action.payload.avatar,
       };
 
     case actions.LOGOUT:
-      return { ...state, isAuthenticated: false, currentUser: null };
+      return { ...state, isAuthenticated: false, currentUser: null, roles: null, };
 
     case actions.GET_PROFILE_SUBMISSIONS:
       var data = [];
@@ -97,6 +100,12 @@ const UserReducer = (state = initState, action) => {
         company: action.payload.company,
         university: action.payload.university,
       };
+
+    case actions.UPDATE_AVATAR_URL:
+      return { ...state, imageUrl: action.payload, loading: false };
+
+    case actions.START_AVATAR_LOADING:
+      return { ...state, loading: true };
 
     default:
       return state;

@@ -6,7 +6,7 @@ import {
 } from 'antd';
 
 import {
-  updateUserProfile,
+  updateUserProfile, updateAvatarUrl, startAvatarLoading,
 } from "../../actions/actions.creator";
 import Password from './Password';
 
@@ -33,16 +33,11 @@ class Setting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
-      imageUrl: "",
       visible: false,
     };
-    if (this.props.banner) {
+    if (this.props.avatar && typeof this.props.avatar === 'object') {
       getBase64(this.props.banner, imageUrl => {
-        this.setState({
-          imageUrl,
-          loading: false,
-        });
+        this.props.updateAvatarUrl(imageUrl);
       });
     }
   }
@@ -61,17 +56,14 @@ class Setting extends React.Component {
 
   handleChange = info => {
     if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
+      this.props.startAvatarLoading();
       return;
     }
     console.log(info)
     if (info.file.status === 'done') {
       // Get this url from response in real world.
       getBase64(info.file.originFileObj, imageUrl => {
-        this.setState({
-          imageUrl,
-          loading: false,
-        });
+        this.props.updateAvatarUrl(imageUrl);
       }
       );
     }
@@ -82,6 +74,9 @@ class Setting extends React.Component {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         const formData = new FormData();
+        if (values.avatar && typeof values.avatar === 'object') {
+          formData.append('avatar', values.avatar);
+        }
         formData.append('firstName', values.firstName);
         formData.append('lastName', values.lastName);
         formData.append('slogan', values.slogan);
@@ -124,11 +119,11 @@ class Setting extends React.Component {
 
     const uploadButton = (
       <div>
-        <Icon type={this.state.loading ? 'loading' : 'plus'} />
+        <Icon type={this.props.loading ? 'loading' : 'plus'} />
         <div className="ant-upload-text">Upload avatar</div>
       </div>
     );
-    const { imageUrl } = this.state;
+    const { imageUrl, avatar, } = this.props;
     return (
       <div>
         <Button type="primary" onClick={this.showDrawer}>
@@ -146,7 +141,7 @@ class Setting extends React.Component {
               <Col span={4}>
                 <Form.Item className="upload-avatar">
                   {getFieldDecorator('avatar', {
-                    initialValue: this.props.banner,
+                    initialValue: this.props.avatar,
                     valuePropName: 'file',
                     getValueFromEvent: (e) => { return e.file.originFileObj; }
                   })(
@@ -159,7 +154,13 @@ class Setting extends React.Component {
                       beforeUpload={beforeUpload}
                       onChange={this.handleChange}
                     >
-                      {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                      {avatar || imageUrl ?
+                        <img
+                          src={imageUrl ? imageUrl : avatar}
+                          alt="avatar"
+                          style={{ width: '100%' }}
+                        />
+                        : uploadButton}
                     </Upload>,
                   )}
                 </Form.Item>
@@ -279,9 +280,14 @@ class Setting extends React.Component {
 
 const mapStateToProps = state => ({
   currentUser: state.userReducer.currentUser,
+  loading: state.userReducer.loading,
+  imageUrl: state.userReducer.imageUrl,
+  avatar: state.userReducer.avatar,
 });
 const mapDispatchToProps = dispatch => ({
   updateUserProfile: payload => dispatch(updateUserProfile(payload)),
+  updateAvatarUrl: (payload) => dispatch(updateAvatarUrl(payload)),
+  startAvatarLoading: () => dispatch(startAvatarLoading()),
 });
 
 const WrappedSetting = Form.create({ name: 'setting' })(

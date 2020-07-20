@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon, Divider, Modal, Button, Radio, Col, } from 'antd';
 import { connect } from "react-redux";
+import { FormattedMessage } from 'react-intl';
 
 import './UserPlan.css';
 import {
@@ -41,25 +42,55 @@ class UserPlan extends React.Component {
 
   render() {
     var { userPlan, visible } = this.state;
-    var { currentUser } = this.props;
+    var { currentUser, roles } = this.props;
     var basicHtml =
       <>
-        <li><strong><Icon type="check" /></strong> Save your submissions</li>
-        <li><strong><Icon type="check" /></strong> Compile &amp; run challenge</li>
-        <li><strong><Icon type="check" /></strong> View public testcases</li>
-        <li><strong><Icon type="check" /></strong> Manage your dashboard</li>
-        <li><strong><Icon type="check" /></strong> Participate contests</li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='save_your_submissions' />
+        </li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='compile_&_run_challenge' />
+        </li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='view_public_testcases' />
+        </li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='manage_your_dashboard' />
+        </li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='participate_contests' />
+        </li>
       </>
     var standardHtml =
       <>
-        <li><strong><Icon type="check" /></strong> View hidden testcases</li>
-        <li><strong><Icon type="check" /></strong> Manage challenges</li>
-        <li><strong><Icon type="check" /></strong> Manage tutorials</li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='view_hidden_testcases' />
+        </li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='manage_challenges' />
+        </li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='manage_tutorials' />
+        </li>
       </>
     var premiumHtml =
       <>
-        <li><strong><Icon type="check" /></strong> Manage your contests</li>
-        <li><strong><Icon type="check" /></strong> View your contest statistics</li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='manage_your_contests' />
+        </li>
+        <li>
+          <strong><Icon type="check" /></strong>
+          <FormattedMessage id='view_your_contest_statistics' />
+        </li>
       </>
     return (
       <div id="price" className="container-fluid">
@@ -71,8 +102,13 @@ class UserPlan extends React.Component {
         <div className="plan basic">
           <div className="plan-inner">
             <div className="entry-title">
-              <h3>Basic PACKAGE</h3>
-              <div className="price">$Free<span>/PER MONTH</span>
+              <h3>
+                <FormattedMessage id='BASIC_PACKAGE' />
+              </h3>
+              <div className="price">$Free
+                <span>
+                  <FormattedMessage id='PER_MONTH' />
+                </span>
               </div>
             </div>
             <div className="entry-content">
@@ -82,11 +118,11 @@ class UserPlan extends React.Component {
             </div>
             {currentUser ?
               <Button type="primary" disabled={true}>
-                ALREADY LOGIN
+                <FormattedMessage id='ALREADY_LOGIN' />
               </Button>
               :
               <Button type="danger" onClick={() => this.props.openUserForm('Login')}>
-                ONLY LOGIN
+                <FormattedMessage id='ONLY_LOGIN' />
               </Button>
             }
           </div>
@@ -94,10 +130,17 @@ class UserPlan extends React.Component {
 
         <div className="plan standard">
           <div className="plan-inner">
-            <div className="hot">hot</div>
+            <div className="hot">
+              <FormattedMessage id='HOT' />
+            </div>
             <div className="entry-title">
-              <h3>STANDARD PACKAGE</h3>
-              <div className="price">80k<span>/PER MONTH</span>
+              <h3>
+                <FormattedMessage id='STANDARD_PACKAGE' />
+              </h3>
+              <div className="price">80k
+                <span>
+                  <FormattedMessage id='PER_MONTH' />
+                </span>
               </div>
             </div>
             <div className="entry-content">
@@ -107,18 +150,32 @@ class UserPlan extends React.Component {
                 {basicHtml}
               </ul>
             </div>
-            <Button disabled={currentUser ? false : true} type="danger" onClick={() => this.showModal("standard")}>
-              UPGRADE
-            </Button>
+            {roles && (roles.includes('challenge creator') || roles.includes('admin')) ?
+              <Button type="primary" disabled={true}>
+                <FormattedMessage id='ALREADY_UPGRADED' />
+              </Button>
+              :
+              <Button disabled={currentUser ? false : true} type="danger" onClick={() => this.showModal("standard")}>
+                <FormattedMessage id='UPGRADE' />
+              </Button>
+            }
+
           </div>
         </div>
 
         <div className="plan ultimite">
           <div className="plan-inner">
-            <div className="hot">hot</div>
+            <div className="hot">
+              <FormattedMessage id='HOT' />
+            </div>
             <div className="entry-title">
-              <h3>PREMIUM PACKAGE</h3>
-              <div className="price">100k<span>/PER MONTH</span>
+              <h3>
+                <FormattedMessage id='PREMIUM_PACKAGE' />
+              </h3>
+              <div className="price">100k
+                <span>
+                  <FormattedMessage id='PER_MONTH' />
+                </span>
               </div>
             </div>
             <div className="entry-content">
@@ -130,9 +187,15 @@ class UserPlan extends React.Component {
                 {basicHtml}
               </ul>
             </div>
-            <Button disabled={currentUser ? false : true} type="danger" onClick={() => this.showModal("premium")}>
-              UPGRADE
+            {roles && (roles.includes('contest creator') || roles.includes('admin')) ?
+              <Button type="primary" disabled={true}>
+                <FormattedMessage id='ALREADY_UPGRADED' />
+              </Button>
+              :
+              <Button disabled={currentUser ? false : true} type="danger" onClick={() => this.showModal("premium")}>
+                <FormattedMessage id='UPGRADE' />
             </Button>
+            }
           </div>
         </div>
 
@@ -183,6 +246,7 @@ class UserPlan extends React.Component {
 
 const mapStateToProps = state => ({
   currentUser: state.userReducer.currentUser,
+  roles: state.userReducer.roles,
 });
 
 const mapDispatchToProps = dispatch => ({

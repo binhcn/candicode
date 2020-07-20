@@ -1,4 +1,4 @@
-export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://candicode-env.eba-2uxgi2qm.ap-southeast-1.elasticbeanstalk.com/api';
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://703aac2c0650.ap.ngrok.io/api';
 export const ACCESS_TOKEN = 'accessToken';
 
 export const USERNAME_MIN_LENGTH = 3;

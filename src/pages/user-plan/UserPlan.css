@@ -132,6 +132,8 @@
 
 .plan-inner li .anticon-check {
   margin-right: 5px;
+  position: relative;
+  bottom: 2px;
 }
 
 .plan-inner .ant-divider-horizontal {
@@ -140,7 +142,7 @@
 
 .plan-inner .ant-btn {
   border-radius: 20px;
-  padding: 15px 20px;
+  padding: 0 15px;
   border: 2px solid white;
   box-shadow: 2px 2px 5px 0px indigo;
   margin-bottom: 10px;

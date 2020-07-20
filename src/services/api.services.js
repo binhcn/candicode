@@ -73,7 +73,7 @@ export function updateUserProfile(payload) {
 
 export function changeUserPassword(payload) {
   return request({
-    url: API_BASE_URL + "/profiles",
+    url: API_BASE_URL + "/password",
     method: 'PUT',
     data: payload
   });

@@ -32,7 +32,7 @@ class StepOne extends React.Component {
   constructor(props) {
     super(props);
 
-   if (this.props.banner && typeof this.props.banner === 'object') {
+    if (this.props.banner && typeof this.props.banner === 'object') {
       getBase64(this.props.banner, imageUrl => {
         this.props.updateTutorialImageUrl(imageUrl);
       });
@@ -158,12 +158,12 @@ class StepOne extends React.Component {
               beforeUpload={beforeUpload}
               onChange={this.handleChange}
             >
-              {banner || imageUrl ? 
-                <img 
-                  src={imageUrl ? imageUrl : banner} 
-                  alt="avatar" 
-                  style={{ width: '100%' }} 
-                /> 
+              {banner || imageUrl ?
+                <img
+                  src={imageUrl ? imageUrl : banner}
+                  alt="avatar"
+                  style={{ width: '100%' }}
+                />
                 : uploadButton}
             </Upload>,
           )}

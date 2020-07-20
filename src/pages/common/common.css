@@ -98,3 +98,9 @@
   background-color: #e74e84;
   color: #fff;
 }
+
+.filter i {
+  bottom: 3px;
+  position: relative;
+  margin-right: 5px;
+}

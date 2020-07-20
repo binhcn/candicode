@@ -5,6 +5,7 @@ import {
   Icon, Select,
 } from 'antd';
 import { withRouter } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import { TAG_SET, LANGUAGE_SET, LEVEL_SET } from '../../constants';
 import {
@@ -121,7 +122,8 @@ class Filter extends React.Component {
     return (
       <div>
         <Button className="filter" type="primary" onClick={this.showDrawer}>
-          <Icon type="filter" /> Filter
+          <Icon type="filter" />
+          <FormattedMessage id='filter' />
         </Button>
         <Drawer
           title="Filter"
@@ -186,8 +188,8 @@ class Filter extends React.Component {
 
             <Form.Item {...tailFormItemLayout}>
               <Button htmlType="submit" type="primary">
-                Filter
-            </Button>
+                <FormattedMessage id='to_filter' />
+              </Button>
             </Form.Item>
 
           </Form>

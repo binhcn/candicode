@@ -27,6 +27,7 @@ class Management extends React.Component {
   }
 
   render() {
+    var { roles } = this.props;
     return (
       <Layout className="management-layout">
         <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
@@ -35,18 +36,24 @@ class Management extends React.Component {
               <Icon type="radar-chart" />
               <span>Statistics</span>
             </Menu.Item>
-            <Menu.Item key="/management/challenges" onClick={() => this.handleMenuClick("/management/challenges")}>
-              <Icon type="bulb" />
-              <span>Challenges</span>
-            </Menu.Item>
-            <Menu.Item key="/management/tutorials" onClick={() => this.handleMenuClick("/management/tutorials")}>
-              <Icon type="book" />
-              <span>Tutorials</span>
-            </Menu.Item>
-            <Menu.Item key="/management/contests" onClick={() => this.handleMenuClick("/management/contests")}>
-              <Icon type="fire" />
-              <span>Contests</span>
-            </Menu.Item>
+            {roles && (roles.includes('challenge creator') || roles.includes('admin')) &&
+              <Menu.Item key="/management/challenges" onClick={() => this.handleMenuClick("/management/challenges")}>
+                <Icon type="bulb" />
+                <span>Challenges</span>
+              </Menu.Item>
+            }
+            {roles && (roles.includes('tutorial creator') || roles.includes('admin')) &&
+              <Menu.Item key="/management/tutorials" onClick={() => this.handleMenuClick("/management/tutorials")}>
+                <Icon type="book" />
+                <span>Tutorials</span>
+              </Menu.Item>
+            }
+            {roles && (roles.includes('contest creator') || roles.includes('admin')) &&
+              <Menu.Item key="/management/contests" onClick={() => this.handleMenuClick("/management/contests")}>
+                <Icon type="fire" />
+                <span>Contests</span>
+              </Menu.Item>
+            }
           </Menu>
         </Sider>
         <Layout>
@@ -67,7 +74,7 @@ class Management extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  
+  roles: state.userReducer.roles,
 });
 
 const mapDispatchToProps = dispatch => ({
