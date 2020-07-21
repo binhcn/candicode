@@ -59,6 +59,8 @@ export function updateUserProfile(payload) {
     if (response.status === 200) {
       dispatch({ type: actions.UPDATE_USER_PROFILE, payload: payload.data });
       message.success(response.data.result.message);
+      const res = await apiService.getCurrentUser();
+      dispatch({ type: actions.GET_CURRENT_USER_SUCCESS, payload: res.data.result });
     } else {
       message.fail('Sorry! Something went wrong. Please try again!');
     }

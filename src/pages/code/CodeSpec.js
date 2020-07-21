@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Tabs, Icon, Typography, Divider } from 'antd';
+import { Tabs, Icon, Typography, Divider, Statistic } from 'antd';
+import moment from 'moment';
+import { withRouter } from 'react-router-dom';
 
 import './Code.css';
 import LeaderBoard from './LeaderBoard';
@@ -12,7 +14,14 @@ const { Title, Text } = Typography;
 const { TabPane } = Tabs;
 
 class CodeSpec extends React.Component {
+
+  onFinish = () => {
+    this.props.history.push('/contests/' + this.props.contestId);
+  }
+
   render() {
+    var { isContest, title, level, point, endsAt, author, likes, dislikes } = this.props;
+    const deadline = Date.now() - moment().diff(endsAt);
     return (
       <Tabs type="card" defaultActiveKey="description">
         <TabPane className="description"
@@ -22,29 +31,31 @@ class CodeSpec extends React.Component {
             Description
           </span>
           } key="description">
-          <Title level={4}>{this.props.title}</Title>
+          <Title level={4}>{title}</Title>
           <div className="challenge-info">
             <span>
               <Icon type="user" />&nbsp;
-              Binh Cao
+              {author}
             </span>
-            <span><Text type="danger">{this.props.level}</Text></span>
+            <span><Text type="danger">{level}</Text></span>
             <span>
               <Icon type="heart" />&nbsp;
-              {this.props.points} Points
-          </span>
+              {point} Points
+            </span>
             <span>
               <Icon type="like" />&nbsp;
-              1000
-          </span>
+              {likes}
+            </span>
             <span>
               <Icon type="dislike" />&nbsp;
-              100
-          </span>
-            <span>
-              <Icon type="share-alt" />&nbsp;
-              Share
-          </span>
+              {dislikes}
+            </span>
+            {isContest &&
+              <span>
+                <Icon type="hourglass" />&nbsp;
+              <Statistic.Countdown title="" value={deadline} onFinish={this.onFinish} />
+              </span>
+            }
           </div>
 
           <Divider />
@@ -68,7 +79,7 @@ class CodeSpec extends React.Component {
         } key="submission">
           <Submission />
         </TabPane>
-        {!this.props.isContest &&
+        {!isContest &&
           <TabPane tab={
             <span>
               <Icon type="aliwangwang" />
@@ -85,14 +96,19 @@ class CodeSpec extends React.Component {
 
 const mapStateToProps = state => ({
   title: state.codeEditorReducer.title,
+  author: state.codeEditorReducer.author,
   level: state.codeEditorReducer.level,
-  points: state.codeEditorReducer.points,
+  point: state.codeEditorReducer.point,
+  likes: state.codeEditorReducer.likes,
+  dislikes: state.codeEditorReducer.dislikes,
   description: state.codeEditorReducer.description,
   isContest: state.codeEditorReducer.isContest,
+  endsAt: state.codeEditorReducer.endsAt,
+  contestId: state.codeEditorReducer.contestId,
 });
 
 const mapDispatchToProps = dispatch => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CodeSpec);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CodeSpec));

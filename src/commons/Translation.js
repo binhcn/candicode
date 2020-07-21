@@ -47,6 +47,7 @@ export const messagesEn = {
   'compile_&_run_challenge': 'Compile & run challenge',
   'view_public_testcases': 'View public testcases',
   'manage_your_dashboard': 'Manage your dashboard',
+  'participate_contests': 'Participate contests',
   'title': 'Title',
   'author': 'Author',
   'level': 'Level',

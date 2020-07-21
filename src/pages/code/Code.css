@@ -52,6 +52,20 @@
   overflow: auto;
 }
 
+.split_left .description .ant-statistic {
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+.split_left .description .ant-statistic .ant-statistic-content {
+  font-size: 17px;
+}
+
+.split_left .ant-divider-horizontal {
+  margin: 12px 0;
+}
+
 .split_left .ant-comment-inner {
   padding: 0;
   margin: 8px 0;

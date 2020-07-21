@@ -1,4 +1,5 @@
-export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://703aac2c0650.ap.ngrok.io/api';
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL 
+                          || 'https://candicode.cf/api';
 export const ACCESS_TOKEN = 'accessToken';
 
 export const USERNAME_MIN_LENGTH = 3;

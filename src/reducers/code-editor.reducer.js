@@ -3,9 +3,12 @@ import * as actions from "../actions/actions";
 const initState = {
   id: '',
   title: "",
+  author: '',
   description: "",
   level: "",
-  points: 0,
+  point: 0,
+  likes: 0,
+  dislikes: 0,
   tcOutputFormat: "",
   tcInputFormat: "",
   contents: [],
@@ -16,6 +19,8 @@ const initState = {
 
   isContest: false,
   roundChallengeList: [],
+  endsAt: '',
+  contestId: null,
   currentRoundChallengeIdx: 0,
 };
 
@@ -26,9 +31,12 @@ const codeEditorReducer = (state = initState, action) => {
         ...state,
         id: action.payload.id,
         title: action.payload.title,
+        author: action.payload.author,
         description: action.payload.description,
         level: action.payload.level,
-        points: action.payload.points,
+        point: action.payload.point,
+        likes: action.payload.likes,
+        dislikes: action.payload.dislikes,
         tcOutputFormat: action.payload.tcOutputFormat,
         tcInputFormat: action.payload.tcInputFormat,
         contents: action.payload.contents,
@@ -43,7 +51,11 @@ const codeEditorReducer = (state = initState, action) => {
       return { ...state, comments: comments };
 
     case actions.PREPARE_CONTEST_CHALLENGES:
-      return { ...state, isContest: true, roundChallengeList: action.payload };
+      return { ...state, isContest: true, 
+        roundChallengeList: action.payload.roundChallengeList,
+        endsAt: action.payload.endsAt,
+        contestId: action.payload.contestId,
+      };
 
     case actions.HANDLE_CONTEST_MODE:
       return { ...state, isContest: action.payload };

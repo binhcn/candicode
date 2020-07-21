@@ -11,6 +11,7 @@ import {
   getAllContests,
 } from "../../actions/actions.creator";
 import { randomColor, randomBanner, } from '../../constants';
+import { getAvatarColor } from '../../util/Colors';
 
 class ContestList extends React.Component {
   constructor(props) {
@@ -67,12 +68,17 @@ class ContestList extends React.Component {
             </div>
 
             <div>
-              <Avatar size="large" src="https://scontent-xsp1-1.xx.fbcdn.net/v/t1.0-1/p160x160/50654668_2359749710921468_7719574428836691968_n.jpg?_nc_cat=110&_nc_sid=dbb9e7&_nc_ohc=O6ZrNsDjdC4AX8SXrUI&_nc_ht=scontent-xsp1-1.xx&_nc_tp=6&oh=57d32bad83905fe4a9990e4f1843ac91&oe=5F1D9F6A" />
+              {item.author &&
+                <Avatar size="large" style={{ backgroundColor: getAvatarColor(item.author) }}
+                  src="">
+                  {item.author[0].toUpperCase()}
+                </Avatar>
+              }
               <span style={{ marginLeft: '8px', marginRight: '20%' }}>{item.author}</span>
               <span>Ngày tạo: <Tag color="magenta">
-              { typeof item.registrationDeadline === 'string' && 
-                item.registrationDeadline.substring(0, item.registrationDeadline.length - 4)
-              }
+                {typeof item.registrationDeadline === 'string' &&
+                  item.registrationDeadline.substring(0, item.registrationDeadline.length - 4)
+                }
               </Tag></span>
             </div>
 

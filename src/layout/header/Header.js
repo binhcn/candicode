@@ -22,13 +22,14 @@ class Header extends React.Component {
   }
 
   render() {
-    var { openUserForm, isAuthenticated, roles, } = this.props;
+    var { openUserForm, isAuthenticated, roles, avatar } = this.props;
     let userInfo;
     if (isAuthenticated) {
       var { firstName, lastName } = this.props.currentUser;
       userInfo = [
         <Notification key="notification" />,
-        <Avatar key="avatar" className="avatar" style={{ backgroundColor: getAvatarColor(firstName + lastName) }}>
+        <Avatar key="avatar" src={avatar ? avatar : null} className="avatar" 
+            style={{ backgroundColor: getAvatarColor(firstName + lastName) }}>
           {firstName[0].toUpperCase()}
         </Avatar>,
         <ProfileDropdownMenu key="ProfileDropdownMenu"
@@ -186,6 +187,7 @@ const mapStateToProps = state => ({
   currentUser: state.userReducer.currentUser,
   isAuthenticated: state.userReducer.isAuthenticated,
   roles: state.userReducer.roles,
+  avatar: state.userReducer.avatar,
 });
 
 const mapDispatchToProps = dispatch => ({

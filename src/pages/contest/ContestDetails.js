@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { Row, Col, Icon, Avatar, } from 'antd';
+import { Row, Col, Avatar, } from 'antd';
 import { withRouter } from 'react-router-dom';
 
 import './Contest.css';
@@ -8,6 +8,7 @@ import { getContestDetails } from '../../actions/actions.creator';
 import Sidebar from '../common/Sidebar';
 import ContestDiscussion from './ContestDiscussion';
 import ContestCard from './ContestCard';
+import { getAvatarColor } from '../../util/Colors';
 
 class ContestDetails extends React.Component {
   constructor(props) {
@@ -20,30 +21,34 @@ class ContestDetails extends React.Component {
   }
 
   render() {
+    var { author, title, createdAt, banner, description, content } = this.props;
     return (
       <Row className="container-fluid" gutter={32}>
         <Col lg={18} className="contest-details">
-          <div className="like-dislike">
-            <Icon type="like" onClick={() => this.handleLike(true)} />
-            {this.props.likes > 0 ? this.props.likes : 9}
-            <Icon type="dislike" onClick={() => this.handleLike(false)} />
-            {this.props.dislikes > 0 ? this.props.dislikes : 3}
-          </div>
-          <div className="title">{this.props.title}</div>
+          <div className="title">{title}</div>
           <Row>
             <Col span={2}>
-              <Avatar size="large" src="https://scontent-hkt1-1.xx.fbcdn.net/v/t1.0-9/50654668_2359749710921468_7719574428836691968_n.jpg?_nc_cat=110&_nc_sid=85a577&_nc_ohc=A7gnCAwC2DMAX8evK4Z&_nc_ht=scontent-hkt1-1.xx&oh=ad83b5ac0cf79e94fa3657158cc34b08&oe=5EF4FED3" />
+              {author &&
+                <Avatar size="large" style={{ backgroundColor: getAvatarColor(author) }}
+                  src="">
+                  {author[0].toUpperCase()}
+                </Avatar>
+              }
             </Col>
             <Col span={22} className="info">
-              <div>{this.props.author}</div>
-              <div>Created at {this.props.createdAt ?
-                this.props.createdAt.substring(0, this.props.createdAt.length - 4) :
+              <div>{author}</div>
+              <div>Created at {createdAt ?
+                createdAt.substring(0, createdAt.length - 4) :
                 ""}
               </div>
             </Col>
           </Row>
-          <div className="description">{this.props.description}</div>
-          <div dangerouslySetInnerHTML={{ __html: this.props.content }} />
+
+          {banner &&
+            <img src={banner} width="40%" alt="tutorial-banner" />
+          }
+          <div className="description">{description}</div>
+          <div dangerouslySetInnerHTML={{ __html: content }} />
 
           <ContestDiscussion />
         </Col>
@@ -63,8 +68,7 @@ const mapStateToProps = state => ({
   description: state.contestReducer.description,
   content: state.contestReducer.content,
   createdAt: state.contestReducer.createdAt,
-  likes: state.contestReducer.likes,
-  dislikes: state.contestReducer.dislikes,
+  banner: state.contestReducer.banner,
 });
 
 const mapDispatchToProps = dispatch => ({

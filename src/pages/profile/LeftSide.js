@@ -16,7 +16,7 @@ class LeftSide extends React.Component {
 	render() {
 		var { firstName, slogan,
 			facebook, github, linkedin, location, company,
-			university, fullName,
+			university, fullName, avatar,
 		} = this.props;
 		const { exp, maxExp } = this.state;
 		const value = exp / maxExp * 100;
@@ -28,7 +28,8 @@ class LeftSide extends React.Component {
 				>
 					<Meta
 						avatar={
-							<Avatar key="avatar" size="large" style={{ backgroundColor: getAvatarColor(firstName) }}>
+							<Avatar key="avatar" src={avatar ? avatar : null} size="large" 
+										style={{ backgroundColor: getAvatarColor(firstName) }}>
 								{firstName[0].toUpperCase()}
 							</Avatar>
 						}
@@ -71,21 +72,21 @@ class LeftSide extends React.Component {
 								<i className="fas fa-map-marker-alt fa-lg" style={{ color: "tomato" }} />
 								Location
 							</span>
-							<span style={{ float: 'right' }}>TpHCM, Vietnam</span>
+							<span style={{ float: 'right' }}>{location}</span>
 						</>
 					}
 					{company &&
 						<>
 							<Divider />
 							<span><i className="fas fa-building fa-lg" style={{ color: "limegreen" }}></i> Company</span>
-							<span style={{ float: 'right' }}>VNG Group</span>
+							<span style={{ float: 'right' }}>{company}</span>
 						</>
 					}
 					{university &&
 						<>
 							<Divider />
 							<span><i className="fas fa-university fa-lg" style={{ color: "teal" }}></i> University</span>
-							<span style={{ float: 'right' }}>Bach Khoa University</span>
+							<span style={{ float: 'right' }}>{university}</span>
 						</>
 					}
 				</Card>
@@ -118,6 +119,7 @@ const mapStateToProps = state => ({
 	location: state.userReducer.location,
 	company: state.userReducer.company,
 	university: state.userReducer.university,
+	avatar: state.userReducer.avatar,
 });
 
 const mapDispatchToProps = dispatch => ({

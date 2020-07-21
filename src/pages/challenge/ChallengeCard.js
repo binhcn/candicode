@@ -8,6 +8,7 @@ import {
 
 import { handleContestMode } from '../../actions/actions.creator';
 import { randomColor, randomBanner, randomNumber, } from '../../constants';
+import { getAvatarColor } from '../../util/Colors';
 
 class ChallengeCard extends React.Component {
 
@@ -26,7 +27,12 @@ class ChallengeCard extends React.Component {
         }
       >
         <span>
-          <Avatar size="large" src="https://scontent-hkt1-1.xx.fbcdn.net/v/t1.0-9/50654668_2359749710921468_7719574428836691968_n.jpg?_nc_cat=110&_nc_sid=85a577&_nc_ohc=ywl75FfGtDwAX9AiRfH&_nc_ht=scontent-hkt1-1.xx&oh=401bf9657dd4d2b8d3ea9c52284ed359&oe=5F305253" />
+          {item.author &&
+            <Avatar size="large" style={{ backgroundColor: getAvatarColor(item.author) }}
+              src="">
+              {item.author[0].toUpperCase()}
+            </Avatar>
+          }
           <span style={{ marginLeft: '8px' }}>{item.author}</span>
           <Badge count={item.numComments ? item.numComments : randomNumber() + 1} style={{ float: 'right', backgroundColor: 'blue', color: 'white' }}>
             <Icon style={{ fontSize: '24px' }} type="message" />

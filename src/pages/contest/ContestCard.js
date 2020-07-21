@@ -5,8 +5,8 @@ import moment from 'moment';
 import {
   Card, Divider, Button, Tag, Popconfirm,
 } from 'antd';
-import { prepareContestChallenges, registerContest, } from '../../actions/actions.creator';
 
+import { prepareContestChallenges, registerContest, } from '../../actions/actions.creator';
 import { randomBanner, randomColor } from '../../constants';
 
 class ContestCard extends React.Component {
@@ -16,10 +16,10 @@ class ContestCard extends React.Component {
   }
 
   render() {
-    var { rounds, banner, enrolled } = this.props;
+    var { rounds, banner, enrolled, id } = this.props;
     var selectedRoundId = rounds ? rounds.findIndex(item => {
       var now = moment();
-      console.log(now.diff(item.startsAt, 'minutes'))
+      console.log(now.diff(item.startsAt, 'miliseconds'))
       return now > moment(item.startsAt) && now < moment(item.endsAt);
     }) : -1;
     var html = rounds ? rounds.map((item, index) => {
@@ -51,6 +51,9 @@ class ContestCard extends React.Component {
       rounds[selectedRoundId].challenges[0].challengeId : '';
     var roundChallengeList = rounds && selectedRoundId > -1 ?
       rounds[selectedRoundId].challenges : '';
+    var endsAt = rounds && selectedRoundId > -1 ?
+      rounds[selectedRoundId].endsAt : '';
+    var payload = { roundChallengeList, endsAt, contestId: id };
     return (
       <Card
         className="contest-card"
@@ -71,7 +74,7 @@ class ContestCard extends React.Component {
               <p className="register">REGISTERED</p>
               <Link to={"/code-editor/" + firstRoundChallengeId}>
                 <Button type="primary"
-                  onClick={() => this.props.prepareContestChallenges(roundChallengeList)}>
+                  onClick={() => this.props.prepareContestChallenges(payload)}>
                   Fight
                 </Button>
               </Link>
