@@ -74,6 +74,10 @@ class LoginForm extends React.Component {
 							}
 						}
 					}).catch(error => {
+						notification.error({
+							message: "Failure",
+							description: 'Request timeout. Please check your connection!',
+						});
 						console.log(error)
 					});
 			}

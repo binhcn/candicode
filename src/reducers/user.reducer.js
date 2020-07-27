@@ -10,6 +10,7 @@ const initState = {
   visible: false,
   status: '',
 
+  email: '',
   fullName: '',
   firstName: '',
   lastName: '',
@@ -27,6 +28,7 @@ const initState = {
 
   roles: null,
   submissions: [],
+  tags: [],
 };
 
 const UserReducer = (state = initState, action) => {
@@ -43,6 +45,7 @@ const UserReducer = (state = initState, action) => {
         isLoading: false,
         isAuthenticated: true,
         currentUser: action.payload,
+        email: action.payload.email,
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         fullName: action.payload.fullName,
@@ -106,6 +109,9 @@ const UserReducer = (state = initState, action) => {
 
     case actions.START_AVATAR_LOADING:
       return { ...state, loading: true };
+
+    case actions.GET_POPULAR_TAGS:
+      return { ...state, tags: action.payload.tags.map(item => item.name) };
 
     default:
       return state;

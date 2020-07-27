@@ -33,7 +33,11 @@ class ChallengeCard extends React.Component {
               {item.author[0].toUpperCase()}
             </Avatar>
           }
-          <span style={{ marginLeft: '8px' }}>{item.author}</span>
+          <span style={{ marginLeft: '8px' }}>
+            <Typography.Paragraph className="author" ellipsis={{ rows: 1, expandable: false }}>
+              {item.author}
+            </Typography.Paragraph>
+          </span>
           <Badge count={item.numComments ? item.numComments : randomNumber() + 1} style={{ float: 'right', backgroundColor: 'blue', color: 'white' }}>
             <Icon style={{ fontSize: '24px' }} type="message" />
           </Badge>

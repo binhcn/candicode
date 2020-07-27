@@ -87,6 +87,15 @@ const codeEditorReducer = (state = initState, action) => {
     case actions.GET_CHALLENGE_LEADER_BOARD:
       return { ...state, leaderBoard: action.payload };
 
+    case actions.REACTION_CHALLENGE:
+      var { likes, dislikes } = state;
+      if (action.payload.like) {
+        likes += 1;
+      } else {
+        dislikes += 1;
+      }
+      return { ...state, likes, dislikes };
+
     default:
       return state;
   }

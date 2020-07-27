@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import {
   getAllTutorials,
 } from "../../actions/actions.creator";
-import { randomColor } from '../../constants';
+import { randomColor, randomNumber } from '../../constants';
 import { getAvatarColor } from '../../util/Colors';
 
 class TutorialList extends React.Component {
@@ -54,7 +54,10 @@ class TutorialList extends React.Component {
                 <span className="title">
                   {item.title}
                 </span>
-                <Badge className="messages" count={5} style={{ backgroundColor: 'blue', color: 'white', top: '5px' }}>
+                <Badge className="messages" 
+                      count={item.numComments > 0 ? item.numComments : randomNumber() + 1} 
+                      style={{ backgroundColor: 'blue', color: 'white', top: '5px' }}
+                >
                   <Icon style={{ fontSize: '24px' }} type="message" />
                 </Badge>
                 <Badge count={0}>
@@ -67,7 +70,11 @@ class TutorialList extends React.Component {
                       {item.author[0].toUpperCase()}
                 </Avatar>
                 <span style={{ marginLeft: '8px', marginRight: '20%' }}>{item.author}</span>
-                <span>Ngày tạo: <Tag color="magenta">{item.createdAt}</Tag></span>
+                <span>Ngày tạo: 
+                  <Tag color="magenta">
+                    {item.createdAt.substring(0, item.createdAt.length - 7)}
+                  </Tag>
+                </span>
               </div>
 
               <div style={{ margin: '4px 0' }}>Tags:

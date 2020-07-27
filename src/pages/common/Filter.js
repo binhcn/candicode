@@ -39,7 +39,7 @@ class Filter extends React.Component {
       if (!err) {
         var { title, author, tag, language, level, start, end } = values;
         var params = '';
-        if (title) {
+        if (title.length > 0) {
           params += '&title=' + title.join();
         }
         if (author) {
@@ -118,7 +118,10 @@ class Filter extends React.Component {
     const {
       location: { search },
     } = this.props;
-    var title = search.substring(1).split('=')[1];
+    console.log(search)
+    var params = search.substring(1).split('=');
+    var title = params[0].toLowerCase() === 'title' ? params[1] : '';
+    var tag = params[0].toLowerCase() === 'tag' ? params[1] : '';
     return (
       <div>
         <Button className="filter" type="primary" onClick={this.showDrawer}>
@@ -169,6 +172,7 @@ class Filter extends React.Component {
 
             <Form.Item label="Tag">
               {getFieldDecorator('tag', {
+                initialValue: tag ? [tag] : [],
               })(
                 <Select mode="tags" >
                   {tagOpt}

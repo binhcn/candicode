@@ -1,20 +1,33 @@
-import axios from "axios";
+import axios from 'axios';
+import bcrypt from 'bcryptjs';
 
-import { API_BASE_URL, ACCESS_TOKEN } from '../constants';
+import { API_BASE_URL, ACCESS_TOKEN, TOKEN_INDEX } from '../constants';
+import store from '../store';
 
 const request = (options) => {
+  
   var headers = {
     'Content-Type': 'application/json'
   };
 
   if (localStorage.getItem(ACCESS_TOKEN)) {
+
+    var { email } = store.getState().userReducer;
+
+    var salt = bcrypt.genSaltSync(4);
+    var digest = bcrypt.hashSync(email, salt);
+
+    digest = '';
+      
+    var token = localStorage.getItem(ACCESS_TOKEN);
+    var formattedToken = token.substr(0, TOKEN_INDEX) + digest + token.substr(TOKEN_INDEX);
+
     headers = Object.assign(
-      {}, { 'Authorization': 'Bearer ' + localStorage.getItem(ACCESS_TOKEN) }, headers
+      {}, { 'Authorization': 'Bearer ' + formattedToken }, headers
     );
   }
 
   const defaults = { headers: headers };
-  console.log(options)
 
   options = Object.assign({}, defaults, options);
   return axios(options)
@@ -90,6 +103,14 @@ export function upgradeUserPlan(payload) {
 export function getImageFromUrl(url) {
   return request({
     url: url,
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function getPopularTags() {
+  return request({
+    url: API_BASE_URL + '/tags?size=10',
     method: 'GET',
     data: {}
   });
@@ -261,6 +282,14 @@ export function getChallengeLeaderBoard(id) {
     url: API_BASE_URL + "/challenges/" + id + '/leaderboard',
     method: 'GET',
     data: {}
+  });
+}
+
+export function reaction(payload) {
+  return request({
+    url: API_BASE_URL + "/reaction",
+    method: 'POST',
+    data: payload
   });
 }
 

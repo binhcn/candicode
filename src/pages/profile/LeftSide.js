@@ -70,7 +70,7 @@ class LeftSide extends React.Component {
 							<Divider />
 							<span>
 								<i className="fas fa-map-marker-alt fa-lg" style={{ color: "tomato" }} />
-								Location
+								 &nbsp; Location
 							</span>
 							<span style={{ float: 'right' }}>{location}</span>
 						</>

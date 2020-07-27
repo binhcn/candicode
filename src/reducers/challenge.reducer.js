@@ -31,6 +31,8 @@ const initState = {
   visibleDeleteTestcaseModal: false,
   visibleAddResultModal: false,
   projectStructure: null,
+  likes: 0,
+  dislikes: 0,
   currentStep: 0,
 
   challengeDir: '',
@@ -58,6 +60,8 @@ const challengeReducer = (state = initState, action) => {
         contents: action.payload.contents,
         testcases: action.payload.testcases,
         categories: action.payload.categories,
+        likes: action.payload.likes,
+        dislikes: action.payload.dislikes,
         currentStep: 0,
       };
 
@@ -222,6 +226,8 @@ const challengeReducer = (state = initState, action) => {
           tags: challenge.tags,
           rate: challenge.rate,
           numRates: challenge.numRates,
+          likes: challenge.likes,
+          dislikes: challenge.dislikes,
         });
       });
       return {

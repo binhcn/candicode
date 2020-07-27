@@ -22,7 +22,6 @@ class ContestList extends React.Component {
     this.props.getAllContests(params);
   }
   render() {
-    console.log(this.props.data)
     return (
       <List
         itemLayout="vertical"
@@ -75,9 +74,9 @@ class ContestList extends React.Component {
                 </Avatar>
               }
               <span style={{ marginLeft: '8px', marginRight: '20%' }}>{item.author}</span>
-              <span>Ngày tạo: <Tag color="magenta">
+              <span>Hạn đăng ký: <Tag color="magenta">
                 {typeof item.registrationDeadline === 'string' &&
-                  item.registrationDeadline.substring(0, item.registrationDeadline.length - 4)
+                  item.registrationDeadline.substring(0, item.registrationDeadline.length - 7)
                 }
               </Tag></span>
             </div>

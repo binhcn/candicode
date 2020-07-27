@@ -35,6 +35,11 @@
   box-shadow: 2px 2px 5px 0px indigo;
 }
 
+.challenge-card .author {
+  display: inline-block;
+  width: 96px !important;
+}
+
 .challenge-card .title {
   font-size: 1.3rem;
   font-family: Mali;

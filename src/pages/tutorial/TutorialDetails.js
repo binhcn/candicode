@@ -4,7 +4,7 @@ import { Row, Col, Avatar, Icon, } from 'antd';
 import { withRouter } from 'react-router-dom';
 
 import './Tutorial.css';
-import { getTutorialDetails } from '../../actions/actions.creator';
+import { getTutorialDetails, reaction } from '../../actions/actions.creator';
 import Sidebar from '../common/Sidebar';
 import TutorialDiscussion from './TutorialDiscussion';
 import { getAvatarColor } from '../../util/Colors';
@@ -20,7 +20,12 @@ class TutorialDetails extends React.Component {
   }
 
   handleLike = (status) => {
-    console.log(status)
+    var payload = {
+      type: 'tutorial',
+      id: this.props.id,
+      like: status
+    }
+    this.props.reaction(payload);
   }
 
   render() {
@@ -30,9 +35,9 @@ class TutorialDetails extends React.Component {
         <Col span={18} className="tutorial-details">
           <div className="like-dislike">
             <Icon type="like" onClick={() => this.handleLike(true)} />
-            {likes > 0 ? likes : 9}
+            {likes}
             <Icon type="dislike" onClick={() => this.handleLike(false)} />
-            {dislikes > 0 ? dislikes : 3}
+            {dislikes}
           </div>
           <div className="title">{title}</div>
           <Row>
@@ -47,7 +52,7 @@ class TutorialDetails extends React.Component {
             <Col span={22} className="info">
               <div>{author}</div>
               <div>Created at {createdAt ?
-                createdAt.substring(0, createdAt.length - 4) :
+                createdAt.substring(0, createdAt.length - 7) :
                 ""}
               </div>
             </Col>
@@ -70,6 +75,7 @@ class TutorialDetails extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  id: state.tutorialReducer.id,
   title: state.tutorialReducer.title,
   author: state.tutorialReducer.author,
   description: state.tutorialReducer.description,
@@ -82,6 +88,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getTutorialDetails: (tutorialId) => dispatch(getTutorialDetails(tutorialId)),
+  reaction: payload => dispatch(reaction(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TutorialDetails));

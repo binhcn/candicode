@@ -2,7 +2,7 @@ import React from 'react';
 import { ControlledEditor } from '@monaco-editor/react';
 import { connect } from "react-redux";
 import {
-  Select, Button, Row, Col,
+  Select, Button, Row, Col, Icon,
   Collapse, notification, Drawer,
 } from 'antd';
 import { withRouter } from 'react-router-dom';
@@ -13,6 +13,14 @@ import {
 } from "../../actions/actions.creator";
 
 const { Panel } = Collapse;
+
+const customPanelStyle = {
+  background: 'lightblue',
+  borderRadius: 4,
+  marginBottom: 24,
+  border: 0,
+  overflow: 'hidden',
+};
 
 class CodeEditor extends React.Component {
 
@@ -144,43 +152,51 @@ class CodeEditor extends React.Component {
   }
 
   render() {
-    var { currentRoundChallengeIdx, roundChallengeList } = this.props;
-    const languageOpt = this.props.contents.map((item, index) => (
+    var { currentRoundChallengeIdx, roundChallengeList, roles, contents, testcases } = this.props;
+    var { details, isSubmitted, theme, language } = this.state;
+    const languageOpt = contents.map((item, index) => (
       <Select.Option key={index} value={item.language}>{item.language}</Select.Option>
     ));
     var editorHtml = null;
 
-    var contentId = this.props.contents.findIndex(item => this.state.language === item.language);
+    var contentId = this.props.contents.findIndex(item => language === item.language);
     if (contentId < 0) contentId = 0;
     editorHtml = this.props.contents[contentId] ?
       <ControlledEditor height="79vh"
-        theme={this.state.theme}
-        value={this.props.contents[contentId].text}
-        language={this.props.contents[contentId].language.toLowerCase()}
+        theme={theme}
+        value={contents[contentId].text}
+        language={contents[contentId].language.toLowerCase()}
         onChange={this.handleEditorChange}
       /> : null;
 
-    var testcaseHtml = this.props.testcases.map((item, index) => (
-      <Panel header={`Testcase ${index + 1} ${item.hidden ? '(hidden)' : ''}`} key={index}>
+    var testcaseHtml = testcases.map((item, index) => (
+      <Panel style={customPanelStyle}
+        header={`Testcase ${index + 1} ${item.hidden ? '(hidden)' : ''}`} 
+        key={index}
+        extra={<Icon theme="twoTone" twoToneColor="#52c41a" style={{ fontSize: '20px' }} type={isSubmitted 
+                ? (details[index] && details[index].actualOutput === item.output 
+                  ? 'check-circle' : 'close-circle') 
+                : ''} />}
+      >
         <p>
           <span>Input: {item.hidden ? '' : item.input}</span>
           <span style={{ marginLeft: '50px' }}>Output: {item.hidden ? '' : item.output}</span>
         </p>
-        {this.state.isSubmitted &&
+        {isSubmitted &&
           <>
-            <p>Actual output: {this.state.details[index].actualOutput}</p>
-            <p>Runtime error: {this.state.details[index].error}</p>
+            <p>Actual output: {details[index].actualOutput}</p>
+            <p>Runtime error: {details[index].error}</p>
           </>
         }
       </Panel>
     ));
     return (
       <div>
-        {this.props.contents[0] &&
+        {contents[0] &&
           <div className="options">
             <span>Language: </span>
             <Select
-              defaultValue={this.props.contents[0].language}
+              defaultValue={contents[0].language}
               style={{ width: '100px', marginRight: '20px' }}
               onChange={this.handleLanguageChange}
             >
@@ -188,7 +204,7 @@ class CodeEditor extends React.Component {
             </Select>
             <span>Theme: </span>
             <Select
-              defaultValue={this.state.theme}
+              defaultValue={theme}
               style={{ width: '100px' }}
               onChange={this.handleThemeChange}
             >
@@ -232,9 +248,11 @@ class CodeEditor extends React.Component {
           <Col span={5} onClick={this.handleCompile}>
             <Button type="primary">Run code</Button>
           </Col>
-          <Col span={4} onClick={this.handleSubmit}>
-            <Button disabled={this.state.submitStatus} type="primary">Submit</Button>
-          </Col>
+          {roles && !roles.includes('admin') &&
+            <Col span={4} onClick={this.handleSubmit}>
+              <Button disabled={this.state.submitStatus} type="primary">Submit</Button>
+            </Col>
+          }
         </Row>
       </div>
     )
@@ -248,6 +266,7 @@ const mapStateToProps = state => ({
   isContest: state.codeEditorReducer.isContest,
   roundChallengeList: state.codeEditorReducer.roundChallengeList,
   currentRoundChallengeIdx: state.codeEditorReducer.currentRoundChallengeIdx,
+  roles: state.userReducer.roles,
 });
 
 const mapDispatchToProps = dispatch => ({

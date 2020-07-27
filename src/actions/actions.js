@@ -13,6 +13,8 @@ export const UPDATE_USER_PROFILE = "Update user profile";
 export const UPDATE_AVATAR_URL = "Update avatar url";
 export const START_AVATAR_LOADING = "Start avatar loading";
 
+export const GET_POPULAR_TAGS = "Get popular tags";
+
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗
 // ██╔════╝██║  ██║██╔══██╗██║     ██║     ██╔════╝████╗  ██║██╔════╝ ██╔════╝
@@ -60,6 +62,9 @@ export const GET_CHALLENGE_LEADER_BOARD = "Get challenge leader board";
 
 export const UPDATE_CHALLENGE_IMAGE_URL = "Update challenge image url";
 export const START_CHALLENGE_LOADING = "Start challenge loading";
+
+export const REACTION_CHALLENGE = "Reaction challenge";
+export const REACTION_TUTORIAL = "Reaction tutorial";
 
 
 // ████████╗██╗   ██╗████████╗ ██████╗ ██████╗ ██╗ █████╗ ██╗

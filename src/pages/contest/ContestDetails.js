@@ -38,7 +38,7 @@ class ContestDetails extends React.Component {
             <Col span={22} className="info">
               <div>{author}</div>
               <div>Created at {createdAt ?
-                createdAt.substring(0, createdAt.length - 4) :
+                createdAt.substring(0, createdAt.length - 7) :
                 ""}
               </div>
             </Col>

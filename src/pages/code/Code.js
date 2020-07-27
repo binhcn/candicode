@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import './Code.css';
 import CodeSpec from './CodeSpec';
 import CodeEditor from './CodeEditor';
-import CodeOutput from './CodeOutput';
 import { getChallengeDetails, } from '../../actions/actions.creator';
 
 class Code extends React.Component {
@@ -56,7 +55,6 @@ class Code extends React.Component {
           <div className="split_bar"></div>
           <div className="split_right">
             <CodeEditor />
-            <CodeOutput />
           </div>
         </div>
       </div>

@@ -4,6 +4,16 @@ import * as actions from "./actions";
 import * as apiService from "../services/api.services";
 import { ACCESS_TOKEN } from '../constants';
 
+var errorMsg = "Sorry! Something went wrong. Please try again!";
+
+var errorNotification = () => {
+  return notification['error']({
+    message: 'Candicode',
+    description: errorMsg,
+    duration: 0,
+  });
+} 
+
 export function getCurrentUser() {
   return async function (dispatch) {
     try {
@@ -48,7 +58,7 @@ export function getProfileSubmissions() {
     if (response.status === 200) {
       dispatch({ type: actions.GET_PROFILE_SUBMISSIONS, payload: response.data.result.items })
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -62,7 +72,7 @@ export function updateUserProfile(payload) {
       const res = await apiService.getCurrentUser();
       dispatch({ type: actions.GET_CURRENT_USER_SUCCESS, payload: res.data.result });
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -73,7 +83,7 @@ export function changeUserPassword(data) {
     if (response.status === 200) {
       message.success('Change user password successfully!');
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -96,7 +106,7 @@ export function upgradeUserPlan(payload) {
     if (response.status === 200) {
       window.location.replace(response.data.result.payUrl);
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -110,6 +120,17 @@ export function updateAvatarUrl(url) {
 export function startAvatarLoading() {
   return async function (dispatch) {
     dispatch({ type: actions.START_AVATAR_LOADING });
+  };
+}
+
+export function getPopularTags() {
+  return async function (dispatch) {
+    const response = await apiService.getPopularTags();
+    if (response.status === 200) {
+      dispatch({ type: actions.GET_POPULAR_TAGS, payload: response.data.result });
+    } else {
+      errorNotification();
+    }
   };
 }
 
@@ -148,7 +169,7 @@ export function deleteChallenge(id) {
     if (response.status === 200) {
       dispatch({ type: actions.DELETE_CHALLENGE, payload: id });
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -202,7 +223,7 @@ export function handleChallenge(record) {
       if (response.status === 200) {
         dispatch({ type: actions.HANDLE_CHALLENGE, payload: response.data.result });
       } else {
-        message.fail('Sorry! Something went wrong. Please try again!');
+        errorNotification();
       }
     } else {
       dispatch({ type: actions.HANDLE_CHALLENGE, payload: { ...record, challengeId: '', languages: [] } });
@@ -219,7 +240,7 @@ export function updateChallenge(data) {
         dispatch({ type: actions.UPDATE_CHALLENGE, payload: data.request });
         message.success('Edit challenge successfully!');
       } else {
-        message.fail('Sorry! Something went wrong. Please try again!');
+        errorNotification();
       }
     } else {
       const response = await apiService.uploadChallenge(data.formData);
@@ -228,7 +249,7 @@ export function updateChallenge(data) {
         dispatch({ type: actions.UPDATE_CHALLENGE, payload: newChallenge });
         message.success('Create new challenge successfully!');
       } else {
-        message.fail('Sorry! Something went wrong. Please try again!');
+        errorNotification();
       }
     }
   };
@@ -284,7 +305,7 @@ export function addLanguage(payload) {
         });
       }
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -295,7 +316,7 @@ export function deleteLanguage(payload) {
     if (response.status === 200) {
       dispatch({ type: actions.DELETE_LANGUAGE, payload: payload });
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -306,7 +327,7 @@ export function verifyTestcase(payload) {
     if (response.status === 200) {
       return response.data.result;
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -317,7 +338,7 @@ export function submitTestcase(payload) {
     if (response.status === 200) {
       return response.data.result;
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -328,7 +349,7 @@ export function editTestcase(payload) {
     if (response.status === 200) {
       return response.data.result;
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -339,7 +360,7 @@ export function deleteTestcase(payload) {
     if (response.status === 200) {
       return response.data.result;
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -353,6 +374,27 @@ export function updateChallengeImageUrl(url) {
 export function startChallengeLoading() {
   return async function (dispatch) {
     dispatch({ type: actions.START_CHALLENGE_LOADING });
+  };
+}
+
+export function reaction(payload) {
+  return async function (dispatch) {
+    const response = await apiService.reaction(payload);
+    console.log(payload)
+    if (response.status === 200) {
+      if (payload.type.toLowerCase() === 'challenge') {
+        dispatch({ type: actions.REACTION_CHALLENGE, payload });
+      } else {
+        dispatch({ type: actions.REACTION_TUTORIAL, payload });
+      }
+      notification['success']({
+        message: 'Candicode',
+        description: 'Rating successfully!',
+        duration: 0,
+      });
+    } else {
+      errorNotification();
+    }
   };
 }
 
@@ -372,7 +414,7 @@ export function handleTutorial(record) {
       if (response.status === 200) {
         dispatch({ type: actions.HANDLE_TUTORIAL, payload: response.data.result });
       } else {
-        message.fail('Sorry! Something went wrong. Please try again!');
+        errorNotification();
       }
     } else {
       dispatch({ type: actions.HANDLE_TUTORIAL, payload: record });
@@ -412,7 +454,7 @@ export function updateTutorial(data) {
         dispatch({ type: actions.UPDATE_TUTORIAL, payload: data.request });
         message.success('Edit tutorial successfully!');
       } else {
-        message.fail('Sorry! Something went wrong. Please try again!');
+        errorNotification();
       }
     } else {
       const response = await apiService.uploadTutorial(data.formData);
@@ -421,7 +463,7 @@ export function updateTutorial(data) {
         dispatch({ type: actions.UPDATE_TUTORIAL, payload: newTutorial });
         message.success(response.data.result.message);
       } else {
-        message.fail('Sorry! Something went wrong. Please try again!');
+        errorNotification();
       }
     }
   };
@@ -433,7 +475,7 @@ export function deleteTutorial(id) {
     if (response.status === 200) {
       dispatch({ type: actions.DELETE_TUTORIAL, payload: id });
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -510,7 +552,7 @@ export function runCode(payload) {
     if (response.status === 200) {
       return response.data.result;
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -524,7 +566,7 @@ export function saveSubmission(payload) {
         description: response.data.result.message,
       });
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -609,7 +651,7 @@ export function handleContest(record) {
       if (response.status === 200) {
         dispatch({ type: actions.HANDLE_CONTEST, payload: response.data.result });
       } else {
-        message.fail('Sorry! Something went wrong. Please try again!');
+        errorNotification();
       }
     } else {
       dispatch({ type: actions.HANDLE_CONTEST, payload: record });
@@ -650,7 +692,7 @@ export function updateContest(data) {
         dispatch({ type: actions.UPDATE_CONTEST, payload: data.request });
         message.success('Edit tutorial successfully!');
       } else {
-        message.fail('Sorry! Something went wrong. Please try again!');
+        errorNotification();
       }
     } else {
       const response = await apiService.uploadContest(data.formData);
@@ -659,7 +701,7 @@ export function updateContest(data) {
         dispatch({ type: actions.UPDATE_CONTEST, payload: newContest });
         message.success(response.data.result.message);
       } else {
-        message.fail('Sorry! Something went wrong. Please try again!');
+        errorNotification();
       }
     }
   };
@@ -671,7 +713,7 @@ export function deleteContest(id) {
     if (response.status === 200) {
       dispatch({ type: actions.DELETE_CONTEST, payload: id });
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -727,7 +769,7 @@ export function submitRound(payload) {
     if (response.status === 200) {
       return response.data.result;
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -738,7 +780,7 @@ export function editRound(payload) {
     if (response.status === 200) {
       return response.data.result;
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }
@@ -749,7 +791,7 @@ export function deleteRound(payload) {
     if (response.status === 200) {
       return response.data.result;
     } else {
-      message.fail('Sorry! Something went wrong. Please try again!');
+      errorNotification();
     }
   };
 }

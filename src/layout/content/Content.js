@@ -46,6 +46,8 @@ class Content extends React.Component {
       location: { pathname: path }, history,
     } = this.props;
 
+    var lsearch = <FormattedMessage id='contest' />;
+
     if (path.localeCompare('/index.html') === 0) {
       history.push('/');
       return '';
@@ -62,7 +64,7 @@ class Content extends React.Component {
                 <Input.Search
                   size="large"
                   onSearch={keyword => this.searchKeyword(keyword)}
-                  enterButton="Search"
+                  enterButton={lsearch}
                   allowClear={true}
                 />
               </div>

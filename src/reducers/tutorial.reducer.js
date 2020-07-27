@@ -10,6 +10,8 @@ const initState = {
 
   description: "",
   content: "",
+  likes: 0,
+  dislikes: 0,
 
   data: [],
   visible: false,
@@ -119,6 +121,15 @@ const tutorialReducer = (state = initState, action) => {
 
     case actions.START_TUTORIAL_LOADING:
       return { ...state, loading: true };
+
+    case actions.REACTION_TUTORIAL:
+      var { likes, dislikes } = state;
+      if (action.payload.like) {
+        likes += 1;
+      } else {
+        dislikes += 1;
+      }
+      return { ...state, likes, dislikes };
 
     default:
       return state;

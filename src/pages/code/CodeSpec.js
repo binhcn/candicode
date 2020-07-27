@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Tabs, Icon, Typography, Divider, Statistic } from 'antd';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
@@ -8,6 +8,9 @@ import './Code.css';
 import LeaderBoard from './LeaderBoard';
 import Discussion from './Discussion';
 import Submission from './Submission';
+import {
+  reaction
+} from '../../actions/actions.creator';
 
 const { Title, Text } = Typography;
 
@@ -17,6 +20,15 @@ class CodeSpec extends React.Component {
 
   onFinish = () => {
     this.props.history.push('/contests/' + this.props.contestId);
+  }
+
+  handleLike = (status) => {
+    var payload = {
+      type: 'challenge',
+      id: this.props.id,
+      like: status
+    }
+    this.props.reaction(payload);
   }
 
   render() {
@@ -43,11 +55,11 @@ class CodeSpec extends React.Component {
               {point} Points
             </span>
             <span>
-              <Icon type="like" />&nbsp;
+              <Icon onClick={() => this.handleLike(true)} type="like" />&nbsp;
               {likes}
             </span>
             <span>
-              <Icon type="dislike" />&nbsp;
+              <Icon onClick={() => this.handleLike(false)} type="dislike" />&nbsp;
               {dislikes}
             </span>
             {isContest &&
@@ -95,6 +107,7 @@ class CodeSpec extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  id: state.codeEditorReducer.id,
   title: state.codeEditorReducer.title,
   author: state.codeEditorReducer.author,
   level: state.codeEditorReducer.level,
@@ -108,7 +121,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  reaction: payload => dispatch(reaction(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CodeSpec));

@@ -16,7 +16,8 @@ class ContestCard extends React.Component {
   }
 
   render() {
-    var { rounds, banner, enrolled, id } = this.props;
+    var { rounds, banner, enrolled, id, roles } = this.props;
+    console.log(this.props)
     var selectedRoundId = rounds ? rounds.findIndex(item => {
       var now = moment();
       console.log(now.diff(item.startsAt, 'miliseconds'))
@@ -86,9 +87,10 @@ class ContestCard extends React.Component {
               okText="Yes"
               cancelText="No"
             >
-              <Button type="danger" >
+              {roles && !roles.includes('admin') && <Button type="danger" >
                 Register
               </Button>
+              }
             </Popconfirm>
         }
 
@@ -102,6 +104,7 @@ const mapStateToProps = state => ({
   banner: state.contestReducer.banner,
   rounds: state.contestReducer.rounds,
   enrolled: state.contestReducer.enrolled,
+  roles: state.userReducer.roles,
 });
 
 const mapDispatchToProps = dispatch => ({
