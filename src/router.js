@@ -17,12 +17,13 @@ import NotFound from './commons/NotFound';
 import Demo from './demo/Demo';
 import PrivateRoute from './commons/PrivateRoute';
 import {
-  getCurrentUser, getPopularTags,
+  getCurrentUser, getPopularTags, getCategories,
 } from "./actions/actions.creator";
 
 function Router(props) {
   props.getCurrentUser();
   props.getPopularTags();
+  props.getCategories();
   return (
     <BrowserRouter>
       <MainService>
@@ -52,6 +53,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getCurrentUser: () => dispatch(getCurrentUser()),
   getPopularTags: () => dispatch(getPopularTags()),
+  getCategories: () => dispatch(getCategories()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Router);

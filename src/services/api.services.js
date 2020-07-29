@@ -2,7 +2,7 @@ import axios from 'axios';
 import bcrypt from 'bcryptjs';
 
 import { API_BASE_URL, ACCESS_TOKEN, TOKEN_INDEX } from '../constants';
-import store from '../store';
+// import store from '../store';
 
 const request = (options) => {
   
@@ -12,15 +12,17 @@ const request = (options) => {
 
   if (localStorage.getItem(ACCESS_TOKEN)) {
 
-    var { email } = store.getState().userReducer;
+    // var { email } = store.getState().userReducer;
 
     var salt = bcrypt.genSaltSync(4);
-    var digest = bcrypt.hashSync(email, salt);
+    var digest = bcrypt.hashSync('candicode', salt);
 
-    digest = '';
+    console.log(digest)
       
     var token = localStorage.getItem(ACCESS_TOKEN);
     var formattedToken = token.substr(0, TOKEN_INDEX) + digest + token.substr(TOKEN_INDEX);
+
+    console.log(formattedToken)
 
     headers = Object.assign(
       {}, { 'Authorization': 'Bearer ' + formattedToken }, headers
@@ -111,6 +113,14 @@ export function getImageFromUrl(url) {
 export function getPopularTags() {
   return request({
     url: API_BASE_URL + '/tags?size=10',
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function getCategories() {
+  return request({
+    url: API_BASE_URL + '/categories',
     method: 'GET',
     data: {}
   });

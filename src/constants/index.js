@@ -1,5 +1,5 @@
 export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL 
-                          || 'https://candicode.cf/api';
+                          || 'https://135980b821ec.ap.ngrok.io/api';
 export const ACCESS_TOKEN = 'accessToken';
 
 export const TOKEN_INDEX = 31;

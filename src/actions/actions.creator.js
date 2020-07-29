@@ -24,7 +24,9 @@ export function getCurrentUser() {
 
       const response = await apiService.getCurrentUser();
 
-      dispatch({ type: actions.GET_CURRENT_USER_SUCCESS, payload: response.data.result });
+      if (response.status === 200) {
+        dispatch({ type: actions.GET_CURRENT_USER_SUCCESS, payload: response.data.result });
+      }
     } catch ({ error }) {
       if (error) {
         dispatch({ type: actions.GET_CURRENT_USER_FAILED });
@@ -128,6 +130,17 @@ export function getPopularTags() {
     const response = await apiService.getPopularTags();
     if (response.status === 200) {
       dispatch({ type: actions.GET_POPULAR_TAGS, payload: response.data.result });
+    } else {
+      errorNotification();
+    }
+  };
+}
+
+export function getCategories() {
+  return async function (dispatch) {
+    const response = await apiService.getCategories();
+    if (response.status === 200) {
+      dispatch({ type: actions.GET_CATEGORIES, payload: response.data.result });
     } else {
       errorNotification();
     }

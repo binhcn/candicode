@@ -29,6 +29,7 @@ const initState = {
   roles: null,
   submissions: [],
   tags: [],
+  categories: [],
 };
 
 const UserReducer = (state = initState, action) => {
@@ -112,6 +113,9 @@ const UserReducer = (state = initState, action) => {
 
     case actions.GET_POPULAR_TAGS:
       return { ...state, tags: action.payload.tags.map(item => item.name) };
+
+    case actions.GET_CATEGORIES:
+      return { ...state, categories: action.payload.categories.map(item => item.name) };
 
     default:
       return state;
