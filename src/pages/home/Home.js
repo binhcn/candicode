@@ -38,6 +38,22 @@ class Home extends React.Component {
   }
 
   render() {
+    var tcInputFormat = ['x2', 'binhcao', 'x3'];
+    var format = [];
+    var i = 0;
+    for (i = 0; i < tcInputFormat.length; i++) {
+      if (tcInputFormat[i].startsWith('x2')) {
+        if (i-1 < 0 || tcInputFormat[i-1].startsWith('x')) continue;
+        format.push(tcInputFormat[i-1]);
+      } else if (tcInputFormat[i].startsWith('x3')) {
+        if (i-1 < 0 || tcInputFormat[i-1].startsWith('x')) continue;
+        format.push(tcInputFormat[i-1]);
+        format.push(tcInputFormat[i-1]);
+      } else {
+        format.push(tcInputFormat[i]);
+      }
+    }
+    console.log(format);
     return (
       <div className="container" style={{marginTop:'30px'}}>
         <div className="row">

@@ -85,7 +85,21 @@ const codeEditorReducer = (state = initState, action) => {
       return { ...state, submissions: data };
 
     case actions.GET_CHALLENGE_LEADER_BOARD:
-      return { ...state, leaderBoard: action.payload };
+      var leaderBoard = [];
+      action.payload.forEach((user, index) => {
+        leaderBoard.push({
+          key: index + 1,
+          id: user.userId,
+          fullName: user.fullName,
+          firstName: user.fistName,
+          lastName: user.lastName,
+          avatar: user.avatar,
+          time: user.time,
+          submitAt: user.submitAt.substring(0, user.submitAt.length - 4),
+          formattedScore: user.gainedScore + '/' + user.maxScore,
+        });
+      });
+      return { ...state, leaderBoard };
 
     case actions.REACTION_CHALLENGE:
       var { likes, dislikes } = state;

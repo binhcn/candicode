@@ -36,6 +36,7 @@ function Router(props) {
           <Route path="/contests" exact component={Contest} />
           <Route path={`/contests/:contestId`} component={ContestDetails} />
           <Route path="/user-plans" component={UserPlan} />
+          <Route path="/profile/:userId" component={Profile} />
           <Route path="/demo" component={Demo} />
           <PrivateRoute exact authenticated={props.isAuthenticated} path="/profile" component={Profile} />
           <PrivateRoute authenticated={props.isAuthenticated} path="/management" component={Management} />

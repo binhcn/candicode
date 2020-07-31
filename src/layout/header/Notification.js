@@ -1,17 +1,15 @@
 import React from 'react';
-import { Badge, Icon, Dropdown, List, Avatar, message, Spin } from 'antd';
+import { Badge, Icon, Dropdown, List, Avatar } from 'antd';
+import { connect } from "react-redux";
 import reqwest from 'reqwest';
-import InfiniteScroll from 'react-infinite-scroller';
+
 import './Notification.css';
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
-export default class Header extends React.Component {
+class Notification extends React.Component {
   state = {
-    notificationCount: 5,
     data: [],
-    loading: false,
-    hasMore: true,
   };
 
   componentDidMount() {
@@ -34,40 +32,10 @@ export default class Header extends React.Component {
     });
   };
 
-  handleInfiniteOnLoad = () => {
-    let { data } = this.state;
-    this.setState({
-      loading: true,
-    });
-    if (data.length > 14) {
-      message.warning('Infinite List loaded all');
-      this.setState({
-        hasMore: false,
-        loading: false,
-      });
-      return;
-    }
-    this.fetchData(res => {
-      data = data.concat(res.results);
-      this.setState({
-        data,
-        loading: false,
-      });
-    });
-  };
-
-
   render() {
-    let { notificationCount } = this.state;
+    var { incomingContests, notificationCount } = this.props;
     let notification = (
       <div className="demo-infinite-container">
-          <InfiniteScroll
-            initialLoad={false}
-            pageStart={0}
-            loadMore={this.handleInfiniteOnLoad}
-            hasMore={!this.state.loading && this.state.hasMore}
-            useWindow={false}
-          >
             <List
               dataSource={this.state.data}
               renderItem={item => (
@@ -81,22 +49,26 @@ export default class Header extends React.Component {
                   />
                 </List.Item>
               )}
-            >
-              {this.state.loading && this.state.hasMore && (
-                <div className="demo-loading-container">
-                  <Spin />
-                </div>
-              )}
-            </List>
-          </InfiniteScroll>
+            />
         </div>
     );
     return (
       <Dropdown overlay={notification} trigger={['click']}>
-        <Badge count={notificationCount} overflowCount={10}>
+        <Badge count={notificationCount} overflowCount={10} onClick={() => this.setState({count: 0})}>
           <Icon type="bell" theme="twoTone" twoToneColor="red" style={{ fontSize: '20px' }} />
         </Badge>
       </Dropdown>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  incomingContests: state.userReducer.incomingContests,
+  notificationCount: state.userReducer.notificationCount,
+});
+
+const mapDispatchToProps = dispatch => ({
+  
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notification);

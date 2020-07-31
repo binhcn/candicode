@@ -15,6 +15,7 @@ export const START_AVATAR_LOADING = "Start avatar loading";
 
 export const GET_POPULAR_TAGS = "Get popular tags";
 export const GET_CATEGORIES = "Get categories";
+export const GET_USER_DETAILS = "Get user details";
 
 
 //  ██████╗██╗  ██╗ █████╗ ██╗     ██╗     ███████╗███╗   ██╗ ██████╗ ███████╗

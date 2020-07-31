@@ -3,10 +3,6 @@ import CalendarHeatmap from 'react-calendar-heatmap';
 import { Table } from 'antd';
 import { connect } from "react-redux";
 
-import {
-  getProfileSubmissions,
-} from "../../actions/actions.creator";
-
 import './Profile.css';
 
 const columns = [
@@ -40,11 +36,6 @@ const columns = [
 ];
 
 class RightSide extends Component {
-
-  constructor(props) {
-    super(props);
-    this.props.getProfileSubmissions();
-  }
 
 	render() {
 		return (
@@ -84,7 +75,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getProfileSubmissions: () => dispatch(getProfileSubmissions()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RightSide);

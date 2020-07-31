@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Avatar, Descriptions, Progress, Row, Col, Divider } from 'antd';
 import Setting from './Setting';
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 
 import './Profile.css';
 import { getAvatarColor } from '../../util/Colors';
@@ -9,22 +10,37 @@ import { getAvatarColor } from '../../util/Colors';
 const { Meta } = Card;
 
 class LeftSide extends React.Component {
-	state = {
-		exp: 700,
-		maxExp: 1000,
-	}
+
 	render() {
+		if (!this.props.currentUser) return null;
+
+		const {
+      location: { pathname: path },
+    } = this.props;
+		const userId = path.split('/').slice(-1)[0];
+
 		var { firstName, slogan,
 			facebook, github, linkedin, location, company,
-			university, fullName, avatar,
-		} = this.props;
-		const { exp, maxExp } = this.state;
-		const value = exp / maxExp * 100;
+			university, fullName, avatar, gainedPoint,
+		} = this.props.currentUser;	
+		
+		var exp = gainedPoint % 1000;
+		var level = (gainedPoint - exp) / 1000 + 1;
+		var value = exp / 1000 * 100;
+
+		var title = level < 5 ? 'None' : (
+			level < 10 ? 'Bronze' : (
+				level < 15 ? 'Silver' : (
+					level < 20 ? 'Golden' : 'Premium'
+				)
+			)	
+		);
+
 		return (
 			<div className="leftside-profile">
 				<Card
 					title="INFORMATION"
-					extra={<Setting />}
+					extra={userId === 'profile' ? <Setting /> : ''}
 				>
 					<Meta
 						avatar={
@@ -45,24 +61,26 @@ class LeftSide extends React.Component {
 						percent={value}
 						status="active"
 						format={percent => {
-							return exp + '/' + maxExp;
+							return exp + '/' + 1000;
 						}}
 					/>
 
 					<Descriptions>
-						<Descriptions.Item label="Level">18</Descriptions.Item>
-						<Descriptions.Item label="Title">Golden </Descriptions.Item>
+						<Descriptions.Item label="Level">{level}</Descriptions.Item>
+						{title &&
+						<Descriptions.Item label="Title">{title}</Descriptions.Item>
+						}
 					</Descriptions>
 
 					<Row className="logo">
 						{facebook &&
-							<Col span={8}><img src="img/facebook.png" alt="facebook" /></Col>
+							<Col span={8}><img src="/img/facebook.png" alt="facebook" /></Col>
 						}
 						{github &&
-							<Col span={8}><img src="img/github.svg" alt="github" /></Col>
+							<Col span={8}><img src="/img/github.svg" alt="github" /></Col>
 						}
 						{linkedin &&
-							<Col span={8}><img src="img/linkin.png" alt="facebook" /></Col>
+							<Col span={8}><img src="/img/linkin.png" alt="facebook" /></Col>
 						}
 					</Row>
 					{location &&
@@ -110,19 +128,10 @@ class LeftSide extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	firstName: state.userReducer.firstName,
-	fullName: state.userReducer.fullName,
-	slogan: state.userReducer.slogan,
-	facebook: state.userReducer.facebook,
-	github: state.userReducer.github,
-	linkedin: state.userReducer.linkedin,
-	location: state.userReducer.location,
-	company: state.userReducer.company,
-	university: state.userReducer.university,
-	avatar: state.userReducer.avatar,
+	currentUser: state.userReducer.currentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftSide);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LeftSide));

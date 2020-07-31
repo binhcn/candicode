@@ -23,86 +23,88 @@ class TutorialList extends React.Component {
   }
   render() {
     return (
-        <List
-          itemLayout="vertical"
-          size="large"
-          split={false}
-          pagination={{
-            onChange: page => {
-            },
-            pageSize: 3,
-          }}
-          dataSource={this.props.data}
-          // header={
-          //   <Button>
-          //     <b>ant design</b> &nbsp; footer part
-          //   </Button>
-          // }
-          renderItem={item => (
-            <List.Item
-              className="tutorial-item"
-              extra={
-                <img
-                  alt="logo"
-                  width="100%"
-                  height="100%"
-                  src= {item.banner ? item.banner : "tutorial.png"}
-                />
-              }
-            >
-              <div>
-                <span className="title">
-                  {item.title}
-                </span>
-                <Badge className="messages" 
-                      count={item.numComments > 0 ? item.numComments : randomNumber() + 1} 
-                      style={{ backgroundColor: 'blue', color: 'white', top: '5px' }}
-                >
-                  <Icon style={{ fontSize: '24px' }} type="message" />
-                </Badge>
-                <Badge count={0}>
-                  <Icon style={{ fontSize: '24px', color: 'red' }} theme="filled" type="heart" />
-                </Badge>
-              </div>
-              <div>
+      <List
+        itemLayout="vertical"
+        size="large"
+        split={false}
+        pagination={{
+          onChange: page => {
+          },
+          pageSize: 3,
+        }}
+        dataSource={this.props.data}
+        // header={
+        //   <Button>
+        //     <b>ant design</b> &nbsp; footer part
+        //   </Button>
+        // }
+        renderItem={item => (
+          <List.Item
+            className="tutorial-item"
+            extra={
+              <img
+                alt="logo"
+                width="100%"
+                height="100%"
+                src={item.banner ? item.banner : "tutorial.png"}
+              />
+            }
+          >
+            <div>
+              <span className="title">
+                {item.title}
+              </span>
+              <Badge className="messages"
+                count={item.numComments > 0 ? item.numComments : randomNumber() + 1}
+                style={{ backgroundColor: 'blue', color: 'white', top: '5px' }}
+              >
+                <Icon style={{ fontSize: '24px' }} type="message" />
+              </Badge>
+              <Badge count={0}>
+                <Icon style={{ fontSize: '24px', color: 'red' }} theme="filled" type="heart" />
+              </Badge>
+            </div>
+            <div>
+              {item &&
                 <Avatar size="large" style={{ backgroundColor: getAvatarColor(item.author) }}
-                    src="">
-                      {item.author[0].toUpperCase()}
+                  src="">
+                  {item.author[0].toUpperCase()}
                 </Avatar>
-                <span style={{ marginLeft: '8px', marginRight: '20%' }}>{item.author}</span>
-                <span>Ngày tạo: 
+              }
+              <span style={{ marginLeft: '8px', marginRight: '20%' }}>{item.author}</span>
+              <span>Ngày tạo:
                   <Tag color="magenta">
-                    {item.createdAt.substring(0, item.createdAt.length - 7)}
-                  </Tag>
-                </span>
-              </div>
+                  {item.createdAt.substring(0, item.createdAt.length - 7)}
+                </Tag>
+              </span>
+            </div>
 
-              <div style={{ margin: '4px 0' }}>Tags:
+            <div style={{ margin: '4px 0' }}>Tags:
               {item.tagList && item.tagList.map((tag, index) => {
-                return <Tag key={index} color={randomColor()}>{tag}</Tag>
-              })}
-              </div>
-              <div className="description">
-                Description: {item.description}
-              </div>
+              return <Tag key={index} color={randomColor()}>{tag}</Tag>
+            })}
+            </div>
+            <div className="description">
+              Description: {item.description}
+            </div>
 
-              <Divider style={{ margin: '4px 0' }} />
+            <Divider style={{ margin: '4px 0' }} />
 
-              <div className="like-dislike">
-                <Icon type="like" />
-                {item.likes > 0 ? item.likes : 9}
-                <Icon type="dislike" />
-                {item.dislikes > 0 ? item.dislikes : 3}
+            <div className="like-dislike">
+              <Icon type="like" />
+              {item.likes > 0 ? item.likes : 9}
+              <Icon type="dislike" />
+              {item.dislikes > 0 ? item.dislikes : 3}
 
-                <Link to={'/tutorials/' + item.id}>
-                  <Button type="primary" >Read</Button>
-                </Link>
-              </div>
+              <Link to={'/tutorials/' + item.id}>
+                <Button type="primary" >Read</Button>
+              </Link>
+            </div>
 
 
-            </List.Item>
-          )}
-        />
+          </List.Item>
+        )}
+      />
     );
   }
 }

@@ -22,14 +22,24 @@ class Header extends React.Component {
   }
 
   render() {
-    var { openUserForm, isAuthenticated, roles, avatar } = this.props;
+    var { openUserForm, isAuthenticated, roles, avatar, categories } = this.props;
     let userInfo;
+    const {
+      location: { search, pathname },
+    } = this.props;
+    var categoryHtml = categories.map((item, index) => {
+      return (
+        <Menu.Item key={`/challenges?category=${item}`}>
+          <Link to={`/challenges?category=${item}`}>{item}</Link>
+        </Menu.Item>
+      )
+    })
     if (isAuthenticated) {
       var { firstName, lastName } = this.props.currentUser;
       userInfo = [
         <Notification key="notification" />,
-        <Avatar key="avatar" src={avatar ? avatar : null} className="avatar" 
-            style={{ backgroundColor: getAvatarColor(firstName + lastName) }}>
+        <Avatar key="avatar" src={avatar ? avatar : null} className="avatar"
+          style={{ backgroundColor: getAvatarColor(firstName + lastName) }}>
           {firstName[0].toUpperCase()}
         </Avatar>,
         <ProfileDropdownMenu key="ProfileDropdownMenu"
@@ -58,67 +68,27 @@ class Header extends React.Component {
           </Col>
           <Col span={14}>
             <Menu
-              selectedKeys={[this.props.location.pathname]}
+              selectedKeys={[pathname + search]}
               mode="horizontal"
             >
-              {/* <Menu.SubMenu
-                title={
-                  <span className="submenu-title-wrapper">
-                    Challenges
-            </span>
-                }
-              >
-                <Menu.ItemGroup title="Coding Challenge">
-                  <Menu.Item key="/challenges/language-proficiency">
-                    <Link to="/challenges/language-proficiency">Language Proficiency</Link>
-                  </Menu.Item>
-                  <Menu.Item key="/challenges/problem-solving">
-                    <Link to="/challenges/problem-solving">Problem Solving</Link>
-                  </Menu.Item>
-                </Menu.ItemGroup>
-                <Menu.Item key="/challenges/theory-quiz">
-                  <Link to="/challenges/theory-quiz">Theory Quiz</Link>
-                </Menu.Item>
-              </Menu.SubMenu>
               <Menu.SubMenu
                 title={
                   <span className="submenu-title-wrapper">
-                    Tutorials
-            </span>
+                    <FormattedMessage id='challenge' />
+                  </span>
                 }
               >
-                <Menu.ItemGroup title="Fundalmental">
-                  <Menu.Item key="/tutorials/algorithm">
-                    <Link to="/tutorials/algorithm">Algorithm</Link>
-                  </Menu.Item>
-                  <Menu.Item key="/tutorials/data-structure">
-                    <Link to="/tutorials/data-structure">Data structure</Link>
-                  </Menu.Item>
-                  <Menu.Item key="/tutorials/database">
-                    <Link to="/tutorials/database">Database</Link>
-                  </Menu.Item>
-                  <Menu.Item key="/tutorials/oop">
-                    <Link to="/tutorials/oop">OOP</Link>
-                  </Menu.Item>
-                </Menu.ItemGroup>
-                <Menu.ItemGroup title="Language">
-                  <Menu.Item key="/tutorials/java">
-                    <Link to="/tutorials/java">Java</Link>
-                  </Menu.Item>
-                  <Menu.Item key="/tutorials/python">
-                    <Link to="/tutorials/python">Python</Link>
-                  </Menu.Item>
-                  <Menu.Item key="/tutorials/sql">
-                    <Link to="/tutorials/sql">SQL</Link>
-                  </Menu.Item>
-                </Menu.ItemGroup>
-              </Menu.SubMenu> */}
+                <Menu.Item key="/challenges">
+                  <Link to="/challenges">All</Link>
+                </Menu.Item>
+                {categoryHtml}
+              </Menu.SubMenu>
 
-              <Menu.Item key="/challenges">
+              {/* <Menu.Item key="/challenges">
                 <Link to="/challenges">
                   <FormattedMessage id='challenge' />
                 </Link>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item key="/tutorials">
                 <Link to="/tutorials">
                   <FormattedMessage id='tutorial' />
@@ -138,7 +108,7 @@ class Header extends React.Component {
                 || roles.includes('tutorial creator')
                 || roles.includes('contest creator')
                 || roles.includes('admin')
-                ) &&
+              ) &&
                 < Menu.Item key="/management">
                   <Link to="/management">
                     <FormattedMessage id='management' />
@@ -188,6 +158,7 @@ const mapStateToProps = state => ({
   isAuthenticated: state.userReducer.isAuthenticated,
   roles: state.userReducer.roles,
   avatar: state.userReducer.avatar,
+  categories: state.userReducer.categories,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -94,7 +94,22 @@ class StepThree extends React.Component {
       formData.append('level', this.props.challenge.level);
       formData.append('description', this.state.description);
     } else {
-      console.log(this.props.challenge.implementedPath.slice(-1)[0])
+      var { tcInputFormat } = this.props.challenge;
+      var format = [];
+      var i = 0;
+      for (i = 0; i < tcInputFormat.length; i++) {
+        if (tcInputFormat[i].startsWith('x2')) {
+          if (i-1 < 0 || tcInputFormat[i-1].startsWith('x')) continue;
+          format.push(tcInputFormat[i-1]);
+        } else if (tcInputFormat[i].startsWith('x3')) {
+          if (i-1 < 0 || tcInputFormat[i-1].startsWith('x')) continue;
+          format.push(tcInputFormat[i-1]);
+          format.push(tcInputFormat[i-1]);
+        } else {
+          format.push(tcInputFormat[i]);
+        }
+      }
+
       formData.append('title', this.props.challenge.title);
       formData.append('level', this.props.challenge.level);
       formData.append('language', this.props.challenge.language[0]);
@@ -102,7 +117,7 @@ class StepThree extends React.Component {
       formData.append('runPath', this.props.challenge.runPath.slice(-1)[0]);
       formData.append('implementedPath', this.props.challenge.implementedPath.slice(-1)[0]);
       formData.append('nonImplementedPath', this.props.challenge.nonImplementedPath.slice(-1)[0]);
-      formData.append('tcInputFormat', this.props.challenge.tcInputFormat);
+      formData.append('tcInputFormat', format);
       formData.append('tcOutputFormat', this.props.challenge.tcOutputFormat);
       formData.append('contestChallenge', this.props.challenge.contestChallenge);
       formData.append('description', this.state.description);

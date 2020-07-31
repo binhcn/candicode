@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { Link, withRouter } from 'react-router-dom';
+import { randomNumber } from '../../constants';
 
 import './common.css';
 
 class Sidebar extends React.Component {
 
 	render() {
-		var { tags } = this.props;
+		var { tags, categories } = this.props;
 		var tagHtml = tags.map((item, index) => {
 			const {
 				location: { pathname: path },
@@ -23,6 +24,15 @@ class Sidebar extends React.Component {
 			}     
 			return <Link key={index} to={prefix + item}>{item}</Link>
 		})
+		var categoryHtml = categories.map((item, index) => {
+			var prefix = '/challenges?category=';
+			return (
+				<p key={index}>
+					<Link to={prefix + item}>{item}</Link>
+					<span style={{float:'right'}}>({randomNumber() + 1})</span>
+				</p>			
+			)
+		});
 		return (
 			<>
 				<div className="widget">
@@ -63,11 +73,8 @@ class Sidebar extends React.Component {
 						</h4>
 					</div>
 					<ul className="cats">
-						<li><a href="#0">Language Proficiency <span>(12)</span></a></li>
-						<li><a href="#0">Problem solving <span>(21)</span></a></li>
-						<li><a href="#0">Language Proficiency <span>(36)</span></a></li>
-						<li><a href="#0">Problem solving <span>(48)</span></a></li>
-					</ul>
+						{categoryHtml}
+					</ul>			
 				</div>
 
 				<div className="widget">
@@ -85,6 +92,7 @@ class Sidebar extends React.Component {
 
 const mapStateToProps = state => ({
 	tags: state.userReducer.tags,
+	categories: state.userReducer.categories,
 });
 
 const mapDispatchToProps = dispatch => ({

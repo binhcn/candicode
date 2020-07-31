@@ -16,8 +16,6 @@ const request = (options) => {
 
     var salt = bcrypt.genSaltSync(4);
     var digest = bcrypt.hashSync('candicode', salt);
-
-    console.log(digest)
       
     var token = localStorage.getItem(ACCESS_TOKEN);
     var formattedToken = token.substr(0, TOKEN_INDEX) + digest + token.substr(TOKEN_INDEX);
@@ -121,6 +119,14 @@ export function getPopularTags() {
 export function getCategories() {
   return request({
     url: API_BASE_URL + '/categories',
+    method: 'GET',
+    data: {}
+  });
+}
+
+export function getUserDetails(id) {
+  return request({
+    url: API_BASE_URL + "/profiles/" + id,
     method: 'GET',
     data: {}
   });

@@ -118,7 +118,6 @@ class Filter extends React.Component {
     const {
       location: { search },
     } = this.props;
-    console.log(search)
     var params = search.substring(1).split('=');
     var title = params[0].toLowerCase() === 'title' ? params[1] : '';
     var tag = params[0].toLowerCase() === 'tag' ? params[1] : '';

@@ -30,6 +30,9 @@ const initState = {
   submissions: [],
   tags: [],
   categories: [],
+  gainedPoint: 0,
+  incomingContests: [],
+  notificationCount: 0,
 };
 
 const UserReducer = (state = initState, action) => {
@@ -59,6 +62,10 @@ const UserReducer = (state = initState, action) => {
         university: action.payload.university,
         roles: action.payload.roles,
         avatar: action.payload.avatar,
+        gainedPoint: action.payload.gainedPoint ? action.payload.gainedPoint : 0,
+        incomingContests: action.payload.incomingContests,
+        notificationCount: action.payload.incomingContests.length,
+
       };
 
     case actions.LOGOUT:
@@ -115,7 +122,31 @@ const UserReducer = (state = initState, action) => {
       return { ...state, tags: action.payload.tags.map(item => item.name) };
 
     case actions.GET_CATEGORIES:
-      return { ...state, categories: action.payload.categories.map(item => item.name) };
+      return { ...state, categories: action.payload.categories.map(item => 
+        item.name[0].toUpperCase() + item.name.substring(1))
+      };
+
+    case actions.GET_USER_DETAILS:
+      var recentSubmissions = [];
+      action.payload.recentSubmissions.forEach((submission, index) => {
+        recentSubmissions.push({
+          key: index + 1,
+          id: submission.submissionId,
+          challengeId: submission.challengeId,
+          challengeTitle: submission.challengeTitle,
+          compiled: submission.compiled,
+          point: submission.point,
+          author: submission.author,
+          execTime: submission.execTime,
+          doneWithin: submission.doneWithin,
+          passedTestcases: submission.passedTestcases,
+          totalTestcases: submission.totalTestcases,
+          submitAt: submission.submitAt.substring(0, submission.submitAt.length - 4),
+          contestChallenge: submission.contestChallenge,
+          formattedTestcase: submission.passedTestcases + '/' + submission.totalTestcases,
+        });
+      });
+      return { ...state, currentUser: action.payload, submissions: recentSubmissions };
 
     default:
       return state;

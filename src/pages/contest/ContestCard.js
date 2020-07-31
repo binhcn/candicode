@@ -17,10 +17,9 @@ class ContestCard extends React.Component {
 
   render() {
     var { rounds, banner, enrolled, id, roles } = this.props;
-    console.log(this.props)
     var selectedRoundId = rounds ? rounds.findIndex(item => {
       var now = moment();
-      console.log(now.diff(item.startsAt, 'miliseconds'))
+      // console.log(now.diff(item.startsAt, 'miliseconds'))
       return now > moment(item.startsAt) && now < moment(item.endsAt);
     }) : -1;
     var html = rounds ? rounds.map((item, index) => {

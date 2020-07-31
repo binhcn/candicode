@@ -68,6 +68,7 @@ export const TESTCASE_FORMAT_SET = [
   'integer', 'integer_list',
   'string', 'string_list',
   'boolean', 'boolean_list',
+  'x2', 'x3',
 ]
 
 export function randomColor() {

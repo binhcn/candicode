@@ -1,48 +1,50 @@
 import React from 'react';
-import { Table } from 'antd';
-import moment from 'moment';
+import { Table, Avatar } from 'antd';
 import { connect } from "react-redux";
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import {
   getChallengeLeaderBoard,
 } from "../../actions/actions.creator";
+import { getAvatarColor } from '../../util/Colors';
 
 const columns = [
   {
     title: 'Rank',
-    dataIndex: 'rank',
+    dataIndex: 'key',
     render: rank => {
-      if (rank === 1) return <img width="50px" src='img/golden.png' alt="logo" />
-      else if (rank === 2) return <img width="50px" src='img/silver.jpg' alt="logo" />
-      else if (rank === 3) return <img width="50px" src='img/bronze.png' alt="logo" />
+      if (rank === 1) return <img width="50px" src='/img/golden.png' alt="logo" />
+      else if (rank === 2) return <img width="50px" src='/img/silver.jpg' alt="logo" />
+      else if (rank === 3) return <img width="50px" src='/img/bronze.png' alt="logo" />
       else return <span>{rank}</span>
     },
   },
   {
     title: 'Username',
-    dataIndex: 'username',
+    dataIndex: 'fullName',
+    render: (fullName, record) => {
+      return <Link to={`/profile/${record.id}`}>
+        <Avatar key="avatar" src={record.avatar ? record.avatar : null} className="avatar"
+          style={{ backgroundColor: getAvatarColor(record.firstName + record.lastName) }}>
+          {record.firstName[0].toUpperCase()}
+        </Avatar>
+        &nbsp;{fullName}
+      </Link>
+    }
   },
   {
     title: 'Score',
-    dataIndex: 'score',
+    dataIndex: 'formattedScore',
   },
   {
-    title: 'Completed at',
-    dataIndex: 'completedAt',
+    title: 'Execution time',
+    dataIndex: 'time',
+  },
+  {
+    title: 'Submitted at',
+    dataIndex: 'submitAt',
   },
 ];
-
-const data = [];
-for (let i = 0; i < 10; i++) {
-  data.push({
-    key: i,
-    rank: i+1,
-    username: `Edward King ${i}`,
-    score: 100,
-    completedAt: moment().fromNow(),
-  });
-}
 
 class LeaderBoard extends React.Component {
 
@@ -58,17 +60,18 @@ class LeaderBoard extends React.Component {
   }
 
   render() {
+    var { leaderBoard } = this.props;
     return (
       <Table
         columns={columns.map(item => {
           if (item.dataIndex === "score" || item.dataIndex === "rank")
             return { ...item, align: 'center' }
-            else return { ...item }
-          }
+          else return { ...item }
+        }
         )}
-        dataSource={data}
+        dataSource={leaderBoard}
         pagination={{ pageSize: 5 }}
-        style={{margin: '3vh 3vh'}}
+        style={{ margin: '3vh 3vh' }}
       />
     );
   }

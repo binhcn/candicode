@@ -58,6 +58,7 @@ export function getProfileSubmissions() {
   return async function (dispatch) {
     const response = await apiService.getProfileSubmissions();
     if (response.status === 200) {
+      console.log(response)
       dispatch({ type: actions.GET_PROFILE_SUBMISSIONS, payload: response.data.result.items })
     } else {
       errorNotification();
@@ -143,6 +144,15 @@ export function getCategories() {
       dispatch({ type: actions.GET_CATEGORIES, payload: response.data.result });
     } else {
       errorNotification();
+    }
+  };
+}
+
+export function getUserDetails(id) {
+  return async function (dispatch) {
+    const response = await apiService.getUserDetails(id);
+    if (response.status === 200) {
+      dispatch({ type: actions.GET_USER_DETAILS, payload: response.data.result })
     }
   };
 }
@@ -470,9 +480,10 @@ export function updateTutorial(data) {
         errorNotification();
       }
     } else {
-      const response = await apiService.uploadTutorial(data.formData);
-      var newTutorial = { ...data.request, id: response.data.result.tutorialId };
+      const response = await apiService.uploadTutorial(data.formData); 
       if (response.status === 201) {
+        console.log(response)
+        var newTutorial = { ...data.request, id: response.data.result.tutorialId };
         dispatch({ type: actions.UPDATE_TUTORIAL, payload: newTutorial });
         message.success(response.data.result.message);
       } else {
@@ -498,6 +509,7 @@ export function getUserTutorials() {
     const response = await apiService.getUserTutorials();
     if (response.status === 200) {
       dispatch({ type: actions.GET_ALL_TUTORIALS, payload: response.data.result.items })
+      console.log(response)
     }
   };
 }
@@ -640,8 +652,7 @@ export function getChallengeSubmissions(id) {
 
 export function getChallengeLeaderBoard(id) {
   return async function (dispatch) {
-    // const response = await apiService.getChallengeLeaderBoard(id);
-    const response = { status: 0 };
+    const response = await apiService.getChallengeLeaderBoard(id);
     if (response.status === 200) {
       dispatch({ type: actions.GET_CHALLENGE_LEADER_BOARD, payload: response.data.result })
     }
