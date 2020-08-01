@@ -79,6 +79,7 @@ const codeEditorReducer = (state = initState, action) => {
           totalTestcases: submission.totalTestcases,
           submitAt: submission.submitAt.substring(0, submission.submitAt.length - 4),
           contestChallenge: submission.contestChallenge,
+          language: submission.language,
           formattedTestcase: submission.passedTestcases + '/' + submission.totalTestcases,
         });
       });

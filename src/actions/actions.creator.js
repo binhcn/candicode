@@ -650,6 +650,18 @@ export function getChallengeSubmissions(id) {
   };
 }
 
+export function getSubmissionDetails(id) {
+  return async function (dispatch) {
+    const response = await apiService.getSubmissionDetails(id);
+    if (response.status === 200) {
+      return response;
+    } else {
+      errorNotification();
+    }
+    
+  };
+}
+
 export function getChallengeLeaderBoard(id) {
   return async function (dispatch) {
     const response = await apiService.getChallengeLeaderBoard(id);

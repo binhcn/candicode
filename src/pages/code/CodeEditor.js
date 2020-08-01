@@ -162,7 +162,7 @@ class CodeEditor extends React.Component {
     var contentId = this.props.contents.findIndex(item => language === item.language);
     if (contentId < 0) contentId = 0;
     editorHtml = this.props.contents[contentId] ?
-      <ControlledEditor height="79vh"
+      <ControlledEditor height='79vh'
         theme={theme}
         value={contents[contentId].text}
         language={contents[contentId].language.toLowerCase()}

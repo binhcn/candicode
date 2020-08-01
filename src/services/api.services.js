@@ -293,6 +293,14 @@ export function getChallengeSubmissions(id) {
   });
 }
 
+export function getSubmissionDetails(id) {
+  return request({
+    url: API_BASE_URL + "/submissions/" + id,
+    method: 'GET',
+    data: {}
+  });
+}
+
 export function getChallengeLeaderBoard(id) {
   return request({
     url: API_BASE_URL + "/challenges/" + id + '/leaderboard',
@@ -320,7 +328,7 @@ export function reaction(payload) {
 
 export function getAllTutorials(params) {
   return request({
-    url: API_BASE_URL + "/tutorials" + params,
+    url: API_BASE_URL + "/tutorials" + (params ? params : ''),
     method: 'GET',
     data: {}
   });
@@ -392,7 +400,7 @@ export function addTutorialComments(data) {
 
 export function getAllContests(params) {
   return request({
-    url: API_BASE_URL + "/contests" + params,
+    url: API_BASE_URL + "/contests" + (params ? params : ''),
     method: 'GET',
     data: {}
   });

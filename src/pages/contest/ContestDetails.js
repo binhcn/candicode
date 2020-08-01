@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import './Contest.css';
 import { getContestDetails } from '../../actions/actions.creator';
 import Sidebar from '../common/Sidebar';
-import ContestDiscussion from './ContestDiscussion';
 import ContestCard from './ContestCard';
 import { getAvatarColor } from '../../util/Colors';
 
@@ -50,7 +49,6 @@ class ContestDetails extends React.Component {
           <div className="description">{description}</div>
           <div dangerouslySetInnerHTML={{ __html: content }} />
 
-          <ContestDiscussion />
         </Col>
         <Col lg={6}>
           <ContestCard />
