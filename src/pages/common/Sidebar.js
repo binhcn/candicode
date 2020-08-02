@@ -65,7 +65,7 @@ class Sidebar extends React.Component {
 					</div>
 					<small>{contest.registrationDeadline.substring(0, contest.registrationDeadline.length - 7)}</small>
 					<h3>
-						<a href="#0" title="">{contest.title}</a>
+						<Link to={`/contests/${contest.id}`}>{contest.title}</Link>
 					</h3>
 				</li>
 			)
