@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { Table, Popconfirm, Button, Tag, Icon, Modal } from 'antd';
+import moment from 'moment';
 
 import {
   deleteContest, handleContestModal, handleContest, getUserContests,
@@ -93,7 +94,7 @@ class Contest extends React.Component {
         id: '',
         title: "",
         maxRegister: -1,
-        registrationDeadline: null,
+        registrationDeadline: moment(),
         tagList: [],
         banner: null,
         imageUrl: "",

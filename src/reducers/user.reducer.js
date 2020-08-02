@@ -122,9 +122,7 @@ const UserReducer = (state = initState, action) => {
       return { ...state, tags: action.payload.tags.map(item => item.name) };
 
     case actions.GET_CATEGORIES:
-      return { ...state, categories: action.payload.categories.map(item => 
-        item.name[0].toUpperCase() + item.name.substring(1))
-      };
+      return { ...state, categories: action.payload.categories};
 
     case actions.GET_USER_DETAILS:
       var recentSubmissions = [];

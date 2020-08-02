@@ -5,23 +5,28 @@ import { Link, withRouter } from 'react-router-dom';
 
 import './common.css';
 import {
-  getAllChallenges, getAllTutorials, getAllContests,
+	getAllChallenges, getAllTutorials, getAllContests,
 } from "../../actions/actions.creator";
 
 class Sidebar extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.props.getAllContests();
+	}
 
 	filter = url => {
 		if (url.startsWith('/challenges')) {
 			this.props.getAllChallenges(url.substring(11));
 		} else if (url.startsWith('/tutorials')) {
 			this.props.getAllTutorials(url.substring(10));
-		} else { 
+		} else {
 			this.props.getAllContests(url.substring(9));
 		}
 	}
 
 	render() {
-		var { tags, categories } = this.props;
+		var { tags, categories, data } = this.props;
 		var tagHtml = tags.map((item, index) => {
 			const {
 				location: { pathname: path },
@@ -31,25 +36,41 @@ class Sidebar extends React.Component {
 				prefix = '/challenges?tag=';
 			} else if (path.startsWith('/tutorials')) {
 				prefix = '/tutorials?tag=';
-			} else { 
+			} else {
 				prefix = '/contests?tag=';
 			}
 			return <Link key={index}
-							onClick={() => this.filter(prefix + item.toLowerCase())}
-							to={prefix + item.toLowerCase()}>
-							{item}
-						</Link>
+				onClick={() => this.filter(prefix + item.toLowerCase())}
+				to={prefix + item.toLowerCase()}>
+				{item}
+			</Link>
 		})
+
 		var categoryHtml = categories.map((item, index) => {
 			var prefix = '/challenges?category=';
 			return (
 				<p key={index}>
-					<Link onClick={() => this.filter(prefix + item.toLowerCase())}
-					to={prefix + item.toLowerCase()}>{item}</Link>
-					<span style={{float:'right'}}>({index + 1})</span>
-				</p>			
+					<Link onClick={() => this.filter(prefix + item.name.toLowerCase())}
+						to={prefix + item.name.toLowerCase()}>{item.name[0].toUpperCase() + item.name.substring(1)}</Link>
+					<span style={{ float: 'right' }}>({item.count})</span>
+				</p>
 			)
 		});
+
+		var contestHtml = data.map((contest, index) => {
+			return (
+				<li key={index}>
+					<div className="alignleft">
+						<img src={contest.banner} alt="" />
+					</div>
+					<small>{contest.registrationDeadline.substring(0, contest.registrationDeadline.length - 7)}</small>
+					<h3>
+						<a href="#0" title="">{contest.title}</a>
+					</h3>
+				</li>
+			)
+		});
+
 		return (
 			<>
 				<div className="widget">
@@ -59,27 +80,7 @@ class Sidebar extends React.Component {
 						</h4>
 					</div>
 					<ul className="comments-list">
-						<li>
-							<div className="alignleft">
-								<a href="#0"><img src="https://techvccloud.mediacdn.vn/zoom/650_406/2018/12/22/1supq92uyknelefyyf7ughw-15454498606631836572894-crop-1545449864895548482406.png" alt="" /></a>
-							</div>
-							<small>30.5.2020</small>
-							<h3><a href="#0" title="">Hackathon</a></h3>
-						</li>
-						<li>
-							<div className="alignleft">
-								<a href="#0"><img src="https://railsmama.files.wordpress.com/2014/10/code_brain.jpg" alt="" /></a>
-							</div>
-							<small>25.5.2020</small>
-							<h3><a href="#0" title="">Coding Fighter</a></h3>
-						</li>
-						<li>
-							<div className="alignleft">
-								<a href="#0"><img src="https://www.hcmut.edu.vn/upload_hcmut/images/Hinh%202017/bk1.png" alt="" /></a>
-							</div>
-							<small>20.5.2020</small>
-							<h3><a href="#0" title="">BK Innovation</a></h3>
-						</li>
+						{contestHtml}
 					</ul>
 				</div>
 
@@ -91,7 +92,7 @@ class Sidebar extends React.Component {
 					</div>
 					<ul className="cats">
 						{categoryHtml}
-					</ul>			
+					</ul>
 				</div>
 
 				<div className="widget">
@@ -110,12 +111,13 @@ class Sidebar extends React.Component {
 const mapStateToProps = state => ({
 	tags: state.userReducer.tags,
 	categories: state.userReducer.categories,
+	data: state.contestReducer.data,
 });
 
 const mapDispatchToProps = dispatch => ({
 	getAllChallenges: params => dispatch(getAllChallenges(params)),
-  getAllTutorials: params => dispatch(getAllTutorials(params)),
-  getAllContests: params => dispatch(getAllContests(params)),
+	getAllTutorials: params => dispatch(getAllTutorials(params)),
+	getAllContests: params => dispatch(getAllContests(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Sidebar));

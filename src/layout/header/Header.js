@@ -29,8 +29,8 @@ class Header extends React.Component {
     } = this.props;
     var categoryHtml = categories.map((item, index) => {
       return (
-        <Menu.Item key={`/challenges?category=${item}`}>
-          <Link to={`/challenges?category=${item}`}>{item}</Link>
+        <Menu.Item key={`/challenges?category=${item.name}`}>
+          <Link to={`/challenges?category=${item.name}`}>{item.name[0].toUpperCase() + item.name.substring(1)}</Link>
         </Menu.Item>
       )
     })
@@ -110,7 +110,7 @@ class Header extends React.Component {
                 || roles.includes('admin')
               ) &&
                 < Menu.Item key="/management">
-                  <Link to="/management">
+                  <Link to="/management/challenges">
                     <FormattedMessage id='management' />
                   </Link>
                 </Menu.Item>

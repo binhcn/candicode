@@ -32,18 +32,20 @@ const contestReducer = (state = initState, action) => {
   switch (action.type) {
     case actions.HANDLE_CONTEST:
       var leaderBoard = [];
-      action.payload.leaders.forEach((user, index) => {
-        leaderBoard.push({
-          key: index + 1,
-          id: user.userId,
-          fullName: user.fullName,
-          firstName: user.fistName,
-          lastName: user.lastName,
-          avatar: user.avatar,
-          time: user.time,
-          formattedScore: user.gainedScore + '/' + user.maxScore,
+      if (action.payload.leaders) {
+        action.payload.leaders.forEach((user, index) => {
+          leaderBoard.push({
+            key: index + 1,
+            id: user.userId,
+            fullName: user.fullName,
+            firstName: user.fistName,
+            lastName: user.lastName,
+            avatar: user.avatar,
+            time: user.time,
+            formattedScore: user.gainedScore + '/' + user.maxScore,
+          });
         });
-      });
+      }
       return {
         ...state,
         id: action.payload.contestId,
