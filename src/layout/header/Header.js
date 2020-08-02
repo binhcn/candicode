@@ -63,7 +63,7 @@ class Header extends React.Component {
         <Row>
           <Col span={5}>
             <Link to="/">
-              <img className="logo" src='img/logo.png' alt="logo" />
+              <img className="logo" src='https://candicode-binh.s3-ap-southeast-1.amazonaws.com/public/header.png' alt="logo" />
             </Link>
           </Col>
           <Col span={14}>

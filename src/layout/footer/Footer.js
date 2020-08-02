@@ -37,7 +37,7 @@ class Footer extends React.Component {
       <Row className="footer">
         <Col xs={24} md={10} >
           <Link to="/">
-            <img src='img/footer-logo.png' alt="logo" />
+            <img src='https://candicode-binh.s3-ap-southeast-1.amazonaws.com/public/footer.png' alt="logo" />
           </Link>
         </Col>
         <Col xs={12} md={7}>

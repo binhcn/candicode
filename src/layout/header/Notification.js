@@ -16,7 +16,7 @@ class Notification extends React.Component {
       setTimeout(() => {
         this.props.getAllContests();
         this.props.getContestDetails(item.contestId)
-      }, item.incoming * 60 * 1000);
+      }, 10 * 60 * 1000);
     });
     let notification = (
       <div className="demo-infinite-container">
@@ -29,7 +29,7 @@ class Notification extends React.Component {
                       <Avatar shape="square" size={64} src={item.banner} />
                     }
                     title={<Link to={`/contests/${item.contestId}`}>{item.name}</Link>}
-                    description={`The contest happens in ${item.incoming} minutes`}
+                    description={`The contest happens in ${item.startsAt.substring(0, item.startsAt.length - 7)}`}
                   />
                 </List.Item>
               )}

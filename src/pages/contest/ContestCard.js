@@ -74,6 +74,7 @@ class ContestCard extends React.Component {
               <p className="register">REGISTERED</p>
               <Link to={"/code-editor/" + firstRoundChallengeId}>
                 <Button type="primary"
+                  disabled={selectedRoundId < 0 ? true : false}
                   onClick={() => this.props.prepareContestChallenges(payload)}>
                   Fight
                 </Button>

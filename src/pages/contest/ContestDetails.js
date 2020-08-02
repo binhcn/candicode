@@ -8,6 +8,7 @@ import { getContestDetails } from '../../actions/actions.creator';
 import Sidebar from '../common/Sidebar';
 import ContestCard from './ContestCard';
 import { getAvatarColor } from '../../util/Colors';
+import LeaderBoard from './LeaderBoard';
 
 class ContestDetails extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class ContestDetails extends React.Component {
   }
 
   render() {
-    var { author, title, createdAt, banner, description, content } = this.props;
+    var { author, title, createdAt, banner, description, content, leaders } = this.props;
     return (
       <Row className="container-fluid" gutter={32}>
         <Col lg={18} className="contest-details">
@@ -42,6 +43,10 @@ class ContestDetails extends React.Component {
               </div>
             </Col>
           </Row>
+
+          {leaders.length > 0 && 
+            <LeaderBoard />
+          }
 
           {banner &&
             <img src={banner} width="40%" alt="tutorial-banner" />
@@ -67,6 +72,7 @@ const mapStateToProps = state => ({
   content: state.contestReducer.content,
   createdAt: state.contestReducer.createdAt,
   banner: state.contestReducer.banner,
+  leaders: state.contestReducer.leaders,
 });
 
 const mapDispatchToProps = dispatch => ({
