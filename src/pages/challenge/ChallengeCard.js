@@ -7,7 +7,7 @@ import {
 } from 'antd';
 
 import { handleContestMode } from '../../actions/actions.creator';
-import { randomColor, randomBanner, randomNumber, } from '../../constants';
+import { randomColor, randomBanner, } from '../../constants';
 import { getAvatarColor } from '../../util/Colors';
 
 class ChallengeCard extends React.Component {
@@ -38,10 +38,10 @@ class ChallengeCard extends React.Component {
               {item.author}
             </Typography.Paragraph>
           </span>
-          <Badge count={item.numComments ? item.numComments : randomNumber() + 1} style={{ float: 'right', backgroundColor: 'blue', color: 'white' }}>
+          <Badge count={item.numComments} style={{ float: 'right', backgroundColor: 'blue', color: 'white' }}>
             <Icon style={{ fontSize: '24px' }} type="message" />
           </Badge>
-          <Badge count={item.numAttendees ? item.numAttendees : randomNumber() + 1} style={{ float: 'right', backgroundColor: 'green', color: 'white' }}>
+          <Badge count={item.numAttendees} style={{ float: 'right', backgroundColor: 'green', color: 'white' }}>
             <Icon style={{ fontSize: '24px' }} type="team" />
           </Badge>
         </span>
@@ -67,9 +67,9 @@ class ChallengeCard extends React.Component {
 
         <span className="like-dislike">
           <Icon type="like" />
-          {item.likes > 0 ? item.likes : randomNumber() + 1}
+          {item.likes}
           <Icon type="dislike" />
-          {item.dislikes > 0 ? item.dislikes : randomNumber() + 1}
+          {item.dislikes}
         </span>
 
         <Link to={"/code-editor/" + item.id}>

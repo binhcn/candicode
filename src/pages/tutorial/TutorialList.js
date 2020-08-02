@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom';
 import {
   getAllTutorials,
 } from "../../actions/actions.creator";
-import { randomColor, randomNumber } from '../../constants';
+import { randomColor } from '../../constants';
 import { getAvatarColor } from '../../util/Colors';
 
 class TutorialList extends React.Component {
@@ -55,7 +55,7 @@ class TutorialList extends React.Component {
                 {item.title}
               </span>
               <Badge className="messages"
-                count={item.numComments > 0 ? item.numComments : randomNumber() + 1}
+                count={item.numComments}
                 style={{ backgroundColor: 'blue', color: 'white', top: '5px' }}
               >
                 <Icon style={{ fontSize: '24px' }} type="message" />
@@ -92,9 +92,9 @@ class TutorialList extends React.Component {
 
             <div className="like-dislike">
               <Icon type="like" />
-              {item.likes > 0 ? item.likes : 9}
+              {item.likes}
               <Icon type="dislike" />
-              {item.dislikes > 0 ? item.dislikes : 3}
+              {item.dislikes}
 
               <Link to={'/tutorials/' + item.id}>
                 <Button type="primary" >Read</Button>

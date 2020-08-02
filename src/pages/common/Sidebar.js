@@ -2,11 +2,23 @@ import React from 'react';
 import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl';
 import { Link, withRouter } from 'react-router-dom';
-import { randomNumber } from '../../constants';
 
 import './common.css';
+import {
+  getAllChallenges, getAllTutorials, getAllContests,
+} from "../../actions/actions.creator";
 
 class Sidebar extends React.Component {
+
+	filter = url => {
+		if (url.startsWith('/challenges')) {
+			this.props.getAllChallenges(url.substring(11));
+		} else if (url.startsWith('/tutorials')) {
+			this.props.getAllTutorials(url.substring(10));
+		} else { 
+			this.props.getAllContests(url.substring(9));
+		}
+	}
 
 	render() {
 		var { tags, categories } = this.props;
@@ -21,15 +33,20 @@ class Sidebar extends React.Component {
 				prefix = '/tutorials?tag=';
 			} else { 
 				prefix = '/contests?tag=';
-			}     
-			return <Link key={index} to={prefix + item}>{item}</Link>
+			}
+			return <Link key={index}
+							onClick={() => this.filter(prefix + item.toLowerCase())}
+							to={prefix + item.toLowerCase()}>
+							{item}
+						</Link>
 		})
 		var categoryHtml = categories.map((item, index) => {
 			var prefix = '/challenges?category=';
 			return (
 				<p key={index}>
-					<Link to={prefix + item}>{item}</Link>
-					<span style={{float:'right'}}>({randomNumber() + 1})</span>
+					<Link onClick={() => this.filter(prefix + item.toLowerCase())}
+					to={prefix + item.toLowerCase()}>{item}</Link>
+					<span style={{float:'right'}}>({index + 1})</span>
 				</p>			
 			)
 		});
@@ -96,7 +113,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+	getAllChallenges: params => dispatch(getAllChallenges(params)),
+  getAllTutorials: params => dispatch(getAllTutorials(params)),
+  getAllContests: params => dispatch(getAllContests(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Sidebar));

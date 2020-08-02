@@ -58,7 +58,7 @@ class ContestList extends React.Component {
                 {item.title}
               </span>
 
-              <Badge className="messages" count={5} style={{ backgroundColor: 'blue', color: 'white', top: '5px' }}>
+              <Badge className="messages" count={0} style={{ backgroundColor: 'blue', color: 'white', top: '5px' }}>
                 <Icon style={{ fontSize: '24px' }} type="message" />
               </Badge>
               <Badge count={0}>
