@@ -27,13 +27,13 @@ class Header extends React.Component {
     const {
       location: { search, pathname },
     } = this.props;
-    var categoryHtml = categories.map((item, index) => {
-      return (
-        <Menu.Item key={`/challenges?category=${item.name}`}>
-          <Link to={`/challenges?category=${item.name}`}>{item.name[0].toUpperCase() + item.name.substring(1)}</Link>
-        </Menu.Item>
-      )
-    })
+    // var categoryHtml = categories.map((item, index) => {
+    //   return (
+    //     <Menu.Item key={`/challenges?category=${item.name}`}>
+    //       <Link to={`/challenges?category=${item.name}`}>{item.name[0].toUpperCase() + item.name.substring(1)}</Link>
+    //     </Menu.Item>
+    //   )
+    // })
     if (isAuthenticated) {
       var { firstName, lastName } = this.props.currentUser;
       userInfo = [
@@ -71,7 +71,7 @@ class Header extends React.Component {
               selectedKeys={[pathname + search]}
               mode="horizontal"
             >
-              <Menu.SubMenu
+              {/* <Menu.SubMenu
                 title={
                   <span className="submenu-title-wrapper">
                     <FormattedMessage id='challenge' />
@@ -82,13 +82,13 @@ class Header extends React.Component {
                   <Link to="/challenges">All</Link>
                 </Menu.Item>
                 {categoryHtml}
-              </Menu.SubMenu>
+              </Menu.SubMenu> */}
 
-              {/* <Menu.Item key="/challenges">
+              <Menu.Item key="/challenges">
                 <Link to="/challenges">
                   <FormattedMessage id='challenge' />
                 </Link>
-              </Menu.Item> */}
+              </Menu.Item>
               <Menu.Item key="/tutorials">
                 <Link to="/tutorials">
                   <FormattedMessage id='tutorial' />
